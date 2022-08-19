@@ -32,13 +32,12 @@ if not status_ok then
 end
 
 -- Plugins --
-
 return packer.startup({function(use)
 	-- Manager
 	use 'wbthomason/packer.nvim' 
 
 	-- Lua Development
-	use 'nvim-lua/plenary.nvim' -- Useful lua functions used ny lots of plugins
+	use 'nvim-lua/plenary.nvim' -- Useful lua functions
 	use 'nvim-lua/popup.nvim'
 
 	-- Colorschemes
@@ -51,12 +50,44 @@ return packer.startup({function(use)
 	-- Lualine
 	use 'nvim-lualine/lualine.nvim'
 
+	-- Lsp
+	use "neovim/nvim-lspconfig" -- enable native LSP
+	use "williamboman/mason.nvim"
+  use "williamboman/mason-lspconfig.nvim"
+
+	-- DAP
+	use 'mfussenegger/nvim-dap'
+
+	-- Completion
+	use 'hrsh7th/cmp-nvim-lsp'
+	use 'hrsh7th/cmp-buffer'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-cmdline'
+	use 'hrsh7th/nvim-cmp'
+
 	-- Snippets
 	use 'L3MON4D3/LuaSnip'
+	use 'saadparwaiz1/cmp_luasnip'
 	use 'rafamadriz/friendly-snippets'
 
+	-- Telescope
+	use {'nvim-telescope/telescope.nvim', tag = '0.1.0' }
 
-	-- Automatically set up your configuration after cloning packer.nvim
+	-- TreeSitter
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+
+	-- Brackets
+	use "windwp/nvim-autopairs"
+	use "kylechui/nvim-surround"
+
+	-- Terminal
+	use {"akinsho/toggleterm.nvim", tag = 'v2.*'}
+
+	-- Git
+	use {'lewis6991/gitsigns.nvim', tag = 'release'}
+
+
+	-- Automatically set up your config
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end
