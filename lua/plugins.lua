@@ -70,6 +70,9 @@ return packer.startup({function(use)
 	use 'saadparwaiz1/cmp_luasnip'
 	use 'rafamadriz/friendly-snippets'
 
+	-- Language Support
+	use 'fatih/vim-go'
+
 	-- Telescope
 	use {'nvim-telescope/telescope.nvim', tag = '0.1.0' }
 

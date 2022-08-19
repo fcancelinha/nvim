@@ -26,6 +26,7 @@ M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
 local servers = {
+	"clangd",
 	"cssls",
 	"cssmodules_ls",
 	"emmet_ls",
