@@ -88,7 +88,9 @@ return packer.startup({function(use)
 
 	-- Git
 	use {'lewis6991/gitsigns.nvim', tag = 'release'}
-
+	
+	-- File Explorer
+	use 'kyazdani42/nvim-tree.lua'
 
 	-- Automatically set up your config
 	if PACKER_BOOTSTRAP then
