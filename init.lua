@@ -1,6 +1,7 @@
 require('options')
 require('plugins')
 require('colorscheme')
+require('keymaps')
 require('icons')
 require('lsp.mason')
 require('config.cmp')
