@@ -9,17 +9,21 @@ end
 
 local diagnostics = {
   "diagnostics",
-  sources = { "nvim_diagnostic" },
+  sources = { "nvim_diagnostic", "nvim_lsp" },
   sections = { "error", "warn" },
-  symbols = { error = " ", warn = " " },
+  symbols = { error = " ", warn = "  "},
   colored = true,
+	update_in_insert = true,
   always_visible = true,
+	diagnostics_color = {
+		warn = 'orange'
+	},
 }
 
 local diff = {
   "diff",
   colored = true,
-  symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+  symbols = { added = " ", modified = "  ", removed = "  " }, -- changes diff symbols
   cond = hide_in_width,
 }
 

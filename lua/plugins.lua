@@ -91,7 +91,10 @@ return packer.startup({function(use)
 	
 	-- File Explorer
 	use 'kyazdani42/nvim-tree.lua'
-
+	
+	-- Dashboard
+	use 'glepnir/dashboard-nvim'
+	
 	-- Automatically set up your config
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
