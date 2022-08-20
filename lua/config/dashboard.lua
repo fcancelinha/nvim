@@ -4,7 +4,9 @@ if not dashboard_ok then
 end
 
 local home = os.getenv('HOME')
-local time = os.date("%A, %d %b")
+local time = os.date("Today is %A, %d %b")
+
+dashboard.confirm_key = "<space>"
 
 -- Config --
 dashboard.custom_header = {
@@ -44,34 +46,38 @@ dashboard.custom_header = {
 "   █████████████████████████                            ██        ",
 "  ██████████████████████████                    ██████████████████",
 "",
-"   			𝗧𝗢𝗛𝗔 𝗛𝗘𝗔𝗩𝗬 𝗜𝗡𝗗𝗨𝗦𝗧𝗥𝗬       ",
+"   		𝗧𝗢𝗛𝗔 𝗛𝗘𝗔𝗩𝗬 𝗜𝗡𝗗𝗨𝗦𝗧𝗥𝗬       ",
+"        " .. time .. "  "
 }
 
-dashboard.confirm_key = "<e>"
 
 dashboard.custom_center = {
-	{icon = '  ',
-	desc = 'Recently latest session                  ',
+	{icon = '  ',
+	desc = '𝗡𝗘𝗪 𝗙𝗜𝗟𝗘                                    ',
+	shortcut = 'SPC',
+	action =':enew'},
+	{icon = '   ',
+	desc = '𝗥𝗘𝗖𝗘𝗡𝗧𝗟𝗬 𝗟𝗔𝗧𝗘𝗦𝗧 𝗦𝗘𝗦𝗦𝗜𝗢𝗡                 ',
 	shortcut = 'SPC s l',
 	action ='SessionLoad'},
 	{icon = '  ',
-	desc = 'Recently opened files                   ',
+	desc = '𝗥𝗘𝗖𝗘𝗡𝗧𝗟𝗬 𝗢𝗣𝗘𝗡𝗘𝗗 𝗙𝗜𝗟𝗘                    ',
 	action =  'DashboardFindHistory',
 	shortcut = 'SPC f h'},
-	{icon = '  ',
-	desc = 'Find  File                              ',
+	{icon = '  ',
+	desc = '𝗙𝗜𝗡𝗗 𝗙𝗜𝗟𝗘                               ',
 	action = 'Telescope find_files find_command=rg,--hidden,--files',
 	shortcut = 'SPC f f'},
-	{icon = '  ',
-	desc ='File Browser                            ',
-	action =  'Telescope file_browser',
+	{icon = '  ',
+	desc ='𝗙𝗜𝗟𝗘 𝗕𝗥𝗢𝗪𝗦𝗘𝗥                            ' ,
+	action =  'NvimTreeOpen Code/',
 	shortcut = 'SPC f b'},
-	{icon = '  ',
-	desc = 'Find  word                              ',
+	{icon = '  ',
+	desc = '𝗙𝗜𝗡𝗗 𝗪𝗢𝗥𝗗                               ',
 	action = 'Telescope live_grep',
 	shortcut = 'SPC f w'},
-	{icon = '  ',
-	desc = 'Open Personal dotfiles                  ',
-	action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
+	{icon = '  ',
+	desc = '𝗖𝗢𝗡𝗙𝗜𝗚                                  ',
+	action = 'NvimTreeOpen '.. home ..'/.config/nvim',
 	shortcut = 'SPC f d'},
 }
