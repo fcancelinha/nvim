@@ -40,6 +40,9 @@ return packer.startup({function(use)
 	use 'nvim-lua/plenary.nvim' -- Useful lua functions
 	use 'nvim-lua/popup.nvim'
 
+	-- Impatient
+	use 'lewis6991/impatient.nvim'
+
 	-- Colorschemes
 	use 'eddyekofo94/gruvbox-flat.nvim'
 	use 'sainnhe/gruvbox-material'
@@ -88,12 +91,13 @@ return packer.startup({function(use)
 
 	-- Git
 	use {'lewis6991/gitsigns.nvim', tag = 'release'}
-	
+
 	-- File Explorer
 	use 'kyazdani42/nvim-tree.lua'
-	
+
 	-- Dashboard
 	use 'glepnir/dashboard-nvim'
+	use 'goolord/alpha-nvim'
 
 	-- Colors
 	use 'norcalli/nvim-colorizer.lua'
