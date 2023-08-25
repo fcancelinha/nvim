@@ -83,6 +83,12 @@ keymap("n", "<leader>fj", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols ignore_symbols=variable,field theme=dropdown<CR>", opts)
 
+-- Telescope LSP
+keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
+keymap("n", "<leader>ft", ":Telescope lsp_implementations<CR>", opts)
+keymap("n", "<leader>fy", ":Telescope lsp_incoming_calls<CR>", opts)
+keymap("n", "<leader>fu", ":Telescope lsp_outgoing_calls<CR>", opts)
+
 -- LazyGit
 keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
 
@@ -96,3 +102,15 @@ keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
 keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
+
+-- Snippets
+--
+vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+
+vim.keymap.set({"i", "s"}, "<C-E>", function()
+	if ls.choice_active() then
+		ls.change_choice(1)
+	end
+end, {silent = true})

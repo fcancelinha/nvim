@@ -4,7 +4,8 @@ vim.g.loaded_netrwPlugin = 1
 require("options")
 require("keymaps")
 
-local lazypath = "/home/fc/.config/nvim/lazy.nvim"
+local home = os.getenv( "HOME" )
+local lazypath = home .. "/.config/nvim/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
