@@ -60,7 +60,7 @@ return {
           },
           indent = {
             indent_size = 2,
-            padding = 1, -- extra padding on left hand side
+            padding = 2, -- extra padding on left hand side
             -- indent guides
             with_markers = true,
             indent_marker = "│",
@@ -73,9 +73,9 @@ return {
             expander_highlight = "NeoTreeExpander",
           },
           icon = {
-            folder_closed = "",
-            folder_open = "",
-            folder_empty = "",
+            folder_closed = "●",
+            folder_open = "○",
+            folder_empty = "⨷",
             -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
             -- then these will never be used.
             default = "*",
@@ -112,7 +112,7 @@ return {
           },
           type = {
             enabled = true,
-            required_width = 122, -- min width of window required to show this column
+            required_width = 88, -- min width of window required to show this column
           },
           last_modified = {
             enabled = true,
@@ -120,7 +120,7 @@ return {
           },
           created = {
             enabled = true,
-            required_width = 110, -- min width of window required to show this column
+            required_width = 88, -- min width of window required to show this column
           },
         },
         -- A list of functions, each representing a global custom command
@@ -129,7 +129,7 @@ return {
         commands = {},
         window = {
           position = "float",
-          width = 20,
+          width = 10,
           mapping_options = {
             noremap = true,
             nowait = true,

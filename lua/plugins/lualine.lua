@@ -27,7 +27,7 @@ return {
 					a = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowlight},
+					x = {bg = colors.dark, fg = colors.frostturquoise},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold'},
 				},
@@ -35,7 +35,7 @@ return {
 					a = {bg = colors.green, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowlight},
+					x = {bg = colors.dark, fg = colors.green},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.green, fg = colors.dark, gui = 'bold'},
 				},
@@ -43,7 +43,7 @@ return {
 					a = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowlight},
+					x = {bg = colors.dark, fg = colors.frostblue},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
 				},
@@ -51,7 +51,7 @@ return {
 					a = {bg = colors.red, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowlight},
+					x = {bg = colors.dark, fg = colors.red},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.red, fg = colors.dark, gui = 'bold'},
 				},
@@ -59,7 +59,7 @@ return {
 					a = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowlight},
+					x = {bg = colors.dark, fg = colors.yellow},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
 				},
@@ -67,7 +67,7 @@ return {
 					a = {bg = colors.snowdark, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowlight},
+					x = {bg = colors.dark, fg = colors.snowdark},
 					y = {bg = colors.snowlight, fg = colors.dark},
 					z = {bg = colors.snowdark, fg = colors.dark, gui = 'bold'},
 				}
@@ -81,9 +81,9 @@ return {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_nord,
-				component_separators = {left = "", right = " "},
-				section_separators = {left="", right = ""},
-				disabled_filetypes = {"alpha", "dashboard", "neo-tree"},
+				component_separators = {left = "", right = ""},
+				section_separators = {left="", right = ""},
+				disabled_filetypes = {"alpha", "dashboard", "neo-tree", "neo-tree-popup"},
 				always_divide_middle = true,
 			},
 			sections = {
@@ -93,7 +93,21 @@ return {
 						padding = 2,
 					}
 				},
-				lualine_b = {},
+				lualine_b = {
+					{
+						"fileformat",
+						colored = true
+					},
+					{
+						"encoding",
+						colored = true
+					},
+					{
+						"searchcount",
+						maxcount = 999,
+						timeout =  500
+					},
+				},
 				lualine_c = {
 					{
 						"diagnostics",
@@ -102,7 +116,7 @@ return {
 						symbols = { error = " ", warn = "  ", info ="  "},
 						colored = true,
 						update_in_insert = true,
-						always_visible = true,
+						always_visible = false,
 						diagnostics_color = {
 							error = 'DiagnosticError',
 							warn = 'DiagnosticWarn',
@@ -113,43 +127,25 @@ return {
 				lualine_x = {
 					{
 						"branch",
-						padding = 1,
 						colored = true,
 					},
 					{
 						"diff",
 						colored = true,
-						symbols = { added = "  ", modified = "  ", removed = "  " }, -- changes diff symbols
-					},
-					{
-						"fileformat",
-						colored = true
-					},
-					{
-						"require'lsp-status'.status()",
-						colored = true,
+						symbols = { added = " ● ", modified = " ⦾ ", removed = " 🞊 " }, -- changes diff symbols
 					},
 				},
 				lualine_y = {
-					{
-						"encoding",
-						colored = true
-					},
 					{
 						"filetype",
 						colored = true,
 						icons_only = true,
 					},
-					{
-						"searchcount",
-						maxcount = 999,
-						timeout =  500
-					},
 				},
 				lualine_z = {
 					{
 						"location",
-						padding = 2
+						padding = 1
 					},
 				},
 			},
