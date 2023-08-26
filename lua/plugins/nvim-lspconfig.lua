@@ -38,7 +38,8 @@ return {
 					diagnostics = {
 						globals = {
 							'vim',
-							'require'
+							'require',
+							"enable",
 						},
 					},
 					telemetry = {

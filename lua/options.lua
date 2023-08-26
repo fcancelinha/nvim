@@ -5,11 +5,12 @@ local options = {
 	background = 'dark',
 	backspace = {'start', 'eol', 'indent'},
 	backup = false,
+	binary = true,
 	breakindent = true,
 	clipboard = {'unnamed', 'unnamedplus'},
 	cursorline = true,
 	cursorlineopt = "number",
-	completeopt = {'menu', 'menuone', 'noselect'},
+	completeopt = {'menu', 'menuone', 'noselect', 'preview'},
 	confirm = true,
 	encoding = 'utf-8',
 	errorbells = false,
@@ -49,6 +50,7 @@ local options = {
 	writebackup = false,
 }
 
+vim.opt.matchpairs:append "<:>,':',\":\""
 vim.opt.shortmess:append "c"
 vim.opt.whichwrap:append "<,>,[,],h,l"
 
