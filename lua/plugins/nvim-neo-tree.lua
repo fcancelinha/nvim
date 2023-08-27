@@ -22,7 +22,7 @@ return {
                 buftype = { 'terminal', "quickfix" },
               },
             },
-            other_win_hl_color = '#e35e4f',
+            other_win_hl_color = '#8FBCBB',
           })
         end,
       }
@@ -116,11 +116,11 @@ return {
           },
           last_modified = {
             enabled = true,
-            required_width = 88, -- min width of window required to show this column
+            required_width = 132, -- min width of window required to show this column
           },
           created = {
             enabled = true,
-            required_width = 88, -- min width of window required to show this column
+            required_width = 150, -- min width of window required to show this column
           },
         },
         -- A list of functions, each representing a global custom command
@@ -192,7 +192,7 @@ return {
               --"*/src/*/tsconfig.json",
             },
             always_show = { -- remains visible even if other settings would normally hide it
-              --".gitignored",
+              ".gitignored",
             },
             never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
               --".DS_Store",
@@ -205,7 +205,7 @@ return {
           follow_current_file = {
             enabled = false, -- This will find and focus the file in the active buffer every time
             --               -- the current file is changed while the tree is open.
-            leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+            leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
           },
           group_empty_dirs = false, -- when true, empty folders will be grouped together
           hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree

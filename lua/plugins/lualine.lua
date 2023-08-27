@@ -27,7 +27,7 @@ return {
 					a = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.frostturquoise},
+					x = {bg = colors.dark, fg = colors.snowshade},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold'},
 				},
@@ -35,7 +35,7 @@ return {
 					a = {bg = colors.green, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.green},
+					x = {bg = colors.dark, fg = colors.snowshade},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.green, fg = colors.dark, gui = 'bold'},
 				},
@@ -43,7 +43,7 @@ return {
 					a = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.frostblue},
+					x = {bg = colors.dark, fg = colors.snowshade},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
 				},
@@ -51,7 +51,7 @@ return {
 					a = {bg = colors.red, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.red},
+					x = {bg = colors.dark, fg = colors.snowshade},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.red, fg = colors.dark, gui = 'bold'},
 				},
@@ -59,7 +59,7 @@ return {
 					a = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.yellow},
+					x = {bg = colors.dark, fg = colors.snowshade},
 					y = {bg = colors.grey, fg = colors.snowdark},
 					z = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
 				},
@@ -67,7 +67,7 @@ return {
 					a = {bg = colors.snowdark, fg = colors.dark, gui = 'bold'},
 					b = {bg = colors.dark, fg = colors.snowlight},
 					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowdark},
+					x = {bg = colors.dark, fg = colors.snowshade},
 					y = {bg = colors.snowlight, fg = colors.dark},
 					z = {bg = colors.snowdark, fg = colors.dark, gui = 'bold'},
 				}
@@ -113,7 +113,7 @@ return {
 						"diagnostics",
 						sources = { "nvim_diagnostic", "nvim_lsp" },
 						sections = { "error", "warn", "info" },
-						symbols = { error = " ", warn = "  ", info ="  "},
+						symbols = { error = "⦸ ", warn = " ⦷ ", info =" ⦹ "},
 						colored = true,
 						update_in_insert = true,
 						always_visible = false,
@@ -126,21 +126,24 @@ return {
 				},
 				lualine_x = {
 					{
-						"branch",
-						colored = true,
-					},
-					{
 						"diff",
 						colored = true,
 						symbols = { added = " ● ", modified = " ⦾ ", removed = " 🞊 " }, -- changes diff symbols
 					},
-				},
-				lualine_y = {
+					{
+						"branch",
+						colored = true,
+					},
 					{
 						"filetype",
 						colored = true,
-						icons_only = true,
-					},
+					}
+				},
+				lualine_y = {
+					{
+						"filename",
+						colored = true,
+					}
 				},
 				lualine_z = {
 					{
