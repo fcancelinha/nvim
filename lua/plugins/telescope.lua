@@ -12,7 +12,9 @@ return {
 		},
 	},
 	config = function()
+		-- Extensions
 		require('telescope').load_extension('projects')
+		require('telescope').load_extension('git_worktree')
 	end,
 	opts = {
 		extensions = {
@@ -24,7 +26,6 @@ return {
 				theme = "dropdown",
 				order_by = "asc",
 				search_by = "title",
-				sync_with_nvim_tree = true, -- default false
 			}
 		}
 	}

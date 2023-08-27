@@ -89,6 +89,9 @@ keymap("n", "<leader>ft", ":Telescope lsp_implementations<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope lsp_incoming_calls<CR>", opts)
 keymap("n", "<leader>fu", ":Telescope lsp_outgoing_calls<CR>", opts)
 
+-- Telescope Trees
+keymap("n", "<leader>fw", ":Telescope git_worktrees git_worktrees<CR>", opts)
+
 -- LazyGit
 keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
 
