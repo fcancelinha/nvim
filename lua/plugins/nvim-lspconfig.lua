@@ -40,6 +40,7 @@ return {
 							'vim',
 							'require',
 							"enable",
+							"ls",
 						},
 					},
 					telemetry = {

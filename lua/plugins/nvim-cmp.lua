@@ -11,6 +11,7 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-path",
 		},
 		config = function()
@@ -74,7 +75,7 @@ return {
 			vim.api.nvim_set_hl(0, 'CmpItemKindClass', { bg='NONE', fg=nord_light_cyan })
 
 			vim.cmd[[	
-				highlight! BorderBG guibg=NONE guifg=#88C0D0
+			highlight! BorderBG guibg=NONE guifg=#88C0D0
 			]]
 
 			local kind_icons = {

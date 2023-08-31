@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
+		"nvim-telescope/telescope-fzf-native.nvim",
 		"ahmedkhalf/project.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
 		{

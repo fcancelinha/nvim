@@ -23,6 +23,12 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Moving current lines
+keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+keymap("v", "<A-j>", ":m '>+1<CR>gv-gv", opts)
+keymap("v", "<A-k>", ":m '<-2<CR>gv-gv", opts)
+
 -- Close windows
 keymap("n", "<leader>q", ":q<CR>", opts)
 
@@ -32,10 +38,9 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
--- Save
-keymap("n", "<leader>w", "<cmd>:w<CR>", opts)
-
 -- Close Quickfix-List
+keymap("n", "]q", ":cnext<CR>", opts)
+keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
 -- Visual --
