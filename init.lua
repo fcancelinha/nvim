@@ -41,7 +41,7 @@ vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
 --- auto update the highlight style on colorscheme change
 vim.api.nvim_create_autocmd({ "ColorScheme" }, {
 	pattern = { "*" },
-	callback = function(ev)
+	callback = function()
 		vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
 		vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
 		vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
@@ -60,5 +60,3 @@ local TelescopePrompt = {
 for hl, col in pairs(TelescopePrompt) do
 	vim.api.nvim_set_hl(0, hl, col)
 end
-
-

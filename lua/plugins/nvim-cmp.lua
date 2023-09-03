@@ -13,6 +13,9 @@ return {
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-path",
+			"saadparwaiz1/cmp_luasnip",
+			"ray-x/cmp-treesitter",
+			"hrsh7th/cmp-nvim-lua",
 		},
 		config = function()
 
@@ -158,6 +161,8 @@ return {
 					{ name = 'luasnip' }, -- For luasnip users.
 					-- { name = 'ultisnips' }, -- For ultisnips users.
 					-- { name = 'snippy' }, -- For snippy users.
+					{ name = 'treesitter'},
+					{ name = 'nvim_lua'},
 				}, {
 					{ name = 'buffer' },
 				})

@@ -4,155 +4,223 @@ return {
 		"nvim-tree/nvim-web-devicons"
 	},
 	config = function ()
-		local custom_nord = function ()
-			local colors = {
-				dark        = '#2E3440',
-				grey = '#434C5E',
-				frostblue = '#5E81Ac',
-				frostgreen = '#8FBCBB',
-				frostlightblue = '#81A1C1',
-				frostturquoise = "#88C0D0",
-				green        = '#A3BE8C',
-				orange         = '#D08770',
-				purple     = '#B48EAD',
-				red          = '#BF616A',
-				snowdark = '#D8DEE9',
-				snowlight= '#ECEFF4',
-				snowshade = '#E5E9F0',
-				yellow       = '#EBCB8B',
-			}
 
-			return {
-				normal = {
-					a = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold'},
-					b = {bg = colors.dark, fg = colors.snowlight},
-					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowshade},
-					y = {bg = colors.grey, fg = colors.snowdark},
-					z = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold'},
-				},
-				insert = {
-					a = {bg = colors.green, fg = colors.dark, gui = 'bold'},
-					b = {bg = colors.dark, fg = colors.snowlight},
-					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowshade},
-					y = {bg = colors.grey, fg = colors.snowdark},
-					z = {bg = colors.green, fg = colors.dark, gui = 'bold'},
-				},
-				visual = {
-					a = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
-					b = {bg = colors.dark, fg = colors.snowlight},
-					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowshade},
-					y = {bg = colors.grey, fg = colors.snowdark},
-					z = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
-				},
-				replace = {
-					a = {bg = colors.red, fg = colors.dark, gui = 'bold'},
-					b = {bg = colors.dark, fg = colors.snowlight},
-					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowshade},
-					y = {bg = colors.grey, fg = colors.snowdark},
-					z = {bg = colors.red, fg = colors.dark, gui = 'bold'},
-				},
-				command = {
-					a = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
-					b = {bg = colors.dark, fg = colors.snowlight},
-					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowshade},
-					y = {bg = colors.grey, fg = colors.snowdark},
-					z = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
-				},
-				inactive = {
-					a = {bg = colors.snowdark, fg = colors.dark, gui = 'bold'},
-					b = {bg = colors.dark, fg = colors.snowlight},
-					c = {bg = colors.dark, fg = colors.snowlight},
-					x = {bg = colors.dark, fg = colors.snowshade},
-					y = {bg = colors.snowlight, fg = colors.dark},
-					z = {bg = colors.snowdark, fg = colors.dark, gui = 'bold'},
-				}
+		local colors = {
+			dark        = '#2E3440',
+			greydark = "#3B4252",
+			grey = "#434C5E",
+			frostblue = '#5E81Ac',
+			frostgreen = '#8FBCBB',
+			frostlightblue = '#81A1C1',
+			frostturquoise = "#88C0D0",
+			green        = '#A3BE8C',
+			orange         = '#D08770',
+			purple     = '#B48EAD',
+			red          = '#BF616A',
+			snowdark = '#D8DEE9',
+			snowlight= '#ECEFF4',
+			snowshade = '#E5E9F0',
+			yellow       = '#EBCB8B',
+		}
+
+		local custom_nord = {
+			normal = {
+				a = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold' },
+				b = {},
+				c = {},
+				x = {},
+				y = {},
+				z = {bg = colors.frostturquoise, fg = colors.dark },
+			},
+			insert = {
+				a = {bg = colors.green, fg = colors.dark, gui = 'bold'},
+				b = {},
+				c = {},
+				x = {},
+				y = {},
+				z = {bg = colors.green, fg = colors.dark, },
+			},
+			visual = {
+				a = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
+				b = {},
+				c = {},
+				x = {},
+				y = {},
+				z = {bg = colors.frostblue, fg = colors.dark, },
+			},
+			replace = {
+				a = {bg = colors.red, fg = colors.dark, gui = 'bold'},
+				b = {},
+				c = {},
+				x = {},
+				y = {},
+				z = {bg = colors.red, fg = colors.dark, },
+			},
+			command = {
+				a = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
+				b = {},
+				c = {},
+				x = {},
+				y = {},
+				z = {bg = colors.yellow, fg = colors.dark, },
+			},
+			inactive = {
+				a = {bg = colors.dark, fg = colors.dark, },
+				b = {},
+				c = {},
+				x = {},
+				y = {},
+				z = {bg = colors.dark, fg = colors.dark, },
 			}
+		}
+
+		local empty = require('lualine.component'):extend()
+		function empty:draw(default_highlight)
+			self.status = ''
+			self.applied_separator = ''
+			self:apply_highlights(default_highlight)
+			self:apply_section_separators()
+			return self.status
 		end
 
-		-- #2E3440
+		-- Put proper separators and gaps between components in sections
+		local function process_sections(sections)
+			for name, section in pairs(sections) do
+				local left = name:sub(9, 10) < 'x'
+				for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
+					table.insert(section, pos * 2, { empty, color = { fg = colors.dark, bg = colors.dark } })
+				end
+				for id, comp in ipairs(section) do
+					if type(comp) ~= 'table' then
+						comp = { comp }
+						section[id] = comp
+					end
+					comp.separator = left and { right = '' } or { left = '' }
+				end
+			end
+			return sections
+		end
 
-		require('lualine').setup({
+		local function modified()
+			if vim.bo.modified then
+				return '+'
+			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+				return '-'
+			end
+			return ''
+		end
+
+		require('lualine').setup {
 			options = {
 				globalstatus = true,
-				icons_enabled = true,
 				theme = custom_nord,
-				component_separators = {left = "", right = ""},
-				section_separators = {left="", right = ""},
-				disabled_filetypes = {"alpha", "dashboard", "neo-tree", "neo-tree-popup"},
-				always_divide_middle = true,
+				component_separators = '',
+				section_separators = { left = '', right = '' },
+				disabled_filetypes = {
+					"alpha",
+					"TelescopePrompt",
+					"neo-tree"
+				},
 			},
-			sections = {
+			sections = process_sections {
 				lualine_a = {
 					{
-						"mode",
-						padding = 2,
+						'mode',
 					}
 				},
 				lualine_b = {
 					{
-						"fileformat",
-						colored = true
-					},
-					{
-						"encoding",
-						colored = true
-					},
-					{
-						"searchcount",
-						maxcount = 999,
-						timeout =  500
-					},
+						'branch',
+						color = {bg = colors.greydark, fg = colors.snowlight}
+					}
 				},
 				lualine_c = {
 					{
-						"diagnostics",
-						sources = { "nvim_diagnostic", "nvim_lsp" },
-						sections = { "error", "warn", "info" },
-						symbols = { error = "⦸ ", warn = " ⦷ ", info =" ⦹ "},
-						colored = true,
-						update_in_insert = true,
-						always_visible = false,
-						diagnostics_color = {
-							error = 'DiagnosticError',
-							warn = 'DiagnosticWarn',
-							info = 'DiagnosticInfo',
-						},
+						'diagnostics',
+						source = { 'nvim' , 'nvim_diagnostic', 'nvim_lsp'},
+						sections = { 'error' },
+						diagnostics_color = { error = { bg = colors.red, fg = colors.snowlight } },
+					},
+					{
+						'diagnostics',
+						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'warn' },
+						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.snowlight } },
+					},
+					{
+						'diagnostics',
+						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'info' },
+						diagnostics_color = { warn = { bg = colors.frostblue, fg = colors.snowlight } },
+					},
+					{
+						'filename',
+						file_status = false,
+						path = 1,
+						color = {bg = colors.greydark, fg = colors.snowlight}
+					},
+					{
+						'%w',
+						cond = function()
+							return vim.wo.previewwindow
+						end,
+						color = { bg = colors.red },
+					},
+					{
+						'%r',
+						cond = function()
+							return vim.bo.readonly
+						end,
+						color = { bg = colors.red },
+					},
+					{
+						'%q',
+						cond = function()
+							return vim.bo.buftype == 'quickfix'
+						end,
+						color = { bg = colors.yellow },
+					},
+					{
+						modified,
+						color = { bg = colors.red },
 					},
 				},
 				lualine_x = {
 					{
-						"diff",
-						colored = true,
-						symbols = { added = " ● ", modified = " ⦾ ", removed = " 🞊 " }, -- changes diff symbols
-					},
-					{
-						"branch",
-						colored = true,
-					},
-					{
-						"filetype",
-						colored = true,
+						"searchcount",
+						color = {bg = colors.greydark, fg = colors.snowlight}
 					}
 				},
 				lualine_y = {
 					{
-						"filename",
-						colored = true,
-					}
+						"encoding",
+						color = {bg = colors.greydark, fg = colors.snowlight}
+
+					},
+					{
+						'filetype',
+						color = {bg = colors.greydark, fg = colors.snowlight}
+					},
 				},
 				lualine_z = {
 					{
+						"selectioncount"
+					},
+					{
 						"location",
-						padding = 1
 					},
 				},
 			},
-
-		})
-	end,
+			inactive_sections = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
+			tabline = {},
+			extensions = {},
+		}
+	end
 }

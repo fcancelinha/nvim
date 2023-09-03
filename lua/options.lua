@@ -34,6 +34,7 @@ local options = {
 	shiftwidth = 4,
 	showcmd = false,
 	showmatch = true,
+	showmode= false,
 	sidescrolloff = 15,
 	signcolumn = 'yes',
 	smartcase = true,
