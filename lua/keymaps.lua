@@ -100,7 +100,7 @@ keymap("n", "<leader>fu", ":Telescope lsp_outgoing_calls<CR>", opts)
 keymap("n", "<leader>fw", ":Telescope git_worktrees git_worktrees<CR>", opts)
 
 -- LazyGit
-keymap("n", "<leader>gg", ":terminal lazygit<CR>", opts)
+keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)

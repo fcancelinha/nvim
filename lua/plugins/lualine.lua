@@ -6,21 +6,21 @@ return {
 	config = function ()
 
 		local colors = {
-			dark        = '#2E3440',
-			greydark = "#3B4252",
-			grey = "#434C5E",
-			frostblue = '#5E81Ac',
-			frostgreen = '#8FBCBB',
+			dark           = '#2E3440',
+			frostblue      = '#5E81Ac',
+			frostgreen     = '#8FBCBB',
 			frostlightblue = '#81A1C1',
 			frostturquoise = "#88C0D0",
-			green        = '#A3BE8C',
+			green          = '#A3BE8C',
+			grey           = "#434C5E",
+			greydark       = "#3B4252",
 			orange         = '#D08770',
-			purple     = '#B48EAD',
-			red          = '#BF616A',
-			snowdark = '#D8DEE9',
-			snowlight= '#ECEFF4',
-			snowshade = '#E5E9F0',
-			yellow       = '#EBCB8B',
+			purple         = '#B48EAD',
+			red            = '#BF616A',
+			snowdark       = '#D8DEE9',
+			snowlight      = '#ECEFF4',
+			snowshade      = '#E5E9F0',
+			yellow         = '#EBCB8B',
 		}
 
 		local custom_nord = {
@@ -81,6 +81,23 @@ return {
 			self:apply_highlights(default_highlight)
 			self:apply_section_separators()
 			return self.status
+		end
+
+		-- Lsp server name .
+		local function lsp_server()
+			local msg = '[NOLSP]'
+			local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+			local clients = vim.lsp.get_active_clients()
+			if next(clients) == nil then
+				return msg
+			end
+			for _, client in ipairs(clients) do
+				local filetypes = client.config.filetypes
+				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+					return '[' .. client.name .. ']'
+				end
+			end
+			return msg
 		end
 
 		-- Put proper separators and gaps between components in sections
@@ -150,13 +167,13 @@ return {
 					{
 						'diagnostics',
 						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'info' },
-						diagnostics_color = { warn = { bg = colors.frostblue, fg = colors.snowlight } },
+						sections = { 'hint' },
+						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.snowlight } },
 					},
 					{
 						'filename',
 						file_status = false,
-						path = 1,
+						path = 4,
 						color = {bg = colors.greydark, fg = colors.snowlight}
 					},
 					{
@@ -187,9 +204,9 @@ return {
 				},
 				lualine_x = {
 					{
-						"searchcount",
-						color = {bg = colors.greydark, fg = colors.snowlight}
-					}
+						lsp_server,
+						color = { bg = colors.red, fg = colors.snowlight }
+					},
 				},
 				lualine_y = {
 					{
@@ -199,10 +216,15 @@ return {
 					},
 					{
 						'filetype',
-						color = {bg = colors.greydark, fg = colors.snowlight}
+						color = {bg = colors.greydark, fg = colors.snowlight},
+						icon = { align = 'right'},
 					},
 				},
 				lualine_z = {
+					{
+						"searchcount",
+						color = {bg = colors.greydark, fg = colors.snowlight}
+					},
 					{
 						"selectioncount"
 					},
@@ -220,7 +242,12 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			extensions = {},
+			extensions = {
+				'quickfix',
+				'nvim-dap-ui',
+				'symbols-outline',
+				'neo-tree',
+			},
 		}
 	end
 }
