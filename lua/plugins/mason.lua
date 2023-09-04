@@ -1,5 +1,11 @@
 return {
 	"williamboman/mason.nvim",
+	dependencies = {
+		"jay-babu/mason-nvim-dap.nvim",
+		"neovim/nvim-lspconfig",
+		"williamboman/mason-lspconfig.nvim",
+		"williamboman/nvim-lsp-installer"
+	},
 	build = ":MasonUpdate", -- :MasonUpdate updates registry contents
 	opts = {
 		ui = {
@@ -49,12 +55,6 @@ return {
 				apply_language_filter = "<C-f>",
 			},
 		},
-	},
-	dependencies = {
-		"jay-babu/mason-nvim-dap.nvim",
-		"neovim/nvim-lspconfig",
-		"williamboman/mason-lspconfig.nvim",
-		"williamboman/nvim-lsp-installer"
 	},
 }
 

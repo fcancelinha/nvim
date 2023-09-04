@@ -57,12 +57,12 @@ return {
 				z = {bg = colors.red, fg = colors.dark, },
 			},
 			command = {
-				a = {bg = colors.yellow, fg = colors.dark, gui = 'bold'},
+				a = {bg = colors.frostgreen, fg = colors.dark, gui = 'bold'},
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.yellow, fg = colors.dark, },
+				z = {bg = colors.frostgreen, fg = colors.dark, },
 			},
 			inactive = {
 				a = {bg = colors.dark, fg = colors.dark, },

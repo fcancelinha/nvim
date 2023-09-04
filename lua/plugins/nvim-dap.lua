@@ -1,45 +1,28 @@
 return {
-	"mfussenegger/nvim-dap",
-	lazy = false,
-	dependencies = {
-		"nvim-neotest/neotest-go",
-		"rcarriga/nvim-dap-ui",
-		"theHamsta/nvim-dap-virtual-text",
-		"antoinemadec/FixCursorHold.nvim",
-		{
-			"nvim-neotest/neotest",
-			config = function ()
-				-- get neotest namespace (api call creates or returns namespace)
-				local neotest_ns = vim.api.nvim_create_namespace("neotest")
-				vim.diagnostic.config({
-					virtual_text = {
-						format = function(diagnostic)
-							local message =
-							diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-							return message
-						end,
-					},
-				}, neotest_ns)
-			end
-		},
-		{
-			"folke/neodev.nvim",
-			opts = {
-				library = {
-					enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
-					-- these settings will be used for your Neovim config directory
-					runtime = true, -- runtime path
-					types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
-					-- plugins = true, -- installed opt or start plugins in packpath
-					-- you can also specify the list of plugins to make available as a workspace library
-					plugins = {"neotest", "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
-				},
-			}
-		},
-		{
-			--adapters
+	{
+		"folke/neodev.nvim",
+		opts = {
+			library = {
+				enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
+				-- these settings will be used for your Neovim config directory
+				runtime = true, -- runtime path
+				types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+				-- plugins = true, -- installed opt or start plugins in packpath
+				-- you can also specify the list of plugins to make available as a workspace library
+				plugins = {"neotest", "nvim-treesitter", "plenary.nvim", "telescope.nvim", "nvim-dap-ui" },
+			},
+		}
+	},
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"antoinemadec/FixCursorHold.nvim",
 			"leoluz/nvim-dap-go",
-			opts = {
+		},
+		config = function ()
+			require('dap-go').setup {
 				-- Additional dap configurations can be added.
 				-- dap_configurations accepts a list of tables where each entry
 				-- represents a dap configuration. For more details do:
@@ -76,6 +59,26 @@ return {
 					build_flags = "",
 				},
 			}
+		end
+	},
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-neotest/neotest-go",
 		},
-	}
+		config = function ()
+			-- get neotest namespace (api call creates or returns namespace)
+			local neotest_ns = vim.api.nvim_create_namespace("neotest")
+			vim.diagnostic.config({
+				virtual_text = {
+					format = function(diagnostic)
+						local message =
+						diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+						return message
+					end,
+				},
+			}, neotest_ns)
+		end
+	},
+
 }
