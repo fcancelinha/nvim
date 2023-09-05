@@ -1,2 +1,4 @@
 lazy-lock.json
 ./lua/db-conns.lua
+lua/db-conns.lua
+lazy-lock.json
