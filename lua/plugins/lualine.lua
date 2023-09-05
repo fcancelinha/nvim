@@ -3,8 +3,7 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons"
 	},
-	config = function ()
-
+	config = function()
 		local colors = {
 			dark           = '#2E3440',
 			frostblue      = '#5E81Ac',
@@ -25,52 +24,52 @@ return {
 
 		local custom_nord = {
 			normal = {
-				a = {bg = colors.frostturquoise, fg = colors.dark, gui = 'bold' },
+				a = { bg = colors.frostturquoise, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.frostturquoise, fg = colors.dark },
+				z = { bg = colors.frostturquoise, fg = colors.dark },
 			},
 			insert = {
-				a = {bg = colors.green, fg = colors.dark, gui = 'bold'},
+				a = { bg = colors.green, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.green, fg = colors.dark, },
+				z = { bg = colors.green, fg = colors.dark, },
 			},
 			visual = {
-				a = {bg = colors.frostblue, fg = colors.dark, gui = 'bold'},
+				a = { bg = colors.frostblue, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.frostblue, fg = colors.dark, },
+				z = { bg = colors.frostblue, fg = colors.dark, },
 			},
 			replace = {
-				a = {bg = colors.red, fg = colors.dark, gui = 'bold'},
+				a = { bg = colors.red, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.red, fg = colors.dark, },
+				z = { bg = colors.red, fg = colors.dark, },
 			},
 			command = {
-				a = {bg = colors.frostgreen, fg = colors.dark, gui = 'bold'},
+				a = { bg = colors.frostgreen, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.frostgreen, fg = colors.dark, },
+				z = { bg = colors.frostgreen, fg = colors.dark, },
 			},
 			inactive = {
-				a = {bg = colors.dark, fg = colors.dark, },
+				a = { bg = colors.dark, fg = colors.dark, },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = {bg = colors.dark, fg = colors.dark, },
+				z = { bg = colors.dark, fg = colors.dark, },
 			}
 		}
 
@@ -136,7 +135,8 @@ return {
 				disabled_filetypes = {
 					"alpha",
 					"TelescopePrompt",
-					"neo-tree"
+					"neo-tree",
+					"neo-tree-popup",
 				},
 			},
 			sections = process_sections {
@@ -148,13 +148,13 @@ return {
 				lualine_b = {
 					{
 						'branch',
-						color = {bg = colors.greydark, fg = colors.snowlight}
+						color = { bg = colors.greydark, fg = colors.snowlight }
 					}
 				},
 				lualine_c = {
 					{
 						'diagnostics',
-						source = { 'nvim' , 'nvim_diagnostic', 'nvim_lsp'},
+						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
 						diagnostics_color = { error = { bg = colors.red, fg = colors.snowlight } },
 					},
@@ -174,7 +174,7 @@ return {
 						'filename',
 						file_status = false,
 						path = 4,
-						color = {bg = colors.greydark, fg = colors.snowlight}
+						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 					{
 						'%w',
@@ -211,19 +211,19 @@ return {
 				lualine_y = {
 					{
 						"encoding",
-						color = {bg = colors.greydark, fg = colors.snowlight}
+						color = { bg = colors.greydark, fg = colors.snowlight }
 
 					},
 					{
 						'filetype',
-						color = {bg = colors.greydark, fg = colors.snowlight},
-						icon = { align = 'right'},
+						color = { bg = colors.greydark, fg = colors.snowlight },
+						icon = { align = 'right' },
 					},
 				},
 				lualine_z = {
 					{
 						"searchcount",
-						color = {bg = colors.greydark, fg = colors.snowlight}
+						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 					{
 						"selectioncount"

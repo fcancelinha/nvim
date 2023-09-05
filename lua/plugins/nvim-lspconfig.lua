@@ -1,19 +1,38 @@
 return {
 	"neovim/nvim-lspconfig",
-	config = function()
 
+	config = function()
 		-- Setup lspconfig	
 		local lspconfig = require('lspconfig')
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local util = require('lspconfig/util')
 
+		local border = {
+			{ "🭽", "FloatBorder" },
+			{ "▔", "FloatBorder" },
+			{ "🭾", "FloatBorder" },
+			{ "▕", "FloatBorder" },
+			{ "🭿", "FloatBorder" },
+			{ "▁", "FloatBorder" },
+			{ "🭼", "FloatBorder" },
+			{ "▏", "FloatBorder" },
+		}
+
+		-- LSP settings (for overriding per client)
+		local handlers = {
+			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+		}
+
+		-- Setup Servers
 		lspconfig.gopls.setup {
 			capabilities = capabilities,
-			cmd = {"gopls"},
-			filetypes = {"go", "gomod", "gowork", "gotmpl"},
+			handlers = handlers,
+			cmd = { "gopls" },
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
 			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 			settings = {
-				gopls =  {
+				gopls = {
 					completeUnimported = true,
 					usePlaceholders = true,
 					analyses = {
@@ -33,19 +52,27 @@ return {
 
 		lspconfig.lua_ls.setup {
 			capabilities = capabilities,
+			handlers = handlers,
 			settings = {
-				Lua =  {
+				Lua = {
 					diagnostics = {
 						globals = {
 							'vim',
 							'require',
-							"enable",
-							"ls",
+							'enable',
+							'ls',
 						},
 					},
 					telemetry = {
 						enable = false,
-					}
+					},
+					format = {
+						enable = true,
+						defaultConfig = {
+							indent_style = 'tab',
+							indent_size = '4',
+						}
+					},
 				},
 			},
 		}
@@ -63,52 +90,29 @@ return {
 		}
 
 		lspconfig.bashls.setup {
-			capabilities =capabilities
+			capabilities = capabilities
 		}
 
 		lspconfig.vimls.setup {
 			capabilities = capabilities
 		}
 
-
-		-- Global mappings.
-		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-		vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-		vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-		vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-		vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
-		-- Use LspAttach autocommand to only map the following keys
-		-- after the language server attaches to the current buffer
-		vim.api.nvim_create_autocmd('LspAttach', {
-			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-			callback = function(ev)
-				-- Enable completion triggered by <c-x><c-o>
-				vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-				-- Buffer local mappings.
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
-				local opts = { buffer = ev.buf }
-				vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-				vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-				vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-				vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-				vim.keymap.set('n', '<space>wl', function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, opts)
-				vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-				vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-				vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-				vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-				vim.keymap.set('n', '<space>f', function()
-					vim.lsp.buf.format { async = true }
-				end, opts)
+		-- Run lua lsp format on save
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.lua",
+			callback = function()
+				vim.lsp.buf.format()
 			end,
+		})
+
+		-- Run gofmt + goimport on save
+		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.go",
+			callback = function()
+				require('go.format').goimport()
+			end,
+			group = format_sync_grp,
 		})
 	end
 }
-
-

@@ -1,6 +1,7 @@
 return  {
 	"RRethy/vim-illuminate",
 	config = function ()
+
 		-- default configuration
 		require('illuminate').configure({
 			-- providers: provider used to get references in the buffer, ordered by priority
@@ -47,6 +48,22 @@ return  {
 			large_file_overrides = nil,
 			-- min_count_to_highlight: minimum number of matches required to perform highlighting
 			min_count_to_highlight = 1,
+		})
+
+
+		-- change the highlight style
+		vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+		vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+		vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+
+		--- auto update the highlight style on colorscheme change
+		vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+			pattern = { "*" },
+			callback = function()
+				vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+				vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+				vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+			end
 		})
 	end
 }

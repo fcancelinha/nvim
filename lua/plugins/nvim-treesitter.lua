@@ -1,7 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
-	config = function ()
+	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
 				"c",
@@ -23,8 +23,16 @@ return {
 				"sql",
 				"yaml",
 			},
+			sync_install = false,
+			auto_install = true,
 			highlight = {
 				enable = true,
+				additional_vim_regex_highlighting = false,
+				disable = {},
+			},
+			indent = {
+				enable = true,
+				disable = {},
 			},
 			incremental_selection = {
 				enable = enable,
