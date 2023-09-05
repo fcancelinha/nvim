@@ -3,6 +3,7 @@ vim.g.loaded_netrwPlugin = 1
 
 require("config.options")
 require("config.keymaps")
+require("config.dbconns")
 
 local home = os.getenv( "HOME" )
 local lazypath = home .. "/.config/nvim/lazy.nvim"
