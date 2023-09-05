@@ -114,19 +114,19 @@ keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
 -- Trouble
-vim.keymap.set("n", "<leader>xx", function() require("trouble").open() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").open("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").open("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").open("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").open("loclist") end)
-vim.keymap.set("n", "gR", function() require("trouble").open("lsp_references") end)
+keymap("n", "<leader>xx", function() require("trouble").open() end)
+keymap("n", "<leader>xw", function() require("trouble").open("workspace_diagnostics") end)
+keymap("n", "<leader>xd", function() require("trouble").open("document_diagnostics") end)
+keymap("n", "<leader>xq", function() require("trouble").open("quickfix") end)
+keymap("n", "<leader>xl", function() require("trouble").open("loclist") end)
+keymap("n", "gR", function() require("trouble").open("lsp_references") end)
 
 -- Snippets
-vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+keymap({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
+keymap({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+keymap({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
 
-vim.keymap.set({"i", "s"}, "<C-E>", function()
+keymap({"i", "s"}, "<C-E>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
@@ -134,10 +134,10 @@ end, {silent = true})
 
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+keymap('n', '<space>e', vim.diagnostic.open_float)
+keymap('n', '[d', vim.diagnostic.goto_prev)
+keymap('n', ']d', vim.diagnostic.goto_next)
+keymap('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -150,21 +150,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf }
-		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-		vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-		vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-		vim.keymap.set('n', '<space>wl', function()
+		keymap('n', 'gD', vim.lsp.buf.declaration, opts)
+		keymap('n', 'gd', vim.lsp.buf.definition, opts)
+		keymap('n', 'K', vim.lsp.buf.hover, opts)
+		keymap('n', 'gi', vim.lsp.buf.implementation, opts)
+		keymap('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+		keymap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+		keymap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+		keymap('n', '<space>wl', function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
-		vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-		vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-		vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-		vim.keymap.set('n', '<space>f', function()
+		keymap('n', '<space>D', vim.lsp.buf.type_definition, opts)
+		keymap('n', '<space>rn', vim.lsp.buf.rename, opts)
+		keymap({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+		keymap('n', 'gr', vim.lsp.buf.references, opts)
+		keymap('n', '<space>f', function()
 			vim.lsp.buf.format { async = true }
 		end, opts)
 	end,
