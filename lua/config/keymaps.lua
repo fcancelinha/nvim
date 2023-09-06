@@ -50,30 +50,27 @@ keymap("v", ">", ">gv", opts)
 
 -- [ Plugins ] --
 
--- Barbar
+-- BufferLine
 -- Move to previous/next
-keymap('n', '<A-j>', '<Cmd>BufferPrevious<CR>', opts)
-keymap('n', '<A-k>', '<Cmd>BufferNext<CR>', opts)
+keymap('n', '<A-j>', '<Cmd>BufferLineCyclePrev<CR>', opts)
+keymap('n', '<A-k>', '<Cmd>BufferLineCycleNext<CR>', opts)
 -- Re-order to previous/next
-keymap('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-keymap('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+keymap('n', '<A-<>', '<Cmd>BufferLineMovePrevious<CR>', opts)
+keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)
 -- Goto buffer in position...
-keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-keymap('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-keymap('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-keymap('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-keymap('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-keymap('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-keymap('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-keymap('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-keymap('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
--- Pin/unpin buffer
-keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
--- Close buffer
-keymap('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
--- Close commands
-keymap('n', '<A-c>', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
+keymap('n', '<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', opts)
+keymap('n', '<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', opts)
+keymap('n', '<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', opts)
+keymap('n', '<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', opts)
+keymap('n', '<A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', opts)
+keymap('n', '<A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', opts)
+keymap('n', '<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', opts)
+keymap('n', '<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', opts)
+keymap('n', '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
+-- Close buffers
+keymap('n', '<A-»>', '<Cmd>BufferLineCloseRight<CR>', opts)
+keymap('n', '<A-«>', '<Cmd>BufferLineCloseLeft<CR>', opts)
+keymap('n', '<A-º>', '<Cmd>BufferLineCloseOthers<CR>', opts)
 
 -- Neotree
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
@@ -122,15 +119,15 @@ keymap("n", "<leader>xl", function() require("trouble").open("loclist") end)
 keymap("n", "gR", function() require("trouble").open("lsp_references") end)
 
 -- Snippets
-keymap({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
-keymap({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
-keymap({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+keymap({ "i" }, "<C-K>", function() ls.expand() end, { silent = true })
+keymap({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
+keymap({ "i", "s" }, "<C-J>", function() ls.jump(-1) end, { silent = true })
 
-keymap({"i", "s"}, "<C-E>", function()
+keymap({ "i", "s" }, "<C-E>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
-end, {silent = true})
+end, { silent = true })
 
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

@@ -153,28 +153,28 @@ return {
 				},
 				lualine_c = {
 					{
+						'filename',
+						file_status = false,
+						path = 4,
+						color = { bg = colors.greydark, fg = colors.snowlight }
+					},
+					{
 						'diagnostics',
-						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
 						diagnostics_color = { error = { bg = colors.red, fg = colors.snowlight } },
 					},
 					{
 						'diagnostics',
-						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'warn' },
 						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.snowlight } },
 					},
 					{
 						'diagnostics',
-						source = { 'nvim', 'nvim_diagnostic', 'nvim_lsp' },
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
-						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.snowlight } },
-					},
-					{
-						'filename',
-						file_status = false,
-						path = 4,
-						color = { bg = colors.greydark, fg = colors.snowlight }
+						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.snowlight } },
 					},
 					{
 						'%w',
