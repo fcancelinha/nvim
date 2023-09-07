@@ -11,6 +11,9 @@ local TelescopePrompt = {
 	TelescopeBorder = {
 		fg = "#88C0D0",
 	},
+	TelescopeTitle = {
+		fg = "#ECEFF4",
+	},
 	TelescopePreviewBorder = {
 		fg = "#88C0D0"
 	},
@@ -26,12 +29,12 @@ local TelescopePrompt = {
 	TelescopeSelectionBorder = {
 		fg = "#88C0D0"
 	},
-	NeoTreeFloatTitle = {
-		fg = "#88C0D0"
-	},
 	NeoTreeFloatBorder = {
 		fg = "#88C0D0"
 	},
+	NeoTreeDirectoryIcon = {
+		fg = "#8FBCBB"
+	}
 }
 
 for hl, col in pairs(TelescopePrompt) do
