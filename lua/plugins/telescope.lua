@@ -19,10 +19,13 @@ return {
 		require('telescope').load_extension('git_worktree')
 	end,
 	opts = {
+		pickers = {
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+		},
 		extensions = {
 			project = {
 				base_dirs = {
-					'~/code',
+					'~/hdd/workspaces/',
 				},
 				hidden_files = false, -- default: false
 				theme = "dropdown",
