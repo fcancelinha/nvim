@@ -9,27 +9,14 @@ return {
 		"nvim-telescope/telescope-symbols.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
-			build =  'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+			build =
+			'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
 		},
 	},
 	config = function()
 		-- Extensions
 		require('telescope').load_extension('projects')
 		require('telescope').load_extension('git_worktree')
-
-
-		local TelescopePrompt = {
-			TelescopeBorder = {
-				fg = "#88C0D0",
-			},
-			TelescopePreviewBorder ={
-				fg = "#8FBCBB"
-			},
-		}
-
-		for hl, col in pairs(TelescopePrompt) do
-			vim.api.nvim_set_hl(0, hl, col)
-		end
 	end,
 	opts = {
 		extensions = {

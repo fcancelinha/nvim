@@ -51,8 +51,8 @@ keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 -- BufferLine
 
 -- Move to previous/next
-keymap('n', '<A-j>', ':bprevious<CR>', opts)
-keymap('n', '<A-k>', ':bnext<CR>', opts)
+keymap('n', '<A-j>', ':bnext<CR>', opts)
+keymap('n', '<A-k>', ':bprevious<CR>', opts)
 -- Re-order to previous/next
 keymap('n', '<A-<>', '<Cmd>BufferLineMovePrevious<CR>', opts)
 keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)
@@ -69,7 +69,7 @@ keymap('n', '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
 -- Close buffers
 keymap('n', '<A-»>', '<Cmd>BufferLineCloseRight<CR>', opts)
 keymap('n', '<A-«>', '<Cmd>BufferLineCloseLeft<CR>', opts)
-keymap('n', '<C-w>b', ':bdelete<CR>', opts)
+keymap('n', '<C-w>b', ':bwipeout<CR>', opts)
 
 -- Neotree
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
