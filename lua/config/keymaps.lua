@@ -92,8 +92,6 @@ keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
 keymap("n", "<leader>ft", ":Telescope lsp_implementations<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope lsp_incoming_calls<CR>", opts)
 keymap("n", "<leader>fu", ":Telescope lsp_outgoing_calls<CR>", opts)
-
--- Telescope Trees
 keymap("n", "<leader>fw", ":Telescope git_worktrees git_worktrees<CR>", opts)
 
 -- LazyGit
@@ -130,11 +128,12 @@ keymap({ "i", "s" }, "<C-E>", function()
 end, { silent = true })
 
 -- LSP
+
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-keymap('n', '<space>e', vim.diagnostic.open_float)
-keymap('n', '[d', vim.diagnostic.goto_prev)
-keymap('n', ']d', vim.diagnostic.goto_next)
-keymap('n', '<space>q', vim.diagnostic.setloclist)
+keymap('n', '[d', vim.diagnostic.goto_prev, opts)
+keymap('n', ']d', vim.diagnostic.goto_next, opts)
+keymap('n', 'gl', vim.diagnostic.open_float, opts)
+keymap('n', 'gq', vim.diagnostic.setloclist, opts)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -149,19 +148,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		local opts = { buffer = ev.buf }
 		keymap('n', 'gD', vim.lsp.buf.declaration, opts)
 		keymap('n', 'gd', vim.lsp.buf.definition, opts)
-		keymap('n', 'K', vim.lsp.buf.hover, opts)
 		keymap('n', 'gi', vim.lsp.buf.implementation, opts)
-		keymap('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-		keymap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-		keymap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-		keymap('n', '<space>wl', function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, opts)
-		keymap('n', '<space>D', vim.lsp.buf.type_definition, opts)
-		keymap('n', '<space>rn', vim.lsp.buf.rename, opts)
-		keymap({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+		keymap('n', 'go', vim.lsp.buf.type_definition, opts)
 		keymap('n', 'gr', vim.lsp.buf.references, opts)
-		keymap('n', '<space>f', function()
+		keymap('n', 'gs', vim.lsp.buf.signature_help, opts)
+		keymap('n', 'K', vim.lsp.buf.hover, opts)
+		keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+		keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+		keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+		keymap('n', '<leader>rn', vim.lsp.buf.rename, opts)
+		keymap({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+		keymap('n', '<leader>f', function()
 			vim.lsp.buf.format { async = true }
 		end, opts)
 	end,
