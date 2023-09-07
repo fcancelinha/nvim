@@ -16,6 +16,14 @@ local opts = { silent = true }
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 
+-- Visual --
+-- Stay in indent mode
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+-- Better paste
+keymap("v", "p", '"_dP', opts)
+
 -- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -29,31 +37,22 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 keymap("v", "<A-j>", ":m '>+1<CR>gv-gv", opts)
 keymap("v", "<A-k>", ":m '<-2<CR>gv-gv", opts)
 
--- Close windows
-keymap("n", "<leader>q", ":q<CR>", opts)
-
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
-
--- Better paste
-keymap("v", "p", '"_dP', opts)
 
 -- Close Quickfix-List
 keymap("n", "]q", ":cnext<CR>", opts)
 keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
--- Visual --
--- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
 
 -- [ Plugins ] --
 
 -- BufferLine
+
 -- Move to previous/next
-keymap('n', '<A-j>', '<Cmd>BufferLineCyclePrev<CR>', opts)
-keymap('n', '<A-k>', '<Cmd>BufferLineCycleNext<CR>', opts)
+keymap('n', '<A-j>', ':bprevious<CR>', opts)
+keymap('n', '<A-k>', ':bnext<CR>', opts)
 -- Re-order to previous/next
 keymap('n', '<A-<>', '<Cmd>BufferLineMovePrevious<CR>', opts)
 keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)
@@ -70,7 +69,7 @@ keymap('n', '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
 -- Close buffers
 keymap('n', '<A-»>', '<Cmd>BufferLineCloseRight<CR>', opts)
 keymap('n', '<A-«>', '<Cmd>BufferLineCloseLeft<CR>', opts)
-keymap('n', '<A-º>', '<Cmd>BufferLineCloseOthers<CR>', opts)
+keymap('n', '<C-w>b', ':bdelete<CR>', opts)
 
 -- Neotree
 keymap("n", "\\", ":Neotree toggle<CR>", opts)

@@ -137,6 +137,7 @@ return {
 					"TelescopePrompt",
 					"neo-tree",
 					"neo-tree-popup",
+					"lazygit"
 				},
 			},
 			sections = process_sections {

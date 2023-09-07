@@ -42,6 +42,18 @@ return {
 			},
 		}
 
+		lspconfig.golangci_lint_ls.setup {
+			capabilities = capabilities,
+			handlers = handlers,
+			cmd = { 'golangci-lint-langserver' },
+			filetypes = { "go", "gomod" },
+			init_options = {
+				command = { "golangci-lint", "run", "--out-format", "json" }
+			},
+			root_dir = util.root_pattern('.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work',
+				'go.mod', '.git')
+		}
+
 		lspconfig.tsserver.setup {
 			capabilities = capabilities
 		}
