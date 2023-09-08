@@ -51,8 +51,8 @@ keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 -- BufferLine
 
 -- Move to previous/next
-keymap('n', '<A-j>', ':bnext<CR>', opts)
-keymap('n', '<A-k>', ':bprevious<CR>', opts)
+keymap('n', '<A-j>', '<Cmd>BufferLineCyclePrev<CR>', opts)
+keymap('n', '<A-k>', '<Cmd>BufferLineCycleNext<CR>', opts)
 -- Re-order to previous/next
 keymap('n', '<A-<>', '<Cmd>BufferLineMovePrevious<CR>', opts)
 keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)

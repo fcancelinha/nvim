@@ -9,6 +9,8 @@ return {
 	opts = {
 		close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
 		popup_border_style = "single",
+		hide_root_node = true,
+		retain_hidden_root_indent = true,
 		enable_git_status = true,
 		enable_diagnostics = true,
 		enable_normal_mode_for_inputs = false,                       -- Enable normal mode for input dialogs.
@@ -47,7 +49,7 @@ return {
 				highlight = "NeoTreeModified",
 			},
 			name = {
-				trailing_slash = true,
+				trailing_slash = false,
 				use_git_status_colors = true,
 				highlight = "NeoTreeFileName",
 			},
@@ -64,7 +66,8 @@ return {
 					unstaged  = "󰄱",
 					staged    = "",
 					conflict  = "",
-				}
+				},
+				align = "right"
 			},
 			diagnostics = {
 				symbols = {
@@ -195,7 +198,7 @@ return {
 			-- "open_current",  -- netrw disabled, opening a directory opens within the
 			-- window like netrw would, regardless of window.position
 			-- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-			use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
+			use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
 			-- instead of relying on nvim autocmd events.
 			window = {
 				mappings = {

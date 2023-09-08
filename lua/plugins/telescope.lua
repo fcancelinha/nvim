@@ -7,6 +7,7 @@ return {
 		"nvim-telescope/telescope-fzf-native.nvim",
 		"ahmedkhalf/project.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
+		"ThePrimeagen/git-worktree.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build =

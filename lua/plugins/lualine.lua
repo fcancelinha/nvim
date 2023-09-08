@@ -1,8 +1,5 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons"
-	},
 	config = function()
 		local colors = {
 			dark           = '#2E3440',
@@ -148,17 +145,17 @@ return {
 				},
 				lualine_b = {
 					{
-						'branch',
-						color = { bg = colors.greydark, fg = colors.snowlight }
-					}
-				},
-				lualine_c = {
-					{
 						'filename',
 						file_status = false,
 						path = 4,
 						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
+					{
+						'branch',
+						color = { bg = colors.greydark, fg = colors.frostgreen },
+					}
+				},
+				lualine_c = {
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
@@ -206,7 +203,7 @@ return {
 				lualine_x = {
 					{
 						lsp_server,
-						color = { bg = colors.red, fg = colors.snowlight }
+						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 				},
 				lualine_y = {
