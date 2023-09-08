@@ -7,7 +7,23 @@ return {
 		autoscroll = true,
 		direction = 'float',
 		float_opts = {
-			border = 'single'
-		}
+			border = 'single',
+			width = 100,
+			height = 40,
+		},
+		highlights = {
+			-- highlights which map to a highlight group name and a table of it's values
+			-- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
+			Normal = {
+				guibg = "#2E3440",
+			},
+			NormalFloat = {
+				link = 'Normal'
+			},
+			FloatBorder = {
+				guifg = "#88C0D0",
+				guibg = "#2E3440",
+			},
+		},
 	}
 }

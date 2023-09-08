@@ -75,9 +75,9 @@ keymap('n', '<C-w>b', ':bwipeout<CR>', opts)
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
+keymap("n", "<leader>ff", ":Telescope find_files theme=dropdown previewer=false width=0.8<CR>", opts)
 keymap("n", "<leader>fd", ":Telescope diagnostics<CR>", opts)
-keymap("n", "<leader>fp", ":Telescope projects theme=dropdown<CR>", opts)
+keymap("n", "<leader>fp", ":Telescope projects theme=dropdown width=0.8<CR>", opts)
 keymap("n", "<leader>fg", ":Telescope git_files<CR>", opts)
 keymap("n", "<leader>fc", ":Telescope git_commits theme=dropdown<CR>", opts)
 keymap("n", "<leader>fh", ":Telescope marks theme=dropdown<CR>", opts)
@@ -163,3 +163,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end, opts)
 	end,
 })
+
+-- Terminal
+
+keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)

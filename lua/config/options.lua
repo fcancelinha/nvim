@@ -1,3 +1,6 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 --:help options
 local options = {
 	autoindent     = true,
@@ -56,12 +59,9 @@ local options = {
 	writebackup    = false,
 }
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 vim.opt.matchpairs:append "{:},<:>,':',\":\""
 vim.opt.shortmess:append 'c'
 vim.opt.whichwrap:append '<,>,[,],h,l'
-vim.scriptencoding = 'utf-8'
 
 for k, v in pairs(options) do
 	vim.opt[k] = v

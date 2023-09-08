@@ -6,6 +6,12 @@ return {
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local util = require('lspconfig/util')
 
+		vim.diagnostic.config({
+			signs = true,
+			underline = true,
+			update_in_insert = true,
+		})
+
 		local border = {
 			{ "🭽", "FloatBorder" },
 			{ "▔", "FloatBorder" },

@@ -37,12 +37,12 @@ return {
 				z = { bg = colors.green, fg = colors.dark, },
 			},
 			visual = {
-				a = { bg = colors.frostblue, fg = colors.dark, gui = 'bold' },
+				a = { bg = colors.frostgreen, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = { bg = colors.frostblue, fg = colors.dark, },
+				z = { bg = colors.frostgreen, fg = colors.dark, },
 			},
 			replace = {
 				a = { bg = colors.red, fg = colors.dark, gui = 'bold' },
@@ -53,12 +53,12 @@ return {
 				z = { bg = colors.red, fg = colors.dark, },
 			},
 			command = {
-				a = { bg = colors.frostgreen, fg = colors.dark, gui = 'bold' },
+				a = { bg = colors.yellow, fg = colors.dark, gui = 'bold' },
 				b = {},
 				c = {},
 				x = {},
 				y = {},
-				z = { bg = colors.frostgreen, fg = colors.dark, },
+				z = { bg = colors.yellow, fg = colors.dark, },
 			},
 			inactive = {
 				a = { bg = colors.dark, fg = colors.dark, },
@@ -90,7 +90,7 @@ return {
 			for _, client in ipairs(clients) do
 				local filetypes = client.config.filetypes
 				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-					return '[' .. client.name .. ']'
+					return client.name
 				end
 			end
 			return msg
@@ -126,6 +126,7 @@ return {
 		require('lualine').setup {
 			options = {
 				globalstatus = true,
+				icons_enabled = true,
 				theme = custom_nord,
 				component_separators = '',
 				section_separators = { left = '', right = '' },
@@ -146,13 +147,15 @@ return {
 				lualine_b = {
 					{
 						'filename',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						file_status = false,
 						path = 4,
 						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 					{
 						'branch',
-						color = { bg = colors.greydark, fg = colors.frostgreen },
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.greydark, fg = colors.snowlight },
 					}
 				},
 				lualine_c = {
@@ -172,7 +175,7 @@ return {
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.snowlight } },
+						diagnostics_color = { hint = { bg = colors.frostlightblue, fg = colors.snowlight } },
 					},
 					{
 						'%w',
@@ -203,6 +206,7 @@ return {
 				lualine_x = {
 					{
 						lsp_server,
+						icon = { '  ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 				},
@@ -215,16 +219,18 @@ return {
 					{
 						'filetype',
 						color = { bg = colors.greydark, fg = colors.snowlight },
-						icon = { align = 'right' },
+						icon = { align = 'left' },
 					},
 				},
 				lualine_z = {
 					{
 						"searchcount",
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 					{
-						"selectioncount"
+						"selectioncount",
+						icon = { '󰒅 ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 					},
 					{
 						"location",
