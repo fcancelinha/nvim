@@ -205,8 +205,12 @@ return {
 				},
 				lualine_x = {
 					{
+						"diff",
+						colored = true
+					},
+					{
 						lsp_server,
-						icon = { '  ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						icon = { '󰒋  ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 				},
