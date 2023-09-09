@@ -9,19 +9,8 @@ return {
 		require('noice').setup({
 			cmdline = {
 				enabled = true, -- enables the Noice cmdline UI
-				view = "mini", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-				opts = {
-					align = "left",
-					reverse = true,
-					position = {
-						col = 1,
-					},
-					timeout = 500,
-					size = {
-						width = "100%",
-						height = "auto",
-					}
-				}, -- global options for the cmdline. See section on views
+				view = "cmdline", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+				opts = {}, -- global options for the cmdline. See section on views
 				---@type table<string, CmdlineFormat>
 				format = {
 					-- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
@@ -207,7 +196,20 @@ return {
 			},
 			throttle = 1000 / 30,  -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
 			---@type NoiceConfigViews
-			views = {}, ---@see section on views
+			views = {
+				cmdline = {
+					position = {
+						row = -1,
+					},
+					size = {
+						width = "100%",
+						height = "auto",
+					},
+					border = {
+						margin = { 5, 5 }
+					}
+				}
+			}, ---@see section on views
 			---@type NoiceRouteConfig[]
 			routes = {}, --- @see section on routes
 			---@type table<string, NoiceFilter>
