@@ -12,7 +12,7 @@ return {
 			diagnostics = "nvim_lsp",
 			color_icons = true,
 			show_buffer_icons = true,
-			always_show_bufferline = true,
+			always_show_bufferline = false,
 			tab_size = 20,
 			hover = {
 				enabled = true,

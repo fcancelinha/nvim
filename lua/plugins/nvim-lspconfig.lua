@@ -6,33 +6,25 @@ return {
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local util = require('lspconfig/util')
 
+		-- Autoformat while attempting to use the registered LSP for that particular file
+		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+
 		vim.diagnostic.config({
 			signs = true,
 			underline = true,
 			update_in_insert = true,
 		})
 
-		local border = {
-			{ "🭽", "FloatBorder" },
-			{ "▔", "FloatBorder" },
-			{ "🭾", "FloatBorder" },
-			{ "▕", "FloatBorder" },
-			{ "🭿", "FloatBorder" },
-			{ "▁", "FloatBorder" },
-			{ "🭼", "FloatBorder" },
-			{ "▏", "FloatBorder" },
-		}
+		-- Change diagnostic signs.
+		vim.fn.sign_define("DiagnosticSignError", { text = ' ', texthl = "DiagnosticSignError" })
+		vim.fn.sign_define("DiagnosticSignWarn", { text = ' ', texthl = "DiagnosticSignWarn" })
+		vim.fn.sign_define("DiagnosticSignInfo", { text = ' ', texthl = "DiagnosticSignInfo" })
+		vim.fn.sign_define("DiagnosticSignHint", { text = '󰌵', texthl = "DiagnosticSignHint" })
 
-		-- LSP settings (for overriding per client)
-		local handlers = {
-			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-		}
 
 		-- Setup Servers
 		lspconfig.gopls.setup {
 			capabilities = capabilities,
-			handlers = handlers,
 			cmd = { "gopls" },
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
 			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -49,7 +41,6 @@ return {
 
 		lspconfig.golangci_lint_ls.setup {
 			capabilities = capabilities,
-			handlers = handlers,
 			cmd = { 'golangci-lint-langserver' },
 			filetypes = { "go", "gomod" },
 			init_options = {
@@ -69,7 +60,6 @@ return {
 
 		lspconfig.lua_ls.setup {
 			capabilities = capabilities,
-			handlers = handlers,
 			settings = {
 				Lua = {
 					diagnostics = {
@@ -113,23 +103,5 @@ return {
 		lspconfig.vimls.setup {
 			capabilities = capabilities
 		}
-
-		-- Run lua lsp format on save
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = "*.lua",
-			callback = function()
-				vim.lsp.buf.format()
-			end,
-		})
-
-		-- Run gofmt + goimport on save
-		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = "*.go",
-			callback = function()
-				require('go.format').goimport()
-			end,
-			group = format_sync_grp,
-		})
 	end
 }

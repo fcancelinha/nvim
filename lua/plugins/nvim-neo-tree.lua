@@ -113,7 +113,7 @@ return {
 				size = { height = "40", width = "75" },
 				position = "50%", -- 50% means center it
 			},
-			width = 5,
+			width = 2,
 			mapping_options = {
 				noremap = true,
 				nowait = true,
