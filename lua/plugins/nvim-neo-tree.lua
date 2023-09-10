@@ -23,7 +23,7 @@ return {
 			},
 			indent = {
 				indent_size = 4,
-				padding = 2, -- extra padding on left hand side
+				padding = 0, -- extra padding on left hand side
 				-- indent guides
 				with_markers = true,
 				indent_marker = "│",

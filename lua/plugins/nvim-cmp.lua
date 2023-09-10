@@ -19,40 +19,40 @@ return {
 			"onsails/lspkind.nvim",
 		},
 		config = function()
-			local cmp        = require 'cmp'
-
-			local kind_icons = {
-				Text = "",
-				Method = "󰆧",
-				Function = "󰊕",
-				Constructor = "",
-				Field = "󰇽",
-				Variable = "󰂡",
-				Class = "󰠱",
-				Interface = "",
-				Module = "",
-				Property = "󰜢",
-				Unit = "",
-				Value = "󰎠",
-				Enum = "",
-				Keyword = "󰌋",
-				Snippet = "",
-				Color = "󰏘",
-				File = "󰈙",
-				Reference = "",
-				Folder = "󰉋",
-				EnumMember = "",
-				Constant = "󰏿",
-				Struct = "",
-				Event = "",
-				Operator = "󰆕",
-				TypeParameter = "󰅲",
-			}
+			local cmp = require('cmp')
 
 			cmp.setup({
 				formatting = {
 					fields = { "kind", "menu", "abbr" },
 					format = function(entry, vim_item)
+						local kind_icons = {
+							Text = "",
+							Method = "󰆧",
+							Function = "󰊕",
+							Constructor = "",
+							Field = "󰇽",
+							Variable = "󰂡",
+							Class = "󰠱",
+							Interface = "",
+							Module = "",
+							Property = "󰜢",
+							Unit = "",
+							Value = "󰎠",
+							Enum = "",
+							Keyword = "󰌋",
+							Snippet = "",
+							Color = "󰏘",
+							File = "󰈙",
+							Reference = "",
+							Folder = "󰉋",
+							EnumMember = "",
+							Constant = "󰏿",
+							Struct = "",
+							Event = "",
+							Operator = "󰆕",
+							TypeParameter = "󰅲",
+						}
+
 						-- Kind icons
 						vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kinde
 						-- Source
@@ -78,9 +78,11 @@ return {
 				window = {
 					completion = cmp.config.window.bordered({
 						winhighlight = "Normal:Normal,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+						border = "single",
 					}),
 					documentation = cmp.config.window.bordered({
 						winhighlight = "Normal:Normal,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+						border = "single",
 					}),
 				},
 				mapping = cmp.mapping.preset.insert({
@@ -88,11 +90,9 @@ return {
 					['<C-k>'] = cmp.mapping.select_prev_item(),
 					['<C-b>'] = cmp.mapping.scroll_docs(-4),
 					['<C-f>'] = cmp.mapping.scroll_docs(4),
-					['<cr-space>'] = cmp.mapping.complete(),
-					['<C-e>'] = cmp.mapping.abort(),
-					['<CR>'] = cmp.mapping.confirm({
-						select = false,
-						behavior = cmp.ConfirmBehavior.Replace,
+					['<Tab>'] = cmp.mapping.confirm({
+						select = true,
+						behavior = cmp.ConfirmBehavior.Insert,
 					}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources({

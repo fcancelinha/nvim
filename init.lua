@@ -7,4 +7,5 @@ vim.cmd [[
 	colorscheme nord
 ]]
 
-require('config.highlights')
+-- require('config.highlights')
+require('northern')

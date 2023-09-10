@@ -6,6 +6,7 @@ local nord_grey        = "#D8DEE9"
 local nord_light_green = "#8FBCBB"
 local nord_light_blue  = "#88C0D0"
 local nord_light_cyan  = "#81A1C1"
+local nord_greydark    = "#3B4252"
 
 --CmpItemKindSnippet = { fg = C.base, bg = C.mauve },
 --CmpItemKindKeyword = { fg = C.base, bg = C.red },
@@ -54,7 +55,28 @@ vim.api.nvim_set_hl(0, 'CmpItemKindEnum', { bg = 'NONE', fg = nord_purple })
 vim.api.nvim_set_hl(0, 'CmpItemKindModule', { bg = 'NONE', fg = nord_green })
 vim.api.nvim_set_hl(0, 'CmpItemKindField', { bg = 'NONE', fg = nord_light_cyan })
 vim.api.nvim_set_hl(0, 'CmpItemKindField', { bg = 'NONE', fg = nord_light_cyan })
-vim.api.nvim_set_hl(0, 'CmpPmenuBorder', { bg = 'NONE', fg = nord_light_blue })
+vim.api.nvim_set_hl(0, 'CmpPmenuBorder', { bg = 'NONE', fg = nord_greydark })
+
+-- illuminate
+
+-- change the highlight style
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#4C566A" })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = "#4C566A" })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#4C566A" })
+vim.api.nvim_set_hl(0, "Visual", { bg = "#3B4252", blend = 10, italic = true })
+vim.api.nvim_set_hl(0, "VisualNOS", { bg = "#3B4252" })
+
+--- auto update the highlight style on colorscheme change
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+	pattern = { "*" },
+	callback = function()
+		vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = "#4C566A" })
+		vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = "#4C566A" })
+		vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = "#4C566A" })
+		vim.api.nvim_set_hl(0, "Visual", { bg = "#3B4252", blend = 10, italic = true })
+		vim.api.nvim_set_hl(0, "VisualNOS", { bg = "#3B4252" })
+	end
+})
 
 
 local TelescopePrompt = {

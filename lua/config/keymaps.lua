@@ -31,6 +31,10 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+keymap("i", "<Up>", "<C-k>", opts)
+keymap("i", "<Down>", "<C-j>", opts)
+
+
 -- Moving current lines
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
@@ -44,6 +48,7 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 keymap("n", "]q", ":cnext<CR>", opts)
 keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
+
 
 
 -- [ Plugins ] --
@@ -116,19 +121,8 @@ keymap("n", "<leader>xq", function() require("trouble").open("quickfix") end)
 keymap("n", "<leader>xl", function() require("trouble").open("loclist") end)
 keymap("n", "gR", function() require("trouble").open("lsp_references") end)
 
--- Snippets
-keymap({ "i" }, "<C-K>", function() ls.expand() end, { silent = true })
-keymap({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
-keymap({ "i", "s" }, "<C-J>", function() ls.jump(-1) end, { silent = true })
-
-keymap({ "i", "s" }, "<C-E>", function()
-	if ls.choice_active() then
-		ls.change_choice(1)
-	end
-end, { silent = true })
 
 -- LSP
-
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
