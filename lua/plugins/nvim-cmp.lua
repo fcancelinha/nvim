@@ -21,7 +21,11 @@ return {
 		config = function()
 			local cmp = require('cmp')
 
+
 			cmp.setup({
+				completion = {
+					completeopt = 'menu,menuone,noinsert',
+				},
 				formatting = {
 					fields = { "kind", "menu", "abbr" },
 					format = function(entry, vim_item)
@@ -88,21 +92,23 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					['<C-j>'] = cmp.mapping.select_next_item(),
 					['<C-k>'] = cmp.mapping.select_prev_item(),
-					['<C-b>'] = cmp.mapping.scroll_docs(-4),
-					['<C-f>'] = cmp.mapping.scroll_docs(4),
+					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+					["<C-e>"] = cmp.mapping.close(),
+					["<C-y>"] = cmp.mapping.confirm {
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					},
 					['<Tab>'] = cmp.mapping.confirm({
 						select = true,
 						behavior = cmp.ConfirmBehavior.Insert,
 					}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources({
-					{ name = 'nvim_lsp' },
-					-- { name = 'vsnip' }, -- For vsnip users.
+					{ name = 'nvim_lsp', max_item_count = 10 },
+					{ name = 'nvim_lua', max_item_count = 10 },
+					-- { name = 'treesitter', max_item_count = 10 },
 					{ name = 'luasnip' }, -- For luasnip users.
-					-- { name = 'ultisnips' }, -- For ultisnips users.
-					-- { name = 'snippy' }, -- For snippy users.
-					{ name = 'nvim_lsp_document_symbol' },
-					{ name = 'nvim_lsp_signature_help' },
 					{ name = 'path' }
 				}, {
 					{ name = 'buffer' },
@@ -141,6 +147,15 @@ return {
 					{ name = 'cmdline' }
 				})
 			})
+
+			-- Database completion
+			vim.api.nvim_exec(
+				[[
+				" autocmd! FileType sql setlocal omnifunc=vim_dadbod_completion#omni
+				autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+				]],
+				false
+			)
 		end
 	},
 }
