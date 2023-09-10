@@ -34,7 +34,6 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("i", "<Up>", "<C-k>", opts)
 keymap("i", "<Down>", "<C-j>", opts)
 
-
 -- Moving current lines
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
@@ -50,11 +49,9 @@ keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
 
-
 -- [ Plugins ] --
 
 -- BufferLine
-
 -- Move to previous/next
 keymap('n', '<A-j>', '<Cmd>BufferLineCyclePrev<CR>', opts)
 keymap('n', '<A-k>', '<Cmd>BufferLineCycleNext<CR>', opts)
@@ -157,13 +154,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end, opts)
 	end,
 })
-
--- Terminal
-
-keymap('t', '<esc>', [[<C-\><C-n>]], opts)
-keymap('t', 'jk', [[<C-\><C-n>]], opts)
-keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
