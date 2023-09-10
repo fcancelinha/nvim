@@ -120,6 +120,9 @@ return {
 
 			-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 			cmp.setup.cmdline({ '/', '?' }, {
+				formatting = {
+					fields = { 'abbr' },
+				},
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
 					{ name = 'buffer' }
