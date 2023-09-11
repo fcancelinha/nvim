@@ -84,8 +84,8 @@ return {
 				}),
 			},
 			mapping = cmp.mapping.preset.insert({
-				['<C-j>'] = cmp.mapping.select_next_item(),
-				['<C-k>'] = cmp.mapping.select_prev_item(),
+				['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+				['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 				["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 				["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 				["<C-e>"] = cmp.mapping.close(),
@@ -124,10 +124,13 @@ return {
 
 		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline(':', {
+			completion = {
+				completeopt = ''
+			},
 			formatting = {
 				fields = { 'abbr' },
 			},
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = cmp.mapping.preset.insert(),
 			sources = cmp.config.sources({
 				{ name = 'path' }
 			}, {

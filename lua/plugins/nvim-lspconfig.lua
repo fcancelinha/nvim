@@ -5,13 +5,14 @@ return {
 		local lspconfig = require('lspconfig')
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local util = require('lspconfig/util')
+		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		-- Autoformat while attempting to use the registered LSP for that particular file
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 		vim.diagnostic.config({
 			signs = true,
-			underline = true,
+			underline = false,
 			update_in_insert = true,
 		})
 
@@ -21,6 +22,20 @@ return {
 		vim.fn.sign_define("DiagnosticSignInfo", { text = ' ', texthl = "DiagnosticSignInfo" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = '󰌵', texthl = "DiagnosticSignHint" })
 
+		vim.api.nvim_create_autocmd("CursorHold", {
+			buffer = bufnr,
+			callback = function()
+				local opts = {
+					focusable = false,
+					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+					border = 'single',
+					source = 'always',
+					prefix = ' ',
+					scope = 'cursor',
+				}
+				vim.diagnostic.open_float(nil, opts)
+			end
+		})
 
 		-- Setup Servers
 		lspconfig.gopls.setup {
