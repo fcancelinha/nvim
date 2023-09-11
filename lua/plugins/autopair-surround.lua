@@ -3,7 +3,7 @@ return {
 		"windwp/nvim-autopairs",
 		opts = {
 			check_ts = true, -- treesitter integration
-			disable_filetype = { "TelescopePrompt" },
+			disable_filetype = { "TelescopePrompt", "vim" },
 		},
 	},
 	{

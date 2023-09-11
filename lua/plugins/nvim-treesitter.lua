@@ -21,7 +21,6 @@ return {
 				"markdown",
 				"markdown_inline",
 				"regex",
-				"scss",
 				"typescript",
 				"yaml",
 			},
@@ -51,9 +50,10 @@ return {
 				enable = enable,
 				lsp_interop = {
 					enable = enable,
+					border = 'single',
 					peek_definition_code = {
-						["DF"] = "@function.outer",
-						["DF"] = "@class.outer"
+						["gnf"] = "@function.outer",
+						["gnc"] = "@class.outer"
 					},
 				},
 				keymaps = {
@@ -124,7 +124,7 @@ return {
 					swap_previous = {
 						["<leader>A"] = "@parameter.inner"
 					}
-				}
+				},
 			}
 		})
 	end,
