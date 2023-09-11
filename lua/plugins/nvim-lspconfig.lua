@@ -114,9 +114,5 @@ return {
 		lspconfig.bashls.setup {
 			capabilities = capabilities
 		}
-
-		lspconfig.vimls.setup {
-			capabilities = capabilities
-		}
 	end
 }
