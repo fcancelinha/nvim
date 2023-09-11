@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = '0.1.1',
+	tag = '0.1.2',
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
@@ -18,26 +18,28 @@ return {
 		-- Extensions
 		require('telescope').load_extension('projects')
 		require('telescope').load_extension('git_worktree')
-	end,
-	opts = {
-		defaults = {
-			sorting_strategy = 'ascending',
-			prompt_prefix = ' ',
-			selection_caret = '» ',
-		},
-		pickers = {
-			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-		},
-		extensions = {
-			project = {
-				base_dirs = {
-					'~/hdd/workspaces/',
-				},
-				hidden_files = false, -- default: false
-				theme = "dropdown",
-				order_by = "asc",
-				search_by = "title",
+
+		-- Setup
+		require('telescope').setup({
+			defaults = {
+				sorting_strategy = 'ascending',
+				prompt_prefix = ' ',
+				selection_caret = '» ',
+			},
+			pickers = {
+				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+			},
+			extensions = {
+				project = {
+					base_dirs = {
+						'~/hdd/workspaces/',
+					},
+					hidden_files = false, -- default: false
+					theme = "dropdown",
+					order_by = "asc",
+					search_by = "title",
+				}
 			}
-		}
-	}
+		})
+	end,
 }
