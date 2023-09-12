@@ -160,7 +160,12 @@ return {
 			formatting = {
 				fields = { 'abbr' },
 			},
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = cmp.mapping.preset.cmdline({
+				["<C-y>"] = cmp.mapping.confirm({
+					behavior = cmp.ConfirmBehavior.Insert,
+					select = true,
+				}),
+			}),
 			sources = cmp.config.sources({
 				{ name = 'path' }
 			}, {
