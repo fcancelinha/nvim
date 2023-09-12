@@ -1,3 +1,4 @@
 lua/config/dbconns.lua
 lazy-lock.json
 lazy.nvim
+lua/northern
