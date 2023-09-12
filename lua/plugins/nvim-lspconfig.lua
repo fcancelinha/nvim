@@ -5,7 +5,6 @@ return {
 		local lspconfig = require('lspconfig')
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local util = require('lspconfig/util')
-		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		-- Autoformat while attempting to use the registered LSP for that particular file
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
@@ -15,6 +14,8 @@ return {
 			underline = false,
 			update_in_insert = true,
 		})
+
+		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		-- Change diagnostic signs.
 		vim.fn.sign_define("DiagnosticSignError", { text = ' ', texthl = "DiagnosticSignError" })
