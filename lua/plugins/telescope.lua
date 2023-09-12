@@ -2,19 +2,16 @@ return {
 	"nvim-telescope/telescope.nvim",
 	tag = '0.1.2',
 	dependencies = {
+		"ThePrimeagen/git-worktree.nvim",
+		"ahmedkhalf/project.nvim",
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
 		"nvim-telescope/telescope-fzf-native.nvim",
-		"ahmedkhalf/project.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
-		"ThePrimeagen/git-worktree.nvim",
-		{
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build =
-			'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
-		},
 	},
 	config = function()
+		local home = os.getenv("HOME")
+
 		-- Extensions
 		require('telescope').load_extension('projects')
 		require('telescope').load_extension('git_worktree')
@@ -25,13 +22,13 @@ return {
 				prompt_prefix = ' ',
 				selection_caret = '» ',
 			},
-			pickers = {
-				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-			},
+			-- pickers = {
+			-- 	find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+			-- },
 			extensions = {
 				project = {
 					base_dirs = {
-						'~/hdd/workspaces/',
+						home .. '/hdd/workspaces/',
 					},
 					hidden_files = false, -- default: false
 					theme = "dropdown",
