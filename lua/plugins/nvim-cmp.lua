@@ -95,11 +95,28 @@ return {
 				}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 			}),
 			sources = cmp.config.sources({
-				{ name = 'nvim_lsp', max_item_count = 10 },
-				{ name = 'nvim_lua', max_item_count = 10 },
+				{
+					name = 'nvim_lsp',
+					max_item_count = 10,
+					entry_filter = function(entry, ctx)
+						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
+					end
+				},
+				{
+					name = 'nvim_lua',
+					max_item_count = 10,
+					entry_filter = function(entry, ctx)
+						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
+					end
+				},
 				{ name = 'luasnip' }, -- For luasnip users.
 				{ name = 'path' },
-				{ name = 'buffer' },
+				{
+					name = 'buffer',
+					entry_filter = function(entry, ctx)
+						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
+					end
+				},
 			})
 		})
 
