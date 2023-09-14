@@ -6,7 +6,6 @@ return {
 		"nvim-tree/nvim-web-devicons"
 	},
 	config = function()
-
 		local header = {
 			type = "text",
 			val = {
@@ -53,10 +52,10 @@ return {
 
 		local heading = {
 			type = "text",
-			val = "TOHA HEAVY INDUSTRIES   ⛬",
+			val = "[NET TERMINAL GENE - OK] ⊣│⊢",
 			opts = {
 				position = "center",
-				hl = "Conditional",
+				hl = "String",
 			}
 		}
 
@@ -99,6 +98,7 @@ return {
 				button("q", " " .. " Quit", ":qa<CR>"),
 			},
 			opts = {
+				position = 'center',
 				spacing = 1,
 				hl = "Identifier"
 			},

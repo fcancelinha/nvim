@@ -200,7 +200,7 @@ return {
 					},
 					{
 						modified,
-						color = { bg = colors.red },
+						color = { bg = colors.green },
 					},
 				},
 				lualine_x = {

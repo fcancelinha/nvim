@@ -6,6 +6,9 @@ return {
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local util = require('lspconfig/util')
 
+		-- Misc Options
+		require('lspconfig.ui.windows').default_options.border = 'single'
+
 		-- Autoformat while attempting to use the registered LSP for that particular file
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
@@ -15,8 +18,6 @@ return {
 			update_in_insert = true,
 		})
 
-		require('lspconfig.ui.windows').default_options.border = 'single'
-
 		-- Change diagnostic signs.
 		vim.fn.sign_define("DiagnosticSignError", { text = ' ', texthl = "DiagnosticSignError" })
 		vim.fn.sign_define("DiagnosticSignWarn", { text = ' ', texthl = "DiagnosticSignWarn" })
@@ -24,7 +25,6 @@ return {
 		vim.fn.sign_define("DiagnosticSignHint", { text = '󰌵', texthl = "DiagnosticSignHint" })
 
 		vim.api.nvim_create_autocmd("CursorHold", {
-			buffer = bufnr,
 			callback = function()
 				local opts = {
 					focusable = false,
@@ -66,14 +66,6 @@ return {
 				'go.mod', '.git')
 		}
 
-		lspconfig.tsserver.setup {
-			capabilities = capabilities
-		}
-
-		lspconfig.jsonls.setup {
-			capabilities = capabilities
-		}
-
 		lspconfig.lua_ls.setup {
 			capabilities = capabilities,
 			settings = {
@@ -100,6 +92,15 @@ return {
 			},
 		}
 
+		lspconfig.tsserver.setup {
+			capabilities = capabilities
+		}
+
+		lspconfig.jsonls.setup {
+			capabilities = capabilities
+		}
+
+
 		lspconfig.html.setup {
 			capabilities = capabilities
 		}
@@ -109,6 +110,10 @@ return {
 		}
 
 		lspconfig.marksman.setup {
+			capabilities = capabilities
+		}
+
+		lspconfig.robotframework_ls.setup {
 			capabilities = capabilities
 		}
 
