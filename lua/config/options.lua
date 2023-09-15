@@ -12,7 +12,7 @@ local options = {
 	binary         = true,
 	breakindent    = true,
 	clipboard      = { 'unnamedplus' },
-	cmdheight      = 1,
+	cmdheight      = 2,
 	completeopt    = { 'menu', 'menuone', 'preview' },
 	conceallevel   = 0,
 	confirm        = true,
@@ -56,7 +56,7 @@ local options = {
 	updatetime     = 100,
 	visualbell     = true,
 	wildmenu       = false,
-	wrap           = true,
+	wrap           = false,
 	writebackup    = false,
 }
 

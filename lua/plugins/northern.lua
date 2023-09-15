@@ -1,0 +1,3 @@
+return {
+	"fcancelinha/northern.nvim",
+}

@@ -145,17 +145,17 @@ return {
 					}
 				},
 				lualine_b = {
-					{
-						'filename',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						file_status = false,
-						path = 4,
-						color = { bg = colors.greydark, fg = colors.snowlight }
-					},
+					-- {
+					-- 	'filename',
+					-- 	icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+					-- 	file_status = false,
+					-- 	path = 4,
+					-- 	color = { bg = colors.greydark, fg = colors.snowlight }
+					-- },
 					{
 						'branch',
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.greydark, fg = colors.snowlight },
+						color = { bg = colors.greydark, fg = colors.yellow },
 					}
 				},
 				lualine_c = {
