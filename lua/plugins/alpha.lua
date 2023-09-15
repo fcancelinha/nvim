@@ -109,7 +109,7 @@ return {
 			val = "Today is" .. date,
 			opts = {
 				position = "center",
-				hl = "Conditional",
+				hl = "Text",
 			}
 		}
 
@@ -124,7 +124,7 @@ return {
 			val = "Authority downloaded " .. plugins .. " entities to base reality",
 			opts = {
 				position = "center",
-				hl = "Conditional",
+				hl = "Function",
 			},
 		}
 

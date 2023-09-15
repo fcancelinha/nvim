@@ -79,17 +79,17 @@ keymap('n', '<C-w>b', ':bwipeout<CR>', opts)
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files theme=dropdown previewer=false width=0.8<CR>", opts)
+keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 keymap("n", "<leader>fd", ":Telescope diagnostics<CR>", opts)
-keymap("n", "<leader>fp", ":Telescope projects theme=dropdown width=0.8<CR>", opts)
-keymap("n", "<leader>fg", ":Telescope git_files hidden=false <CR>", opts)
-keymap("n", "<leader>fc", ":Telescope git_commits theme=dropdown<CR>", opts)
-keymap("n", "<leader>fh", ":Telescope marks theme=dropdown<CR>", opts)
+keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
+keymap("n", "<leader>fg", ":Telescope git_files<CR>", opts)
+keymap("n", "<leader>fc", ":Telescope git_commits<CR>", opts)
+keymap("n", "<leader>fm", ":Telescope marks<CR>", opts)
 keymap("n", "<leader>fk", ":Telescope grep_string<CR>", opts)
 keymap("n", "<leader>fj", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fl", ":Telescope oldfiles<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope git_branches<CR>", opts)
-keymap("n", "<leader>fs", ":Telescope lsp_document_symbols ignore_symbols=variable,field theme=dropdown<CR>", opts)
+keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 
 -- Telescope LSP
 keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)

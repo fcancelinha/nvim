@@ -117,7 +117,7 @@ return {
 			capabilities = capabilities
 		}
 
-		lspconfig.bashls.setup {
+		lspconfig.yamlls.setup {
 			capabilities = capabilities
 		}
 	end
