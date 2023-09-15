@@ -1,6 +1,9 @@
 return {
 	"neovim/nvim-lspconfig",
 	config = function()
+		-- Setup Neodev
+		require("neodev").setup({})
+
 		-- Setup lspconfig	
 		local lspconfig = require('lspconfig')
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -70,6 +73,9 @@ return {
 			capabilities = capabilities,
 			settings = {
 				Lua = {
+					completion = {
+						callSnippet = "Replace",
+					},
 					diagnostics = {
 						globals = {
 							'vim',
