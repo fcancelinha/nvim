@@ -20,8 +20,6 @@ vim.g.mapleader = " "
 -- Stay in indent mode
 keymap("v", ">", "<gv", opts)
 keymap("v", "<", ">gv", opts)
-keymap("n", ">", "<", opts)
-keymap("n", "<", ">", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
