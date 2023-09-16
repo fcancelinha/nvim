@@ -98,22 +98,11 @@ return {
 			},
 		}
 
-		lspconfig.tsserver.setup {
-			capabilities = capabilities
-		}
 
 		lspconfig.jsonls.setup {
 			capabilities = capabilities
 		}
 
-
-		lspconfig.html.setup {
-			capabilities = capabilities
-		}
-
-		lspconfig.cssls.setup {
-			capabilities = capabilities
-		}
 
 		lspconfig.marksman.setup {
 			capabilities = capabilities

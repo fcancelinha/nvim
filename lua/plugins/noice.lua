@@ -33,7 +33,7 @@ return {
 				-- This is a current Neovim limitation.
 				enabled = true,  -- enables the Noice messages UI
 				view = "notify", -- default view for messages
-				view_error = "notify", -- view for errors
+				view_error = "popup", -- view for errors
 				view_warn = "notify", -- view for warnings
 				view_history = "split", -- view for :messages
 				view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
@@ -105,7 +105,7 @@ return {
 			},
 			lsp = {
 				progress = {
-					enabled = true,
+					enabled = false,
 					-- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
 					-- See the section on formatting for more details on how to customize.
 					--- @type NoiceFormat|string

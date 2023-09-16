@@ -4,23 +4,19 @@ return {
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
-				"bash",
-				"css",
 				"gitcommit",
 				"gitignore",
 				"go",
 				"gomod",
 				"gosum",
 				"gowork",
-				"html",
-				"javascript",
 				"json",
+				"json5",
 				"lua",
 				"luadoc",
 				"markdown",
 				"markdown_inline",
 				"regex",
-				"typescript",
 				"yaml",
 			},
 			sync_install = false,
@@ -46,7 +42,8 @@ return {
 			},
 			textobjects = {
 				-- syntax-aware textobjects
-				enable = enable,
+				enable = true,
+				lookahead = true,
 				lsp_interop = {
 					enable = enable,
 					border = 'single',
@@ -107,10 +104,10 @@ return {
 						["ic"] = "@class.inner",
 						-- Or you can define your own textobjects like this
 						["iF"] = {
-							python = "(function_definition) @function",
-							cpp = "(function_definition) @function",
-							c = "(function_definition) @function",
-							java = "(method_declaration) @function",
+							-- python = "(function_definition) @function",
+							-- cpp = "(function_definition) @function",
+							-- c = "(function_definition) @function",
+							-- java = "(method_declaration) @function",
 							go = "(method_declaration) @function"
 						}
 					}
@@ -127,4 +124,5 @@ return {
 			}
 		})
 	end,
+
 }
