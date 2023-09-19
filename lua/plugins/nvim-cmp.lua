@@ -19,41 +19,46 @@ return {
 	config = function()
 		local cmp = require('cmp')
 
+		local kind_icons = {
+			Text = '  ',
+			Method = '  ',
+			Function = '  ',
+			Constructor = '  ',
+			Field = '  ',
+			Variable = '  ',
+			Class = '  ',
+			Interface = '  ',
+			Module = '  ',
+			Property = '  ',
+			Unit = '  ',
+			Value = '  ',
+			Enum = '  ',
+			Keyword = '󰌋',
+			Snippet = '',
+			Color = '  ',
+			File = '󰈙',
+			Reference = '  ',
+			Folder = '  ',
+			EnumMember = '  ',
+			Constant = '󰏿',
+			Struct = '',
+			Event = '  ',
+			Operator = '  ',
+			TypeParameter = '  ',
+		}
+
 		cmp.setup({
+			performance = {
+				trigger_debounce_time = 200,
+				throttle = 200,
+				fetching_timeout = 100,
+			},
 			completion = {
 				completeopt = 'menu,menuone,noinsert,preview'
 			},
 			formatting = {
 				fields = { "kind", "menu", "abbr" },
 				format = function(entry, vim_item)
-					local kind_icons = {
-						Text = '  ',
-						Method = '  ',
-						Function = '  ',
-						Constructor = '  ',
-						Field = '  ',
-						Variable = '  ',
-						Class = '  ',
-						Interface = '  ',
-						Module = '  ',
-						Property = '  ',
-						Unit = '  ',
-						Value = '  ',
-						Enum = '  ',
-						Keyword = '󰌋',
-						Snippet = '',
-						Color = '  ',
-						File = '󰈙',
-						Reference = '  ',
-						Folder = '  ',
-						EnumMember = '  ',
-						Constant = '󰏿',
-						Struct = '',
-						Event = '  ',
-						Operator = '  ',
-						TypeParameter = '  ',
-					}
-
 					-- Kind icons
 					vim_item.kind = string.format('%s', kind_icons[vim_item.kind]) -- This concatonates the icons with the name of the item kinde
 					-- Source
@@ -75,11 +80,11 @@ return {
 			},
 			window = {
 				completion = cmp.config.window.bordered({
-					winhighlight = "Normal:Normal,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					border = "single",
 				}),
 				documentation = cmp.config.window.bordered({
-					winhighlight = "Normal:Normal,FloatBorder:CmpPmenuBorder,CursorLine:PmenuSel,Search:None",
+					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					border = "single",
 				}),
 			},
@@ -173,10 +178,5 @@ return {
 				{ name = 'buffer' }
 			},
 		})
-
-		-- Database completion
-		vim.api.nvim_exec([[" autocmd! FileType sql setlocal omnifunc=vim_dadbod_completion#omni
-		autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
-			]], false)
 	end,
 }

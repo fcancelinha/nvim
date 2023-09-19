@@ -68,7 +68,7 @@ return {
 				shortcut = sc,
 				width = 44,
 				align_shortcut = "right",
-				hl_shortcut = "Conditional",
+				hl_shortcut = "Operator",
 				hl = "Conditonal",
 			}
 			if keybind then
@@ -100,7 +100,6 @@ return {
 			opts = {
 				position = 'center',
 				spacing = 1,
-				hl = "Identifier"
 			},
 		}
 

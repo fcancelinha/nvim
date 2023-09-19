@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	lazy = false,
 	config = function()
 		-- Setup Neodev
 		require("neodev").setup({})

@@ -19,57 +19,6 @@ return {
 			yellow         = '#EBCB8B',
 		}
 
-		local custom_nord = {
-			normal = {
-				a = { bg = colors.frostturquoise, fg = colors.dark, gui = 'bold' },
-				b = {},
-				c = {},
-				x = {},
-				y = {},
-				z = { bg = colors.frostturquoise, fg = colors.dark },
-			},
-			insert = {
-				a = { bg = colors.green, fg = colors.dark, gui = 'bold' },
-				b = {},
-				c = {},
-				x = {},
-				y = {},
-				z = { bg = colors.green, fg = colors.dark, },
-			},
-			visual = {
-				a = { bg = colors.frostgreen, fg = colors.dark, gui = 'bold' },
-				b = {},
-				c = {},
-				x = {},
-				y = {},
-				z = { bg = colors.frostgreen, fg = colors.dark, },
-			},
-			replace = {
-				a = { bg = colors.red, fg = colors.dark, gui = 'bold' },
-				b = {},
-				c = {},
-				x = {},
-				y = {},
-				z = { bg = colors.red, fg = colors.dark, },
-			},
-			command = {
-				a = { bg = colors.yellow, fg = colors.dark, gui = 'bold' },
-				b = {},
-				c = {},
-				x = {},
-				y = {},
-				z = { bg = colors.yellow, fg = colors.dark, },
-			},
-			inactive = {
-				a = { bg = colors.dark, fg = colors.dark, },
-				b = {},
-				c = {},
-				x = {},
-				y = {},
-				z = { bg = colors.dark, fg = colors.dark, },
-			}
-		}
-
 		local empty = require('lualine.component'):extend()
 		function empty:draw(default_highlight)
 			self.status = ''
@@ -145,13 +94,13 @@ return {
 					}
 				},
 				lualine_b = {
-					-- {
-					-- 	'filename',
-					-- 	icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-					-- 	file_status = false,
-					-- 	path = 4,
-					-- 	color = { bg = colors.greydark, fg = colors.snowlight }
-					-- },
+					{
+						'filename',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						file_status = true,
+						path = 4,
+						color = { bg = colors.greydark, fg = colors.snowlight }
+					},
 					{
 						'branch',
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
@@ -163,19 +112,19 @@ return {
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
-						diagnostics_color = { error = { bg = colors.red, fg = colors.snowlight } },
+						diagnostics_color = { error = { bg = colors.greydark, fg = colors.red } },
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'warn' },
-						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.snowlight } },
+						diagnostics_color = { warn = { bg = colors.greydark, fg = colors.yellow } },
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.frostlightblue, fg = colors.snowlight } },
+						diagnostics_color = { hint = { bg = colors.greydark, fg = colors.frostturquoise } },
 					},
 					{
 						'%w',
@@ -200,7 +149,7 @@ return {
 					},
 					{
 						modified,
-						color = { bg = colors.green },
+						color = { bg = colors.red },
 					},
 				},
 				lualine_x = {
