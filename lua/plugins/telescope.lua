@@ -19,8 +19,8 @@ return {
 		-- Setup
 		require('telescope').setup({
 			defaults = {
-				prompt_prefix = ' ',
-				selection_caret = '» ',
+				prompt_prefix = '  ',
+				selection_caret = ' » ',
 			},
 			pickers = {
 				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },

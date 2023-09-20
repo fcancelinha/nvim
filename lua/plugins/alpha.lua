@@ -50,15 +50,6 @@ return {
 
 		local date = os.date(" %A, %b %d")
 
-		local heading = {
-			type = "text",
-			val = "[NET TERMINAL GENE - OK] ⊣│⊢",
-			opts = {
-				position = "center",
-				hl = "String",
-			}
-		}
-
 		local function button(sc, txt, keybind)
 			local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
 
@@ -130,7 +121,6 @@ return {
 
 		local section = {
 			header = header,
-			heading = heading,
 			buttons = buttons,
 			footer = footer,
 			footer_2 = footer_2,
