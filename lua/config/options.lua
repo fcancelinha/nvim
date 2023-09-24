@@ -56,7 +56,7 @@ local options = {
 	updatetime     = 100,
 	visualbell     = true,
 	wildmenu       = false,
-	wrap           = false,
+	wrap           = true,
 	writebackup    = false,
 }
 

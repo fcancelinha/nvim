@@ -48,10 +48,10 @@ keymap("n", "]q", ":cnext<CR>", opts)
 keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
-
 -- [ Plugins ] --
 
 -- BufferLine
+
 -- Move to previous/next
 keymap('n', '<A-j>', '<Cmd>BufferLineCyclePrev<CR>', opts)
 keymap('n', '<A-k>', '<Cmd>BufferLineCycleNext<CR>', opts)
@@ -118,7 +118,6 @@ keymap("n", "<leader>xq", function() require("trouble").open("quickfix") end)
 keymap("n", "<leader>xl", function() require("trouble").open("loclist") end)
 keymap("n", "gR", function() require("trouble").open("lsp_references") end)
 
-
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -133,24 +132,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(ev)
 		-- Enable completion triggered by <c-x><c-o>
 		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		local opts = { buffer = ev.buf }
-		keymap('n', 'gD', vim.lsp.buf.declaration, opts)
-		keymap('n', 'gd', vim.lsp.buf.definition, opts)
-		keymap('n', 'gi', vim.lsp.buf.implementation, opts)
-		keymap('n', 'go', vim.lsp.buf.type_definition, opts)
-		keymap('n', 'gr', vim.lsp.buf.references, opts)
-		keymap('n', 'gs', vim.lsp.buf.signature_help, opts)
-		keymap('n', 'K', vim.lsp.buf.hover, opts)
-		keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-		keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-		keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
-		keymap('n', '<leader>rn', vim.lsp.buf.rename, opts)
-		keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", opts)
+		local lsp_opts = { buffer = ev.buf }
+		keymap('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
+		keymap('n', 'gd', vim.lsp.buf.definition, lsp_opts)
+		keymap('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
+		keymap('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
+		keymap('n', 'gr', vim.lsp.buf.references, lsp_opts)
+		keymap('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
+		keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
+		keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, lsp_opts)
+		keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, lsp_opts)
+		keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
+		keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
+		keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", lsp_opts)
 		keymap('n', '<leader>f', function()
 			vim.lsp.buf.format { async = true }
-		end, opts)
+		end, lsp_opts)
 	end,
 })

@@ -19,6 +19,15 @@ return {
 			yellow         = '#EBCB8B',
 		}
 
+		local custom_northern = require 'lualine.themes.northern'
+
+		custom_northern.normal.c.bg = "#2E3440"
+		custom_northern.insert.c.bg = "#2E3440"
+		custom_northern.visual.c.bg = "#2E3440"
+		custom_northern.replace.c.bg = "#2E3440"
+		custom_northern.command.c.bg = "#2E3440"
+
+
 		local empty = require('lualine.component'):extend()
 		function empty:draw(default_highlight)
 			self.status = ''
@@ -76,7 +85,7 @@ return {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				theme = custom_nord,
+				theme = custom_northern,
 				component_separators = '',
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
@@ -97,9 +106,8 @@ return {
 					{
 						'filename',
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						file_status = true,
+						file_status = false,
 						path = 4,
-						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 					{
 						'branch',
@@ -155,23 +163,20 @@ return {
 				lualine_x = {
 					{
 						"diff",
-						colored = true
+						colored = true,
+						color = { bg = colors.dark },
 					},
 					{
 						lsp_server,
 						icon = { '󰒋  ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 				},
 				lualine_y = {
 					{
 						"encoding",
-						color = { bg = colors.greydark, fg = colors.snowlight }
-
 					},
 					{
 						'filetype',
-						color = { bg = colors.greydark, fg = colors.snowlight },
 						icon = { align = 'left' },
 					},
 				},
@@ -179,7 +184,6 @@ return {
 					{
 						"searchcount",
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.greydark, fg = colors.snowlight }
 					},
 					{
 						"selectioncount",
@@ -189,14 +193,6 @@ return {
 						"location",
 					},
 				},
-			},
-			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {},
-				lualine_c = {},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {},
 			},
 			tabline = {},
 			extensions = {
