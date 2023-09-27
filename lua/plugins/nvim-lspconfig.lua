@@ -2,9 +2,6 @@ return {
 	"neovim/nvim-lspconfig",
 	lazy = false,
 	config = function()
-		-- Setup Neodev
-		require("neodev").setup({})
-
 		-- Setup lspconfig	
 		local lspconfig = require('lspconfig')
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()

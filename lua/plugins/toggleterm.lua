@@ -8,8 +8,9 @@ return {
 		direction = 'float',
 		float_opts = {
 			border = 'single',
-			width = 100,
-			height = 40,
+			width = 120,
+			height = 30,
+			winblend = 5,
 		},
 		highlights = {
 			-- highlights which map to a highlight group name and a table of it's values

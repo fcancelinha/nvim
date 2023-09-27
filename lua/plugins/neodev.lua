@@ -10,5 +10,8 @@ return {
 			-- you can also specify the list of plugins to make available as a workspace library
 			plugins = { "neotest", "nvim-treesitter", "plenary.nvim", "telescope.nvim", "nvim-dap-ui" },
 		},
-	}
+	},
+	config = function()
+		require("neodev").setup({})
+	end,
 }

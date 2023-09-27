@@ -108,6 +108,7 @@ return {
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						file_status = false,
 						path = 4,
+						color = { bg = colors.greydark },
 					},
 					{
 						'branch',
@@ -169,6 +170,7 @@ return {
 					{
 						lsp_server,
 						icon = { '󰒋  ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.greydark },
 					},
 				},
 				lualine_y = {
