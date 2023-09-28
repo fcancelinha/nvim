@@ -1,49 +1,41 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
-	opts = {
-		char = "¦",
-		show_trailing_blankline_indent = true,
-		show_current_context = true,
-		show_first_indent_level = true,
-		filetype_exclude = {
-			'packer',
-			'markdown',
-			'help',
-			'TelescopePrompt',
-			'Trouble',
-			'yaml',
-			'Neotree'
-		},
-		buftype_exclude = { 'terminal', 'nofile' },
-		context_patterns = {
-			'^for',
-			'^if',
-			'^object',
-			'^table',
-			'^while',
-			'argument_list',
-			'arguments',
-			'block',
-			'bracket',
-			'class',
-			'declaration',
-			'dictionary',
-			'element',
-			'except',
-			'expression',
-			'from',
-			'func_literal',
-			'function',
-			'list',
-			'method',
-			'pattern',
-			'primary_expression',
-			'set',
-			'statement',
-			'switch_body',
-			'try',
-			'tuple',
-			'with',
-		},
-	}
+	main = "ibl",
+	config = function()
+		require("ibl").setup({
+			enabled = true,
+			indent = {
+				char = "⁞",
+				tab_char = "⁞",
+				smart_indent_cap = false,
+			},
+			whitespace = {
+				remove_blankline_trail = true
+			},
+			scope = {
+				show_start = false,
+				show_end = false,
+				enabled = true,
+				include = {
+					node_type = { "*" },
+				},
+				exclude = {
+					filetypes = {
+						"lspinfo",
+						"packer",
+						"help",
+						"man",
+						"gitcommit",
+						"TelescopePrompt",
+					},
+					buftypes = {
+						"terminal",
+						"nofile",
+						"quickfix",
+						"prompt",
+					},
+				},
+			},
+		})
+	end,
 }

@@ -47,11 +47,16 @@ return {
 			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 			settings = {
 				gopls = {
+					semanticTokens = true,
+					gofumpt = true,
 					completeUnimported = true,
 					usePlaceholders = true,
 					analyses = {
 						unusedparams = true,
 					},
+					codelenses = {
+						generate = true,
+					}
 				},
 			},
 		}
@@ -72,6 +77,7 @@ return {
 			settings = {
 				Lua = {
 					completion = {
+						displayContext = true,
 						callSnippet = "Replace",
 					},
 					diagnostics = {
@@ -86,21 +92,26 @@ return {
 						enable = false,
 					},
 					format = {
-						enable = true,
 						defaultConfig = {
 							indent_style = 'tab',
 							indent_size = '4',
-						}
+						},
 					},
 				},
 			},
 		}
 
+		lspconfig.javascript.setup {
+			capabilities = capabilities
+		}
+
+		lspconfig.tsserver.setup {
+			capabilities = capabilities
+		}
 
 		lspconfig.jsonls.setup {
 			capabilities = capabilities
 		}
-
 
 		lspconfig.marksman.setup {
 			capabilities = capabilities
