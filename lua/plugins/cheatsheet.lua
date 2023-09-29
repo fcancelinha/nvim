@@ -1,5 +1,6 @@
 return {
 	"Djancyp/cheat-sheet",
+	lazy = true,
 	config = function()
 		require("cheat-sheet").setup({
 			auto_fill = {

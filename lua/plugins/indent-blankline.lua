@@ -1,5 +1,6 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
+	event = "VeryLazy",
 	main = "ibl",
 	config = function()
 		require("ibl").setup({
@@ -7,7 +8,7 @@ return {
 			debounce = 100,
 			viewport_buffer = {
 				min = 50,
-				max = 200,
+				max = 250,
 			},
 			indent = {
 				enabled = true,
@@ -26,28 +27,7 @@ return {
 				injected_languages = false,
 				include = {
 					node_type = {
-						["*"] = {
-							"argument",
-							"arguments",
-							"block",
-							"bracket",
-							"declaration",
-							"expression_list",
-							"field",
-							"for",
-							"func_literal",
-							"function",
-							"if",
-							"import",
-							"import_spec_list",
-							"list",
-							"return_statement",
-							"short_var_declaration",
-							"statement",
-							"switch_body",
-							"try",
-							"type",
-						},
+						["*"] = { "*" },
 					},
 				},
 				exclude = {
