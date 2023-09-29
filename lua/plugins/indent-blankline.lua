@@ -31,6 +31,11 @@ return {
 					},
 				},
 				exclude = {
+					node_type = {
+						["*"] = {
+							"comment",
+						},
+					},
 					filetypes = {
 						"lspinfo",
 						"packer",
