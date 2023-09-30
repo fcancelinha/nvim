@@ -77,7 +77,6 @@ return {
 			settings = {
 				Lua = {
 					completion = {
-						displayContext = true,
 						callSnippet = "Replace",
 					},
 					diagnostics = {
@@ -113,7 +112,7 @@ return {
 			capabilities = capabilities
 		}
 
-		lspconfig.marksman.setup {
+		lspconfig.markdown.setup {
 			capabilities = capabilities
 		}
 

@@ -164,7 +164,6 @@ return {
 				lualine_x = {
 					{
 						"diff",
-						colored = true,
 						color = { bg = colors.dark },
 					},
 					{

@@ -1,6 +1,5 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
-	event = "VeryLazy",
 	main = "ibl",
 	config = function()
 		require("ibl").setup({
@@ -11,17 +10,15 @@ return {
 				max = 250,
 			},
 			indent = {
-				enabled = true,
 				char = "⁞",
 				tab_char = "⁞",
 				smart_indent_cap = false,
 			},
 			whitespace = {
-				enabled = true,
+				highlight = { "NonText" },
 				remove_blankline_trail = true
 			},
 			scope = {
-				enabled = true,
 				show_start = false,
 				show_end = false,
 				injected_languages = false,
@@ -31,11 +28,7 @@ return {
 					},
 				},
 				exclude = {
-					node_type = {
-						["*"] = {
-							"comment",
-						},
-					},
+					{ "bash" },
 					filetypes = {
 						"lspinfo",
 						"packer",
