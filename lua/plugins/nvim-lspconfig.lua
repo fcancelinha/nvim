@@ -100,10 +100,6 @@ return {
 			},
 		}
 
-		lspconfig.javascript.setup {
-			capabilities = capabilities
-		}
-
 		lspconfig.tsserver.setup {
 			capabilities = capabilities
 		}
@@ -112,7 +108,7 @@ return {
 			capabilities = capabilities
 		}
 
-		lspconfig.markdown.setup {
+		lspconfig.marksman.setup {
 			capabilities = capabilities
 		}
 

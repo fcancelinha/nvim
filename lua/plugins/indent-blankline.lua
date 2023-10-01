@@ -15,7 +15,6 @@ return {
 				smart_indent_cap = false,
 			},
 			whitespace = {
-				highlight = { "NonText" },
 				remove_blankline_trail = true
 			},
 			scope = {
@@ -42,6 +41,7 @@ return {
 						"nofile",
 						"quickfix",
 						"prompt",
+						"bufferline",
 					},
 				},
 			},

@@ -1,4 +1,6 @@
 return {
 	"fcancelinha/northern.nvim",
-	branch = "develop"
+	-- lazy = true,
+	branch = "develop",
+	priority = 1000,
 }
