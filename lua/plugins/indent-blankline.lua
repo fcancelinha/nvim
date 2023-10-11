@@ -27,22 +27,7 @@ return {
 					},
 				},
 				exclude = {
-					{ "bash" },
-					filetypes = {
-						"lspinfo",
-						"packer",
-						"help",
-						"man",
-						"gitcommit",
-						"TelescopePrompt",
-					},
-					buftypes = {
-						"terminal",
-						"nofile",
-						"quickfix",
-						"prompt",
-						"bufferline",
-					},
+					language = { "bash" },
 				},
 			},
 		})
