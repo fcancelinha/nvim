@@ -19,16 +19,20 @@ return {
 		-- Setup
 		require('telescope').setup({
 			defaults = {
-				prompt_prefix = '  ',
+				prompt_prefix   = '  ',
 				selection_caret = '» ',
+				winblend        = 10,
 			},
 			pickers = {
-				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+				find_command = { "rg", "--glob", "!**/.git/*" },
 				find_files = {
 					theme = "dropdown",
 					previewer = false,
-					width = 0.8,
+					width = 1,
 					hidden = false,
+				},
+				old_files = {
+					prompt_title = '',
 				},
 				git_files = {
 					hidden = false
