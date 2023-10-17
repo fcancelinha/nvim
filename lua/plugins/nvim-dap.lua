@@ -7,6 +7,12 @@ return {
 		"leoluz/nvim-dap-go",
 	},
 	config = function()
+		vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Error' })
+		vim.fn.sign_define('DapBreakpointCondition', { text = ' 󰨮', texthl = 'Conditional' })
+		vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Todo' })
+		vim.fn.sign_define('DapLogPoint', { text = ' ', texthl = 'Exception' })
+		vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'String' })
+
 		require('dap-go').setup {
 			-- Additional dap configurations can be added.
 			-- dap_configurations accepts a list of tables where each entry
