@@ -4,8 +4,6 @@ return {
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
-				"gitcommit",
-				"gitignore",
 				"go",
 				"gomod",
 				"gosum",
@@ -13,7 +11,6 @@ return {
 				"json",
 				"json5",
 				"lua",
-				"luadoc",
 				"markdown",
 				"markdown_inline",
 				"regex",
@@ -41,7 +38,7 @@ return {
 			},
 			textobjects = {
 				-- syntax-aware textobjects
-				enable = true,
+				enable = enable,
 				lookahead = true,
 				lsp_interop = {
 					enable = enable,

@@ -19,13 +19,13 @@ return {
 			yellow         = '#EBCB8B',
 		}
 
-		local custom_northern = require 'lualine.themes.northern'
-
-		custom_northern.normal.c.bg = "#2E3440"
-		custom_northern.insert.c.bg = "#2E3440"
-		custom_northern.visual.c.bg = "#2E3440"
-		custom_northern.replace.c.bg = "#2E3440"
-		custom_northern.command.c.bg = "#2E3440"
+		-- local custom_northern = require 'lualine.themes.northern'
+		--
+		-- custom_northern.normal.c.bg = "#2E3440"
+		-- custom_northern.insert.c.bg = "#2E3440"
+		-- custom_northern.visual.c.bg = "#2E3440"
+		-- custom_northern.replace.c.bg = "#2E3440"
+		-- custom_northern.command.c.bg = "#2E3440"
 
 
 		local empty = require('lualine.component'):extend()
@@ -85,7 +85,7 @@ return {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				theme = custom_northern,
+				-- theme = custom_northern,
 				component_separators = '',
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
@@ -93,7 +93,8 @@ return {
 					"TelescopePrompt",
 					"neo-tree",
 					"neo-tree-popup",
-					"lazygit"
+					"lazygit",
+					"toggleterm"
 				},
 			},
 			sections = process_sections {
@@ -117,24 +118,6 @@ return {
 					}
 				},
 				lualine_c = {
-					{
-						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'error' },
-						diagnostics_color = { error = { bg = colors.greydark, fg = colors.red } },
-					},
-					{
-						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'warn' },
-						diagnostics_color = { warn = { bg = colors.greydark, fg = colors.yellow } },
-					},
-					{
-						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.greydark, fg = colors.frostturquoise } },
-					},
 					{
 						'%w',
 						cond = function()
@@ -162,6 +145,24 @@ return {
 					},
 				},
 				lualine_x = {
+					{
+						'diagnostics',
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'error' },
+						diagnostics_color = { error = { bg = colors.greydark, fg = colors.red } },
+					},
+					{
+						'diagnostics',
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'warn' },
+						diagnostics_color = { warn = { bg = colors.greydark, fg = colors.yellow } },
+					},
+					{
+						'diagnostics',
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'hint' },
+						diagnostics_color = { hint = { bg = colors.greydark, fg = colors.frostturquoise } },
+					},
 					{
 						"diff",
 						color = { bg = colors.dark },

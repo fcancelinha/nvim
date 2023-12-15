@@ -1,6 +1,5 @@
 return {
 	"neovim/nvim-lspconfig",
-	lazy = false,
 	config = function()
 		-- Setup lspconfig	
 		local lspconfig = require('lspconfig')
@@ -20,9 +19,9 @@ return {
 		})
 
 		-- Change diagnostic signs.
-		vim.fn.sign_define("DiagnosticSignError", { text = ' ', texthl = "DiagnosticSignError" })
-		vim.fn.sign_define("DiagnosticSignWarn", { text = ' ', texthl = "DiagnosticSignWarn" })
-		vim.fn.sign_define("DiagnosticSignInfo", { text = ' ', texthl = "DiagnosticSignInfo" })
+		vim.fn.sign_define("DiagnosticSignError", { text = '◆', texthl = "DiagnosticSignError" })
+		vim.fn.sign_define("DiagnosticSignWarn", { text = '◈', texthl = "DiagnosticSignWarn" })
+		vim.fn.sign_define("DiagnosticSignInfo", { text = '◇', texthl = "DiagnosticSignInfo" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = '󰌵', texthl = "DiagnosticSignHint" })
 
 		vim.api.nvim_create_autocmd("CursorHold", {
@@ -98,6 +97,14 @@ return {
 					},
 				},
 			},
+		}
+
+		lspconfig.sqlls.setup {
+			capabilities = capabilities,
+		}
+
+		lspconfig.dockerls.setup {
+			capabilities = capabilities
 		}
 
 		lspconfig.tsserver.setup {
