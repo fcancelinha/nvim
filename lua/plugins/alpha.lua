@@ -81,10 +81,9 @@ return {
 			type = "group",
 			val = {
 				button("f", "󰱼 " .. " Find File", ":Telescope find_files <CR>"),
-				button("e", " " .. " New File", ":ene <BAR> startinsert <CR>"),
+				button("e", "󰦛 " .. " Restore Session", ":lua require('persistence').load({ last = true}) <CR>"),
 				button("p", " " .. " Find Project", ":lua require('telescope').extensions.projects.projects{}<CR>"),
 				button("r", " " .. " Recent Files", ":Telescope oldfiles <CR>"),
-				button("t", " " .. " Find Text", ":Telescope live_grep <CR>"),
 				button("c", " " .. " Config", ":e ~/.config/nvim/lua <CR>"),
 				button("q", " " .. " Quit", ":qa<CR>"),
 			},

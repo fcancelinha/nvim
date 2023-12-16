@@ -19,13 +19,13 @@ return {
 			yellow         = '#EBCB8B',
 		}
 
-		-- local custom_northern = require 'lualine.themes.northern'
-		--
-		-- custom_northern.normal.c.bg = "#2E3440"
-		-- custom_northern.insert.c.bg = "#2E3440"
-		-- custom_northern.visual.c.bg = "#2E3440"
-		-- custom_northern.replace.c.bg = "#2E3440"
-		-- custom_northern.command.c.bg = "#2E3440"
+		local custom_northern = require 'lualine.themes.northern'
+
+		custom_northern.normal.c.bg = "#2E3440"
+		custom_northern.insert.c.bg = "#2E3440"
+		custom_northern.visual.c.bg = "#2E3440"
+		custom_northern.replace.c.bg = "#2E3440"
+		custom_northern.command.c.bg = "#2E3440"
 
 
 		local empty = require('lualine.component'):extend()
@@ -85,7 +85,7 @@ return {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				-- theme = custom_northern,
+				theme = custom_northern,
 				component_separators = '',
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
@@ -105,17 +105,17 @@ return {
 				},
 				lualine_b = {
 					{
+						'branch',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.greydark, fg = colors.yellow },
+					},
+					{
 						'filename',
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						file_status = false,
 						path = 4,
 						color = { bg = colors.greydark },
 					},
-					{
-						'branch',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.greydark, fg = colors.yellow },
-					}
 				},
 				lualine_c = {
 					{

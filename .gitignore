@@ -4,3 +4,4 @@ lazy.nvim
 lua/northern
 lua/node_modules
 
+Session.vim
