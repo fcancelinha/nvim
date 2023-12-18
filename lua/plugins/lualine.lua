@@ -28,15 +28,6 @@ return {
 		custom_northern.command.c.bg = "#2E3440"
 
 
-		local empty = require('lualine.component'):extend()
-		function empty:draw(default_highlight)
-			self.status = ''
-			self.applied_separator = ''
-			self:apply_highlights(default_highlight)
-			self:apply_section_separators()
-			return self.status
-		end
-
 		-- Lsp server name .
 		local function lsp_server()
 			local msg = '[NOLSP]'
@@ -54,40 +45,13 @@ return {
 			return msg
 		end
 
-		-- Put proper separators and gaps between components in sections
-		local function process_sections(sections)
-			for name, section in pairs(sections) do
-				local left = name:sub(9, 10) < 'x'
-				for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-					table.insert(section, pos * 2, { empty, color = { fg = colors.dark, bg = colors.dark } })
-				end
-				for id, comp in ipairs(section) do
-					if type(comp) ~= 'table' then
-						comp = { comp }
-						section[id] = comp
-					end
-					comp.separator = left and { right = '' } or { left = '' }
-				end
-			end
-			return sections
-		end
-
-		local function modified()
-			if vim.bo.modified then
-				return '+'
-			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-				return '-'
-			end
-			return ''
-		end
-
 		require('lualine').setup {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_northern,
 				component_separators = '',
-				section_separators = { left = '', right = '' },
+				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
 					"alpha",
 					"TelescopePrompt",
@@ -97,24 +61,24 @@ return {
 					"toggleterm"
 				},
 			},
-			sections = process_sections {
+			sections = {
 				lualine_a = {
-					{
-						'mode',
-					}
+					{ 'mode', separator = { left = '', right = '' }, right_padding = 2 },
 				},
 				lualine_b = {
 					{
 						'branch',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						icon = { '', color = { bg = colors.greydark, fg = colors.green }, align = 'left' },
 						color = { bg = colors.greydark, fg = colors.yellow },
+						separator = { right = '' }
 					},
 					{
 						'filename',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						file_status = false,
-						path = 4,
-						color = { bg = colors.greydark },
+						icon = { '', color = { bg = colors.dark, fg = colors.green }, align = 'left' },
+						file_status = true,
+						newfile_status = true,
+						path = 1,
+						color = { bg = colors.dark },
 					},
 				},
 				lualine_c = {
@@ -139,29 +103,25 @@ return {
 						end,
 						color = { bg = colors.yellow },
 					},
-					{
-						modified,
-						color = { bg = colors.red },
-					},
 				},
 				lualine_x = {
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
-						diagnostics_color = { error = { bg = colors.greydark, fg = colors.red } },
+						diagnostics_color = { error = { bg = colors.dark, fg = colors.red } },
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'warn' },
-						diagnostics_color = { warn = { bg = colors.greydark, fg = colors.yellow } },
+						diagnostics_color = { warn = { bg = colors.dark, fg = colors.yellow } },
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.greydark, fg = colors.frostturquoise } },
+						diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
 					},
 					{
 						"diff",
@@ -169,8 +129,9 @@ return {
 					},
 					{
 						lsp_server,
-						icon = { '󰒋  ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.greydark },
+						icon = { '󰒋', color = { bg = colors.dark, fg = colors.green }, align = 'right' },
+						color = { bg = colors.dark },
+						separator = { left = '' }
 					},
 				},
 				lualine_y = {
@@ -179,20 +140,21 @@ return {
 					},
 					{
 						'filetype',
-						icon = { align = 'left' },
+						color = { bg = colors.greydark },
+						icon = { align = 'right' },
 					},
 				},
 				lualine_z = {
 					{
 						"searchcount",
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						icon = { '', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
 						"selectioncount",
-						icon = { '󰒅 ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
-						"location",
+						'location', separator = { left = '', right = '' }, left_padding = 1,
 					},
 				},
 			},
