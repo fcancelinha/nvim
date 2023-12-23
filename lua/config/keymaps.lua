@@ -35,8 +35,8 @@ keymap("i", "<Up>", "<C-k>", opts)
 keymap("i", "<Down>", "<C-j>", opts)
 
 -- Moving current lines
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+keymap("n", "<A-k>", ":m -1<CR>gv-gv", opts)
+keymap("n", "<A-j>", ":m +1<CR>gv-gv", opts)
 keymap("v", "<A-j>", ":m '>+1<CR>gv-gv", opts)
 keymap("v", "<A-k>", ":m '<-2<CR>gv-gv", opts)
 
@@ -49,29 +49,6 @@ keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
 -- [ Plugins ] --
-
--- BufferLine
-
--- Move to previous/next
-keymap('n', '<A-j>', '<Cmd>BufferLineCyclePrev<CR>', opts)
-keymap('n', '<A-k>', '<Cmd>BufferLineCycleNext<CR>', opts)
--- Re-order to previous/next
-keymap('n', '<A-<>', '<Cmd>BufferLineMovePrevious<CR>', opts)
-keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)
--- Goto buffer in position...
-keymap('n', '<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', opts)
-keymap('n', '<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', opts)
-keymap('n', '<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', opts)
-keymap('n', '<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', opts)
-keymap('n', '<A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', opts)
-keymap('n', '<A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', opts)
-keymap('n', '<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', opts)
-keymap('n', '<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', opts)
-keymap('n', '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
--- Close buffers
-keymap('n', '<A-»>', '<Cmd>BufferLineCloseRight<CR>', opts)
-keymap('n', '<A-«>', '<Cmd>BufferLineCloseLeft<CR>', opts)
-keymap('n', '<C-w>b', ':bwipeout<CR>', opts)
 
 -- Neotree
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
