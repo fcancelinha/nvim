@@ -12,8 +12,8 @@ return {
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 		"hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-path",
+		"hrsh7th/nvim-cmp",
 		"onsails/lspkind.nvim",
-		"ray-x/cmp-treesitter",
 		"saadparwaiz1/cmp_luasnip",
 	},
 	config = function()

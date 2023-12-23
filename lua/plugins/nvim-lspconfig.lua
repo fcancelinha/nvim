@@ -3,7 +3,7 @@ return {
 	config = function()
 		-- Setup lspconfig	
 		local lspconfig = require('lspconfig')
-		local capabilities = require('cmp_nvim_lsp').default_capabilities()
+		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 		local util = require('lspconfig/util')
 
 		-- Misc Options
@@ -37,28 +37,6 @@ return {
 				vim.diagnostic.open_float(nil, opts)
 			end
 		})
-
-		-- Setup Servers
-		lspconfig.gopls.setup {
-			capabilities = capabilities,
-			cmd = { "gopls" },
-			filetypes = { "go", "gomod", "gowork", "gotmpl" },
-			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-			settings = {
-				gopls = {
-					semanticTokens = true,
-					gofumpt = true,
-					completeUnimported = true,
-					usePlaceholders = true,
-					analyses = {
-						unusedparams = true,
-					},
-					codelenses = {
-						generate = true,
-					}
-				},
-			},
-		}
 
 		lspconfig.golangci_lint_ls.setup {
 			capabilities = capabilities,

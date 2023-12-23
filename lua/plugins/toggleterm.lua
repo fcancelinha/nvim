@@ -8,7 +8,7 @@ return {
 		direction = 'float',
 		float_opts = {
 			border = 'single',
-			width = 200,
+			width = 175,
 			height = 30,
 			winblend = 5,
 		},

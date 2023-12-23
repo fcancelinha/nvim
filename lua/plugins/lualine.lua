@@ -21,11 +21,11 @@ return {
 
 		local custom_northern = require 'lualine.themes.northern'
 
-		custom_northern.normal.c.bg = "#2E3440"
-		custom_northern.insert.c.bg = "#2E3440"
-		custom_northern.visual.c.bg = "#2E3440"
-		custom_northern.replace.c.bg = "#2E3440"
-		custom_northern.command.c.bg = "#2E3440"
+		custom_northern.normal.c.bg = colors.dark
+		custom_northern.insert.c.bg = colors.dark
+		custom_northern.visual.c.bg = colors.dark
+		custom_northern.replace.c.bg = colors.dark
+		custom_northern.command.c.bg = colors.dark
 
 
 		-- Lsp server name .
@@ -50,8 +50,7 @@ return {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_northern,
-				component_separators = '',
-				section_separators = { left = '', right = '' },
+				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
 					"alpha",
 					"TelescopePrompt",
@@ -63,22 +62,23 @@ return {
 			},
 			sections = {
 				lualine_a = {
-					{ 'mode', separator = { left = '', right = '' }, right_padding = 2 },
+					{ 'mode', separator = { left = '', right = '' }, right_padding = 2 },
 				},
 				lualine_b = {
 					{
 						'branch',
-						icon = { '', color = { bg = colors.greydark, fg = colors.green }, align = 'left' },
-						color = { bg = colors.greydark, fg = colors.yellow },
-						separator = { right = '' }
+						icon = { '', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.grey, fg = colors.yellow },
+						separator = { left = '', right = '' }
 					},
 					{
 						'filename',
-						icon = { '', color = { bg = colors.dark, fg = colors.green }, align = 'left' },
+						icon = { '', color = { bg = colors.greydark, fg = colors.green }, align = 'left' },
 						file_status = true,
 						newfile_status = true,
-						path = 1,
-						color = { bg = colors.dark },
+						path = 0,
+						color = { bg = colors.greydark },
+						separator = { left = '', right = '' }
 					},
 				},
 				lualine_c = {
@@ -106,32 +106,34 @@ return {
 				},
 				lualine_x = {
 					{
+						"diff",
+						color = { bg = colors.dark },
+					},
+					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
-						diagnostics_color = { error = { bg = colors.dark, fg = colors.red } },
+						diagnostics_color = { error = { bg = colors.red, fg = colors.dark } },
+						separator = { left = '', right = '' }
+
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'warn' },
-						diagnostics_color = { warn = { bg = colors.dark, fg = colors.yellow } },
+
+
+
+
+						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.dark } },
+						separator = { left = '', right = '' }
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
-					},
-					{
-						"diff",
-						color = { bg = colors.dark },
-					},
-					{
-						lsp_server,
-						icon = { '󰒋', color = { bg = colors.dark, fg = colors.green }, align = 'right' },
-						color = { bg = colors.dark },
-						separator = { left = '' }
+						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
+						separator = { left = '', right = '' }
 					},
 				},
 				lualine_y = {
@@ -139,8 +141,15 @@ return {
 						"encoding",
 					},
 					{
-						'filetype',
+						lsp_server,
 						color = { bg = colors.greydark },
+						separator = { left = '', right = '' }
+					},
+					{
+						'filetype',
+						color = { bg = colors.grey },
+						colored = true,
+						icon_only = true,
 						icon = { align = 'right' },
 					},
 				},
@@ -154,7 +163,7 @@ return {
 						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
-						'location', separator = { left = '', right = '' }, left_padding = 1,
+						'location', separator = { left = '', right = '' }, left_padding = 1,
 					},
 				},
 			},
