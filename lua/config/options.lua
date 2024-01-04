@@ -3,7 +3,6 @@ vim.g.loaded_netrwPlugin = 1
 
 --:help options
 local options = {
-	autoindent     = true,
 	autoread       = true,
 	autowrite      = true,
 	background     = 'dark',
@@ -11,6 +10,7 @@ local options = {
 	backup         = false,
 	binary         = true,
 	breakindent    = true,
+	cindent        = true,
 	clipboard      = { 'unnamedplus' },
 	cmdheight      = 2,
 	completeopt    = { 'menu', 'menuone', 'preview' },

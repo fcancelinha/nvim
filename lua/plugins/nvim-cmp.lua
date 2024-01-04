@@ -106,9 +106,9 @@ return {
 			sorting = {
 				comparators = {
 					cmp.config.compare.sort_text,
+					cmp.config.compare.score,
 					cmp.config.compare.exact,
 					cmp.config.compare.length,
-					-- cmp.config.compare.score,
 					cmp.config.compare.kind,
 					-- cmp.config.compare.order,
 				}
@@ -116,7 +116,7 @@ return {
 			sources = cmp.config.sources({
 				{
 					name = 'nvim_lsp',
-					max_item_count = 10,
+					max_item_count = 15,
 					entry_filter = function(entry, ctx)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end

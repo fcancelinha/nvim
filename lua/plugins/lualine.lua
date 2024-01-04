@@ -50,6 +50,7 @@ return {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_northern,
+				component_separators = "",
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
 					"alpha",
@@ -80,6 +81,28 @@ return {
 						color = { bg = colors.greydark },
 						separator = { left = '', right = '' }
 					},
+					{
+						'diagnostics',
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'error' },
+						diagnostics_color = { error = { bg = colors.red, fg = colors.dark } },
+						separator = { left = '', right = '' }
+
+					},
+					{
+						'diagnostics',
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'warn' },
+						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.dark } },
+						separator = { left = '', right = '' }
+					},
+					{
+						'diagnostics',
+						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sections = { 'hint' },
+						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
+						separator = { left = '', right = '' }
+					},
 				},
 				lualine_c = {
 					{
@@ -107,42 +130,18 @@ return {
 				lualine_x = {
 					{
 						"diff",
-						color = { bg = colors.dark },
-					},
-					{
-						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'error' },
-						diagnostics_color = { error = { bg = colors.red, fg = colors.dark } },
-						separator = { left = '', right = '' }
-
-					},
-					{
-						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'warn' },
-
-
-
-
-						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.dark } },
-						separator = { left = '', right = '' }
-					},
-					{
-						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
-						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
+						color = { bg = colors.greydark },
 						separator = { left = '', right = '' }
 					},
 				},
 				lualine_y = {
 					{
 						"encoding",
+						color = { bg = colors.greydark }
 					},
 					{
 						lsp_server,
-						color = { bg = colors.greydark },
+						color = { bg = colors.grey },
 						separator = { left = '', right = '' }
 					},
 					{
@@ -150,7 +149,7 @@ return {
 						color = { bg = colors.grey },
 						colored = true,
 						icon_only = true,
-						icon = { align = 'right' },
+						icon = { align = 'left' },
 					},
 				},
 				lualine_z = {
