@@ -105,9 +105,9 @@ return {
 			}),
 			sorting = {
 				comparators = {
-					cmp.config.compare.sort_text,
 					cmp.config.compare.score,
 					cmp.config.compare.exact,
+					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
 					cmp.config.compare.kind,
 					-- cmp.config.compare.order,

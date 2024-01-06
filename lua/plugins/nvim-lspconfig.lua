@@ -16,15 +16,30 @@ return {
 		},
 	},
 	config = function()
-		require('lspconfig.ui.windows').default_options.border = 'single'
+		-- Auto-format
+		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+
+		vim.api.nvim_create_autocmd("CursorHold", {
+			callback = function()
+				local opts = {
+					focusable = false,
+					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+					border = 'single',
+					source = 'always',
+					prefix = ' ',
+					scope = 'cursor',
+				}
+				vim.diagnostic.open_float(nil, opts)
+			end
+		})
 
 		-- Setup lspconfig	
 		local lsp_zero = require('lsp-zero')
 		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+		local lspconfig = require("lspconfig")
 
 		lsp_zero.on_attach(function(_, bufnr)
 			lsp_zero.default_keymaps({ buffer = bufnr })
-			lsp_zero.buffer_autoformat()
 		end)
 
 		vim.diagnostic.config({
@@ -40,6 +55,8 @@ return {
 			info = '◇',
 			hint = '󰌵',
 		})
+
+		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		require('mason').setup({
 			ui = {
@@ -72,7 +89,7 @@ return {
 			handlers = {
 				lsp_zero.default_setup,
 				lua_ls = function()
-					require('lspconfig').lua_ls.setup({
+					lspconfig.lua_ls.setup({
 						settings = {
 							Lua = {
 								completion = {
@@ -90,6 +107,7 @@ return {
 									enable = false,
 								},
 								format = {
+									enable = true,
 									defaultConfig = {
 										indent_style = 'tab',
 										indent_size = '4',
@@ -100,7 +118,7 @@ return {
 					})
 				end,
 				gopls = function()
-					require('lspconfig').gopls.setup({
+					lspconfig.gopls.setup({
 						cmd = { "gopls" },
 						filetypes = { "go", "gomod", "gowork", "gotmpl" },
 						settings = {

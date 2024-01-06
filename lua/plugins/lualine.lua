@@ -19,13 +19,13 @@ return {
 			yellow         = '#EBCB8B',
 		}
 
-		local custom_northern = require 'lualine.themes.northern'
-
-		custom_northern.normal.c.bg = colors.dark
-		custom_northern.insert.c.bg = colors.dark
-		custom_northern.visual.c.bg = colors.dark
-		custom_northern.replace.c.bg = colors.dark
-		custom_northern.command.c.bg = colors.dark
+		-- local custom_northern = require 'lualine.themes.northern'
+		--
+		-- custom_northern.normal.c.bg = colors.dark
+		-- custom_northern.insert.c.bg = colors.dark
+		-- custom_northern.visual.c.bg = colors.dark
+		-- custom_northern.replace.c.bg = colors.dark
+		-- custom_northern.command.c.bg = colors.dark
 
 
 		-- Lsp server name .
@@ -49,7 +49,7 @@ return {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				theme = custom_northern,
+				-- theme = custom_northern,
 				component_separators = "",
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
