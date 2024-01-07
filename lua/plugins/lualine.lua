@@ -19,37 +19,29 @@ return {
 			yellow         = '#EBCB8B',
 		}
 
-		-- local custom_northern = require 'lualine.themes.northern'
-		--
-		-- custom_northern.normal.c.bg = colors.dark
-		-- custom_northern.insert.c.bg = colors.dark
-		-- custom_northern.visual.c.bg = colors.dark
-		-- custom_northern.replace.c.bg = colors.dark
-		-- custom_northern.command.c.bg = colors.dark
+		local custom_northern = require 'lualine.themes.northern'
 
 
-		-- Lsp server name .
-		local function lsp_server()
-			local msg = '[NOLSP]'
-			local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-			local clients = vim.lsp.get_active_clients()
-			if next(clients) == nil then
-				return msg
+		custom_northern.normal.c.bg = colors.dark
+		custom_northern.insert.c.bg = colors.dark
+		custom_northern.visual.c.bg = colors.dark
+		custom_northern.replace.c.bg = colors.dark
+		custom_northern.command.c.bg = colors.dark
+
+		local function modified()
+			if vim.bo.modified then
+				return '+'
+			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+				return '-'
 			end
-			for _, client in ipairs(clients) do
-				local filetypes = client.config.filetypes
-				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-					return client.name
-				end
-			end
-			return msg
+			return ''
 		end
 
 		require('lualine').setup {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				-- theme = custom_northern,
+				theme = custom_northern,
 				component_separators = "",
 				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
@@ -64,6 +56,11 @@ return {
 			sections = {
 				lualine_a = {
 					{ 'mode', separator = { left = '', right = '' }, right_padding = 2 },
+					{
+						modified,
+						color = { bg = colors.red },
+						separator = { left = '', right = '' }
+					},
 				},
 				lualine_b = {
 					{
@@ -71,15 +68,6 @@ return {
 						icon = { '', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.grey, fg = colors.yellow },
 						separator = { left = '', right = '' }
-					},
-					{
-						'filename',
-						icon = { '', color = { bg = colors.greydark, fg = colors.green }, align = 'left' },
-						file_status = true,
-						newfile_status = true,
-						path = 0,
-						color = { bg = colors.greydark },
-						separator = { left = '', right = '' }
 					},
 					{
 						'diagnostics',
@@ -140,16 +128,11 @@ return {
 						color = { bg = colors.greydark }
 					},
 					{
-						lsp_server,
-						color = { bg = colors.grey },
-						separator = { left = '', right = '' }
-					},
-					{
 						'filetype',
 						color = { bg = colors.grey },
 						colored = true,
-						icon_only = true,
-						icon = { align = 'left' },
+						icon_only = false,
+						icon = { align = 'right' },
 					},
 				},
 				lualine_z = {

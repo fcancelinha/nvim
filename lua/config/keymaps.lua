@@ -56,7 +56,6 @@ keymap("n", "\\", ":Neotree toggle<CR>", opts)
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
 keymap("n", "<leader>fd", ":Telescope diagnostics<CR>", opts)
-keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 keymap("n", "<leader>fg", ":Telescope git_files<CR>", opts)
 keymap("n", "<leader>fc", ":Telescope git_commits<CR>", opts)
 keymap("n", "<leader>fm", ":Telescope marks<CR>", opts)
@@ -65,6 +64,10 @@ keymap("n", "<leader>fj", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fl", ":Telescope oldfiles<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope git_branches<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
+
+-- Telescope Extensions
+keymap("n", "<space>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
+keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 
 -- Telescope LSP
 keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)

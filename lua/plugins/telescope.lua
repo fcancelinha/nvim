@@ -5,7 +5,6 @@ return {
 		"ThePrimeagen/git-worktree.nvim",
 		"ahmedkhalf/project.nvim",
 		"nvim-lua/plenary.nvim",
-		"nvim-telescope/telescope-file-browser.nvim",
 		"nvim-telescope/telescope-fzf-native.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
 	},
@@ -19,16 +18,16 @@ return {
 		-- Setup
 		require('telescope').setup({
 			defaults = {
-				prompt_prefix   = '  ',
-				selection_caret = '» ',
+				prompt_prefix   = '  ',
+				selection_caret = '◆ ',
 				winblend        = 10,
 			},
 			pickers = {
 				find_command = { "rg", "--glob", "!**/.git/*" },
 				find_files = {
 					theme = "dropdown",
-					previewer = false,
-					width = 1,
+					previewer = true,
+					width = 2,
 					hidden = false,
 				},
 				old_files = {
@@ -39,9 +38,11 @@ return {
 				},
 				git_commits = {
 					theme = "dropdown",
+					width = 2,
 				},
 				marks = {
-					theme = "dropdown"
+					theme = "dropdown",
+					width = 2,
 				},
 				lsp_document_symbols = {
 					ignore_symbols = { "variable", "field" },

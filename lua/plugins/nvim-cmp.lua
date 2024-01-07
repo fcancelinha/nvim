@@ -82,10 +82,12 @@ return {
 				completion = cmp.config.window.bordered({
 					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					border = "single",
+					scrollbar = true,
 				}),
 				documentation = cmp.config.window.bordered({
 					winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 					border = "single",
+					scrollbar = true,
 				}),
 			},
 			mapping = cmp.mapping.preset.insert({
@@ -116,15 +118,13 @@ return {
 			sources = cmp.config.sources({
 				{
 					name = 'nvim_lsp',
-					max_item_count = 15,
-					entry_filter = function(entry, ctx)
+					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end
 				},
 				{
 					name = 'nvim_lua',
-					max_item_count = 10,
-					entry_filter = function(entry, ctx)
+					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end
 				},
@@ -132,7 +132,7 @@ return {
 				{ name = 'path' },
 				{
 					name = 'buffer',
-					entry_filter = function(entry, ctx)
+					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end
 				},

@@ -46,6 +46,7 @@ return {
 			signs = true,
 			underline = false,
 			update_in_insert = true,
+			severity_sort = true,
 		})
 
 		-- Change diagnostic signs.
@@ -123,20 +124,51 @@ return {
 						filetypes = { "go", "gomod", "gowork", "gotmpl" },
 						settings = {
 							gopls = {
-								semanticTokens = false,
+								semanticTokens = true,
 								gofumpt = true,
 								completeUnimported = true,
-								usePlaceholders = true,
-								analyses = {
-									unusedparams = true,
-								},
+								usePlaceholders = false,
 								codelenses = {
-									generate = true,
-								}
+									gc_details         = true,
+									generate           = true,
+									run_govulncheck    = true,
+									test               = true,
+									tidy               = true,
+									upgrade_dependency = true,
+								},
+								hints = {
+									assignVariableTypes = true,
+									compositeLiteralFields = true,
+									compositeLiteralTypes = true,
+									constantValues = true,
+									functionTypeParameters = true,
+									parameterNames = true,
+									rangeVariableTypes = true,
+								},
+								analyses = {
+									nilness = true,
+									unusedparams = true,
+									unusedvariable = true,
+									unusedwrite = true,
+									useany = true
+								},
+								staticcheck = true,
+								directoryFilters = { "-.git", "-node_modules" },
 							},
 						},
+						flags = {
+							debounce_text_changes = 150,
+						}
 					})
 				end,
+				yamlls = function()
+					lspconfig.yamlls.setup({
+						schemaStore = {
+							url = "https://www.schemastore.org/api/json/catalog.json",
+							enable = true,
+						},
+					})
+				end
 			}
 		})
 	end
