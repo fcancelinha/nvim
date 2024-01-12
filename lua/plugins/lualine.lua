@@ -21,29 +21,18 @@ return {
 
 		local custom_northern = require 'lualine.themes.northern'
 
-
 		custom_northern.normal.c.bg = colors.dark
 		custom_northern.insert.c.bg = colors.dark
 		custom_northern.visual.c.bg = colors.dark
 		custom_northern.replace.c.bg = colors.dark
 		custom_northern.command.c.bg = colors.dark
 
-		local function modified()
-			if vim.bo.modified then
-				return '+'
-			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-				return '-'
-			end
-			return ''
-		end
-
 		require('lualine').setup {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_northern,
-				component_separators = "",
-				section_separators = { left = '', right = '' },
+				section_separators = { left = '', right = '' },
 				disabled_filetypes = {
 					"alpha",
 					"TelescopePrompt",
@@ -55,41 +44,39 @@ return {
 			},
 			sections = {
 				lualine_a = {
-					{ 'mode', separator = { left = '', right = '' }, right_padding = 2 },
-					{
-						modified,
-						color = { bg = colors.red },
-						separator = { left = '', right = '' }
-					},
+					{ 'mode', separator = { right = '', left = '' }, right_padding = 1 },
 				},
 				lualine_b = {
 					{
 						'branch',
-						icon = { '', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.grey, fg = colors.yellow },
-						separator = { left = '', right = '' }
+						icon = { '', color = { bg = colors.dark, fg = colors.green }, align = 'left' },
+						color = { bg = colors.dark, fg = colors.yellow },
+					},
+					{
+						'filename',
+						path = 1,
+						file_status = true,
+						color = { bg = colors.dark, fg = colors.snowdark },
+						icon = { '', color = { bg = colors.dark, fg = colors.green }, align = 'left' },
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
-						diagnostics_color = { error = { bg = colors.red, fg = colors.dark } },
-						separator = { left = '', right = '' }
+						diagnostics_color = { error = { bg = colors.dark, fg = colors.red } },
 
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'warn' },
-						diagnostics_color = { warn = { bg = colors.yellow, fg = colors.dark } },
-						separator = { left = '', right = '' }
+						diagnostics_color = { warn = { bg = colors.dark, fg = colors.yellow } },
 					},
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
-						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
-						separator = { left = '', right = '' }
+						diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
 					},
 				},
 				lualine_c = {
@@ -118,18 +105,17 @@ return {
 				lualine_x = {
 					{
 						"diff",
-						color = { bg = colors.greydark },
-						separator = { left = '', right = '' }
+						color = { bg = colors.dark },
 					},
 				},
 				lualine_y = {
 					{
 						"encoding",
-						color = { bg = colors.greydark }
+						color = { bg = colors.dark }
 					},
 					{
 						'filetype',
-						color = { bg = colors.grey },
+						color = { bg = colors.dark },
 						colored = true,
 						icon_only = false,
 						icon = { align = 'right' },
@@ -139,13 +125,12 @@ return {
 					{
 						"searchcount",
 						icon = { '', color = { fg = colors.dark }, align = 'right' },
+						separator = { right = '', left = '' }
 					},
 					{
 						"selectioncount",
 						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
-					},
-					{
-						'location', separator = { left = '', right = '' }, left_padding = 1,
+						separator = { right = '', left = '' }
 					},
 				},
 			},

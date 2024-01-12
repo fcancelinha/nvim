@@ -14,6 +14,7 @@ return {
 				"markdown",
 				"markdown_inline",
 				"regex",
+				"http",
 			},
 			sync_install = false,
 			auto_install = true,

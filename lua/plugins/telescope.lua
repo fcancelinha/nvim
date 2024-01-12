@@ -4,7 +4,6 @@ return {
 	dependencies = {
 		"ThePrimeagen/git-worktree.nvim",
 		"ahmedkhalf/project.nvim",
-		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-fzf-native.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
 	},
@@ -14,11 +13,11 @@ return {
 		-- Extensions
 		require('telescope').load_extension('projects')
 		require('telescope').load_extension('git_worktree')
+		require("project_nvim").setup()
 
 		-- Setup
 		require('telescope').setup({
 			defaults = {
-				prompt_prefix   = '  ',
 				selection_caret = '◆ ',
 				winblend        = 10,
 			},

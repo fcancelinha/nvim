@@ -120,7 +120,8 @@ return {
 					name = 'nvim_lsp',
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
-					end
+					end,
+					priority = 1000,
 				},
 				{
 					name = 'nvim_lua',
@@ -128,13 +129,24 @@ return {
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end
 				},
-				{ name = 'luasnip' }, -- For luasnip users.
-				{ name = 'path' },
+				{
+					name = 'luasnip',
+					priority = 750,
+				},
 				{
 					name = 'buffer',
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
-					end
+					end,
+					priority = 500,
+				},
+				{
+					name = 'path',
+					priority = 250,
+				},
+				{
+					name = "vim-dadbod-completion",
+					priority = 700
 				},
 			})
 		})

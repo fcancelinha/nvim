@@ -16,7 +16,6 @@ local opts = { silent = true }
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 
--- Visual --
 -- Stay in indent mode
 keymap("v", ">", "<gv", opts)
 keymap("v", "<", ">gv", opts)
@@ -24,7 +23,6 @@ keymap("v", "<", ">gv", opts)
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
--- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
@@ -35,10 +33,10 @@ keymap("i", "<Up>", "<C-k>", opts)
 keymap("i", "<Down>", "<C-j>", opts)
 
 -- Moving current lines
-keymap("n", "<A-k>", ":m -1<CR>gv-gv", opts)
-keymap("n", "<A-j>", ":m +1<CR>gv-gv", opts)
-keymap("v", "<A-j>", ":m '>+1<CR>gv-gv", opts)
-keymap("v", "<A-k>", ":m '<-2<CR>gv-gv", opts)
+keymap("n", "<A-<<>", ":m -1<CR>gv-gv", opts)
+keymap("n", "<A->>", ":m +1<CR>gv-gv", opts)
+keymap("v", "<A-<<>", ":m '>+1<CR>gv-gv", opts)
+keymap("v", "<A->>", ":m '<-2<CR>gv-gv", opts)
 
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
@@ -66,7 +64,6 @@ keymap("n", "<leader>fb", ":Telescope git_branches<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 
 -- Telescope Extensions
-keymap("n", "<space>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 
 -- Telescope LSP
@@ -91,12 +88,19 @@ keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
 -- Trouble
-keymap("n", "<leader>xx", function() require("trouble").open() end)
-keymap("n", "<leader>xw", function() require("trouble").open("workspace_diagnostics") end)
-keymap("n", "<leader>xd", function() require("trouble").open("document_diagnostics") end)
-keymap("n", "<leader>xq", function() require("trouble").open("quickfix") end)
-keymap("n", "<leader>xl", function() require("trouble").open("loclist") end)
-keymap("n", "gR", function() require("trouble").open("lsp_references") end)
+keymap("n", "<leader>xx", function() require("trouble").toggle() end)
+keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
+
+-- Rest
+vim.cmd [[
+	nnoremap <leader>rr <Plug>RestNvim
+	nnoremap <leader>rl <Plug>RestNvimLast
+	nnoremap <leader>rp <Plug>RestNvimPreview
+]]
 
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

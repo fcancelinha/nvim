@@ -3,8 +3,6 @@ return {
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"theHamsta/nvim-dap-virtual-text",
-		"antoinemadec/FixCursorHold.nvim",
-		"leoluz/nvim-dap-go",
 	},
 	config = function()
 		vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Error' })
