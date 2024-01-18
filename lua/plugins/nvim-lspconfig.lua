@@ -35,7 +35,7 @@ return {
 
 		-- Setup lspconfig	
 		local lsp_zero = require('lsp-zero')
-		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local lspconfig = require("lspconfig")
 
 		lsp_zero.on_attach(function(_, bufnr)
@@ -86,11 +86,11 @@ return {
 
 		require('mason-lspconfig').setup({
 			ensure_installed = { 'gopls', 'lua_ls' },
-			capabilities = capabilities,
 			handlers = {
 				lsp_zero.default_setup,
 				lua_ls = function()
 					lspconfig.lua_ls.setup({
+						capabilities = capabilities,
 						settings = {
 							Lua = {
 								completion = {
@@ -102,6 +102,7 @@ return {
 										'require',
 										'enable',
 										'ls',
+										'actions',
 									},
 								},
 								telemetry = {
@@ -120,6 +121,7 @@ return {
 				end,
 				gopls = function()
 					lspconfig.gopls.setup({
+						capabilities = capabilities,
 						cmd = { "gopls" },
 						filetypes = { "go", "gomod", "gowork", "gotmpl" },
 						settings = {
@@ -163,6 +165,7 @@ return {
 				end,
 				yamlls = function()
 					lspconfig.yamlls.setup({
+						capabilities = capabilities,
 						schemaStore = {
 							url = "https://www.schemastore.org/api/json/catalog.json",
 							enable = true,

@@ -48,6 +48,7 @@ return {
 		}
 
 		cmp.setup({
+			preselect = 'item',
 			performance = {
 				trigger_debounce_time = 200,
 				throttle = 200,
@@ -109,9 +110,9 @@ return {
 				comparators = {
 					cmp.config.compare.score,
 					cmp.config.compare.exact,
+					cmp.config.compare.kind,
 					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
-					cmp.config.compare.kind,
 					-- cmp.config.compare.order,
 				}
 			},
@@ -121,7 +122,6 @@ return {
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end,
-					priority = 1000,
 				},
 				{
 					name = 'nvim_lua',
@@ -131,22 +131,18 @@ return {
 				},
 				{
 					name = 'luasnip',
-					priority = 750,
 				},
 				{
 					name = 'buffer',
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end,
-					priority = 500,
 				},
 				{
 					name = 'path',
-					priority = 250,
 				},
 				{
 					name = "vim-dadbod-completion",
-					priority = 700
 				},
 			})
 		})

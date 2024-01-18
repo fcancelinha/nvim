@@ -17,6 +17,7 @@ return {
 			snowlight      = '#ECEFF4',
 			snowshade      = '#E5E9F0',
 			yellow         = '#EBCB8B',
+			special        = "#384356",
 		}
 
 		local custom_northern = require 'lualine.themes.northern'
@@ -32,8 +33,18 @@ return {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_northern,
-				section_separators = { left = '', right = '' },
+				component_separators = "",
+				section_separators = { left = '', right = '' },
+				ignore_focus = {},
+				always_divide_middle = true,
+				refresh = {
+					statusline = 1000,
+					tabline = 1000,
+					winbar = 1000,
+				},
 				disabled_filetypes = {
+					statuslines = {},
+					winbar = {},
 					"alpha",
 					"TelescopePrompt",
 					"neo-tree",
@@ -44,21 +55,26 @@ return {
 			},
 			sections = {
 				lualine_a = {
-					{ 'mode', separator = { right = '', left = '' }, right_padding = 1 },
+					{
+						'mode',
+						fmt = function(str) return str:sub(1, 1) end,
+						right_padding = 1
+					},
 				},
 				lualine_b = {
 					{
 						'branch',
-						icon = { '', color = { bg = colors.dark, fg = colors.green }, align = 'left' },
-						color = { bg = colors.dark, fg = colors.yellow },
+						icon = { '', color = { bg = colors.special, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.yellow },
+						separator = { right = '' },
 					},
 					{
-						'filename',
-						path = 1,
-						file_status = true,
-						color = { bg = colors.dark, fg = colors.snowdark },
-						icon = { '', color = { bg = colors.dark, fg = colors.green }, align = 'left' },
+						"diff",
+						color = { bg = colors.special },
+						separator = { right = '' },
 					},
+				},
+				lualine_c = {
 					{
 						'diagnostics',
 						source = { 'nvim_diagnostic', 'nvim_lsp' },
@@ -79,62 +95,54 @@ return {
 						diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
 					},
 				},
-				lualine_c = {
-					{
-						'%w',
-						cond = function()
-							return vim.wo.previewwindow
-						end,
-						color = { bg = colors.red },
-					},
-					{
-						'%r',
-						cond = function()
-							return vim.bo.readonly
-						end,
-						color = { bg = colors.red },
-					},
-					{
-						'%q',
-						cond = function()
-							return vim.bo.buftype == 'quickfix'
-						end,
-						color = { bg = colors.yellow },
-					},
-				},
 				lualine_x = {
 					{
-						"diff",
-						color = { bg = colors.dark },
+						"encoding",
+						color = { bg = colors.special },
 					},
 				},
 				lualine_y = {
 					{
-						"encoding",
-						color = { bg = colors.dark }
+						'filename',
+						path = 1,
+						file_status = true,
+						color = { bg = colors.special, fg = colors.snowdark },
+						icon = { '', color = { bg = colors.special, fg = colors.green }, align = 'left' },
 					},
 					{
 						'filetype',
-						color = { bg = colors.dark },
+						fmt = function(str) return '[' .. str .. ']' end,
+						color = { bg = colors.special },
 						colored = true,
-						icon_only = false,
 						icon = { align = 'right' },
+						icons_enabled = false,
 					},
 				},
 				lualine_z = {
 					{
 						"searchcount",
 						icon = { '', color = { fg = colors.dark }, align = 'right' },
-						separator = { right = '', left = '' }
 					},
 					{
 						"selectioncount",
 						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
-						separator = { right = '', left = '' }
 					},
+					{
+						'progress'
+					}
 				},
 			},
+			inactive_sections = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
 			tabline = {},
+			winbar = {},
+			inactive_winbar = {},
 			extensions = {
 				'quickfix',
 				'nvim-dap-ui',
