@@ -7,7 +7,6 @@ return {
 	},
 	config = function()
 		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
-
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "*.go",
 			callback = function()
@@ -52,6 +51,7 @@ return {
 				signs = true,
 				update_in_insert = true,
 			},
+			lsp_cfg = false,
 			lsp_document_formatting = true,
 			-- set to true: use gopls to format
 			-- false if you want to use other formatter tool(e.g. efm, nulls)
@@ -96,7 +96,7 @@ return {
 			dap_debug_keymap = true, -- true: use keymap for debugger defined in go/dap.lua
 			-- false: do not use keymap in go/dap.lua.  you must define your own.
 			-- Windows: Use Visual Studio keymap
-			dap_debug_gui = {},                                   -- bool|table put your dap-ui setup here set to false to disable
+			dap_debug_gui = true,                                 -- bool|table put your dap-ui setup here set to false to disable
 			dap_debug_vt = { enabled_commands = true, all_frames = true }, -- bool|table put your dap-virtual-text setup here set to false to disable
 			dap_port = 38697,                                     -- can be set to a number, if set to -1 go.nvim will pick up a random port
 			dap_timeout = 15,                                     --  see dap option initialize_timeout_sec = 15,
@@ -127,6 +127,6 @@ return {
 		})
 	end,
 	event = { "CmdlineEnter" },
-	ft = { "go", 'gomod' },
+	ft = { "go", 'gomod', 'gosum', 'gotmpl', 'tmpl' },
 	build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
 }

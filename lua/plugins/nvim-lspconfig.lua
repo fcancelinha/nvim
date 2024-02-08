@@ -19,24 +19,25 @@ return {
 		-- Auto-format
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
-		vim.api.nvim_create_autocmd("CursorHold", {
-			callback = function()
-				local opts = {
-					focusable = false,
-					close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-					border = 'single',
-					source = 'always',
-					prefix = ' ',
-					scope = 'cursor',
-				}
-				vim.diagnostic.open_float(nil, opts)
-			end
-		})
+		-- floating diagnostics window
+		-- vim.api.nvim_create_autocmd("CursorHold", {
+		-- 	callback = function()
+		-- 		local opts = {
+		-- 			focusable = false,
+		-- 			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+		-- 			border = 'single',
+		-- 			source = 'always',
+		-- 			prefix = ' ',
+		-- 			scope = 'cursor',
+		-- 		}
+		-- 		vim.diagnostic.open_float(nil, opts)
+		-- 	end
+		-- })
 
 		-- Setup lspconfig	
 		local lsp_zero = require('lsp-zero')
-		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local lspconfig = require("lspconfig")
+		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 		lsp_zero.on_attach(function(_, bufnr)
 			lsp_zero.default_keymaps({ buffer = bufnr })
@@ -123,13 +124,21 @@ return {
 					lspconfig.gopls.setup({
 						capabilities = capabilities,
 						cmd = { "gopls" },
-						filetypes = { "go", "gomod", "gowork", "gotmpl" },
+						fillstruct = 'gopls',
+						dap_debug = true,
+						dap_debug_gui = true,
+						filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
+						message_level = vim.lsp.protocol.MessageType.Error,
 						settings = {
 							gopls = {
 								semanticTokens = true,
 								gofumpt = true,
 								completeUnimported = true,
 								usePlaceholders = false,
+								staticcheck = true,
+								matcher = 'Fuzzy',
+								symbolMatcher = 'fuzzy',
+								diagnosticsDelay = '500ms',
 								codelenses = {
 									gc_details         = true,
 									generate           = true,
@@ -137,6 +146,8 @@ return {
 									test               = true,
 									tidy               = true,
 									upgrade_dependency = true,
+									regenerate_cgo     = true,
+									vendor             = true,
 								},
 								hints = {
 									assignVariableTypes = true,
@@ -152,14 +163,22 @@ return {
 									unusedparams = true,
 									unusedvariable = true,
 									unusedwrite = true,
-									useany = true
+									useany = true,
+									unreachable = true,
+									ST1003 = true,
+									undeclaredname = true,
+									nonewvars = true,
+									fieldalignment = false,
+									shadow = true,
+									fillreturns = true,
 								},
-								staticcheck = true,
 								directoryFilters = { "-.git", "-node_modules" },
+								buildFlags = { '-tags', 'integration' },
 							},
 						},
 						flags = {
-							debounce_text_changes = 150,
+							debounce_text_changes = 500,
+							allow_incremental_sync = true,
 						}
 					})
 				end,

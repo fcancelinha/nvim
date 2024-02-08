@@ -1,7 +1,8 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = '0.1.2',
+	tag = '0.1.5',
 	dependencies = {
+		"MunifTanjim/nui.nvim",
 		"ThePrimeagen/git-worktree.nvim",
 		"ahmedkhalf/project.nvim",
 		"nvim-telescope/telescope-fzf-native.nvim",
@@ -18,6 +19,7 @@ return {
 		-- Setup
 		require('telescope').setup({
 			defaults = {
+				-- layout_strategy = "center",
 				selection_caret = '◆ ',
 				winblend        = 10,
 			},
@@ -26,22 +28,20 @@ return {
 				find_files = {
 					theme = "dropdown",
 					previewer = true,
-					width = 2,
 					hidden = false,
 				},
-				old_files = {
+				oldfiles = {
 					prompt_title = '',
+					preview_title = '',
 				},
 				git_files = {
 					hidden = false
 				},
-				git_commits = {
-					theme = "dropdown",
-					width = 2,
-				},
 				marks = {
 					theme = "dropdown",
-					width = 2,
+				},
+				git_branches = {
+					theme = "dropdown",
 				},
 				lsp_document_symbols = {
 					ignore_symbols = { "variable", "field" },
@@ -51,13 +51,12 @@ return {
 			extensions = {
 				project = {
 					base_dirs = {
-						home .. '/hdd/workspaces/',
+						'/home/fc/projects/',
 					},
 					hidden = false, -- default: false
 					theme = "dropdown",
 					order_by = "asc",
 					search_by = "title",
-					width = 0.8,
 				}
 			}
 		})

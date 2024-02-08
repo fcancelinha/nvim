@@ -95,6 +95,21 @@ keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
+-- Terminal
+keymap('n', '<A-i>', '<cmd>lua require("FTerm").toggle()<cr>', opts)
+keymap('t', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<cr>', opts)
+
+--LuaSnips
+keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
+keymap({ "i", "s" }, "<Tab>", function() require('luasnip').jump(1) end, opts)
+keymap({ "i", "s" }, "<S-Tab>", function() require('luasnip').jump(-1) end, opts)
+
+keymap({ "i", "s" }, "<C-E>", function()
+	if require('luasnip').choice_active() then
+		require('luasnip').change_choice(1)
+	end
+end, opts)
+
 -- Rest
 vim.cmd [[
 	nnoremap <leader>rr <Plug>RestNvim
@@ -108,6 +123,11 @@ keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
 keymap('n', 'gl', vim.diagnostic.open_float, opts)
 keymap('n', 'gq', vim.diagnostic.setloclist, opts)
+
+-- NeoTest
+keymap("n", "<leader>tr", function() require("neotest").run.run() end)
+keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
+keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

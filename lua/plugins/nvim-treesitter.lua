@@ -8,6 +8,8 @@ return {
 				"gomod",
 				"gosum",
 				"gowork",
+				"javascript",
+				"typescript",
 				"json",
 				"json5",
 				"lua",

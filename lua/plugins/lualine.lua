@@ -1,5 +1,8 @@
 return {
 	"nvim-lualine/lualine.nvim",
+	dependencies = {
+		"Isrothy/lualine-diagnostic-message",
+	},
 	config = function()
 		local colors = {
 			dark           = '#2E3440',
@@ -28,6 +31,12 @@ return {
 		custom_northern.replace.c.bg = colors.dark
 		custom_northern.command.c.bg = colors.dark
 
+		custom_northern.normal.b.bg = colors.special
+		custom_northern.insert.b.bg = colors.special
+		custom_northern.visual.b.bg = colors.special
+		custom_northern.replace.b.bg = colors.special
+		custom_northern.command.b.bg = colors.special
+
 		require('lualine').setup {
 			options = {
 				globalstatus = true,
@@ -47,10 +56,8 @@ return {
 					winbar = {},
 					"alpha",
 					"TelescopePrompt",
-					"neo-tree",
-					"neo-tree-popup",
+					"Telescope",
 					"lazygit",
-					"toggleterm"
 				},
 			},
 			sections = {
@@ -64,72 +71,82 @@ return {
 				lualine_b = {
 					{
 						'branch',
-						icon = { '', color = { bg = colors.special, fg = colors.green }, align = 'left' },
-						color = { bg = colors.special, fg = colors.yellow },
+						icon = { '', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.grey, fg = colors.yellow },
 						separator = { right = '' },
 					},
 					{
-						"diff",
-						color = { bg = colors.special },
-						separator = { right = '' },
+						'filetype',
+						icon_only = true,
+						icon = { align = 'right' },
+						colored = false,
+					},
+					{
+						'filename',
+						file_status = true,
+						newfile_status = true,
+						path = 0,
 					},
 				},
 				lualine_c = {
 					{
 						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sources = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'error' },
 						diagnostics_color = { error = { bg = colors.dark, fg = colors.red } },
-
+						update_in_insert = true
 					},
 					{
 						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sources = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'warn' },
 						diagnostics_color = { warn = { bg = colors.dark, fg = colors.yellow } },
+						update_in_insert = true
 					},
 					{
 						'diagnostics',
-						source = { 'nvim_diagnostic', 'nvim_lsp' },
+						sources = { 'nvim_diagnostic', 'nvim_lsp' },
 						sections = { 'hint' },
 						diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
+						update_in_insert = true
 					},
+					{
+						'diagnostic-message',
+						colors = {
+							error = colors.red,
+							warn = colors.yellow,
+							info = colors.frostturquoise,
+							hint = colors.frostturquoise,
+						},
+						icons = {
+							error = "",
+							warn = "",
+							info = "",
+							hint = "",
+						},
+					}
 				},
 				lualine_x = {
 					{
-						"encoding",
-						color = { bg = colors.special },
+						'diff',
+						color = { bg = colors.dark }
 					},
 				},
 				lualine_y = {
-					{
-						'filename',
-						path = 1,
-						file_status = true,
-						color = { bg = colors.special, fg = colors.snowdark },
-						icon = { '', color = { bg = colors.special, fg = colors.green }, align = 'left' },
-					},
-					{
-						'filetype',
-						fmt = function(str) return '[' .. str .. ']' end,
-						color = { bg = colors.special },
-						colored = true,
-						icon = { align = 'right' },
-						icons_enabled = false,
-					},
+					"datetime",
 				},
 				lualine_z = {
 					{
-						"searchcount",
+						"progress"
+					},
+					{
+						'searchcount',
 						icon = { '', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
-						"selectioncount",
+						'selectioncount',
 						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
 					},
-					{
-						'progress'
-					}
 				},
 			},
 			inactive_sections = {
@@ -144,10 +161,12 @@ return {
 			winbar = {},
 			inactive_winbar = {},
 			extensions = {
-				'quickfix',
-				'nvim-dap-ui',
-				'symbols-outline',
+				'mason',
 				'neo-tree',
+				'nvim-dap-ui',
+				'quickfix',
+				'symbols-outline',
+				'trouble'
 			},
 		}
 	end

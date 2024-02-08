@@ -32,7 +32,7 @@ return {
 				-- This is a current Neovim limitation.
 				enabled = true,  -- enables the Noice messages UI
 				view = "notify", -- default view for messages
-				view_error = "popup", -- view for errors
+				view_error = "split", -- view for errors
 				view_warn = "notify", -- view for warnings
 				view_history = "split", -- view for :messages
 				view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
@@ -43,7 +43,6 @@ return {
 				backend = "nui", -- backend to use to show regular cmdline completions
 				---@type NoicePopupmenuItemKind|false
 				-- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
-				kind_icons = {}, -- set to `false` to disable icons
 			},
 			-- default options for require('noice').redirect
 			-- see the section on Command Redirection

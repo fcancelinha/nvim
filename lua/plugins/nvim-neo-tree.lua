@@ -25,8 +25,8 @@ return {
 					padding = 2, -- extra padding on left hand side
 					-- indent guides
 					with_markers = true,
-					indent_marker = "│",
-					last_indent_marker = "└",
+					indent_marker = " │",
+					last_indent_marker = " └",
 					highlight = "NeoTreeIndentMarker",
 					-- expander config, needed for nesting files
 					with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
@@ -44,11 +44,11 @@ return {
 					highlight = "NeoTreeFileIcon"
 				},
 				modified = {
-					symbol = "",
+					symbol = "",
 					highlight = "NeoTreeGitModified",
 				},
 				name = {
-					trailing_slash = false,
+					trailing_slash = true,
 					use_git_status_colors = true,
 					highlight = "NeoTreeFileName",
 				},
@@ -56,24 +56,24 @@ return {
 					symbols = {
 						-- Change type
 						added     = "✚",
-						deleted   = "✖",
+						deleted   = "",
 						modified  = "",
-						renamed   = "󰁕",
+						renamed   = "",
 						-- Status type
 						untracked = "",
-						ignored   = "",
-						unstaged  = "󰄱",
-						staged    = "",
+						ignored   = "",
+						unstaged  = "󰘓",
+						staged    = "󰄬",
 						conflict  = "",
 					},
 					align = "right"
 				},
 				diagnostics = {
 					symbols = {
-						hint = "󰌵",
-						info = "",
-						warn = "",
-						error = "",
+						hint = "",
+						info = "",
+						warn = "",
+						error = "",
 					},
 					highlights = {
 						hint = "DiagnosticSignHint",

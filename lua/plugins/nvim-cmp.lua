@@ -98,22 +98,30 @@ return {
 				["<C-n>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "v", "i", "c" }),
 				["<C-e>"] = cmp.mapping.close(),
 				["<CR>"] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Insert,
+					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,
 				}),
 				['<Tab>'] = cmp.mapping.confirm({
-					behavior = cmp.ConfirmBehavior.Insert,
+					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,
 				}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 			}),
 			sorting = {
 				comparators = {
-					cmp.config.compare.score,
+					-- compare.locality,
+					-- compare.recently_used,
+					-- compare.score,
+					-- compare.offset,
+					-- compare.order,
+					cmp.config.compare.offset,
 					cmp.config.compare.exact,
+					cmp.config.compare.score,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.locality,
 					cmp.config.compare.kind,
 					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
-					-- cmp.config.compare.order,
+					cmp.config.compare.order,
 				}
 			},
 			sources = cmp.config.sources({
@@ -124,12 +132,6 @@ return {
 					end,
 				},
 				{
-					name = 'nvim_lua',
-					entry_filter = function(entry, _)
-						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
-					end
-				},
-				{
 					name = 'luasnip',
 				},
 				{
@@ -137,6 +139,12 @@ return {
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end,
+				},
+				{
+					name = 'nvim_lua',
+					entry_filter = function(entry, _)
+						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
+					end
 				},
 				{
 					name = 'path',

@@ -21,6 +21,9 @@ return {
 			},
 		}, neotest_ns)
 
+		require("neotest-vim-test")({
+			ignore_file_types = { "python", "vim", "lua" }
+		})
 
 		require("neotest").setup({
 			adapters = {
@@ -30,6 +33,9 @@ return {
 					},
 					args = { "-count=1", "-timeout=60s", "-json" }
 				}),
+			},
+			library = {
+				plugin = { "neotest" }, types = true
 			},
 			default_strategy = 'integrated',
 			output = {
