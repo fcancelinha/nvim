@@ -8,7 +8,7 @@ return {
 		-- Aligns to 1 character
 		vim.keymap.set(
 			'x',
-			'aa',
+			'<leader>aa',
 			function()
 				require 'align'.align_to_char({
 					length = 1,
@@ -20,7 +20,7 @@ return {
 		-- Aligns to 2 characters with previews
 		vim.keymap.set(
 			'x',
-			'ad',
+			'<leader>ad',
 			function()
 				require 'align'.align_to_char({
 					preview = true,
@@ -33,7 +33,7 @@ return {
 		-- Aligns to a string with previews
 		vim.keymap.set(
 			'x',
-			'aw',
+			'<leader>aw',
 			function()
 				require 'align'.align_to_string({
 					preview = true,
@@ -46,7 +46,7 @@ return {
 		-- Aligns to a Vim regex with previews
 		vim.keymap.set(
 			'x',
-			'ar',
+			'<leader>ar',
 			function()
 				require 'align'.align_to_string({
 					preview = true,
@@ -59,7 +59,7 @@ return {
 		-- Example gawip to align a paragraph to a string with previews
 		vim.keymap.set(
 			'n',
-			'gaw',
+			'<leader>gaw',
 			function()
 				local a = require 'align'
 				a.operator(
@@ -76,7 +76,7 @@ return {
 		-- Example gaaip to align a paragraph to 1 character
 		vim.keymap.set(
 			'n',
-			'gaa',
+			'<leader>gaa',
 			function()
 				local a = require 'align'
 				a.operator(a.align_to_char)

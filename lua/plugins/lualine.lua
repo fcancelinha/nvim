@@ -37,14 +37,67 @@ return {
 		custom_northern.replace.b.bg = colors.special
 		custom_northern.command.b.bg = colors.special
 
+		local empty = require('lualine.component'):extend()
+		function empty:draw(default_highlight)
+			self.status = ''
+			self.applied_separator = ''
+			self:apply_highlights(default_highlight)
+			self:apply_section_separators()
+			return self.status
+		end
+
+		-- Lsp server name .
+		local function lsp_server()
+			local msg = '[NOLSP]'
+			local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+			local clients = vim.lsp.get_active_clients()
+			if next(clients) == nil then
+				return msg
+			end
+			for _, client in ipairs(clients) do
+				local filetypes = client.config.filetypes
+				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+					return client.name
+				end
+			end
+			return msg
+		end
+
+		-- Put proper separators and gaps between components in sections
+		local function process_sections(sections)
+			for name, section in pairs(sections) do
+				local left = name:sub(9, 10) < 'x'
+				for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
+					table.insert(section, pos * 2, { empty, color = { fg = colors.dark, bg = colors.dark } })
+				end
+				for id, comp in ipairs(section) do
+					if type(comp) ~= 'table' then
+						comp = { comp }
+						section[id] = comp
+					end
+					comp.separator = left and { right = '' } or { left = '' }
+				end
+			end
+			return sections
+		end
+
+		local function modified()
+			if vim.bo.modified then
+				return '+'
+			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+				return '-'
+			end
+			return ''
+		end
+
 		require('lualine').setup {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
 				theme = custom_northern,
 				component_separators = "",
-				section_separators = { left = '', right = '' },
 				ignore_focus = {},
+				section_separators = { left = '', right = '' },
 				always_divide_middle = true,
 				refresh = {
 					statusline = 1000,
@@ -60,7 +113,7 @@ return {
 					"lazygit",
 				},
 			},
-			sections = {
+			sections = process_sections {
 				lualine_a = {
 					{
 						'mode',
@@ -71,18 +124,13 @@ return {
 				lualine_b = {
 					{
 						'branch',
-						icon = { '', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.grey, fg = colors.yellow },
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.yellow },
 						separator = { right = '' },
 					},
 					{
-						'filetype',
-						icon_only = true,
-						icon = { align = 'right' },
-						colored = false,
-					},
-					{
 						'filename',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						file_status = true,
 						newfile_status = true,
 						path = 0,
@@ -133,19 +181,29 @@ return {
 					},
 				},
 				lualine_y = {
-					"datetime",
+					{
+						lsp_server,
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.snowlight },
+					},
+					{
+						'filetype',
+						icon_only = true,
+						icon = { align = 'left' },
+						colored = true,
+					},
 				},
 				lualine_z = {
 					{
-						"progress"
-					},
-					{
 						'searchcount',
-						icon = { '', color = { fg = colors.dark }, align = 'right' },
+						icon = { ' ', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
 						'selectioncount',
-						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
+						icon = { '󰒅 ', color = { fg = colors.dark }, align = 'right' },
+					},
+					{
+						"progress"
 					},
 				},
 			},
