@@ -11,6 +11,7 @@ return {
 				{ "jay-babu/mason-nvim-dap.nvim" },
 				{ "williamboman/mason-lspconfig.nvim" },
 				{ "williamboman/nvim-lsp-installer" },
+				{ "mfussenegger/nvim-lint" },
 			},
 			build = ":MasonUpdate",
 		},
@@ -18,21 +19,6 @@ return {
 	config = function()
 		-- Auto-format
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-
-		-- floating diagnostics window
-		-- vim.api.nvim_create_autocmd("CursorHold", {
-		-- 	callback = function()
-		-- 		local opts = {
-		-- 			focusable = false,
-		-- 			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-		-- 			border = 'single',
-		-- 			source = 'always',
-		-- 			prefix = ' ',
-		-- 			scope = 'cursor',
-		-- 		}
-		-- 		vim.diagnostic.open_float(nil, opts)
-		-- 	end
-		-- })
 
 		-- Setup lspconfig	
 		local lsp_zero = require('lsp-zero')
@@ -42,6 +28,8 @@ return {
 		lsp_zero.on_attach(function(_, bufnr)
 			lsp_zero.default_keymaps({ buffer = bufnr })
 		end)
+
+		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		vim.diagnostic.config({
 			signs = true,
@@ -57,8 +45,6 @@ return {
 			info = '◇',
 			hint = '󰌵',
 		})
-
-		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		require('mason').setup({
 			ui = {
@@ -120,6 +106,15 @@ return {
 						},
 					})
 				end,
+				tsserver = function()
+					lspconfig.tsserver.setup({
+						capabilities = capabilities,
+						preferences = {
+							disableSuggestions = true,
+							semanticTokens = true,
+						}
+					})
+				end,
 				gopls = function()
 					lspconfig.gopls.setup({
 						capabilities = capabilities,
@@ -131,7 +126,8 @@ return {
 						message_level = vim.lsp.protocol.MessageType.Error,
 						settings = {
 							gopls = {
-								semanticTokens = true,
+								experimentalPostfixCompletions = true,
+								semanticTokens = false,
 								gofumpt = true,
 								completeUnimported = true,
 								usePlaceholders = false,
@@ -172,9 +168,12 @@ return {
 									shadow = true,
 									fillreturns = true,
 								},
-								directoryFilters = { "-.git", "-node_modules" },
+								directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
 								buildFlags = { '-tags', 'integration' },
 							},
+						},
+						init_options = {
+							usePlaceholders = true,
 						},
 						flags = {
 							debounce_text_changes = 500,
@@ -190,8 +189,10 @@ return {
 							enable = true,
 						},
 					})
-				end
+				end,
 			}
 		})
-	end
+	end,
+
+
 }

@@ -31,21 +31,21 @@ return {
 			retain_hidden_root_indent = true,
 			enable_git_status = true,
 			enable_diagnostics = true,
-			enable_normal_mode_for_inputs = true,                     -- Enable normal mode for input dialogs.
-			open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
-			sort_case_insensitive = false,                            -- used when sorting files and directories in the tree
-			sort_function = nil,                                      -- use a custom function for sorting files and directories in the tree
+			enable_normal_mode_for_inputs = true,                                           -- Enable normal mode for input dialogs.
+			open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "Outline", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
+			sort_case_insensitive = false,                                                  -- used when sorting files and directories in the tree
+			sort_function = nil,                                                            -- use a custom function for sorting files and directories in the tree
 			default_component_configs = {
 				container = {
 					enable_character_fade = true
 				},
 				indent = {
 					indent_size = 2,
-					padding = 2, -- extra padding on left hand side
+					padding = 4, -- extra padding on left hand side
 					-- indent guides
 					with_markers = true,
 					indent_marker = " │",
-					last_indent_marker = " └",
+					last_indent_marker = " └ ",
 					highlight = "NeoTreeIndentMarker",
 					-- expander config, needed for nesting files
 					with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
@@ -122,6 +122,7 @@ return {
 			-- A list of functions, each representing a global custom command
 			-- that will be available in all sources (if not overridden in `opts[source_name].commands`)
 			-- see `:h neo-tree-custom-commands-global`
+			sources = { "filesystem", "buffers", "git_status", "document_symbols" },
 			commands = {
 
 			},
@@ -130,6 +131,7 @@ return {
 				popup = { -- settings that apply to float position only
 					size = { height = "87%", width = "35%" },
 					position = "52%", -- 50% means center it
+					padding = 6,
 				},
 				width = 2,
 				mapping_options = {
@@ -216,8 +218,9 @@ return {
 				-- "open_current",  -- netrw disabled, opening a directory opens within the
 				-- window like netrw would, regardless of window.position
 				-- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-				use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+				use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
 				-- instead of relying on nvim autocmd events.
+				bind_to_cwd = false,
 				window = {
 					mappings = {
 						["<bs>"] = "navigate_up",

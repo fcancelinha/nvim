@@ -7,6 +7,7 @@ return {
 	},
 	config = function()
 		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = "*.go",
 			callback = function()
@@ -21,9 +22,9 @@ return {
 			go = 'go', -- go command, can be go[default] or go1.18beta1
 			goimport = 'gopls', -- goimport command, can be gopls[default] or either goimport or golines if need to split long lines
 			fillstruct = 'gopls', -- default, can also use fillstruct
-			gofmt = 'gofumpt', --gofmt cmd,
+			gofmt = 'gofmt', --gofmt cmd,
 			max_line_len = 128, -- max line length in golines format, Target maximum line length for golines
-			tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
+			tag_transform = 'snakecase', -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
 			tag_options = 'json=omitempty', -- sets options sent to gomodifytags, i.e., json=omitempty
 			gotests_template = "", -- sets gotests -template parameter (check gotests for details)
 			gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
@@ -59,10 +60,10 @@ return {
 				enable = false,
 				-- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
 				-- inlay only avalible for 0.10.x
-				style = 'inlay',
+				style = 'eol',
 				-- Note: following setup only works for style = 'eol', you do not need to set it for 'inlay'
 				-- Only show inlay hints for the current line
-				only_current_line = false,
+				only_current_line = true,
 				-- Event which triggers a refersh of the inlay hints.
 				-- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
 				-- not that this may cause higher CPU usage.

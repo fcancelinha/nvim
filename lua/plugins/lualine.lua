@@ -23,19 +23,13 @@ return {
 			special        = "#384356",
 		}
 
-		local custom_northern = require 'lualine.themes.northern'
-
-		custom_northern.normal.c.bg = colors.dark
-		custom_northern.insert.c.bg = colors.dark
-		custom_northern.visual.c.bg = colors.dark
-		custom_northern.replace.c.bg = colors.dark
-		custom_northern.command.c.bg = colors.dark
-
-		custom_northern.normal.b.bg = colors.special
-		custom_northern.insert.b.bg = colors.special
-		custom_northern.visual.b.bg = colors.special
-		custom_northern.replace.b.bg = colors.special
-		custom_northern.command.b.bg = colors.special
+		-- local custom_northern = require 'lualine.themes.northern'
+		--
+		-- custom_northern.normal.c.bg = colors.dark
+		-- custom_northern.insert.c.bg = colors.dark
+		-- custom_northern.visual.c.bg = colors.dark
+		-- custom_northern.replace.c.bg = colors.dark
+		-- custom_northern.command.c.bg = colors.dark
 
 		local empty = require('lualine.component'):extend()
 		function empty:draw(default_highlight)
@@ -94,7 +88,7 @@ return {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				theme = custom_northern,
+				-- theme = custom_northern,
 				component_separators = "",
 				ignore_focus = {},
 				section_separators = { left = '', right = '' },
@@ -123,17 +117,18 @@ return {
 				},
 				lualine_b = {
 					{
-						'branch',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.special, fg = colors.yellow },
-						separator = { right = '' },
+						'filetype',
+						color = { bg = colors.special },
+						icon_only = true,
+						icon = { align = 'left' },
+						colored = true,
 					},
 					{
 						'filename',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.snowdark },
 						file_status = true,
 						newfile_status = true,
-						path = 0,
+						path = 1,
 					},
 				},
 				lualine_c = {
@@ -182,25 +177,24 @@ return {
 				},
 				lualine_y = {
 					{
+						'branch',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.yellow },
+					},
+					{
 						lsp_server,
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.special, fg = colors.snowlight },
-					},
-					{
-						'filetype',
-						icon_only = true,
-						icon = { align = 'left' },
-						colored = true,
 					},
 				},
 				lualine_z = {
 					{
 						'searchcount',
-						icon = { ' ', color = { fg = colors.dark }, align = 'right' },
+						icon = { '', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
 						'selectioncount',
-						icon = { '󰒅 ', color = { fg = colors.dark }, align = 'right' },
+						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
 						"progress"

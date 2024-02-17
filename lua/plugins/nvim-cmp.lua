@@ -20,31 +20,31 @@ return {
 		local cmp = require('cmp')
 
 		local kind_icons = {
-			Text = '  ',
-			Method = '  ',
-			Function = '  ',
-			Constructor = '  ',
-			Field = '  ',
-			Variable = '  ',
-			Class = '  ',
-			Interface = '  ',
-			Module = '  ',
-			Property = '  ',
-			Unit = '  ',
-			Value = '  ',
-			Enum = '  ',
+			Text = ' ',
+			Method = ' ',
+			Function = '󰊕 ',
+			Constructor = ' ',
+			Field = ' ',
+			Variable = ' ',
+			Class = ' ',
+			Interface = ' ',
+			Module = ' ',
+			Property = ' ',
+			Unit = ' ',
+			Value = ' ',
+			Enum = ' ',
 			Keyword = '󰌋',
 			Snippet = '',
-			Color = '  ',
+			Color = ' ',
 			File = '󰈙',
-			Reference = '  ',
-			Folder = '  ',
-			EnumMember = '  ',
+			Reference = ' ',
+			Folder = ' ',
+			EnumMember = ' ',
 			Constant = '󰏿',
 			Struct = '',
-			Event = '  ',
-			Operator = '  ',
-			TypeParameter = '  ',
+			Event = ' ',
+			Operator = ' ',
+			TypeParameter = ' ',
 		}
 
 		cmp.setup({
@@ -58,18 +58,11 @@ return {
 				completeopt = 'menu,menuone,noinsert,preview'
 			},
 			formatting = {
-				fields = { "kind", "menu", "abbr" },
-				format = function(entry, vim_item)
+				fields = { "abbr", "kind", "menu" },
+				format = function(_, vim_item)
 					-- Kind icons
-					vim_item.kind = string.format('%s', kind_icons[vim_item.kind]) -- This concatonates the icons with the name of the item kinde
-					-- Source
-					vim_item.menu = ({
-						buffer = "",
-						nvim_lsp = "",
-						nvim_lua = "",
-						luasnip = "",
-						latex_symbols = "",
-					})[entry.source.name]
+					vim_item.kind = string.format(' %s', kind_icons[vim_item.kind]) -- This concatonates the icons with the name of the item kinde
+
 					return vim_item
 				end
 			},
@@ -108,19 +101,11 @@ return {
 			}),
 			sorting = {
 				comparators = {
-					-- compare.locality,
-					-- compare.recently_used,
-					-- compare.score,
-					-- compare.offset,
-					-- compare.order,
+					cmp.config.compare.score,
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
-					cmp.config.compare.score,
 					cmp.config.compare.recently_used,
 					cmp.config.compare.locality,
-					cmp.config.compare.kind,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
 					cmp.config.compare.order,
 				}
 			},
