@@ -15,9 +15,13 @@ return {
 		"hrsh7th/nvim-cmp",
 		"onsails/lspkind.nvim",
 		"saadparwaiz1/cmp_luasnip",
+		'lukas-reineke/cmp-under-comparator',
 	},
 	config = function()
 		local cmp = require('cmp')
+		local cmp_buffer = require('cmp_buffer')
+		local compare = require('cmp.config.compare')
+		local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
 		local kind_icons = {
 			Text = ' ',
@@ -47,6 +51,11 @@ return {
 			TypeParameter = ' ',
 		}
 
+		cmp.event:on(
+			'confirm_done',
+			cmp_autopairs.on_confirm_done()
+		)
+
 		cmp.setup({
 			preselect = 'item',
 			performance = {
@@ -58,10 +67,11 @@ return {
 				completeopt = 'menu,menuone,noinsert,preview'
 			},
 			formatting = {
-				fields = { "abbr", "kind", "menu" },
+				fields = { "kind", "abbr", "menu" },
 				format = function(_, vim_item)
 					-- Kind icons
-					vim_item.kind = string.format(' %s', kind_icons[vim_item.kind]) -- This concatonates the icons with the name of the item kinde
+					vim_item.kind = string.format('%s', kind_icons[vim_item.kind]) -- This concatonates the icons with the name of the item kinde
+					vim_item.abbr = string.sub(vim_item.abbr, 1, 25)
 
 					return vim_item
 				end
@@ -101,13 +111,21 @@ return {
 			}),
 			sorting = {
 				comparators = {
-					cmp.config.compare.score,
-					cmp.config.compare.offset,
-					cmp.config.compare.exact,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.locality,
-					cmp.config.compare.order,
-				}
+					-- Sort by distance of the word from the cursor
+					-- https://github.com/hrsh7th/cmp-buffer#locality-bonus-comparator-distance-based-sorting
+					function(...)
+						return cmp_buffer:compare_locality(...)
+					end,
+					compare.offset,
+					compare.exact,
+					compare.score,
+					require('cmp-under-comparator').under,
+					compare.recently_used,
+					compare.locality,
+					compare.kind,
+					compare.sort_text,
+					compare.length,
+					compare.order, }
 			},
 			sources = cmp.config.sources({
 				{
@@ -115,6 +133,7 @@ return {
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end,
+					max_item_count = 10,
 				},
 				{
 					name = 'luasnip',
@@ -124,6 +143,7 @@ return {
 					entry_filter = function(entry, _)
 						return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
 					end,
+					max_item_count = 10,
 				},
 				{
 					name = 'nvim_lua',

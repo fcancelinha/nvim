@@ -10,7 +10,6 @@ return {
 			dependencies = {
 				{ "jay-babu/mason-nvim-dap.nvim" },
 				{ "williamboman/mason-lspconfig.nvim" },
-				{ "williamboman/nvim-lsp-installer" },
 				{ "mfussenegger/nvim-lint" },
 			},
 			build = ":MasonUpdate",
@@ -45,6 +44,11 @@ return {
 			info = '◇',
 			hint = '󰌵',
 		})
+
+		require('lint').linters_by_ft = {
+			javascript = { 'eslint_d' },
+			typescript = { 'eslint_d' },
+		}
 
 		require('mason').setup({
 			ui = {
@@ -104,15 +108,6 @@ return {
 								},
 							},
 						},
-					})
-				end,
-				tsserver = function()
-					lspconfig.tsserver.setup({
-						capabilities = capabilities,
-						preferences = {
-							disableSuggestions = true,
-							semanticTokens = true,
-						}
 					})
 				end,
 				gopls = function()

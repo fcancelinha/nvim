@@ -1,15 +1,31 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	dependencies = {
+		"windwp/nvim-ts-autotag",
+		{
+			"https://github.com/apple/pkl-neovim",
+			lazy = true,
+			event = "BufReadPre *.pkl",
+			dependencies = {
+				"nvim-treesitter/nvim-treesitter",
+			},
+			build = function()
+				vim.cmd("TSInstall! pkl")
+			end,
+		},
+	},
 	build = ":TSUpdate",
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
+				"css",
 				"go",
 				"gomod",
 				"gosum",
 				"gowork",
+				"html",
+				"http",
 				"javascript",
-				"typescript",
 				"json",
 				"json5",
 				"jsonc",
@@ -17,15 +33,12 @@ return {
 				"markdown",
 				"markdown_inline",
 				"regex",
-				"http",
-				"vimdoc",
+				"typescript",
 				"vim",
+				"vimdoc",
 			},
 			autotag = {
 				enable = true,
-				enable_rename = true,
-				enable_close = true,
-				enable_close_on_slash = true,
 				filetypes = { "html", "xml", "tsx", "markdown", "javascriptreact", "typescriptreact" }
 			},
 			sync_install = false,
@@ -37,7 +50,6 @@ return {
 			},
 			indent = {
 				enable = false,
-				disable = {},
 			},
 			incremental_selection = {
 				enable = true,
