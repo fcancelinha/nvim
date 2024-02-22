@@ -10,13 +10,12 @@ return {
 			dependencies = {
 				{ "jay-babu/mason-nvim-dap.nvim" },
 				{ "williamboman/mason-lspconfig.nvim" },
-				{ "mfussenegger/nvim-lint" },
 			},
 			build = ":MasonUpdate",
-		},
+		}
 	},
 	config = function()
-		-- Auto-format
+		--Auto-format
 		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
 		-- Setup lspconfig	
@@ -27,8 +26,6 @@ return {
 		lsp_zero.on_attach(function(_, bufnr)
 			lsp_zero.default_keymaps({ buffer = bufnr })
 		end)
-
-		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		vim.diagnostic.config({
 			signs = true,
@@ -45,10 +42,7 @@ return {
 			hint = '󰌵',
 		})
 
-		require('lint').linters_by_ft = {
-			javascript = { 'eslint_d' },
-			typescript = { 'eslint_d' },
-		}
+		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		require('mason').setup({
 			ui = {
@@ -76,7 +70,7 @@ return {
 		})
 
 		require('mason-lspconfig').setup({
-			ensure_installed = { 'gopls', 'lua_ls' },
+			ensure_installed = { 'gopls', 'lua_ls', 'tsserver' },
 			handlers = {
 				lsp_zero.default_setup,
 				lua_ls = function()
@@ -122,7 +116,7 @@ return {
 						settings = {
 							gopls = {
 								experimentalPostfixCompletions = true,
-								semanticTokens = false,
+								semanticTokens = true,
 								gofumpt = true,
 								completeUnimported = true,
 								usePlaceholders = false,
@@ -188,6 +182,4 @@ return {
 			}
 		})
 	end,
-
-
 }

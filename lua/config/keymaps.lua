@@ -48,7 +48,7 @@ keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
 -- [ Plugins ] --
 
--- Neotree
+-- Explorer
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Telescope
@@ -151,8 +151,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
 		keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
 		keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", lsp_opts)
-		keymap('n', '<leader>f', function()
-			vim.lsp.buf.format { async = true }
-		end, lsp_opts)
 	end,
 })

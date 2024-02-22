@@ -40,23 +40,6 @@ return {
 			return self.status
 		end
 
-		-- Lsp server name .
-		local function lsp_server()
-			local msg = '[NOLSP]'
-			local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-			local clients = vim.lsp.get_active_clients()
-			if next(clients) == nil then
-				return msg
-			end
-			for _, client in ipairs(clients) do
-				local filetypes = client.config.filetypes
-				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-					return client.name
-				end
-			end
-			return msg
-		end
-
 		-- Put proper separators and gaps between components in sections
 		local function process_sections(sections)
 			for name, section in pairs(sections) do
@@ -73,15 +56,6 @@ return {
 				end
 			end
 			return sections
-		end
-
-		local function modified()
-			if vim.bo.modified then
-				return '+'
-			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
-				return '-'
-			end
-			return ''
 		end
 
 		require('lualine').setup {
@@ -116,13 +90,6 @@ return {
 					},
 				},
 				lualine_b = {
-					{
-						'filetype',
-						color = { bg = colors.special },
-						icon_only = true,
-						icon = { align = 'left' },
-						colored = true,
-					},
 					{
 						'filename',
 						color = { bg = colors.special, fg = colors.snowdark },
@@ -182,9 +149,11 @@ return {
 						color = { bg = colors.special, fg = colors.yellow },
 					},
 					{
-						lsp_server,
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.special, fg = colors.snowlight },
+						'filetype',
+						color = { bg = colors.special },
+						icon_only = true,
+						icon = { align = 'left' },
+						colored = true,
 					},
 				},
 				lualine_z = {
