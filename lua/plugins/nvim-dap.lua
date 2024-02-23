@@ -2,16 +2,21 @@ return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
-		"theHamsta/nvim-dap-virtual-text"
+		"theHamsta/nvim-dap-virtual-text",
+		-- debuggers
+		"leoluz/nvim-dap-go",
+		"mxsdev/nvim-dap-vscode-js",
 	},
 	config = function()
-		vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Error' })
-		vim.fn.sign_define('DapBreakpointCondition', { text = ' 󰨮', texthl = 'Conditional' })
-		vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Todo' })
-		vim.fn.sign_define('DapLogPoint', { text = ' ', texthl = 'Exception' })
-		vim.fn.sign_define('DapStopped', { text = ' ', texthl = 'String' })
+		vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '@error' })
+		vim.fn.sign_define('DapBreakpointCondition', { text = '󰨮', texthl = 'Conditional' })
+		vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Todo' })
+		vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'Exception' })
+		vim.fn.sign_define('DapStopped', { text = '', texthl = 'String' })
 
-		require('dap-go').setup {
+		require("dapui").setup()
+
+		require('dap-go').setup({
 			-- Additional dap configurations can be added.
 			-- dap_configurations accepts a list of tables where each entry
 			-- represents a dap configuration. For more details do:
@@ -47,18 +52,64 @@ return {
 				-- ignored by delve in dap mode.
 				build_flags = "",
 			},
-		}
+		})
+
+		require("dap-vscode-js").setup({
+			-- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+			-- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
+			-- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+			adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
+			-- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
+			-- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
+			-- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
+		})
+
+		for _, language in ipairs({ "typescript", "javascript" }) do
+			require("dap").configurations[language] = {
+				{
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch file",
+						program = "${file}",
+						cwd = "${workspaceFolder}",
+					},
+					{
+						type = "pwa-node",
+						request = "attach",
+						name = "Attach",
+						processId = require 'dap.utils'.pick_process,
+						cwd = "${workspaceFolder}",
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Debug Jest Tests",
+						-- trace = true, -- include debugger info
+						runtimeExecutable = "node",
+						runtimeArgs = {
+							"./node_modules/jest/bin/jest.js",
+							"--runInBand",
+						},
+						rootPath = "${workspaceFolder}",
+						cwd = "${workspaceFolder}",
+						console = "integratedTerminal",
+						internalConsoleOptions = "neverOpen",
+					}
+				}
+			}
+		end
 
 		require("nvim-dap-virtual-text").setup {
-			enabled = true,              -- enable this plugin (the default)
-			enabled_commands = true,     -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+			enabled = true,            -- enable this plugin (the default)
+			enabled_commands = true,   -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
 			highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
 			highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-			show_stop_reason = true,     -- show stop reason when stopped for exceptions
-			commented = false,           -- prefix virtual text with comment string
+			show_stop_reason = true,   -- show stop reason when stopped for exceptions
+			commented = false,         -- prefix virtual text with comment string
 			only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
-			all_references = false,      -- show virtual text on all all references of the variable (not only definitions)
-			clear_on_continue = false,   -- clear virtual text on "continue" (might cause flickering when stepping)
+			all_references = false,    -- show virtual text on all all references of the variable (not only definitions)
+			clear_on_continue = false, -- clear virtual text on "continue" (might cause flickering when stepping)
 			--- A callback that determines how a variable is displayed or whether it should be omitted
 			--- @param variable Variable https://microsoft.github.io/debug-adapter-protocol/specification#Types_Variable
 			--- @param buf number

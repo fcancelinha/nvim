@@ -44,8 +44,8 @@ return {
 					padding = 4, -- extra padding on left hand side
 					-- indent guides
 					with_markers = true,
-					indent_marker = " │",
-					last_indent_marker = " └ ",
+					indent_marker = "│",
+					last_indent_marker = "└ ",
 					highlight = "NeoTreeIndentMarker",
 					-- expander config, needed for nesting files
 					with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
@@ -63,7 +63,7 @@ return {
 					highlight = "NeoTreeFileIcon"
 				},
 				modified = {
-					symbol = "",
+					symbol = "+ ",
 					highlight = "NeoTreeGitModified",
 				},
 				name = {
@@ -123,9 +123,6 @@ return {
 			-- that will be available in all sources (if not overridden in `opts[source_name].commands`)
 			-- see `:h neo-tree-custom-commands-global`
 			sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-			commands = {
-
-			},
 			window = {
 				position = "float",
 				popup = { -- settings that apply to float position only
@@ -180,7 +177,6 @@ return {
 					-- ["i"] = "show_file_details",
 				}
 			},
-			nesting_rules = {},
 			filesystem = {
 				filtered_items = {
 					visible = true, -- when true, they will just be displayed differently than normal items
@@ -220,7 +216,7 @@ return {
 				-- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
 				use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
 				-- instead of relying on nvim autocmd events.
-				bind_to_cwd = false,
+				bind_to_cwd = true,
 				window = {
 					mappings = {
 						["<bs>"] = "navigate_up",

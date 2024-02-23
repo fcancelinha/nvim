@@ -3,7 +3,6 @@ return {
 	dependencies = { -- optional packages
 		{ "ray-x/guihua.lua" },
 		{ "ray-x/cmp-treesitter" },
-		{ "leoluz/nvim-dap-go" },
 	},
 	config = function()
 		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})

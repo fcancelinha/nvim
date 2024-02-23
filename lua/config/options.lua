@@ -4,6 +4,7 @@ vim.g.loaded_netrwPlugin = 1
 --:help options
 local options = {
 	autoread       = true,
+	autochdir      = true,
 	autowrite      = true,
 	background     = 'dark',
 	backspace      = { 'start', 'eol', 'indent' },

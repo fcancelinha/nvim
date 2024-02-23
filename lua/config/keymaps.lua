@@ -13,12 +13,12 @@ local keymap = vim.keymap.set
 local opts = { silent = true }
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
+keymap("", "<Space>", "<Nop>", opts)
 
 -- Stay in indent mode
-keymap("v", ">", "<gv", opts)
-keymap("v", "<", ">gv", opts)
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
@@ -33,23 +33,36 @@ keymap("i", "<Up>", "<C-k>", opts)
 keymap("i", "<Down>", "<C-j>", opts)
 
 -- Moving current lines
-keymap("n", "<A-<<>", ":m -1<CR>gv-gv", opts)
-keymap("n", "<A->>", ":m +1<CR>gv-gv", opts)
-keymap("v", "<A-<<>", ":m '>+1<CR>gv-gv", opts)
-keymap("v", "<A->>", ":m '<-2<CR>gv-gv", opts)
+keymap("n", "<A-j>", "mz:m+<CR>`z==", opts)
+keymap("n", "<A-k>", "mz:m-2<CR>`z==", opts)
+keymap("i", "<A-j>", "<Esc>:m+1<CR>==gi", opts)
+keymap("i", "<A-k>", "<Esc>:m-2<CR>==gi", opts)
+keymap("v", "<A-j>", ":m'>+<CR>gv=`<my`>mzgv`yo`z", opts)
+keymap("v", "<A-k>", ":m'<-2<CR>gv=`>my`<mzgv`yo`z", opts)
+
+-- nnoremap ^]j mz:m+<CR>`z==
+-- nnoremap ^]k mz:m-2<CR>`z==
+-- inoremap ^]j <Esc>:m+<CR>==gi
+-- inoremap ^]k <Esc>:m-2<CR>==gi
+-- vnoremap ^]j :m'>+<CR>gv=`<my`>mzgv`yo`z
+-- vnoremap ^]k :m'<-2<CR>gv=`>my`<mzgv`yo`z
 
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- Close Quickfix-List
+keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 keymap("n", "]q", ":cnext<CR>", opts)
 keymap("n", "[q", ":cprev<CR>", opts)
-keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
 
 -- [ Plugins ] --
 
 -- Explorer
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
+
+-- Terminal
+keymap('n', '<A-i>', '<cmd>lua require("FTerm").toggle()<cr>', opts)
+keymap('t', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<cr>', opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
@@ -87,6 +100,11 @@ keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
+-- NeoTest
+keymap("n", "<leader>tr", function() require("neotest").run.run() end)
+keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
+
+keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
 -- Trouble
 keymap("n", "<leader>xx", function() require("trouble").toggle() end)
 keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
@@ -95,15 +113,10 @@ keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
--- Terminal
-keymap('n', '<A-i>', '<cmd>lua require("FTerm").toggle()<cr>', opts)
-keymap('t', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<cr>', opts)
-
---LuaSnips
+-- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
 keymap({ "i", "s" }, "<Tab>", function() require('luasnip').jump(1) end, opts)
 keymap({ "i", "s" }, "<S-Tab>", function() require('luasnip').jump(-1) end, opts)
-
 keymap({ "i", "s" }, "<C-E>", function()
 	if require('luasnip').choice_active() then
 		require('luasnip').change_choice(1)
@@ -121,13 +134,6 @@ vim.cmd [[
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
-keymap('n', 'gl', vim.diagnostic.open_float, opts)
-keymap('n', 'gq', vim.diagnostic.setloclist, opts)
-
--- NeoTest
-keymap("n", "<leader>tr", function() require("neotest").run.run() end)
-keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
-keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
