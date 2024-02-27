@@ -12,6 +12,6 @@ return {
 		},
 	},
 	config = function()
-		require("neodev").setup({})
+		require("neodev").setup()
 	end,
 }

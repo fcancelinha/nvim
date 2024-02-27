@@ -143,6 +143,7 @@ return {
 				},
 				{
 					name = 'luasnip',
+					priority = 300
 				},
 				{
 					name = 'buffer',

@@ -1,20 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	build = ":TSUpdate",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"windwp/nvim-ts-autotag",
-		{
-			"https://github.com/apple/pkl-neovim",
-			lazy = true,
-			event = "BufReadPre *.pkl",
-			dependencies = {
-				"nvim-treesitter/nvim-treesitter",
-			},
-			build = function()
-				vim.cmd("TSInstall! pkl")
-			end,
-		},
 	},
-	build = ":TSUpdate",
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
@@ -39,7 +29,7 @@ return {
 			},
 			autotag = {
 				enable = true,
-				filetypes = { "html", "xml", "tsx", "markdown", "javascriptreact", "typescriptreact" }
+				filetypes = { "html", "xml", "jsx", "tsx", "markdown", "javascriptreact", "typescriptreact" }
 			},
 			sync_install = false,
 			auto_install = true,
@@ -48,16 +38,7 @@ return {
 				additional_vim_regex_highlighting = false,
 			},
 			indent = {
-				enable = false,
-			},
-			incremental_selection = {
 				enable = true,
-				keymaps = {
-					init_selection = "gnn", -- set to `false` to disable one of the mappings
-					node_incremental = "grn",
-					scope_incremental = "grc",
-					node_decremental = "grm",
-				},
 			},
 		})
 	end,
