@@ -40,13 +40,6 @@ keymap("i", "<A-k>", "<Esc>:m-2<CR>==gi", opts)
 keymap("v", "<A-j>", ":m'>+<CR>gv=`<my`>mzgv`yo`z", opts)
 keymap("v", "<A-k>", ":m'<-2<CR>gv=`>my`<mzgv`yo`z", opts)
 
--- nnoremap ^]j mz:m+<CR>`z==
--- nnoremap ^]k mz:m-2<CR>`z==
--- inoremap ^]j <Esc>:m+<CR>==gi
--- inoremap ^]k <Esc>:m-2<CR>==gi
--- vnoremap ^]j :m'>+<CR>gv=`<my`>mzgv`yo`z
--- vnoremap ^]k :m'<-2<CR>gv=`>my`<mzgv`yo`z
-
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
@@ -124,11 +117,15 @@ keymap({ "i", "s" }, "<C-E>", function()
 end, opts)
 
 -- Rest
-vim.cmd [[
-	nnoremap <leader>rr <Plug>RestNvim
-	nnoremap <leader>rl <Plug>RestNvimLast
-	nnoremap <leader>rp <Plug>RestNvimPreview
-]]
+-- vim.cmd [[
+-- 	nnoremap <leader>rr <Plug>RestNvim
+-- 	nnoremap <leader>rl <Plug>RestNvimLast
+-- 	nnoremap <leader>rp <Plug>RestNvimPreview
+-- ]]
+
+keymap('n', 'rr', '<Plug>RestNvim', { desc = 'execute request' }, opts)
+keymap('n', 'rl', '<Plug>RestNvimPreview', { desc = 'preview curl' }, opts)
+keymap('n', 'rp', '<Plug>RestNvimLast', { desc = 'repeat last request' }, opts)
 
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

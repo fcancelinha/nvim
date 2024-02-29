@@ -23,13 +23,13 @@ return {
 			special        = "#384356",
 		}
 
-		-- local custom_northern = require 'lualine.themes.northern'
-		--
-		-- custom_northern.normal.c.bg = colors.dark
-		-- custom_northern.insert.c.bg = colors.dark
-		-- custom_northern.visual.c.bg = colors.dark
-		-- custom_northern.replace.c.bg = colors.dark
-		-- custom_northern.command.c.bg = colors.dark
+		local custom_northern = require('lualine.themes.northern')
+
+		custom_northern.normal.c.bg = colors.dark
+		custom_northern.insert.c.bg = colors.dark
+		custom_northern.visual.c.bg = colors.dark
+		custom_northern.replace.c.bg = colors.dark
+		custom_northern.command.c.bg = colors.dark
 
 		local empty = require('lualine.component'):extend()
 		function empty:draw(default_highlight)
@@ -62,7 +62,7 @@ return {
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
-				-- theme = custom_northern,
+				theme = custom_northern,
 				component_separators = "",
 				ignore_focus = {},
 				section_separators = { left = '', right = '' },

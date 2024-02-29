@@ -15,16 +15,18 @@ return {
 		}
 	},
 	config = function()
-		--Auto-format
-		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-
 		-- Setup lspconfig	
 		local lsp_zero = require('lsp-zero')
 		local lspconfig = require("lspconfig")
 		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+		-- Auto-format & Default keymaps
 		lsp_zero.on_attach(function(_, bufnr)
 			lsp_zero.default_keymaps({ buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.lua,*.json,*.yaml,*.css,*.html,*.xml",
+				command = "lua vim.lsp.buf.format()",
+			})
 		end)
 
 		vim.diagnostic.config({
