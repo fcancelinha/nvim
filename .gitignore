@@ -2,6 +2,7 @@ lua/config/dbconns.lua
 lazy-lock.json
 lazy.nvim
 lua/northern
+lua/lualine
 lua/node_modules
 
 Session.vim

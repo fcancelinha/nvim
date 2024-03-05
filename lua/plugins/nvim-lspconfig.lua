@@ -20,6 +20,7 @@ return {
 		local lspconfig = require("lspconfig")
 		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+
 		-- Auto-format & Default keymaps
 		lsp_zero.on_attach(function(_, bufnr)
 			lsp_zero.default_keymaps({ buffer = bufnr })

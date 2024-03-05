@@ -108,7 +108,7 @@ return {
 				},
 				type = {
 					enabled = true,
-					required_width = 50, -- min width of window required to show this column
+					required_width = 180, -- min width of window required to show this column
 				},
 				last_modified = {
 					enabled = true,
@@ -126,7 +126,7 @@ return {
 			window = {
 				position = "float",
 				popup = { -- settings that apply to float position only
-					size = { height = "87%", width = "35%" },
+					size = { height = "87%", width = "30%" },
 					position = "52%", -- 50% means center it
 					padding = 6,
 				},
@@ -209,7 +209,7 @@ return {
 					leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
 				},
 				group_empty_dirs = false,   -- when true, empty folders will be grouped together
-				hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+				hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
 				-- in whatever position is specified in window.position
 				-- "open_current",  -- netrw disabled, opening a directory opens within the
 				-- window like netrw would, regardless of window.position

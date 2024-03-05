@@ -92,10 +92,11 @@ return {
 				lualine_b = {
 					{
 						'filename',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.special, fg = colors.snowdark },
 						file_status = true,
 						newfile_status = true,
-						path = 1,
+						path = 0,
 					},
 				},
 				lualine_c = {
