@@ -41,7 +41,7 @@ return {
 				},
 				indent = {
 					indent_size = 2,
-					padding = 4, -- extra padding on left hand side
+					padding = 2, -- extra padding on left hand side
 					-- indent guides
 					with_markers = true,
 					indent_marker = "│",

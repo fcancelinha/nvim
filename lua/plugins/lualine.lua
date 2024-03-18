@@ -40,6 +40,15 @@ return {
 			return self.status
 		end
 
+		local function modified()
+			if vim.bo.modified then
+				return '+'
+			elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+				return '-'
+			end
+			return ''
+		end
+
 		-- Put proper separators and gaps between components in sections
 		local function process_sections(sections)
 			for name, section in pairs(sections) do
@@ -91,12 +100,9 @@ return {
 				},
 				lualine_b = {
 					{
-						'filename',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.special, fg = colors.snowdark },
-						file_status = true,
-						newfile_status = true,
-						path = 0,
+						'branch',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.yellow },
 					},
 				},
 				lualine_c = {
@@ -145,16 +151,27 @@ return {
 				},
 				lualine_y = {
 					{
-						'branch',
-						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-						color = { bg = colors.special, fg = colors.yellow },
-					},
-					{
 						'filetype',
-						color = { bg = colors.special },
-						icon_only = true,
+						color = { bg = colors.dark },
+						icon_only = false,
 						icon = { align = 'left' },
 						colored = true,
+					},
+
+					{
+						modified,
+						color = { bg = colors.special, fg = colors.red },
+					},
+					{
+						"encoding"
+					},
+					{
+						'filename',
+						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+						color = { bg = colors.special, fg = colors.snowdark },
+						file_status = false,
+						newfile_status = false,
+						path = 0,
 					},
 				},
 				lualine_z = {
@@ -165,6 +182,10 @@ return {
 					{
 						'selectioncount',
 						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
+					},
+					{
+						"datetime",
+						style = "%H:%M"
 					},
 					{
 						"progress"

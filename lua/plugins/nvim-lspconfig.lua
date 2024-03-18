@@ -173,6 +173,35 @@ return {
 						}
 					})
 				end,
+				jsonls = function()
+					lspconfig.jsonls.setup({
+						capabilities = capabilities,
+						settings = {
+							json = {
+								format = {
+									enable = true
+								},
+								schemas = {
+									{
+										fileMatch = { 'package.json' },
+										url = 'https://json.schemastore.org/package.json',
+									},
+									{
+										fileMatch = { 'tsconfig.json', 'tsconfig.*.json' },
+										url = 'https://json.schemastore.org/tsconfig',
+									},
+									{
+										fileMatch = { 'eslintrc.json' },
+										url = 'https://json.schemastore.org/eslintrc.json',
+									},
+								},
+							},
+							validate = {
+								enable = true
+							}
+						},
+					})
+				end,
 				yamlls = function()
 					lspconfig.yamlls.setup({
 						capabilities = capabilities,

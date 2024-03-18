@@ -59,28 +59,33 @@ keymap('t', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<cr>', opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>fd", ":Telescope diagnostics<CR>", opts)
+keymap("n", "<leader>fD", ":Telescope diagnostics<CR>", opts)
 keymap("n", "<leader>fg", ":Telescope git_files<CR>", opts)
-keymap("n", "<leader>fc", ":Telescope git_commits<CR>", opts)
+keymap("n", "<leader>fG", ":Telescope git_commits<CR>", opts)
+keymap("n", "<leader>fB", ":Telescope git_branches<CR>", opts)
 keymap("n", "<leader>fm", ":Telescope marks<CR>", opts)
 keymap("n", "<leader>fk", ":Telescope grep_string<CR>", opts)
 keymap("n", "<leader>fj", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fl", ":Telescope oldfiles<CR>", opts)
-keymap("n", "<leader>fb", ":Telescope git_branches<CR>", opts)
+keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+
+-- Telescope LSP
+keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
+keymap("n", "<leader>fd", ":Telescope lsp_definitions<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
+keymap("n", "<leader>fy", ":Telescope lsp_implementations<CR>", opts)
+keymap("n", "<leader>fi", ":Telescope lsp_incoming_calls<CR>", opts)
+keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
+keymap("n", "<leader>fw", ":Telescope git_worktrees git_worktrees<CR>", opts)
 
 -- Telescope Extensions
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 
--- Telescope LSP
-keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
-keymap("n", "<leader>ft", ":Telescope lsp_implementations<CR>", opts)
-keymap("n", "<leader>fy", ":Telescope lsp_incoming_calls<CR>", opts)
-keymap("n", "<leader>fu", ":Telescope lsp_outgoing_calls<CR>", opts)
-keymap("n", "<leader>fw", ":Telescope git_worktrees git_worktrees<CR>", opts)
-
 -- LazyGit
 keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
+
+-- Neotest
+keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
@@ -97,7 +102,6 @@ keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 keymap("n", "<leader>tr", function() require("neotest").run.run() end)
 keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
 
-keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
 -- Trouble
 keymap("n", "<leader>xx", function() require("trouble").toggle() end)
 keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
@@ -105,6 +109,38 @@ keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnos
 keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
+
+-- Barbar
+-- Move to previous/next
+keymap('n', '<A-j>', '<Cmd>BufferPrevious<CR>', opts)
+keymap('n', '<A-k>', '<Cmd>BufferNext<CR>', opts)
+-- Goto buffer in position...
+keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+keymap('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+keymap('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+keymap('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+keymap('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+keymap('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+keymap('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+keymap('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+keymap('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+-- Pin/unpin buffer
+keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+-- Close buffer
+keymap('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
+keymap('n', '<A-Q>', '<Cmd>CloseAllButCurrent<CR>', opts)
+-- Wipeout buffer
+--                 :BufferWipeout
+-- Close commands
+--                 :BufferCloseAllButCurrent
+--                 :BufferCloseAllButPinned
+--                 :BufferCloseAllButCurrentOrPinned
+--                 :BufferCloseBuffersLeft
+--                 :BufferCloseBuffersRight
+-- Other:
+-- :BarbarEnable - enables barbar (enabled by default)
+-- :BarbarDisable - very bad command, should never be used
 
 -- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
@@ -115,13 +151,6 @@ keymap({ "i", "s" }, "<C-E>", function()
 		require('luasnip').change_choice(1)
 	end
 end, opts)
-
--- Rest
--- vim.cmd [[
--- 	nnoremap <leader>rr <Plug>RestNvim
--- 	nnoremap <leader>rl <Plug>RestNvimLast
--- 	nnoremap <leader>rp <Plug>RestNvimPreview
--- ]]
 
 keymap('n', 'rr', '<Plug>RestNvim', { desc = 'execute request' }, opts)
 keymap('n', 'rl', '<Plug>RestNvimPreview', { desc = 'preview curl' }, opts)
