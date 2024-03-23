@@ -117,17 +117,14 @@ return {
 			}),
 			sorting = {
 				comparators = {
-					-- Sort by distance of the word from the cursor
-					-- https://github.com/hrsh7th/cmp-buffer#locality-bonus-comparator-distance-based-sorting
-					function(...)
-						return cmp_buffer:compare_locality(...)
-					end,
 					compare.score,
 					compare.offset,
 					compare.exact,
 					require('cmp-under-comparator').under,
 					compare.recently_used,
-					compare.locality,
+					function(...)
+						return cmp_buffer:compare_locality(...)
+					end,
 					compare.kind,
 					compare.length,
 					compare.order,

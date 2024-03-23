@@ -68,6 +68,7 @@ keymap("n", "<leader>fk", ":Telescope grep_string<CR>", opts)
 keymap("n", "<leader>fj", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fl", ":Telescope oldfiles<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
+keymap("n", "<leader>fw", ":Telescope git_worktree<CR>", opts)
 
 -- Telescope LSP
 keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
@@ -76,7 +77,6 @@ keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope lsp_implementations<CR>", opts)
 keymap("n", "<leader>fi", ":Telescope lsp_incoming_calls<CR>", opts)
 keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
-keymap("n", "<leader>fw", ":Telescope git_worktrees git_worktrees<CR>", opts)
 
 -- Telescope Extensions
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)

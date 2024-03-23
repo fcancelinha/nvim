@@ -77,11 +77,11 @@ return {
 		local buttons = {
 			type = "group",
 			val = {
-				button("f", "󰱼 " .. " Find File", ":Telescope find_files <CR>"),
-				button("e", "󰦛 " .. " Restore Session", ":lua require('persistence').load({ last = true}) <CR>"),
+				button("f", "󰱼 " .. " Find File", ":Telescope find_files<CR>"),
+				button("e", "󰦛 " .. " Restore Session", ":lua require('persistence').load({ last = true})<CR>"),
 				button("p", " " .. " Find Project", ":lua require('telescope').extensions.projects.projects{}<CR>"),
-				button("r", " " .. " Recent Files", ":Telescope oldfiles <CR>"),
-				button("c", " " .. " Config", ":e ~/.config/nvim/lua <CR>"),
+				button("r", " " .. " Recent Files", ":Telescope oldfiles<CR>"),
+				button("c", " " .. " Config", ":Neotree ~/.config/nvim/lua<CR>"),
 				button("q", " " .. " Quit", ":qa<CR>"),
 			},
 			opts = {
@@ -99,11 +99,9 @@ return {
 			}
 		}
 
-
 		local plugins_gen = io.popen('fd -d 2 . "$HOME/.local/share/nvim/lazy" | head -n -2 | ls | wc -l | tr -d "\n" ')
 		local plugins = plugins_gen:read("*a")
 		plugins_gen:close()
-
 
 		local footer_2 = {
 			type = "text",
