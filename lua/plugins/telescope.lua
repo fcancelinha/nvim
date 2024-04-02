@@ -125,6 +125,12 @@ return {
 						height = 0.9,
 					},
 				},
+				builtin = {
+					layout_config = {
+						width = 0.8,
+						height = 0.9,
+					},
+				},
 				diagnostics = {
 					theme = "dropdown",
 					layout_config = {
@@ -154,6 +160,12 @@ return {
 					theme = "dropdown",
 					layout_config = {
 						width = 0.4,
+					}
+				},
+				quickfix = {
+					theme = "dropdown",
+					layout_config = {
+						width = 0.7,
 					}
 				},
 			},

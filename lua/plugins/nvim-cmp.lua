@@ -25,31 +25,31 @@ return {
 		local luasnip = require('luasnip')
 
 		local kind_icons = {
-			Text = ' ',
-			Method = ' ',
-			Function = '󰊕 ',
-			Constructor = ' ',
-			Field = ' ',
-			Variable = ' ',
-			Class = ' ',
-			Interface = ' ',
-			Module = ' ',
-			Property = ' ',
-			Unit = ' ',
-			Value = ' ',
-			Enum = ' ',
+			Text = '  ',
+			Method = '  ',
+			Function = '󰊕  ',
+			Constructor = '  ',
+			Field = '  ',
+			Variable = '  ',
+			Class = '  ',
+			Interface = '  ',
+			Module = '  ',
+			Property = '  ',
+			Unit = '  ',
+			Value = '  ',
+			Enum = '  ',
 			Keyword = '󰌋',
 			Snippet = '',
-			Color = ' ',
+			Color = '  ',
 			File = '󰈙',
-			Reference = ' ',
-			Folder = ' ',
-			EnumMember = ' ',
+			Reference = '  ',
+			Folder = '  ',
+			EnumMember = '  ',
 			Constant = '󰏿',
 			Struct = '',
-			Event = ' ',
-			Operator = ' ',
-			TypeParameter = ' ',
+			Event = '  ',
+			Operator = '  ',
+			TypeParameter = '  ',
 		}
 
 
@@ -118,16 +118,12 @@ return {
 			sorting = {
 				comparators = {
 					compare.score,
-					compare.offset,
-					compare.exact,
-					require('cmp-under-comparator').under,
-					compare.recently_used,
-					function(...)
-						return cmp_buffer:compare_locality(...)
-					end,
 					compare.kind,
-					compare.length,
+					compare.exact,
 					compare.order,
+					compare.recently_used,
+					compare.offset,
+					compare.length,
 				}
 			},
 			sources = cmp.config.sources({
@@ -139,7 +135,7 @@ return {
 				},
 				{
 					name = 'luasnip',
-					priority = 300
+					priority = 700
 				},
 				{
 					name = 'buffer',

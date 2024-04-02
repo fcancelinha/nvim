@@ -86,6 +86,9 @@ keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
 
 -- Neotest
 keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
+keymap("n", "<leader>ts", ":Neotest summary <CR>", opts)
+keymap("n", "<leader>to", ":Neotest output-panel <CR>", opts)
+keymap("n", "<leader>tr", ":Neotest run <CR>", opts)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
