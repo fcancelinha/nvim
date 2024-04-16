@@ -54,8 +54,6 @@ keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Terminal
-keymap('n', '<A-i>', '<cmd>lua require("FTerm").toggle()<cr>', opts)
-keymap('t', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<cr>', opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
