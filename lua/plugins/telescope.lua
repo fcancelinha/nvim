@@ -23,10 +23,11 @@ return {
 		require('telescope').setup({
 			defaults = {
 				-- layout_strategy = "center",
-				selection_caret = '◆ ',
-				color_devicons  = true,
-				winblend        = 10,
-				layout_config   = {
+				sorting_strategy = "ascending",
+				selection_caret  = '◆ ',
+				color_devicons   = true,
+				winblend         = 10,
+				layout_config    = {
 					width = 0.4,
 					height = 0.4,
 				}

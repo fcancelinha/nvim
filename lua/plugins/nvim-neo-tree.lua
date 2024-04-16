@@ -53,16 +53,16 @@ return {
 					expander_highlight = "NeoTreeExpander",
 				},
 				icon = {
-					folder_closed = " ",
-					folder_open = " ",
-					folder_empty = " ",
+					folder_closed = " ",
+					folder_open = " ",
+					folder_empty = " ",
 					-- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
 					-- then these will never be used.
-					default = " ",
+					default = " ",
 					highlight = "NeoTreeFileIcon"
 				},
 				modified = {
-					symbol = "+ ",
+					symbol = " ",
 					highlight = "NeoTreeGitModified",
 				},
 				name = {
@@ -125,11 +125,10 @@ return {
 			window = {
 				position = "float",
 				popup = { -- settings that apply to float position only
-					size = { height = "87%", width = "30%" },
-					position = "52%", -- 50% means center it
+					size = { height = "85%", width = "33%" },
+					position = "50%", -- 50% means center it
 					padding = 6,
 				},
-				width = 2,
 				mapping_options = {
 					noremap = true,
 					nowait = true,
@@ -184,6 +183,7 @@ return {
 					hide_hidden = false, -- only works on Windows for hidden files/directories
 					hide_by_name = {
 						--"node_modules"
+						".git"
 					},
 					hide_by_pattern = { -- uses glob style patterns
 						--"*.meta",
