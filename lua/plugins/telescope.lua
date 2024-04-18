@@ -23,7 +23,7 @@ return {
 		require('telescope').setup({
 			defaults = {
 				-- layout_strategy = "center",
-				sorting_strategy = "ascending",
+				sorting_strategy = "descending",
 				selection_caret  = '◆ ',
 				color_devicons   = true,
 				winblend         = 10,
@@ -33,7 +33,7 @@ return {
 				}
 			},
 			pickers = {
-				find_command = { "rg", "--glob" },
+				find_command = { "fd", "--type", "f", },
 				find_files = {
 					theme         = "dropdown",
 					previewer     = true,

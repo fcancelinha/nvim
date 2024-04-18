@@ -2,18 +2,8 @@ return {
 	"ray-x/go.nvim",
 	dependencies = { -- optional packages
 		{ "ray-x/guihua.lua" },
-		{ "ray-x/cmp-treesitter" },
 	},
 	config = function()
-		local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
-
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = "*.go",
-			callback = function()
-				require('go.format').goimport()
-			end,
-			group = format_sync_grp,
-		})
 
 		require("go").setup({
 			disable_defaults = false, -- true|false when true set false to all boolean settings and replace all table
@@ -101,11 +91,10 @@ return {
 			dap_port = 38697,                                     -- can be set to a number, if set to -1 go.nvim will pick up a random port
 			dap_timeout = 15,                                     --  see dap option initialize_timeout_sec = 15,
 			dap_retries = 20,                                     -- see dap option max_retries
-			build_tags = "tag1,tag2",                             -- set default build tags
 			textobjects = true,                                   -- enable default text jobects through treesittter-text-objects
-			test_runner = 'go',                                   -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
-			verbose_tests = true,                                 -- set to add verbose flag to tests deprecated, see '-v' option
-			run_in_floaterm = false,                              -- set to true to run in a float window. :GoTermClose closes the floatterm
+			test_runner = 'richgo',                               -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
+			verbose_tests = false,                                -- set to add verbose flag to tests deprecated, see '-v' option
+			run_in_floaterm = true,                               -- set to true to run in a float window. :GoTermClose closes the floatterm
 			-- float term recommend if you use richgo/ginkgo with terminal color
 			floaterm = {                                          -- position
 				posititon = 'auto',                               -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}

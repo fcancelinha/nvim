@@ -16,19 +16,25 @@ return {
 	},
 	config = function()
 		-- Setup lspconfig	
-		local lsp_zero = require('lsp-zero')
+		local lsp_zero = require("lsp-zero")
 		local lspconfig = require("lspconfig")
 		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+		local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 
+		require('lspconfig.ui.windows').default_options.border = 'single'
 
-		-- Auto-format & Default keymaps
-		lsp_zero.on_attach(function(_, bufnr)
-			lsp_zero.default_keymaps({ buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = "*.lua,*.json,*.yaml,*.css,*.html,*.xml",
-				command = "lua vim.lsp.buf.format()",
-			})
-		end)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.go",
+			callback = function()
+				require('go.format').goimports()
+			end,
+			group = format_sync_grp,
+		})
+
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*.lua,*.json,*.yaml,*.css,*.html,*.xml",
+			command = "lua vim.lsp.buf.format()",
+		})
 
 		vim.diagnostic.config({
 			signs = true,
@@ -44,8 +50,6 @@ return {
 			info = '◇',
 			hint = '󰌵',
 		})
-
-		require('lspconfig.ui.windows').default_options.border = 'single'
 
 		require('mason').setup({
 			ui = {
@@ -75,7 +79,6 @@ return {
 		require('mason-lspconfig').setup({
 			ensure_installed = { 'gopls', 'lua_ls', 'tsserver' },
 			handlers = {
-				lsp_zero.default_setup,
 				lua_ls = function()
 					lspconfig.lua_ls.setup({
 						capabilities = capabilities,
@@ -290,9 +293,21 @@ return {
 				end,
 				robotframework_ls = function()
 					lspconfig.robotframework_ls.setup({
+						capabilities = capabilities,
 						settings = {
 							robot = {
-								semanticTokens = false
+								pythonpath = { "${workspaceFolder}/libraries" },
+								codeFormatter = true,
+								codeLens = {
+									enable = true
+								},
+								lint = {
+									enabled = true,
+									robocop = {
+										enabled = true,
+									},
+								}
+
 							}
 						}
 					})
