@@ -2,10 +2,6 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		{
-			'VonHeikemen/lsp-zero.nvim',
-			branch = 'v3.x'
-		},
-		{
 			"williamboman/mason.nvim",
 			dependencies = {
 				{ "jay-babu/mason-nvim-dap.nvim" },
@@ -16,7 +12,6 @@ return {
 	},
 	config = function()
 		-- Setup lspconfig	
-		local lsp_zero = require("lsp-zero")
 		local lspconfig = require("lspconfig")
 		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 		local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
@@ -41,14 +36,6 @@ return {
 			underline = false,
 			update_in_insert = true,
 			severity_sort = true,
-		})
-
-		-- Change diagnostic signs.
-		lsp_zero.set_sign_icons({
-			error = '◆',
-			warn = '◈',
-			info = '◇',
-			hint = '󰌵',
 		})
 
 		require('mason').setup({
