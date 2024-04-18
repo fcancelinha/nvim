@@ -288,6 +288,15 @@ return {
 						}
 					})
 				end,
+				robotframework_ls = function()
+					lspconfig.robotframework_ls.setup({
+						settings = {
+							robot = {
+								semanticTokens = false
+							}
+						}
+					})
+				end,
 			}
 		})
 	end,

@@ -54,6 +54,16 @@ keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Terminal
+keymap("n", "<A-i>", ":ToggleTerm <CR>", opts)
+keymap("n", "<A-I>", ":ToggleTermToggleAll <CR>", opts)
+keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
@@ -110,38 +120,6 @@ keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnos
 keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
-
--- Barbar
--- Move to previous/next
-keymap('n', '<A-j>', '<Cmd>BufferPrevious<CR>', opts)
-keymap('n', '<A-k>', '<Cmd>BufferNext<CR>', opts)
--- Goto buffer in position...
-keymap('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-keymap('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-keymap('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-keymap('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-keymap('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-keymap('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-keymap('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-keymap('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-keymap('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-keymap('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
--- Pin/unpin buffer
-keymap('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
--- Close buffer
-keymap('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
-keymap('n', '<A-Q>', '<Cmd>CloseAllButCurrent<CR>', opts)
--- Wipeout buffer
---                 :BufferWipeout
--- Close commands
---                 :BufferCloseAllButCurrent
---                 :BufferCloseAllButPinned
---                 :BufferCloseAllButCurrentOrPinned
---                 :BufferCloseBuffersLeft
---                 :BufferCloseBuffersRight
--- Other:
--- :BarbarEnable - enables barbar (enabled by default)
--- :BarbarDisable - very bad command, should never be used
 
 -- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
