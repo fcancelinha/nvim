@@ -195,10 +195,17 @@ return {
 				yamlls = function()
 					lspconfig.yamlls.setup({
 						capabilities = capabilities,
-						schemaStore = {
-							url = "https://www.schemastore.org/api/json/catalog.json",
-							enable = true,
-						},
+						yaml = {
+							validate = true,
+							schemaStore = {
+								url = "https://www.schemastore.org/api/json/catalog.json",
+								enable = true,
+							},
+							editor = {
+								tabsize = 4,
+								formatOnType = true,
+							},
+						}
 					})
 				end,
 				eslint = function()
@@ -299,6 +306,11 @@ return {
 						}
 					})
 				end,
+				bashls = function()
+					lspconfig.bashls.setup({
+						capabilities = capabilities
+					})
+				end
 			}
 		})
 	end,
