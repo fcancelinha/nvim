@@ -54,9 +54,13 @@ keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Terminal
-keymap("n", "<A-i>", ":FloatermToggle <CR>", opts)
-keymap("t", "<A-i>", "<C-\\><C-n>:FloatermToggle <CR>", opts)
-
+keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+-- keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)

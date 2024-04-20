@@ -308,7 +308,10 @@ return {
 				end,
 				bashls = function()
 					lspconfig.bashls.setup({
-						capabilities = capabilities
+						capabilities = capabilities,
+						name = "bash",
+						cmd = { 'bash-language-server', 'start' },
+						filetypes = { 'sh' }
 					})
 				end
 			}

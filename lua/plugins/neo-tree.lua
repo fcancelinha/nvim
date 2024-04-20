@@ -6,24 +6,23 @@ return {
 		{
 			's1n7ax/nvim-window-picker',
 			version = '2.*',
-			config = function()
-				require 'window-picker'.setup({
-					filter_rules = {
-						include_current_win = false,
-						autoselect_one = true,
-						-- filter using buffer options
-						bo = {
-							-- if the file type is one of following, the window will be ignored
-							filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-							-- if the buffer type is one of following, the window will be ignored
-							buftype = { 'terminal', "quickfix" },
-						},
-					},
-				})
-			end,
 		},
 	},
 	config = function()
+		require 'window-picker'.setup({
+			filter_rules = {
+				include_current_win = false,
+				autoselect_one = true,
+				-- filter using buffer options
+				bo = {
+					-- if the file type is one of following, the window will be ignored
+					filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+					-- if the buffer type is one of following, the window will be ignored
+					buftype = { 'terminal', "quickfix" },
+				},
+			},
+		})
+
 		require("neo-tree").setup({
 			close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
 			popup_border_style = "single",
@@ -179,10 +178,10 @@ return {
 				filtered_items = {
 					visible = false, -- when true, they will just be displayed differently than normal items
 					hide_dotfiles = true,
-					hide_gitignored = true,
+					hide_gitignored = false,
 					hide_hidden = false, -- only works on Windows for hidden files/directories
 					hide_by_name = {
-						--"node_modules"
+						"node_modules",
 						".git"
 					},
 					hide_by_pattern = { -- uses glob style patterns
@@ -192,7 +191,9 @@ return {
 					always_show = { -- remains visible even if other settings would normally hide it
 						".gitignore",
 						".gitlab-ci.yml",
-						".golangci.yml"
+						".golangci.yml",
+						".golangci.yaml",
+						".robocop",
 					},
 					never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
 						--".DS_Store",
