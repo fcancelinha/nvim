@@ -61,7 +61,7 @@ return {
 						comp = { comp }
 						section[id] = comp
 					end
-					comp.separator = left and { right = '' } or { left = '' }
+					comp.separator = left and { right = '' } or { left = '' }
 				end
 			end
 			return sections
@@ -74,7 +74,7 @@ return {
 				theme = custom_northern,
 				component_separators = "",
 				ignore_focus = {},
-				section_separators = { left = '', right = '' },
+				section_separators = { left = '', right = '' },
 				always_divide_middle = true,
 				refresh = {
 					statusline = 1000,
@@ -94,7 +94,6 @@ return {
 				lualine_a = {
 					{
 						'mode',
-						fmt = function(str) return str:sub(1, 1) end,
 						right_padding = 1
 					},
 				},
@@ -104,8 +103,29 @@ return {
 						icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
 						color = { bg = colors.special, fg = colors.yellow },
 					},
+					{
+						'diff',
+						color = { bg = colors.dark }
+					},
 				},
 				lualine_c = {
+					{
+						'diagnostic-message',
+						colors = {
+							error = colors.red,
+							warn = colors.yellow,
+							info = colors.frostturquoise,
+							hint = colors.frostturquoise,
+						},
+						icons = {
+							error = "",
+							warn = "",
+							info = "",
+							hint = "",
+						},
+					}
+				},
+				lualine_x = {
 					{
 						'diagnostics',
 						sources = { 'nvim_diagnostic', 'nvim_lsp' },
@@ -126,27 +146,6 @@ return {
 						sections = { 'hint' },
 						diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
 						update_in_insert = true
-					},
-					{
-						'diagnostic-message',
-						colors = {
-							error = colors.red,
-							warn = colors.yellow,
-							info = colors.frostturquoise,
-							hint = colors.frostturquoise,
-						},
-						icons = {
-							error = "",
-							warn = "",
-							info = "",
-							hint = "",
-						},
-					}
-				},
-				lualine_x = {
-					{
-						'diff',
-						color = { bg = colors.dark }
 					},
 				},
 				lualine_y = {
@@ -184,12 +183,8 @@ return {
 						icon = { '󰒅', color = { fg = colors.dark }, align = 'right' },
 					},
 					{
-						"datetime",
-						style = "%H:%M"
-					},
-					{
-						"progress"
-					},
+						"location"
+					}
 				},
 			},
 			inactive_sections = {
