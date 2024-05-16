@@ -31,12 +31,23 @@ return {
 			command = "lua vim.lsp.buf.format()",
 		})
 
-		local signs = { Error = "?", Warning = "?", Hint = "?", Information = "?" }
-
-		for type, icon in pairs(signs) do
-			local hl = "LspDiagnosticsSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
+		-- Change diagnostic signs.
+		vim.fn.sign_define('DiagnosticSignError', {
+			text = '',
+			texthl = "DiagnosticSignError"
+		})
+		vim.fn.sign_define('DiagnosticSignWarn', {
+			text = '',
+			texthl = "DiagnosticSignWarn"
+		})
+		vim.fn.sign_define('DiagnosticSignInfo', {
+			text = '󰋼',
+			texthl = "DiagnosticSignInformation"
+		})
+		vim.fn.sign_define('DiagnosticSignHint', {
+			text = '',
+			texthl = "DiagnosticSignHint"
+		})
 
 		vim.diagnostic.config({
 			signs = true,
@@ -320,7 +331,7 @@ return {
 						cmd = { 'bash-language-server', 'start' },
 						filetypes = { 'sh' }
 					})
-				end
+				end,
 			}
 		})
 	end,
