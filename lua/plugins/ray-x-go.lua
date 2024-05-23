@@ -1,10 +1,10 @@
 return {
 	"ray-x/go.nvim",
-	dependencies = { -- optional packages
-		{ "ray-x/guihua.lua" },
+	-- optional packages
+	dependencies = {
+		"ray-x/guihua.lua"
 	},
 	config = function()
-
 		require("go").setup({
 			disable_defaults = false, -- true|false when true set false to all boolean settings and replace all table
 			-- settings with {}
@@ -17,7 +17,7 @@ return {
 			tag_options = 'json=omitempty', -- sets options sent to gomodifytags, i.e., json=omitempty
 			gotests_template = "", -- sets gotests -template parameter (check gotests for details)
 			gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
-			comment_placeholder = '', -- comment_placeholder your cool placeholder e.g. 󰟓       
+			comment_placeholder = "", -- comment_placeholder your cool placeholder e.g. 󰟓       
 			icons = { breakpoint = '󰃤', currentpos = '' }, -- setup to `false` to disable icons setup
 			verbose = false, -- output loginf in messages
 			-- false: do nothing
@@ -92,14 +92,14 @@ return {
 			dap_timeout = 15,                                     --  see dap option initialize_timeout_sec = 15,
 			dap_retries = 20,                                     -- see dap option max_retries
 			textobjects = true,                                   -- enable default text jobects through treesittter-text-objects
-			test_runner = 'richgo',                               -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
+			test_runner = 'go',                                   -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
 			verbose_tests = false,                                -- set to add verbose flag to tests deprecated, see '-v' option
-			run_in_floaterm = true,                               -- set to true to run in a float window. :GoTermClose closes the floatterm
+			run_in_floaterm = false,                              -- set to true to run in a float window. :GoTermClose closes the floatterm
 			-- float term recommend if you use richgo/ginkgo with terminal color
 			floaterm = {                                          -- position
-				posititon = 'auto',                               -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
-				width = 0.45,                                     -- width of float window if not auto
-				height = 0.98,                                    -- height of float window if not auto
+				posititon = 'right',                              -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+				width = 0.50,                                     -- width of float window if not auto
+				height = 0.90,                                    -- height of float window if not auto
 				title_colors = 'nord',                            -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
 				-- can also set to a list of colors to define colors to choose from
 				-- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}

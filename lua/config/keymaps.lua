@@ -91,6 +91,7 @@ keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
 
 -- Neotest
 keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
+keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
 keymap("n", "<leader>ts", ":Neotest summary <CR>", opts)
 keymap("n", "<leader>to", ":Neotest output-panel <CR>", opts)
 keymap("n", "<leader>tr", ":Neotest run <CR>", opts)
@@ -106,9 +107,17 @@ keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
--- NeoTest
-keymap("n", "<leader>tr", function() require("neotest").run.run() end)
-keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
+-- ToggleTerm
+keymap('t', '<esc>', [[<C-\><C-n>]], opts)
+keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
 
 -- Trouble
 keymap("n", "<leader>xx", function() require("trouble").toggle() end)

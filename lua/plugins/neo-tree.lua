@@ -126,7 +126,7 @@ return {
 				popup = { -- settings that apply to float position only
 					size = { height = "85%", width = "35%" },
 					position = "50%", -- 50% means center it
-					padding = 6,
+					padding = 12,
 				},
 				mapping_options = {
 					noremap = true,
