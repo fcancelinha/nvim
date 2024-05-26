@@ -9,11 +9,11 @@ return {
 		"mxsdev/nvim-dap-vscode-js",
 	},
 	config = function()
-		vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '@error' })
-		vim.fn.sign_define('DapBreakpointCondition', { text = '󰨮', texthl = 'Conditional' })
+		vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '@error' })
+		vim.fn.sign_define('DapBreakpointCondition', { text = '󰯲', texthl = 'Conditional' })
 		vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Todo' })
 		vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'Exception' })
-		vim.fn.sign_define('DapStopped', { text = '', texthl = 'String' })
+		vim.fn.sign_define('DapStopped', { text = '󱆭', texthl = 'String' })
 
 		require("dapui").setup()
 

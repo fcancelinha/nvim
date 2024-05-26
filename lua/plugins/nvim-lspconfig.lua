@@ -31,11 +31,18 @@ return {
 			command = "lua vim.lsp.buf.format()",
 		})
 
+		vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+			pattern = ".gitlab*",
+			callback = function()
+				vim.bo.filetype = "yaml.gitlab"
+			end,
+		})
+
 		-- Change diagnostic signs.
-		vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = "DiagnosticSignError" })
-		vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = "DiagnosticSignWarn" })
-		vim.fn.sign_define('DiagnosticSignInfo', { text = '󰋼', texthl = "DiagnosticSignInformation" })
-		vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = "DiagnosticSignHint" })
+		vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = "DiagnosticSignError" })
+		vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = "DiagnosticSignWarn" })
+		vim.fn.sign_define('DiagnosticSignInfo', { text = '󰋼 ', texthl = "DiagnosticSignInformation" })
+		vim.fn.sign_define('DiagnosticSignHint', { text = ' ', texthl = "DiagnosticSignHint" })
 
 		vim.diagnostic.config({
 			signs = true,
@@ -320,6 +327,11 @@ return {
 						filetypes = { 'sh' }
 					})
 				end,
+				gitlab_ci_ls = function()
+					lspconfig.gitlab_ci_ls.setup({
+						capabilities = capabilities,
+					})
+				end
 			}
 		})
 	end,

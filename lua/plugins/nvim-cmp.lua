@@ -117,13 +117,13 @@ return {
 			}),
 			sorting = {
 				comparators = {
-					compare.score,
-					compare.kind,
-					compare.exact,
-					compare.order,
-					compare.recently_used,
-					compare.offset,
-					compare.length,
+					-- compare.score,
+					-- compare.kind,
+					-- compare.exact,
+					-- compare.order,
+					-- compare.recently_used,
+					-- compare.offset,
+					-- compare.length,
 				}
 			},
 			sources = cmp.config.sources({
