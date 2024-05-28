@@ -142,7 +142,7 @@ keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
 
 -- GitBlame
-keymap('n', '<leader>tb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
+keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

@@ -107,6 +107,12 @@ return {
 						'diff',
 						color = { bg = colors.dark }
 					},
+					{
+						-- experimental
+						function()
+							return vim.g.remote_neovim_host and ("Remote: %s"):format(vim.uv.os_gethostname()) or ""
+						end,
+					},
 				},
 				lualine_c = {
 					{
