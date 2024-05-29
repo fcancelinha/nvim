@@ -2,44 +2,77 @@ return {
 	"goolord/alpha-nvim",
 	lazy = true,
 	event = "VimEnter",
-	opts = function()
-		local dashboard = require("alpha.themes.dashboard")
+	config = function()
+		local alpha = require("alpha")
+		local startify = require("alpha.themes.theta")
+		local devicons = require("nvim-web-devicons")
+		local lazy = require("lazy")
 
-		dashboard.section.header = {
+		local function surround(v)
+			return ' ' .. v .. ' '
+		end
+
+		local function info_value()
+			local total_plugins = lazy.stats().count
+			local loaded_plugins = lazy.stats().loaded
+			local datetime = os.date(surround('') .. '%d-%m-%Y')
+			local version = vim.version()
+			local nvim_version_info = surround(devicons.get_icon_by_filetype('vim', {}))
+				.. 'v'
+				.. version.major
+				.. '.'
+				.. version.minor
+				.. '.'
+				.. version.patch
+
+			return surround('') ..
+				total_plugins .. '/' .. loaded_plugins .. ' plugins ' .. nvim_version_info .. ' ' .. datetime
+		end
+
+		local info = {
+			type = 'text',
+			val = info_value(),
+			opts = {
+				hl = "Function",
+				position = "center",
+			}
+		}
+
+		local logo = {
 			type = "text",
 			val = {
-				"           ███████████████                ██████████████████",
-				"           ███████████████                        ██        ",
-				"           ███████████████                ██████████████████",
-				"           ███████████████                ██              ██",
-				"           ███████████████                ██████████████████",
-				"           ███████████████                    █ ██ █    ",
-				"           ███████████████                   █  ██  █   ",
-				"           ███████████████                  █   ██   █  ",
-				"           ███████████████                                  ",
-				"           ███████████████                ██████████████████",
-				"           ███████████████                     ██    ██     ",
-				"           ██████████████████████████     ██████████████████",
-				"           ██████████████████████████     ██              ██",
-				"           ██████████████████████████     ██████████████████",
-				"           ██████████████████████████          ██    ██     ",
-				"           ██████████████████████████     ██████████████████",
-				"           ██████████████████████████                       ",
-				"           ██████████████████████████     ▀▀▀▀▀▀▀▀██▀▀▀▀▀▀▀▀",
-				"           ██████████████████████████     ▀▀▀▀▀▀▀▀██▀▀▀▀▀▀▀▀",
-				"           ██████████████████████████     ██████████████████",
-				"           ███████████████▀▀▀▀▀▀▀▀▀▀▀     ██              ██",
-				"           ███████████████                ██████████████████",
-				"          ███████████████                ▄▄▄▄▄▄▄▄██▄▄▄▄▄▄▄▄",
-				"         ████████████████                ▄▄▄▄▄▄▄▄██▄▄▄▄▄▄▄▄",
-				"        █████████████████                                  ",
-				"       ██████████████████                ██████████████████",
-				"      ███████████████████                        ██        ",
-				"     ████████████████████                        ██        ",
-				"    █████████████████████                        ██        ",
-				"   ██████████████████████                        ██        ",
-				"  ███████████████████████                        ██        ",
-				" ████████████████████████                ██████████████████",
+				"          ███████████████               ██████████████████",
+				"          ███████████████                       ██        ",
+				"          ███████████████               ██████████████████",
+				"          ███████████████               ██              ██",
+				"          ███████████████               ██████████████████",
+				"          ███████████████                   █ ██ █    ",
+				"          ███████████████                  █  ██  █   ",
+				"          ███████████████                 █   ██   █  ",
+				"          ███████████████                                 ",
+				"          ███████████████               ██████████████████",
+				"          ███████████████                    ██    ██     ",
+				"          █████████████████████████     ██████████████████",
+				"          █████████████████████████     ██              ██",
+				"          █████████████████████████     ██████████████████",
+				"          █████████████████████████          ██    ██     ",
+				"          █████████████████████████     ██████████████████",
+				"          █████████████████████████                       ",
+				"          █████████████████████████     ▀▀▀▀▀▀▀▀██▀▀▀▀▀▀▀▀",
+				"          █████████████████████████     ▀▀▀▀▀▀▀▀██▀▀▀▀▀▀▀▀",
+				"          █████████████████████████     ██████████████████",
+				"          ███████████████▀▀▀▀▀▀▀▀▀▀     ██              ██",
+				"          ███████████████               ██████████████████",
+				"         ███████████████               ▄▄▄▄▄▄▄▄██▄▄▄▄▄▄▄▄",
+				"        ████████████████               ▄▄▄▄▄▄▄▄██▄▄▄▄▄▄▄▄",
+				"       █████████████████                                 ",
+				"      ██████████████████               ██████████████████",
+				"     ███████████████████                       ██        ",
+				"    ████████████████████                       ██        ",
+				"   █████████████████████                       ██        ",
+				"  ██████████████████████                       ██        ",
+				" ███████████████████████                       ██        ",
+				"████████████████████████               ██████████████████",
 			},
 			opts = {
 				position = "center",
@@ -47,7 +80,7 @@ return {
 			}
 		}
 
-		dashboard.section.subheader = {
+		local message = {
 			type = "text",
 			val = "🀰 TOHA HEAVY INDUSTRIES 🀰",
 			opts = {
@@ -56,130 +89,117 @@ return {
 			},
 		}
 
-		local function button(sc, txt, keybind)
-			local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
 
-			local opts = {
-				position = "center",
-				text = txt,
-				shortcut = '[' .. string.upper(sc) .. ']',
-				width = 61,
-				align_shortcut = "right",
-				hl_shortcut = "Operator",
-				hl = "Conditonal",
+		local function button(lhs, txt, rhs, opts)
+			lhs = lhs:gsub('%s', ''):gsub('SPC', '<leader>')
+
+			local default_opts = {
+				position = 'center',
+				shortcut = '[' .. lhs .. '] ',
+				cursor = 1,
+				width = 53,
+				align_shortcut = 'right',
+				hl_shortcut = { { 'Operator', 0, 1 }, { 'Function', 1, #lhs + 1 }, { 'Operator', #lhs + 1, #lhs + 2 } },
+				shrink_margin = false,
+				keymap = { 'n', lhs, rhs, { noremap = true, silent = true, nowait = true } },
 			}
 
-			if keybind then
-				opts.keymap = { "n", sc_, keybind, { noremap = true, silent = true } }
-			end
+			opts = vim.tbl_deep_extend('force', default_opts, opts or {})
 
 			return {
-				type = "button",
-				val = txt,
+				type = 'button',
+				val = string.format(' %-1s  %s', opts.icon or '', txt),
 				on_press = function()
-					local key = vim.api.nvim_replace_termcodes(sc_, true, false, true)
-					vim.api.nvim_feedkeys(key, "normal", false)
+					local key = vim.api.nvim_replace_termcodes(rhs .. '<Ignore>', true, false, true)
+					vim.api.nvim_feedkeys(key, 't', false)
 				end,
 				opts = opts,
 			}
 		end
 
-		dashboard.section.buttons.val = {
-			{
-				type = "text",
-				val = "╭" .. string.rep("─", 58) .. "╮",
-				opts = {
-					hl = "FloatBorder",
-					position = "center",
-				}
-			},
-			button("f", "󰱼   " .. "Find File", ":Telescope find_files<CR>"),
-			button("e", "󰦛   " .. "Restore Session", ":lua require('persistence').load({ last = true})<CR>"),
-			button("p", "   " .. "Find Project", ":lua require('telescope').extensions.projects.projects{}<CR>"),
-			button("r", "󰙰   " .. "Recent Files", ":Telescope oldfiles<CR>"),
-			button("l", "󰏗   " .. "Pkg Manager", ":Lazy<CR>"),
-			button("c", "   " .. "Config", ":Neotree ~/.config/nvim/lua<CR>"),
-			button("q", "   " .. "Quit", ":qa<CR>"),
-			{
-				type = "text",
-				val = "╰" .. string.rep("─", 58) .. "╯",
-				opts = {
-					hl = "FloatBorder",
-					position = "center",
+		local buttons = {
+			type = 'group',
+			val = {
+				{
+					type = "text",
+					val = string.rep("─", 50),
+					opts = {
+						hl = "FloatBorder",
+						position = "center",
+					}
+				},
+				button("f", "Find File", ":Telescope find_files<CR>",
+					{ icon = '󰱼', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				button("e", "Restore Session", ":lua require('persistence').load({ last = true})<CR>",
+					{ icon = '󰦛', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				button("p", "Find Project", ":lua require('telescope').extensions.projects.projects{}<CR>",
+					{ icon = '', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				button("r", "Recent Files", ":Telescope oldfiles<CR>",
+					{ icon = '󰙰', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				button("l", "Pkg Manager", ":Lazy<CR>",
+					{ icon = '󰏗', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				button("c", "Config", ":Neotree ~/.config/nvim/lua<CR>",
+					{ icon = '', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				{ type = 'padding', val = 1 },
+				button("q", "Quit", ":qa<CR>",
+					{ icon = '', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+				),
+				{
+					type = "text",
+					val = string.rep("─", 50),
+					opts = {
+						hl = "FloatBorder",
+						position = "center",
+					},
+				},
+			}
+		}
+
+		local mru = {
+			type = 'group',
+			val = {
+				{
+					type = 'text',
+					val = 'Recent files',
+					opts = {
+						hl = 'Function',
+						position = 'center',
+					},
+				},
+				{ type = 'padding', val = 1 },
+				{
+					type = 'group',
+					val = function()
+						return { startify.mru(1, vim.fn.getcwd(), 5) }
+					end,
 				},
 			},
-			{
-				type = "text",
-				val = "\n" .. "Recent Files: ",
-				opts = {
-					hl = "FloatBorder",
-					position = "center",
-				},
-			},
+			opts = {
+				width = 50
+			}
 		}
 
-		dashboard.section.buttons.opts = {
-			position = "center",
-			spacing = 0,
-		}
-		dashboard.section.footer.opts.hl = "Function"
-
-		-- Recent Files
-		local recent_files = vim.v.oldfiles
-		local devicon = require('nvim-web-devicons')
-
-		for i, file in ipairs(recent_files) do
-			if i > 7 then break end
-			print(i .. file)
-			local key = tostring(i)
-			local file_name = file:match("^.+/(.+)$")
-			local icon = devicon.get_icon(file_name, string.match(file_name, "^.+%.([^%.]+)$"), { default = true })
-
-			table.insert(dashboard.section.buttons.val,
-				button(key, icon .. "    " .. file_name, "<cmd>e " .. file .. " <CR>"))
-		end
-
-		dashboard.config.layout = {
-			{ type = "padding", val = 0 },
-			dashboard.section.header,
-			{ type = "padding", val = 1 },
-			dashboard.section.subheader,
-			{ type = "padding", val = 1 },
-			dashboard.section.footer,
-			{ type = "padding", val = 1 },
-			dashboard.section.buttons,
+		local config = {
+			layout = {
+				logo,
+				{ type = 'padding', val = 1 },
+				message,
+				{ type = 'padding', val = 1 },
+				mru,
+				{ type = 'padding', val = 1 },
+				info,
+				{ type = 'padding', val = 1 },
+				buttons,
+				{ type = 'padding', val = 1 },
+			}
 		}
 
-		return dashboard
-	end,
-	config = function(_, dashboard)
-		require("alpha").setup(dashboard.opts)
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "LazyVimStarted",
-			callback = function()
-				local v = vim.version()
-				local dev = ""
-				if v.prerelease == "dev" then
-					dev = "-dev+" .. v.build
-				else
-					dev = ""
-				end
-				local version = v.major .. "." .. v.minor .. "." .. v.patch .. dev
-				local stats = require("lazy").stats()
-				local plugins_count = stats.loaded .. "/" .. stats.count
-				local ms = math.floor(stats.startuptime + 0.5)
-				local line1 = " " .. plugins_count .. " plugins in " .. ms .. "ms"
-				local line3 = " " .. version
-
-				local line1_width = vim.fn.strdisplaywidth(line1)
-				local line3Padded = string.rep(" ", (line1_width - vim.fn.strdisplaywidth(line3)) / 2) .. line3
-
-				dashboard.section.footer.val = {
-					line1,
-					line3Padded,
-				}
-				pcall(vim.cmd.AlphaRedraw)
-			end,
-		})
+		alpha.setup(config)
 	end
 }

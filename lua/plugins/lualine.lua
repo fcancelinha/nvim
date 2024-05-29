@@ -108,10 +108,11 @@ return {
 						color = { bg = colors.dark }
 					},
 					{
-						-- experimental
-						function()
-							return vim.g.remote_neovim_host and ("Remote: %s"):format(vim.uv.os_gethostname()) or ""
-						end,
+						require("lazy.status").updates,
+						cond = require("lazy.status").has_updates,
+						color = {
+							fg = colors.yellow,
+						},
 					},
 				},
 				lualine_c = {
