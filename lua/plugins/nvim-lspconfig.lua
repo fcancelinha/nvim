@@ -13,8 +13,9 @@ return {
 	config = function()
 		-- Setup lspconfig	
 		local lspconfig = require("lspconfig")
-		local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+		local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 		require('lspconfig.ui.windows').default_options.border = 'single'
 
@@ -27,7 +28,7 @@ return {
 		})
 
 		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = "*.lua,*.json,*.yaml,*.css,*.html,*.xml",
+			pattern = "*.lua,*.json,*.yaml,*.css,*.html,*.xml,*.sh",
 			command = "lua vim.lsp.buf.format()",
 		})
 
@@ -322,13 +323,17 @@ return {
 				bashls = function()
 					lspconfig.bashls.setup({
 						capabilities = capabilities,
-						name = "bash",
 						cmd = { 'bash-language-server', 'start' },
 						filetypes = { 'sh' }
 					})
 				end,
 				gitlab_ci_ls = function()
 					lspconfig.gitlab_ci_ls.setup({
+						capabilities = capabilities,
+					})
+				end,
+				cssls = function()
+					lspconfig.cssls.setup({
 						capabilities = capabilities,
 					})
 				end

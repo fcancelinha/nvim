@@ -9,8 +9,6 @@ return {
 		"nvim-telescope/telescope-symbols.nvim",
 	},
 	config = function()
-		local home = os.getenv("HOME")
-
 		-- Extensions
 		require("project_nvim").setup()
 		require("git-worktree").setup()
@@ -33,11 +31,20 @@ return {
 				}
 			},
 			pickers = {
-				find_command = { "fd", "--type", "f", },
 				find_files = {
+					-- find_command  = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+					find_command  = {
+						"fd",
+						"--type",
+						"f",
+						"--hidden",
+						"--follow",
+						"--exclude",
+						".git",
+					},
 					theme         = "dropdown",
 					previewer     = true,
-					hidden        = false,
+					hidden        = true,
 					layout_config = {
 						width = 0.4,
 					}

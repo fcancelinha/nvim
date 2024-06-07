@@ -54,13 +54,10 @@ keymap("n", "[q", ":cprev<CR>", opts)
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Terminal
-keymap('t', '<esc>', [[<C-\><C-n>]], opts)
--- keymap('t', 'jk', [[<C-\><C-n>]], opts)
 keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
 keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
 keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
 keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
@@ -85,9 +82,6 @@ keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
 
 -- Telescope Extensions
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
-
--- LazyGit
-keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
 
 -- Neotest
 keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
@@ -114,6 +108,7 @@ keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
 keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
+
 -- Trouble
 keymap("n", "<leader>xx", function() require("trouble").toggle() end)
 keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
@@ -136,13 +131,13 @@ keymap('n', 'rr', '<Plug>RestNvim', { desc = 'execute request' }, opts)
 keymap('n', 'rl', '<Plug>RestNvimPreview', { desc = 'preview curl' }, opts)
 keymap('n', 'rp', '<Plug>RestNvimLast', { desc = 'repeat last request' }, opts)
 
+-- GitBlame
+keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
+
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
-
--- GitBlame
-keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

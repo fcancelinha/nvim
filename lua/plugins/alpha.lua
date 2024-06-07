@@ -179,9 +179,6 @@ return {
 						return { startify.mru(1, vim.fn.getcwd(), 5) }
 					end,
 				},
-			},
-			opts = {
-				width = 50
 			}
 		}
 
