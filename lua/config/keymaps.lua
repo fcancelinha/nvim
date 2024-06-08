@@ -108,7 +108,6 @@ keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
 keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 
-
 -- Trouble
 keymap("n", "<leader>xx", function() require("trouble").toggle() end)
 keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
@@ -122,9 +121,9 @@ keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
 keymap({ "i", "s" }, "<Tab>", function() require('luasnip').jump(1) end, opts)
 keymap({ "i", "s" }, "<S-Tab>", function() require('luasnip').jump(-1) end, opts)
 keymap({ "i", "s" }, "<C-E>", function()
-	if require('luasnip').choice_active() then
-		require('luasnip').change_choice(1)
-	end
+    if require('luasnip').choice_active() then
+        require('luasnip').change_choice(1)
+    end
 end, opts)
 
 keymap('n', 'rr', '<Plug>RestNvim', { desc = 'execute request' }, opts)
@@ -142,24 +141,29 @@ keymap('n', ']d', vim.diagnostic.goto_next, opts)
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-		-- Buffer local mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		local lsp_opts = { buffer = ev.buf }
-		keymap('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
-		keymap('n', 'gd', vim.lsp.buf.definition, lsp_opts)
-		keymap('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
-		keymap('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
-		keymap('n', 'gr', vim.lsp.buf.references, lsp_opts)
-		keymap('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
-		keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
-		keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, lsp_opts)
-		keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, lsp_opts)
-		keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
-		keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
-		keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", lsp_opts)
-	end,
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local lsp_opts = { buffer = ev.buf }
+        keymap('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
+        keymap('n', 'gd', vim.lsp.buf.definition, lsp_opts)
+        keymap('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
+        keymap('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
+        keymap('n', 'gr', vim.lsp.buf.references, lsp_opts)
+        keymap('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
+        keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
+        keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, lsp_opts)
+        keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, lsp_opts)
+        keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
+        keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
+        keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", lsp_opts)
+    end,
 })
+
+-- Function to clear the terminal
+keymap('t', '<C-l>', function()
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-N>i clear<C-M>", true, false, true), "n", false)
+end, opts)
