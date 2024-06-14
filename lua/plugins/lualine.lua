@@ -166,7 +166,7 @@ return {
 
 					{
 						modified,
-						color = { bg = colors.special, fg = colors.red },
+						color = { bg = colors.red, fg = colors.special },
 					},
 					{
 						"encoding"
@@ -177,7 +177,7 @@ return {
 						color = { bg = colors.special, fg = colors.snowdark },
 						file_status = false,
 						newfile_status = false,
-						path = 1,
+						path = 0,
 					},
 				},
 				lualine_z = {

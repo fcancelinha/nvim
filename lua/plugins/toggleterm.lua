@@ -1,25 +1,22 @@
 return {
-	'akinsho/toggleterm.nvim',
-	version = "*",
-	config = function()
-		require("toggleterm").setup({
-			open_mapping = [[<c-t>]],
-			direction = 'float',
-			float_opts = {
-				border = 'single',
-				title_pos = 'left',
-				width = 135,
-				height = 30,
-			},
-			highlights = {
-				NormalFloat = {
-					link = '#2E3440'
-				},
-				FloatBorder = {
-					guibg = "#2E3440",
-					guifg = "#88C0D0",
-				},
-			},
-		})
-	end
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function()
+        require("toggleterm").setup({
+            autochdir = true,
+            open_mapping = [[<c-t>]],
+            shade_terminals = false,
+            hide_numbers = true,
+            start_in_insert = true,
+            direction = 'horizontal',
+            persist_size = true,
+            persist_mode = true,
+            close_on_exit = false,
+            float_opts = {
+                border = 'curved',
+                winblend = 10,
+                title_pos = 'center',
+            },
+        })
+    end
 }

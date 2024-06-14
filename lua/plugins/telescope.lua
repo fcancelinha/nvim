@@ -1,189 +1,120 @@
 return {
-	"nvim-telescope/telescope.nvim",
-	tag = '0.1.5',
-	dependencies = {
-		"MunifTanjim/nui.nvim",
-		"ThePrimeagen/git-worktree.nvim",
-		"ahmedkhalf/project.nvim",
-		"nvim-telescope/telescope-fzf-native.nvim",
-		"nvim-telescope/telescope-symbols.nvim",
-	},
-	config = function()
-		-- Extensions
-		require("project_nvim").setup()
-		require("git-worktree").setup()
+    "nvim-telescope/telescope.nvim",
+    tag = '0.1.5',
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+        "ThePrimeagen/git-worktree.nvim",
+        "ahmedkhalf/project.nvim",
+        "nvim-telescope/telescope-fzf-native.nvim",
+        "nvim-telescope/telescope-symbols.nvim",
+    },
+    config = function()
+        -- Extensions
+        require("project_nvim").setup()
+        require("git-worktree").setup()
 
-		-- Load Extension
-		require('telescope').load_extension('projects')
-		require('telescope').load_extension('git_worktree')
+        -- Load Extension
+        require('telescope').load_extension('projects')
+        require('telescope').load_extension('git_worktree')
 
-		-- Setup
-		require('telescope').setup({
-			defaults = {
-				-- layout_strategy = "center",
-				sorting_strategy = "descending",
-				selection_caret  = '◆ ',
-				color_devicons   = true,
-				winblend         = 10,
-				layout_config    = {
-					width = 0.4,
-					height = 0.4,
-				}
-			},
-			pickers = {
-				find_files = {
-					-- find_command  = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-					find_command  = {
-						"fd",
-						"--type",
-						"f",
-						"--hidden",
-						"--follow",
-						"--exclude",
-						".git",
-					},
-					theme         = "dropdown",
-					previewer     = true,
-					hidden        = true,
-					layout_config = {
-						width = 0.4,
-					}
-				},
-				oldfiles = {
-					prompt_title = '',
-					preview_title = '',
-					layout_config = {
-						width = 0.8,
-						height = 0.7,
-						preview_width = 0.6,
-					}
-				},
-				grep_string = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				live_grep = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				git_files = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				git_commits = {
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				lsp_incoming_calls = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				lsp_outgoing_calls = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				lsp_references = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.8,
-						preview_width = 0.6,
-					}
-				},
-				lsp_definitions = {
-					hidden = false,
-					layout_config = {
-						width = 0.8,
-						height = 0.7,
-						preview_width = 0.6,
-					}
-				},
-				highlights = {
-					layout_config = {
-						width = 0.8,
-						height = 0.9,
-					},
-				},
-				search_history = {
-					layout_config = {
-						width = 0.8,
-						height = 0.9,
-					},
-				},
-				builtin = {
-					layout_config = {
-						width = 0.8,
-						height = 0.9,
-					},
-				},
-				diagnostics = {
-					theme = "dropdown",
-					layout_config = {
-						width = 0.7,
-					}
-				},
-				buffers = {
-					theme = "dropdown",
-					layout_config = {
-						width = 0.4,
-					}
-				},
-				marks = {
-					theme = "dropdown",
-					layout_config = {
-						width = 0.4,
-					}
-				},
-				git_branches = {
-					theme = "dropdown",
-					layout_config = {
-						width = 0.4,
-					}
-				},
-				lsp_document_symbols = {
-					ignore_symbols = { "variable", "field" },
-					theme = "dropdown",
-					layout_config = {
-						width = 0.4,
-					}
-				},
-				quickfix = {
-					theme = "dropdown",
-					layout_config = {
-						width = 0.7,
-					}
-				},
-			},
-			extensions = {
-				git_worktrees = {
-					layout_config = {
-						width = 0.4
-					}
-				}
-			},
-		})
-	end,
+        -- Setup
+        require('telescope').setup({
+            defaults = {
+                find_command          = {
+                    "fd",
+                    "--type",
+                    "f",
+                    "--hidden",
+                    "--follow",
+                    "--exclude",
+                    ".git",
+                },
+                layout_strategy       = "vertical",
+                sorting_strategy      = "ascending",
+                selection_caret       = '◆ ',
+                color_devicons        = true,
+                winblend              = 5,
+                dynamic_preview_title = true,
+                layout_config         = {
+                    vertical = {
+                        width = 0.4,
+                        height = 0.9,
+                        mirror = true,
+                        prompt_position = 'top',
+                    }
+                }
+            },
+            pickers = {
+                find_files = {
+                    prompt_title  = 'Find',
+                    hidden        = true,
+                    previewer     = false,
+                    layout_config = {
+                        height = 0.5,
+                    }
+                },
+                oldfiles = {
+                    prompt_title  = 'Recent',
+                    preview_title = '',
+                    hidden        = true,
+                    layout_config = {
+                        preview_height = 0.7,
+                    }
+                },
+                grep_string = {
+                    layout_config = {
+                        width = 0.5,
+                        preview_height = 0.7,
+                    }
+                },
+                live_grep = {
+                    layout_config = {
+                        width = 0.5,
+                        preview_height = 0.7,
+                    }
+                },
+                diagnostics = {
+                    layout_config = {
+                        width = 0.5,
+                    }
+                },
+                buffers = {
+                    layout_config = {
+                        width = 0.4,
+                        preview_height = 0.7,
+                    }
+                },
+                marks = {
+                    layout_config = {
+                        width = 0.4,
+                        preview_height = 0.7,
+                    }
+                },
+                git_branches = {
+                    layout_config = {
+                        width = 0.4,
+                        preview_height = 0.7,
+                    }
+                },
+                lsp_document_symbols = {
+                    ignore_symbols = { "variable", "field" },
+                    layout_config = {
+                        width = 0.4,
+                    }
+                },
+                quickfix = {
+                    layout_config = {
+                        width = 0.7,
+                    }
+                },
+            },
+            extensions = {
+                git_worktrees = {
+                    layout_config = {
+                        width = 0.4
+                    }
+                }
+            },
+        })
+    end,
 }

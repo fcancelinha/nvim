@@ -130,16 +130,16 @@ return {
                 button("f", "Find File", ":Telescope find_files<CR>",
                     { icon = '󰱼', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
                 ),
-                button("e", "Restore Session", ":lua require('persistence').load({ last = true})<CR>",
-                    { icon = '󰦛', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
-                ),
                 button("p", "Find Project", ":lua require('telescope').extensions.projects.projects{}<CR>",
                     { icon = '', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
                 ),
-                button("r", "Recent Files", ":Telescope oldfiles<CR>",
-                    { icon = '󰙰', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+                button("e", "Restore Session", ":lua require('persistence').load({ last = true})<CR>",
+                    { icon = '󰦛', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
                 ),
-                button("l", "Pkg Manager", ":Lazy<CR>",
+                -- button("n", "Notes", ":e ~/notes<CR>",
+                --     { icon = '', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
+                -- ),
+                button("l", "PKG Manager", ":Lazy<CR>",
                     { icon = '󰏗', hl = { { 'Constant', 0, 1 }, { 'Normal', 1, 50 } } }
                 ),
                 button("c", "Config", ":Neotree ~/.config/nvim/lua<CR>",
