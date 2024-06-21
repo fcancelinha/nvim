@@ -98,7 +98,7 @@ return {
                 cursor = 1,
                 width = 53,
                 align_shortcut = 'right',
-                hl_shortcut = { { 'Operator', 0, 1 }, { 'Function', 1, #lhs + 1 }, { 'Operator', #lhs + 1, #lhs + 2 } },
+                hl_shortcut = { { 'Keyword', 0, 1 }, { 'Function', 1, #lhs + 1 }, { 'Keyword', #lhs + 1, #lhs + 2 } },
                 shrink_margin = false,
                 keymap = { 'n', lhs, rhs, { noremap = true, silent = true, nowait = true } },
             }

@@ -126,10 +126,6 @@ keymap({ "i", "s" }, "<C-E>", function()
     end
 end, opts)
 
-keymap('n', 'rr', '<Plug>RestNvim', { desc = 'execute request' }, opts)
-keymap('n', 'rl', '<Plug>RestNvimPreview', { desc = 'preview curl' }, opts)
-keymap('n', 'rp', '<Plug>RestNvimLast', { desc = 'repeat last request' }, opts)
-
 -- GitBlame
 keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
 
@@ -154,7 +150,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         keymap('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
         keymap('n', 'gr', vim.lsp.buf.references, lsp_opts)
         keymap('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
-        keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
+        -- keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
         keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, lsp_opts)
         keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, lsp_opts)
         keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)

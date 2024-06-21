@@ -20,22 +20,13 @@ return {
         -- Setup
         require('telescope').setup({
             defaults = {
-                find_command          = {
-                    "fd",
-                    "--type",
-                    "f",
-                    "--hidden",
-                    "--follow",
-                    "--exclude",
-                    ".git",
-                },
-                layout_strategy       = "vertical",
-                sorting_strategy      = "ascending",
-                selection_caret       = '◆ ',
-                color_devicons        = true,
-                winblend              = 5,
-                dynamic_preview_title = true,
-                layout_config         = {
+                layout_strategy    = "vertical",
+                sorting_strategy   = "ascending",
+                selection_strategy = "reset",
+                selection_caret    = '◆ ',
+                color_devicons     = true,
+                winblend           = 5,
+                layout_config      = {
                     vertical = {
                         width = 0.4,
                         height = 0.9,
