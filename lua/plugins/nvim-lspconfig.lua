@@ -32,7 +32,7 @@ return {
         })
 
         vim.api.nvim_create_autocmd("BufWritePre", {
-            pattern = "*.lua,*.json,*.yaml,*.css,*.html,*.xml,*.sh",
+            pattern = "*.lua,*.json,*.yaml,*.yml,*.css,*.scss,*.html,*.xml,*.sh",
             command = "lua vim.lsp.buf.format()",
         })
 
@@ -191,16 +191,24 @@ return {
                     },
                 },
                 yamlls = {
-                    yaml = {
-                        validate = true,
-                        schemaStore = {
-                            url = "https://www.schemastore.org/api/json/catalog.json",
-                            enable = true,
+                    settings = {
+                        redhat = {
+                            telemetry = {
+                                enable = false,
+                            },
                         },
-                        editor = {
-                            tabsize = 4,
-                            formatOnType = true,
-                        },
+                        yaml = {
+                            format = {
+                                enable = true,
+                                singleQuote = false,
+                                bracketSpacing = true,
+                            },
+                            schemaStore = {
+                                enable = true,
+                            },
+                            validate = true,
+                            completion = true,
+                        }
                     }
                 },
                 eslint = {

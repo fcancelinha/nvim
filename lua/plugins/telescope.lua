@@ -28,83 +28,55 @@ return {
                 winblend           = 5,
                 layout_config      = {
                     vertical = {
-                        width = 0.4,
+                        width = 75,
                         height = 0.9,
                         mirror = true,
                         prompt_position = 'top',
+                        preview_height = 0.7,
                     }
                 }
             },
             pickers = {
                 find_files = {
+                    find_command  = {
+                        'fd',
+                        '--type',
+                        'f',
+                        '--hidden',
+                        '--follow',
+                        '--exclude',
+                        '.git',
+                        '--exclude',
+                        'node_modules',
+                    },
                     prompt_title  = 'Find',
                     hidden        = true,
                     previewer     = false,
                     layout_config = {
-                        height = 0.5,
+                        width = 65,
                     }
                 },
                 oldfiles = {
                     prompt_title  = 'Recent',
                     preview_title = '',
                     hidden        = true,
-                    layout_config = {
-                        preview_height = 0.7,
-                    }
                 },
                 grep_string = {
                     layout_config = {
-                        width = 0.5,
-                        preview_height = 0.7,
+                        width = 80,
                     }
                 },
                 live_grep = {
                     layout_config = {
-                        width = 0.5,
-                        preview_height = 0.7,
+                        width = 80,
                     }
                 },
-                diagnostics = {
-                    layout_config = {
-                        width = 0.5,
-                    }
-                },
-                buffers = {
-                    layout_config = {
-                        width = 0.4,
-                        preview_height = 0.7,
-                    }
-                },
-                marks = {
-                    layout_config = {
-                        width = 0.4,
-                        preview_height = 0.7,
-                    }
-                },
-                git_branches = {
-                    layout_config = {
-                        width = 0.4,
-                        preview_height = 0.7,
-                    }
+                builtin = {
+                    previewer = false,
                 },
                 lsp_document_symbols = {
                     ignore_symbols = { "variable", "field" },
-                    layout_config = {
-                        width = 0.4,
-                    }
                 },
-                quickfix = {
-                    layout_config = {
-                        width = 0.7,
-                    }
-                },
-            },
-            extensions = {
-                git_worktrees = {
-                    layout_config = {
-                        width = 0.4
-                    }
-                }
             },
         })
     end,
