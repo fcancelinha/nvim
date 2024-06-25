@@ -122,18 +122,52 @@ return {
                 },
                 override = {
                     -- override the default lsp markdown formatter with Noice
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     -- override the lsp markdown formatter with Noice
-                    ["vim.lsp.util.stylize_markdown"] = false,
+                    ["vim.lsp.util.stylize_markdown"] = true,
                     -- override cmp documentation with Noice (needs the other options to work)
-                    ["cmp.entry.get_documentation"] = false,
+                    ["cmp.entry.get_documentation"] = true,
                 },
                 hover = {
-                    enabled = false,
-                    silent = false, -- set to true to not show a message if hover is not available
-                    view = nil,     -- when nil, use defaults from documentation
+                    enabled = true,
+                    silent = true, -- set to true to not show a message if hover is not available
+                    view = nil,    -- when nil, use defaults from documentation
                     ---@type NoiceViewOptions
-                    opts = {},      -- merged with defaults from documentation
+                    opts = {
+                        view = "hover",
+                        relative = "cursor",
+                        zindex = 55,
+                        enter = false,
+                        anchor = "auto",
+                        size = {
+                            width = "auto",
+                            height = "auto",
+                            max_height = 30,
+                            max_width = 80,
+                        },
+                        border = {
+                            style = "single",
+                            padding = { 0, 2 },
+                        },
+                        position = { row = 1, col = 0 },
+                        win_options = {
+                            wrap = true,
+                            linebreak = true,
+                            concealcursor = "n",
+                            conceallevel = 1
+                        },
+                    }, -- merged with defaults from documentation
+                },
+                -- defaults for hover and signature help
+                documentation = {
+                    view = "hover",
+                    ---@type NoiceViewOptions
+                    opts = {
+                        lang = "markdown",
+                        replace = false,
+                        render = "plain",
+                        format = { "{message}" },
+                    },
                 },
                 signature = {
                     enabled = true,
@@ -153,33 +187,8 @@ return {
                     view = "notify",
                     opts = {},
                 },
-                -- defaults for hover and signature help
-                documentation = {
-                    view = "hover",
-                    ---@type NoiceViewOptions
-                    opts = {
-                        lang = "markdown",
-                        replace = true,
-                        render = "plain",
-                        format = { "{message}" },
-                        win_options = { concealcursor = "n", conceallevel = 3 },
-                    },
-                },
             },
-            markdown = {
-                hover = {
-                    ["|(%S-)|"] = vim.cmd.help,                       -- vim help links
-                    ["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
-                },
-                highlights = {
-                    -- ["|%S-|"] = "@text.reference",
-                    -- ["@%S+"] = "@parameter",
-                    -- ["^%s*(Parameters:)"] = "@text.title",
-                    -- ["^%s*(Return:)"] = "@text.title",
-                    -- ["^%s*(See also:)"] = "@text.title",
-                    -- ["{%S-}"] = "@parameter",
-                },
-            },
+            markdown = {},
             health = {
                 checker = true, -- Disable if you don't want health checks to run
             },
@@ -187,11 +196,11 @@ return {
             presets = {
                 -- you can enable a preset by setting it to true, or a table that will override the preset config
                 -- you can also add custom presets that you can enable/disable with enabled=true
-                bottom_search = false,         -- use a classic bottom cmdline for search
+                bottom_search = true,          -- use a classic bottom cmdline for search
                 command_palette = false,       -- position the cmdline and popupmenu together
                 long_message_to_split = false, -- long messages will be sent to a split
                 inc_rename = false,            -- enables an input dialog for inc-rename.nvim
-                lsp_doc_border = false,        -- add a border to hover docs and signature help
+                lsp_doc_border = true,         -- add a border to hover docs and signature help
             },
             throttle = 1000 / 30,              -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
             ---@type NoiceConfigViews

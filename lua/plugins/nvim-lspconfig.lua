@@ -308,13 +308,5 @@ return {
         vim.fn.sign_define('DiagnosticSignWarn', { text = '◈ ', texthl = "DiagnosticSignWarn" })
         vim.fn.sign_define('DiagnosticSignInfo', { text = '◇ ', texthl = "DiagnosticSignInformation" })
         vim.fn.sign_define('DiagnosticSignHint', { text = '◇ ', texthl = "DiagnosticSignHint" })
-
-        local properties = { "textDocument/hover", "textDocument/signatureHelp" }
-
-        for _, td in pairs(properties) do
-            vim.lsp.handlers[td] = vim.lsp.with(vim.lsp.handlers.hover, {
-                border = "single"
-            })
-        end
     end,
 }
