@@ -151,14 +151,8 @@ return {
                 lualine_y = {
                     {
                         'branch',
-                        icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+                        icon = { '󰊢 ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
                         color = { bg = colors.special, fg = colors.yellow },
-                    },
-                    {
-                        'fileformat'
-                    },
-                    {
-                        'encoding'
                     },
                 },
                 lualine_z = {

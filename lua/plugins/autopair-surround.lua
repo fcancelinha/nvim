@@ -1,18 +1,18 @@
 return {
-	{
-		"windwp/nvim-autopairs",
-		opts = {
-			check_ts = true, -- treesitter integration
-			disable_filetype = { "TelescopePrompt" },
-		}
-	},
-	{
-		"kylechui/nvim-surround",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		config = function()
-			require("nvim-surround").setup()
-		end
-	}
+    {
+        "windwp/nvim-autopairs",
+        opts = {
+            check_ts = true, -- treesitter integration
+            disable_filetype = { "TelescopePrompt", "terminal" },
+        }
+    },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup()
+        end
+    }
 }
 
 --   Old text                    Command         New text

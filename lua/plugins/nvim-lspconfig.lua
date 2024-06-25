@@ -8,20 +8,12 @@ return {
         "nvim-lua/plenary.nvim",
     },
     config = function()
-        -- Change diagnostic signs.
-        vim.fn.sign_define('DiagnosticSignError', { text = '◆ ', texthl = "DiagnosticSignError" })
-        vim.fn.sign_define('DiagnosticSignWarn', { text = '◈ ', texthl = "DiagnosticSignWarn" })
-        vim.fn.sign_define('DiagnosticSignInfo', { text = '◇ ', texthl = "DiagnosticSignInformation" })
-        vim.fn.sign_define('DiagnosticSignHint', { text = '◇ ', texthl = "DiagnosticSignHint" })
-
-        local util = require("lspconfig.util")
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
-
         capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-        require('lspconfig.ui.windows').default_options.border = 'single'
+
+        local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*.go",
@@ -61,8 +53,8 @@ return {
             ui = {
                 check_outdated_packages_on_open = true,
                 border = "single",
-                width = 0.4,
-                height = 0.8,
+                width = 80,
+                height = 0.9,
             },
         })
 
@@ -162,7 +154,7 @@ return {
                 },
                 tsserver = {},
                 angularls = {
-                    root_dir = util.root_pattern('angular.json', 'project.json'),
+                    root_dir = require("lspconfig.util").root_pattern('angular.json', 'project.json'),
                 },
                 jsonls = {
                     settings = {
@@ -294,8 +286,35 @@ return {
                     filetypes = { "gitlab*" }
                 },
                 cssls = {},
-                marksman = {}
+                marksman = {},
+                robotframework_ls = {
+                    cmd = { "/home/fc/.local/bin/robotframework_ls" },
+                    settings = {
+                        robot = {
+                            pythonpath = "/usr/src/python3",
+                            lint = {
+                                enabled = true,
+                                robocop = {
+                                    enabled = true
+                                }
+                            }
+                        }
+                    }
+                }
             }
         })
+
+        vim.fn.sign_define('DiagnosticSignError', { text = '◆ ', texthl = "DiagnosticSignError" })
+        vim.fn.sign_define('DiagnosticSignWarn', { text = '◈ ', texthl = "DiagnosticSignWarn" })
+        vim.fn.sign_define('DiagnosticSignInfo', { text = '◇ ', texthl = "DiagnosticSignInformation" })
+        vim.fn.sign_define('DiagnosticSignHint', { text = '◇ ', texthl = "DiagnosticSignHint" })
+
+        local properties = { "textDocument/hover", "textDocument/signatureHelp" }
+
+        for _, td in pairs(properties) do
+            vim.lsp.handlers[td] = vim.lsp.with(vim.lsp.handlers.hover, {
+                border = "single"
+            })
+        end
     end,
 }
