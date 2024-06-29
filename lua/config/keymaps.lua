@@ -17,8 +17,8 @@ vim.g.mapleader = " "
 keymap("", "<Space>", "<Nop>", opts)
 
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv", opts, { desc = "Indent left" })
+keymap("v", ">", ">gv", opts, { desc = "Indent right" })
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
@@ -81,7 +81,7 @@ keymap("n", "<leader>fi", ":Telescope lsp_incoming_calls<CR>", opts)
 keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
 
 -- Telescope Extensions
-keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
+keymap("n", "<leader>fp", ":lua require'telescope'.extensions.projects.projects{}<CR>", opts)
 
 -- Neotest
 keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
@@ -131,8 +131,8 @@ keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame(
 
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-keymap('n', '[d', vim.diagnostic.goto_prev, opts)
-keymap('n', ']d', vim.diagnostic.goto_next, opts)
+keymap('n', '[d', vim.diagnostic.goto_prev, opts, { desc = "Go to next diagnostic" })
+keymap('n', ']d', vim.diagnostic.goto_next, opts, { desc = "Go to previous diagnostic" })
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -151,8 +151,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         keymap('n', 'gr', vim.lsp.buf.references, lsp_opts)
         keymap('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
         -- keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
-        keymap('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, lsp_opts)
-        keymap('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, lsp_opts)
         keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
         keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
         keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", lsp_opts)
@@ -162,4 +160,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- Function to clear the terminal
 keymap('t', '<C-l>', function()
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-N>i clear<C-M>", true, false, true), "n", false)
-end, opts)
+end, opts, { desc = "Clear the toggleterm terminal" })

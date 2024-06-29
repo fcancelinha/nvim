@@ -31,31 +31,20 @@ return {
         custom_northern.replace.c.bg = colors.dark
         custom_northern.command.c.bg = colors.dark
 
-        local empty = require('lualine.component'):extend()
-        function empty:draw(default_highlight)
-            self.status = ''
-            self.applied_separator = ''
-            self:apply_highlights(default_highlight)
-            self:apply_section_separators()
-            return self.status
-        end
-
-        -- Put proper separators and gaps between components in sections
-        local function process_sections(sections)
-            for name, section in pairs(sections) do
-                local left = name:sub(9, 10) < 'x'
-                for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-                    table.insert(section, pos * 2, { empty, color = { fg = colors.dark, bg = colors.dark } })
-                end
-                for id, comp in ipairs(section) do
-                    if type(comp) ~= 'table' then
-                        comp = { comp }
-                        section[id] = comp
-                    end
-                    comp.separator = left and { right = '' } or { left = '' }
+        local function lsp_server()
+            local msg = 'No Active Lsp'
+            local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+            local clients = vim.lsp.get_active_clients()
+            if next(clients) == nil then
+                return msg
+            end
+            for _, client in ipairs(clients) do
+                local filetypes = client.config.filetypes
+                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                    return client.name
                 end
             end
-            return sections
+            return msg
         end
 
         require('lualine').setup {
@@ -63,9 +52,9 @@ return {
                 globalstatus = true,
                 icons_enabled = true,
                 theme = custom_northern,
+                section_separators = { left = '', right = '' },
                 component_separators = "",
                 ignore_focus = {},
-                section_separators = { left = '', right = '' },
                 always_divide_middle = true,
                 refresh = {
                     statusline = 1000,
@@ -79,43 +68,58 @@ return {
                     "lazygit",
                 },
             },
-            sections = process_sections {
-                lualine_a = {
+            sections = {
+                lualine_a =
+                {
                     {
                         'mode',
-                        right_padding = 1
+                        separator = { left = '', right = '' },
+                        right_padding = 2,
+                    },
+                    -- {
+                    --     'filename',
+                    --     -- icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
+                    --     color = { bg = colors.special, fg = colors.snowdark },
+                    --     -- separator = { left = '', right = '' },
+                    --     file_status = true,
+                    --     newfile_status = true,
+                    --     path = 0,
+                    --     shorting_target = 150,
+                    -- },
+                    {
+                        'branch',
+                        icon = { '󰊢 ', color = { bg = colors.special, fg = colors.green }, align = 'left' },
+                        color = { bg = colors.special, fg = colors.yellow },
+                        separator = { left = '', right = '' },
                     },
                 },
                 lualine_b = {
                     {
-                        'filename',
-                        icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-                        color = { bg = colors.special, fg = colors.snowdark },
-                        file_status = true,
-                        newfile_status = true,
-                        path = 1,
-                        shorting_target = 150,
+                        'diagnostics',
+                        sources = { 'nvim_lsp' },
+                        sections = { 'info' },
+                        diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
+                        left = '', right = '',
+                        update_in_insert = true,
+                        symbols = { info = ' ' },
                     },
                     {
                         'diagnostics',
-                        sources = { 'nvim_diagnostic', 'nvim_lsp' },
-                        sections = { 'error' },
-                        diagnostics_color = { error = { bg = colors.dark, fg = colors.red } },
-                        update_in_insert = true
-                    },
-                    {
-                        'diagnostics',
-                        sources = { 'nvim_diagnostic', 'nvim_lsp' },
+                        sources = { 'nvim_lsp' },
                         sections = { 'warn' },
-                        diagnostics_color = { warn = { bg = colors.dark, fg = colors.yellow } },
-                        update_in_insert = true
+                        diagnostics_color = { warn = { bg = colors.yellow, fg = colors.dark } },
+                        left = '', right = '',
+                        update_in_insert = true,
+                        symbols = { warn = ' ' },
                     },
                     {
                         'diagnostics',
-                        sources = { 'nvim_diagnostic', 'nvim_lsp' },
-                        sections = { 'hint' },
-                        diagnostics_color = { hint = { bg = colors.dark, fg = colors.frostturquoise } },
-                        update_in_insert = true
+                        sources = { 'nvim_lsp' },
+                        sections = { 'error' },
+                        diagnostics_color = { error = { bg = colors.red, fg = colors.dark } },
+                        left = '', right = '',
+                        update_in_insert = true,
+                        symbols = { error = ' ' },
                     },
                 },
                 lualine_c = {
@@ -140,19 +144,14 @@ return {
                         'diff',
                         color = { bg = colors.dark }
                     },
+                },
+                lualine_y = {
                     {
                         'filetype',
                         color = { bg = colors.dark },
                         icon_only = false,
                         icon = { align = 'left' },
                         colored = true,
-                    },
-                },
-                lualine_y = {
-                    {
-                        'branch',
-                        icon = { '󰊢 ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-                        color = { bg = colors.special, fg = colors.yellow },
                     },
                 },
                 lualine_z = {
@@ -165,7 +164,9 @@ return {
                         icon = { '󰒅', color = { fg = colors.dark }, align = 'left' },
                     },
                     {
-                        'progress'
+                        'progress',
+                        separator = { left = '', right = '' },
+                        left_padding = 2,
                     }
                 },
             },
