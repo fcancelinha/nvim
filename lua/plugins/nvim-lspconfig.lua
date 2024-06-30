@@ -8,19 +8,22 @@ return {
         "nvim-lua/plenary.nvim",
     },
     config = function()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
+        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-
-        local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+        vim.api.nvim_create_autocmd('TextYankPost', {
+            group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+            callback = function()
+                vim.highlight.on_yank({ higroup = 'Yank', timeout = 200 })
+            end,
+            desc = "Highlight text on yank"
+        })
 
         vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*.go",
             callback = function()
                 require('go.format').goimports()
             end,
-            group = format_sync_grp,
+            group = vim.api.nvim_create_augroup("goimports", {}),
         })
 
         vim.api.nvim_create_autocmd("BufWritePre", {

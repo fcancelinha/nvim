@@ -76,16 +76,6 @@ return {
                         separator = { left = '', right = '' },
                         right_padding = 2,
                     },
-                    -- {
-                    --     'filename',
-                    --     -- icon = { ' ', color = { bg = colors.grey, fg = colors.green }, align = 'left' },
-                    --     color = { bg = colors.special, fg = colors.snowdark },
-                    --     -- separator = { left = '', right = '' },
-                    --     file_status = true,
-                    --     newfile_status = true,
-                    --     path = 0,
-                    --     shorting_target = 150,
-                    -- },
                     {
                         'branch',
                         icon = { '󰊢 ', color = { bg = colors.special, fg = colors.green }, align = 'left' },
