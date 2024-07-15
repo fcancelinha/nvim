@@ -153,7 +153,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
         keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
         keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
-        keymap({ 'n', 'v' }, '<leader>ca', ":CodeActionMenu<CR>", lsp_opts)
     end,
 })
 

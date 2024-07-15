@@ -10,7 +10,7 @@ return {
 			-- settings with {}
 			go = 'go', -- go command, can be go[default] or go1.18beta1
 			goimports = 'gopls', -- goimport command, can be gopls[default] or either goimport or golines if need to split long lines
-			fillstruct = 'gopls', -- default, can also use fillstruct
+			fillstruct = 'fillstruct', -- default, can also use fillstruct
 			gofmt = 'gofumpt', --gofmt cmd,
 			-- max_line_len = 128, -- max line length in golines format, Target maximum line length for golines
 			tag_transform = 'snakecase', -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
@@ -18,7 +18,7 @@ return {
 			gotests_template = "", -- sets gotests -template parameter (check gotests for details)
 			gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
 			comment_placeholder = "", -- comment_placeholder your cool placeholder e.g. 󰟓       
-			icons = { breakpoint = '󰃤', currentpos = '' }, -- setup to `false` to disable icons setup
+			icons = { breakpoint = '󰃤', currentpos = '󰃤' }, -- setup to `false` to disable icons setup
 			verbose = false, -- output loginf in messages
 			-- false: do nothing
 			-- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
@@ -49,7 +49,7 @@ return {
 				enable = false,
 				-- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
 				-- inlay only avalible for 0.10.x
-				style = 'eol',
+				style = 'inlay',
 				-- Note: following setup only works for style = 'eol', you do not need to set it for 'inlay'
 				-- Only show inlay hints for the current line
 				only_current_line = true,
@@ -82,25 +82,23 @@ return {
 			gopls_remote_auto = true, -- add -remote=auto to gopls
 			gocoverage_sign = "█",
 			sign_priority = 5, -- change to a higher number to override other signs
-			dap_debug = true, -- set to false to disable dap
-			dap_debug_keymap = true, -- true: use keymap for debugger defined in go/dap.lua
+			dap_debug = false, -- set to false to disable dap
+			dap_debug_keymap = false,
+			-- true: use keymap for debugger defined in go/dap.lua
 			-- false: do not use keymap in go/dap.lua.  you must define your own.
 			-- Windows: Use Visual Studio keymap
-			dap_debug_gui = true,                                 -- bool|table put your dap-ui setup here set to false to disable
-			dap_debug_vt = { enabled_commands = true, all_frames = true }, -- bool|table put your dap-virtual-text setup here set to false to disable
-			dap_port = 38697,                                     -- can be set to a number, if set to -1 go.nvim will pick up a random port
-			dap_timeout = 15,                                     --  see dap option initialize_timeout_sec = 15,
-			dap_retries = 20,                                     -- see dap option max_retries
-			textobjects = true,                                   -- enable default text jobects through treesittter-text-objects
-			test_runner = 'go',                                   -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
-			verbose_tests = false,                                -- set to add verbose flag to tests deprecated, see '-v' option
-			run_in_floaterm = false,                              -- set to true to run in a float window. :GoTermClose closes the floatterm
+			dap_port = 38697, -- can be set to a number, if set to -1 go.nvim will pick up a random port
+			dap_timeout = 15, --  see dap option initialize_timeout_sec = 15,
+			dap_retries = 20, -- see dap option max_retries
+			textobjects = false, -- enable default text jobects through treesittter-text-objects
+			test_runner = 'gingko', -- one of {`go`, `richgo`, `dlv`, `ginkgo`, `gotestsum`}
+			run_in_floaterm = false, -- set to true to run in a float window. :GoTermClose closes the floatterm
 			-- float term recommend if you use richgo/ginkgo with terminal color
-			floaterm = {                                          -- position
-				posititon = 'right',                              -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
-				width = 0.50,                                     -- width of float window if not auto
-				height = 0.90,                                    -- height of float window if not auto
-				title_colors = 'nord',                            -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
+			floaterm = {    -- position
+				posititon = 'auto', -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+				width = 0.50, -- width of float window if not auto
+				height = 0.90, -- height of float window if not auto
+				title_colors = 'nord', -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
 				-- can also set to a list of colors to define colors to choose from
 				-- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
 			},

@@ -29,16 +29,16 @@ return {
 				layout_config   = {
 					vertical = {
 						width = 75,
-						height = 0.9,
+						height = 0.7,
 						mirror = true,
-						prompt_position = 'top',
+						prompt_position = 'bottom',
 						preview_height = 0.7,
 					}
 				}
 			},
 			pickers = {
 				find_files = {
-					find_command     = {
+					find_command  = {
 						'fd',
 						'--type',
 						'f',
@@ -52,11 +52,11 @@ return {
 						'--exclude',
 						'.node_modules',
 					},
-					prompt_title     = 'find',
-					sorting_strategy = 'ascending',
-					hidden           = true,
-					previewer        = false,
-					layout_config    = {
+					prompt_title  = 'find',
+					-- sorting_strategy = 'ascending',
+					hidden        = true,
+					previewer     = false,
+					layout_config = {
 						width = 65,
 					}
 				},
@@ -64,6 +64,12 @@ return {
 					prompt_title  = 'recent',
 					preview_title = '',
 					hidden        = true,
+					layout_config = {
+						vertical = {
+							width = 100,
+							height = 0.9,
+						}
+					}
 				},
 				grep_string = {
 					layout_strategy = "horizontal",
@@ -81,6 +87,16 @@ return {
 				},
 				lsp_document_symbols = {
 					ignore_symbols = { "variable", "field" },
+				},
+				keymaps = {
+					layout_config = {
+						vertical = {
+							mirror = false,
+							prompt_position = 'bottom',
+							width = 150,
+							height = 20,
+						}
+					}
 				},
 			},
 			extensions = {
