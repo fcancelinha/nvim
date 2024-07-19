@@ -2,14 +2,12 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"williamboman/mason.nvim",
-		"jay-babu/mason-nvim-dap.nvim",
-		"williamboman/mason-lspconfig.nvim",
 		"junnplus/lsp-setup.nvim",
 		"nvim-lua/plenary.nvim",
 	},
 	config = function()
 		local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-		-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+		require("lspconfig.ui.windows").default_options.border = "single"
 
 		vim.api.nvim_create_autocmd('TextYankPost', {
 			group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
@@ -46,11 +44,26 @@ return {
 			end,
 		})
 
-		vim.diagnostic.config({
-			signs = true,
-			underline = false,
-			update_in_insert = true,
-			severity_sort = true,
+		-- Use LspAttach autocommand to only map the following keys
+		-- after the language server attaches to the current buffer
+		vim.api.nvim_create_autocmd('LspAttach', {
+			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+			callback = function(ev)
+				-- Enable completion triggered by <c-x><c-o>
+				vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+				-- Buffer local mappings.
+				-- See `:help vim.lsp.*` for documentation on any of the below functions
+				local lsp_opts = { buffer = ev.buf }
+				vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
+				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, lsp_opts)
+				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
+				vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
+				vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_opts)
+				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
+				vim.keymap.set('n', '<leader>ca', ':FzfLua lsp_code_actions<CR>', lsp_opts)
+				vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, lsp_opts)
+				vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
+			end,
 		})
 
 		require('mason').setup({
@@ -94,19 +107,16 @@ return {
 					},
 				},
 				gopls = {
-					cmd = { "gopls" },
-					fillstruct = 'gopls',
-					dap_debug = true,
-					dap_debug_gui = true,
-					filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
-					message_level = vim.lsp.protocol.MessageType.Error,
 					settings = {
+						cmd = { "gopls" },
+						filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
+						message_level = vim.lsp.protocol.MessageType.Error,
 						gopls = {
 							experimentalPostfixCompletions = true,
 							semanticTokens = true,
 							gofumpt = true,
 							completeUnimported = true,
-							usePlaceholders = false,
+							usePlaceholders = true,
 							staticcheck = true,
 							matcher = 'Fuzzy',
 							symbolMatcher = 'fuzzy',
@@ -147,16 +157,12 @@ return {
 							directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
 							buildFlags = { '-tags', 'integration' },
 						},
+						flags = {
+							debounce_text_changes = 500,
+							allow_incremental_sync = true,
+						}
 					},
-					init_options = {
-						usePlaceholders = true,
-					},
-					flags = {
-						debounce_text_changes = 500,
-						allow_incremental_sync = true,
-					}
 				},
-				tsserver = {},
 				angularls = {
 					root_dir = require("lspconfig.util").root_pattern('angular.json', 'project.json'),
 				},
@@ -289,8 +295,6 @@ return {
 				gitlab_ci_ls = {
 					filetypes = { "gitlab*" }
 				},
-				cssls = {},
-				marksman = {},
 				robotframework_ls = {
 					cmd = { "/home/fc/.local/bin/robotframework_ls" },
 					settings = {
@@ -307,10 +311,5 @@ return {
 				}
 			}
 		})
-
-		vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = "DiagnosticSignError" })
-		vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = "DiagnosticSignWarn" })
-		vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = "DiagnosticSignInformation" })
-		vim.fn.sign_define('DiagnosticSignHint', { text = '󱧣 ', texthl = "DiagnosticSignHint" })
 	end,
 }

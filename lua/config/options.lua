@@ -5,6 +5,13 @@ vim.opt.matchpairs:append "{:},<:>,':',\":\""
 vim.opt.shortmess:append 'c'
 vim.opt.whichwrap:append '<,>,[,],h,l'
 
+vim.diagnostic.config({ signs = true, underline = false, update_in_insert = true, severity_sort = true })
+
+vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = "DiagnosticSignError" })
+vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = "DiagnosticSignInformation" })
+vim.fn.sign_define('DiagnosticSignHint', { text = '󱧣 ', texthl = "DiagnosticSignHint" })
+
 --:help options
 local options = {
 

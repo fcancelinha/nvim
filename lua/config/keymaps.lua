@@ -20,6 +20,9 @@ keymap("", "<Space>", "<Nop>", opts)
 keymap("v", "<", "<gv", opts, { desc = "Indent left" })
 keymap("v", ">", ">gv", opts, { desc = "Indent right" })
 
+keymap('n', '[d', vim.diagnostic.goto_prev, opts, { desc = "Go to next diagnostic" })
+keymap('n', ']d', vim.diagnostic.goto_next, opts, { desc = "Go to previous diagnostic" })
+
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
@@ -43,49 +46,35 @@ keymap("v", "<A-k>", ":m'<-2<CR>gv=`>my`<mzgv`yo`z", opts)
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
--- Close Quickfix-List
-keymap("n", "<leader>cc", "<cmd>:ccl<CR>", opts)
-keymap("n", "]q", ":cnext<CR>", opts)
-keymap("n", "[q", ":cprev<CR>", opts)
-
 -- [ Plugins ] --
-
+--
 -- Explorer
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
--- Terminal
-keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-
 -- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>fD", ":Telescope diagnostics<CR>", opts)
-keymap("n", "<leader>fg", ":Telescope git_files<CR>", opts)
-keymap("n", "<leader>fG", ":Telescope git_commits<CR>", opts)
-keymap("n", "<leader>fB", ":Telescope git_branches<CR>", opts)
-keymap("n", "<leader>fm", ":Telescope marks<CR>", opts)
-keymap("n", "<leader>fk", ":Telescope grep_string<CR>", opts)
-keymap("n", "<leader>fj", ":Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fl", ":Telescope oldfiles<CR>", opts)
-keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-keymap("n", "<leader>fw", ":Telescope git_worktree<CR>", opts)
+keymap("n", "<leader>ff", ":FzfLua files<CR>", opts)
+keymap("n", "<leader>fD", ":FzfLua diagnostics<CR>", opts)
+keymap("n", "<leader>fg", ":FzfLua git_files<CR>", opts)
+keymap("n", "<leader>fG", ":FzfLua git_commits<CR>", opts)
+keymap("n", "<leader>fB", ":FzfLua git_branches<CR>", opts)
+keymap("n", "<leader>fm", ":FzfLua marks<CR>", opts)
+keymap("n", "<leader>fj", ":FzfLua live_grep<CR>", opts)
+keymap("n", "<leader>fk", ":FzfLua grep_cWORD<CR>", opts)
+keymap("n", "<leader>fK", ":FzfLua grep_visual<CR>", opts)
+keymap("n", "<leader>fl", ":FzfLua oldfiles<CR>", opts)
+keymap("n", "<leader>fb", ":FzfLua buffers<CR>", opts)
 
 -- Telescope LSP
-keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
-keymap("n", "<leader>fd", ":Telescope lsp_definitions<CR>", opts)
-keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
-keymap("n", "<leader>fy", ":Telescope lsp_implementations<CR>", opts)
-keymap("n", "<leader>fi", ":Telescope lsp_incoming_calls<CR>", opts)
-keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
-
--- Telescope Extensions
-keymap("n", "<leader>fp", ":lua require'telescope'.extensions.projects.projects{}<CR>", opts)
+keymap("n", "<leader>fr", ":FzfLua lsp_references<CR>", opts)
+keymap("n", "<leader>fd", ":FzfLua lsp_definitions<CR>", opts)
+keymap("n", "<leader>fs", ":FzfLua lsp_document_symbols<CR>", opts)
+keymap("n", "<leader>fy", ":FzfLua lsp_implementations<CR>", opts)
+keymap("n", "<leader>fi", ":FzfLua lsp_incoming_calls<CR>", opts)
+keymap("n", "<leader>fo", ":FzfLua lsp_outgoing_calls<CR>", opts)
 
 -- Neotest
-keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end)
-keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end)
+keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end, opts)
+keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end, opts)
 keymap("n", "<leader>ts", ":Neotest summary <CR>", opts)
 keymap("n", "<leader>to", ":Neotest output-panel <CR>", opts)
 keymap("n", "<leader>tr", ":Neotest run <CR>", opts)
@@ -101,20 +90,13 @@ keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
--- ToggleTerm
-keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
-
 -- Trouble
-keymap("n", "<leader>xx", function() require("trouble").toggle() end)
-keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-keymap("n", "gR", function() require("trouble").toggle("lsp_references") end)
+keymap("n", "<leader>xx", function() require("trouble").toggle() end, opts)
+keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, opts)
+keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, opts)
+keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, opts)
+keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end, opts)
+keymap("n", "gR", function() require("trouble").toggle("lsp_references") end, opts)
 
 -- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
@@ -128,35 +110,3 @@ end, opts)
 
 -- GitBlame
 keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
-
--- LSP
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-keymap('n', '[d', vim.diagnostic.goto_prev, opts, { desc = "Go to next diagnostic" })
-keymap('n', ']d', vim.diagnostic.goto_next, opts, { desc = "Go to previous diagnostic" })
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local lsp_opts = { buffer = ev.buf }
-        keymap('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
-        keymap('n', 'gd', vim.lsp.buf.definition, lsp_opts)
-        keymap('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
-        keymap('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
-        keymap('n', 'gr', vim.lsp.buf.references, lsp_opts)
-        keymap('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
-        -- keymap('n', 'K', vim.lsp.buf.hover, lsp_opts)
-        keymap('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, lsp_opts)
-        keymap('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
-    end,
-})
-
--- Function to clear the terminal
-keymap('t', '<C-l>', function()
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-N>i clear<C-M>", true, false, true), "n", false)
-end, opts, { desc = "Clear the toggleterm terminal" })
