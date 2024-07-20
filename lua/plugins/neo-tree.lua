@@ -3,10 +3,7 @@ return {
     branch = "v3.x",
     dependencies = {
         "MunifTanjim/nui.nvim",
-        {
-            's1n7ax/nvim-window-picker',
-            version = '2.*',
-        },
+        "s1n7ax/nvim-window-picker",
     },
     config = function()
         require 'window-picker'.setup({
@@ -31,8 +28,8 @@ return {
             enable_git_status = true,
             enable_diagnostics = true,
             open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "Outline", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
-            sort_case_insensitive = false,                                                  -- used when sorting files and directories in the tree
-            sort_function = nil,                                                            -- use a custom function for sorting files and directories in the tree
+            sort_case_insensitive = false,                                                           -- used when sorting files and directories in the tree
+            sort_function = nil,                                                                     -- use a custom function for sorting files and directories in the tree
             default_component_configs = {
                 container = {
                     enable_character_fade = true
@@ -123,8 +120,8 @@ return {
             sources = { "filesystem", "buffers", "git_status", "document_symbols" },
             window = {
                 position = "float",
-                popup = { -- settings that apply to float position only
-                    size = { height = "85%", width = 65 },
+                popup = {             -- settings that apply to float position only
+                    size = { height = "90%", width = 65 },
                     position = "50%", -- 50% means center it
                     padding = 15,
                 },
@@ -176,8 +173,8 @@ return {
             },
             filesystem = {
                 filtered_items = {
-                    visible = false, -- when true, they will just be displayed differently than normal items
-                    hide_dotfiles = true,
+                    visible = true, -- when true, they will just be displayed differently than normal items
+                    hide_dotfiles = false,
                     hide_gitignored = false,
                     hide_hidden = false, -- only works on Windows for hidden files/directories
                     hide_by_name = {
@@ -209,14 +206,16 @@ return {
                     leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
                 },
                 group_empty_dirs = false,   -- when true, empty folders will be grouped together
-                hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
+                -- hijack_netrw_behavior = "open_current",
+                -- netrw disabled, opening a directory opens neo-tree
                 -- in whatever position is specified in window.position
                 -- "open_current",  -- netrw disabled, opening a directory opens within the
                 -- window like netrw would, regardless of window.position
                 -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-                use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
+                use_libuv_file_watcher = true,
+                -- This will use the OS level file watchers to detect changes
                 -- instead of relying on nvim autocmd events.
-                bind_to_cwd = false,
+                bind_to_cwd = true,
                 window = {
                     mappings = {
                         ["<bs>"] = "navigate_up",
@@ -243,11 +242,11 @@ return {
             },
             buffers = {
                 follow_current_file = {
-                    enabled = true, -- This will find and focus the file in the active buffer every time
+                    enabled = true,         -- This will find and focus the file in the active buffer every time
                     --              -- the current file is changed while the tree is open.
                     leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
                 },
-                group_empty_dirs = false, -- when true, empty folders will be grouped together
+                group_empty_dirs = false,   -- when true, empty folders will be grouped together
                 show_unloaded = true,
                 window = {
                     mappings = {

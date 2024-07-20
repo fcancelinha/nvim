@@ -60,8 +60,7 @@ return {
 				vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
 				vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_opts)
 				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
-				vim.keymap.set('n', '<leader>ca', ':FzfLua lsp_code_actions<CR>', lsp_opts)
-				vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, lsp_opts)
+				vim.keymap.set('n', '<leader>ga', ':FzfLua lsp_code_actions<CR>', lsp_opts)
 				vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
 			end,
 		})

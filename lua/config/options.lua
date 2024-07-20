@@ -1,5 +1,5 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 0
+vim.g.loaded_netrwPlugin = 0
 
 vim.opt.matchpairs:append "{:},<:>,':',\":\""
 vim.opt.shortmess:append 'c'
@@ -14,7 +14,6 @@ vim.fn.sign_define('DiagnosticSignHint', { text = '󱧣 ', texthl = "DiagnosticS
 
 --:help options
 local options = {
-
     autochdir      = true,                             -- Automatically change the working directory to the directory of the opened file.
     autoindent     = true,                             -- Copy indent from current line when starting a new line.
     autoread       = true,                             -- Automatically read files when changed outside of Neovim.
