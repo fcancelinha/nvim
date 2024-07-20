@@ -52,7 +52,7 @@ return {
                 globalstatus = true,
                 icons_enabled = true,
                 theme = custom_northern,
-                section_separators = { left = '', right = '' },
+                section_separators = {},
                 component_separators = "",
                 ignore_focus = {},
                 always_divide_middle = true,
@@ -73,14 +73,15 @@ return {
                 {
                     {
                         'mode',
-                        separator = { left = '', right = '' },
+                        separator = {},
                         right_padding = 2,
+                        left_padding = 2,
                     },
                     {
                         'branch',
                         icon = { '󰊢 ', color = { bg = colors.special, fg = colors.green }, align = 'left' },
                         color = { bg = colors.special, fg = colors.yellow },
-                        separator = { left = '', right = '' },
+                        separator = {},
                     },
                 },
                 lualine_b = {
@@ -89,7 +90,6 @@ return {
                         sources = { 'nvim_lsp' },
                         sections = { 'info' },
                         diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
-                        left = '', right = '',
                         update_in_insert = true,
                         symbols = { info = ' ' },
                     },
@@ -98,7 +98,6 @@ return {
                         sources = { 'nvim_lsp' },
                         sections = { 'warn' },
                         diagnostics_color = { warn = { bg = colors.yellow, fg = colors.dark } },
-                        left = '', right = '',
                         update_in_insert = true,
                         symbols = { warn = ' ' },
                     },
@@ -107,7 +106,6 @@ return {
                         sources = { 'nvim_lsp' },
                         sections = { 'error' },
                         diagnostics_color = { error = { bg = colors.red, fg = colors.dark } },
-                        left = '', right = '',
                         update_in_insert = true,
                         symbols = { error = ' ' },
                     },
@@ -155,7 +153,6 @@ return {
                     },
                     {
                         'progress',
-                        separator = { left = '', right = '' },
                         left_padding = 2,
                     }
                 },

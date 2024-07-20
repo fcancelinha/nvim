@@ -541,6 +541,9 @@ return {
                     col    = 0.50, -- window col position (0=left, 1=right)
                 }
             },
+            resume = {
+                resume = true,
+            },
             tabs = {
                 prompt      = 'Tabs❯ ',
                 tab_title   = "Tab",
