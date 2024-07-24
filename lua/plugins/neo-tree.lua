@@ -8,7 +8,7 @@ return {
     config = function()
         require 'window-picker'.setup({
             filter_rules = {
-                include_current_win = false,
+                include_current_win = true,
                 autoselect_one = true,
                 -- filter using buffer options
                 bo = {
@@ -49,9 +49,9 @@ return {
                     expander_highlight = "NeoTreeExpander",
                 },
                 icon = {
-                    folder_closed = " ",
-                    folder_open = " ",
-                    folder_empty = " ",
+                    folder_closed = " ",
+                    folder_open = "󰷏 ",
+                    folder_empty = "󱞞 ",
                     -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
                     -- then these will never be used.
                     default = " ",
@@ -69,16 +69,16 @@ return {
                 git_status = {
                     symbols = {
                         -- Change type
-                        added     = "✚",
-                        deleted   = "",
-                        modified  = "",
-                        renamed   = "",
+                        added     = "",
+                        deleted   = "",
+                        modified  = "",
+                        renamed   = "",
                         -- Status type
                         untracked = "",
                         ignored   = "",
                         unstaged  = "󰘓",
                         staged    = "󰄬",
-                        conflict  = "",
+                        conflict  = "",
                     },
                     align = "right"
                 },

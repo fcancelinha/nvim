@@ -218,7 +218,9 @@ return {
             ---@type NoiceRouteConfig[]
             routes = {}, --- @see section on routes
             ---@type table<string, NoiceFilter>
-            status = {}, --- @see section on statusline components
+            status = {
+
+            },           --- @see section on statusline components
             ---@type NoiceFormatOptions
             format = {}, --- @see section on formatting
         })

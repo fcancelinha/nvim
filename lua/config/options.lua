@@ -1,11 +1,23 @@
-vim.g.loaded_netrw = 0
-vim.g.loaded_netrwPlugin = 0
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 vim.opt.matchpairs:append "{:},<:>,':',\":\""
 vim.opt.shortmess:append 'c'
 vim.opt.whichwrap:append '<,>,[,],h,l'
 
-vim.diagnostic.config({ signs = true, underline = false, update_in_insert = true, severity_sort = true })
+vim.diagnostic.config({
+    signs = true,
+    underline = false,
+    update_in_insert = true,
+    -- severity_sort = true,
+    virtual_text = true,
+    -- virtual_lines = true,
+    float = {
+        -- header = true,
+        border = "rounded",
+        focusable = true,
+    },
+})
 
 vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = "DiagnosticSignError" })
 vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = "DiagnosticSignWarn" })
@@ -16,7 +28,7 @@ vim.fn.sign_define('DiagnosticSignHint', { text = '󱧣 ', texthl = "DiagnosticS
 local options = {
     autochdir      = true,                             -- Automatically change the working directory to the directory of the opened file.
     autoindent     = true,                             -- Copy indent from current line when starting a new line.
-    autoread       = true,                             -- Automatically read files when changed outside of Neovim.
+    autoread       = false,                            -- Automatically read files when changed outside of Neovim.
     autowrite      = true,                             -- Automatically write (save) the file before commands like :next and :make.
     background     = 'dark',                           -- Optimize colors for a dark background.
     backspace      = { 'indent', 'eol', 'start' },     -- Make backspace work more intuitively (allow it to delete over indentation, line breaks, and from insert mode).

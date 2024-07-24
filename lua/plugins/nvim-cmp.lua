@@ -22,6 +22,16 @@ return {
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
         cmp.setup({
+            enabled = function()
+                local context = require("cmp.config.context")
+                -- keep command mode completion enabled when cursor is in a comment
+                if vim.api.nvim_get_mode().mode == 'c' then
+                    return true
+                else
+                    return not context.in_treesitter_capture("comment")
+                        and not context.in_syntax_group("Comment")
+                end
+            end,
             preselect = 'item',
             performance = {
                 trigger_debounce_time = 200,
@@ -77,20 +87,20 @@ return {
                     select = true,
                 }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
             }),
-            -- sorting = {
-            -- 	-- priority_weight = 2,
-            -- 	-- comparators = {
-            -- 	-- 	-- compare.exact,
-            -- 	-- 	-- compare.score,
-            -- 	-- 	-- compare.locality,
-            -- 	-- 	-- compare.kind,
-            -- 	-- 	-- compare.length,
-            -- 	-- 	-- compare.sort_text,
-            -- 	-- 	-- compare.order,
-            -- 	-- 	-- compare.offset,
-            -- 	-- 	-- compare.deprecated,
-            -- 	-- }
-            -- },
+            sorting = {
+                -- priority_weight = 1,
+                -- comparators = {
+                -- 	cmp.config.compare.offset,
+                -- 	cmp.config.compare.exact,
+                -- 	cmp.config.compare.score,
+                -- 	cmp.config.compare.kind,
+                -- 	cmp.config.compare.sort_text,
+                -- 	cmp.config.compare.order,
+                -- 	cmp.config.compare.locality,
+                -- 	cmp.config.compare.length,
+                -- 	cmp.config.compare.deprecated,
+                -- }
+            },
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },
