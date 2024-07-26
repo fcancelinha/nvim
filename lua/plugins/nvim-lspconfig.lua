@@ -9,39 +9,6 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
         require("lspconfig.ui.windows").default_options.border = "single"
 
-        vim.api.nvim_create_autocmd('TextYankPost', {
-            group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
-            callback = function()
-                vim.highlight.on_yank({ higroup = 'Yank', timeout = 200 })
-            end,
-        })
-
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = vim.api.nvim_create_augroup("goimports", {}),
-            pattern = "*.go",
-            callback = function()
-                require('go.format').goimports()
-            end,
-        })
-
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            pattern = "*.lua,*.json,*.yaml,*.yml,*.css,*.scss,*.html,*.xml,*.sh",
-            command = "lua vim.lsp.buf.format()",
-        })
-
-        vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-            pattern = ".gitlab*",
-            callback = function()
-                vim.bo.filetype = "yaml.gitlab"
-            end,
-        })
-
-        vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-            pattern = "*.robot",
-            callback = function()
-                vim.bo.filetype = "robot"
-            end,
-        })
 
         -- Use LspAttach autocommand to only map the following keys
         -- after the language server attaches to the current buffer
@@ -111,7 +78,6 @@ return {
                         gopls = {
                             experimentalPostfixCompletions = true,
                             semanticTokens = true,
-                            gofumpt = true,
                             completeUnimported = true,
                             usePlaceholders = false,
                             staticcheck = true,
