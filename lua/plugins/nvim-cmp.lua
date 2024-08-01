@@ -108,7 +108,6 @@ return {
                     { name = 'luasnip' },
                     { name = 'treesitter' },
                     { name = 'tags' },
-                    { name = "vim-dadbod-completion" },
                 },
                 {
                     source = "buffer"

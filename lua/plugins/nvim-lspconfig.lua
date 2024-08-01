@@ -9,27 +9,6 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
         require("lspconfig.ui.windows").default_options.border = "single"
 
-
-        -- Use LspAttach autocommand to only map the following keys
-        -- after the language server attaches to the current buffer
-        vim.api.nvim_create_autocmd('LspAttach', {
-            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-            callback = function(event)
-                -- Enable completion triggered by <c-x><c-o>
-                vim.bo[event.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-                -- Buffer local mappings.
-                -- See `:help vim.lsp.*` for documentation on any of the below functions
-                local lsp_opts = { buffer = event.buf, silent = true, noremap = true }
-                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
-                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, lsp_opts)
-                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
-                vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
-                vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_opts)
-                vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
-                vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
-            end,
-        })
-
         require('mason').setup({
             ui = {
                 check_outdated_packages_on_open = true,
@@ -71,10 +50,10 @@ return {
                     },
                 },
                 gopls = {
+                    cmd = { "gopls" },
+                    filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
+                    message_level = vim.lsp.protocol.MessageType.Error,
                     settings = {
-                        cmd = { "gopls" },
-                        filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
-                        message_level = vim.lsp.protocol.MessageType.Error,
                         gopls = {
                             experimentalPostfixCompletions = true,
                             semanticTokens = true,
@@ -86,6 +65,7 @@ return {
                             diagnosticsDelay = '500ms',
                             codelenses = {
                                 gc_details         = true,
+                                debug              = true,
                                 generate           = true,
                                 run_govulncheck    = true,
                                 test               = true,
@@ -106,7 +86,7 @@ return {
                             analyses = {
                                 nilness = true,
                                 unusedparams = true,
-                                unusedvariable = true,
+                                -- unusedvariable = true,
                                 unusedwrite = true,
                                 useany = true,
                                 unreachable = true,

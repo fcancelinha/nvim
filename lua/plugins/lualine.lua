@@ -44,7 +44,7 @@ return {
 			return msg
 		end
 
-		require('lualine').setup {
+		require('lualine').setup({
 			options = {
 				globalstatus = true,
 				icons_enabled = true,
@@ -94,10 +94,10 @@ return {
 					{
 						'diagnostics',
 						sources = { 'nvim_lsp' },
-						sections = { 'info' },
+						sections = { 'hint' },
 						diagnostics_color = { hint = { bg = colors.frostturquoise, fg = colors.dark } },
 						update_in_insert = true,
-						symbols = { info = ' ' },
+						symbols = { hint = ' ' },
 					},
 					{
 						'diagnostics',
@@ -169,6 +169,6 @@ return {
 				'symbols-outline',
 				'trouble',
 			},
-		}
+		})
 	end
 }

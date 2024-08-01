@@ -23,6 +23,9 @@ keymap("v", ">", ">gv", opts, { desc = "Indent right" })
 keymap('n', '[d', vim.diagnostic.goto_prev, opts, { desc = "Go to next diagnostic" })
 keymap('n', ']d', vim.diagnostic.goto_next, opts, { desc = "Go to previous diagnostic" })
 
+-- Select All
+keymap("n", "<C-a>", "gg<S-v>G")
+
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
@@ -72,8 +75,8 @@ keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
 keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope lsp_implementations<CR>", opts)
-
 -- Telescope Extensions
+
 keymap("n", "<leader>fp", ":lua require'telescope'.extensions.projects.projects{}<CR>", opts)
 keymap({ "v", "n" }, "<leader>ga", function() require("actions-preview").code_actions() end, opts)
 
@@ -95,13 +98,6 @@ keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<CR>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<CR>", opts)
 
--- Trouble
-keymap("n", "<leader>xx", function() require("trouble").toggle() end, opts)
-keymap("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, opts)
-keymap("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, opts)
-keymap("n", "<leader>xq", function() require("trouble").toggle("quickfix") end, opts)
-keymap("n", "<leader>xl", function() require("trouble").toggle("loclist") end, opts)
-keymap("n", "gR", function() require("trouble").toggle("lsp_references") end, opts)
 
 -- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
