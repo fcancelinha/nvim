@@ -3,14 +3,13 @@ return {
     version = "*",
     dependencies = {
         "SmiteshP/nvim-navic",
-        "nvim-tree/nvim-web-devicons", -- optional dependency
     },
     config = function()
         require("barbecue").setup({
-            attach_navic = false,
+            attach_navic = true,
             create_autocmd = false,
-            show_modified = true,
-            show_navic = false,
+            show_modified = false,
+            show_navic = true,
             theme = {
                 -- this highlight is used to override other highlights
                 -- you can take advantage of its `bg` and set a background throughout your winbar

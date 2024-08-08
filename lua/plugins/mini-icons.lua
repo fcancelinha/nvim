@@ -3,7 +3,7 @@ return {
     opts = {},
     lazy = true,
     specs = {
-        { "nvim-tree/nvim-web-devicons", enabled = true, optional = true },
+        { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
     },
     init = function()
         package.preload["nvim-web-devicons"] = function()

@@ -14,7 +14,7 @@ return {
             gofmt = 'gofumpt', -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
             fillstruct = 'fillstruct', -- set to fillstruct if gopls fails to fill struct
             max_line_len = 0, -- max line length in golines format, Target maximum line length for golines
-            tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
+            tag_transform = "camelcase", -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
             tag_options = '', -- sets options sent to gomodifytags, i.e., json=omitempty
             gotests_template = "", -- sets gotests -template parameter (check gotests for details)
             gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
@@ -93,7 +93,6 @@ return {
             -- Windows: Use Visual Studio keymap
             dap_debug_gui = {},                                            -- bool|table put your dap-ui setup here set to false to disable
             dap_debug_vt = { enabled_commands = true, all_frames = true }, -- bool|table put your dap-virtual-text setup here set to false to disable
-
             dap_port = 38697,                                              -- can be set to a number, if set to -1 go.nvim will pick up a random port
             dap_timeout = 15,                                              --  see dap option initialize_timeout_sec = 15,
             dap_retries = 20,                                              -- see dap option max_retries
@@ -103,12 +102,11 @@ return {
             verbose_tests = true,                                          -- set to add verbose flag to tests deprecated, see '-v' option
             run_in_floaterm = false,                                       -- set to true to run in a float window. :GoTermClose closes the floatterm
             -- float term recommend if you use gotestsum ginkgo with terminal color
-
-            floaterm = {               -- position
-                posititon = 'auto',    -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
-                width = 0.45,          -- width of float window if not auto
-                height = 0.98,         -- height of float window if not auto
-                title_colors = 'nord', -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
+            floaterm = {                                                   -- position
+                posititon = 'auto',                                        -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+                width = 0.45,                                              -- width of float window if not auto
+                height = 0.98,                                             -- height of float window if not auto
+                title_colors = 'nord',                                     -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
                 -- can also set to a list of colors to define colors to choose from
                 -- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
             },

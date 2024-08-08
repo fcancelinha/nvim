@@ -72,7 +72,6 @@ return {
                     },
                     prompt_title     = 'find',
                     sorting_strategy = 'ascending',
-                    hidden           = true,
                     previewer        = false,
                     layout_config    = {
                         vertical = {
@@ -81,14 +80,15 @@ return {
                     }
                 },
                 oldfiles = {
+                    previewer = true,
                     prompt_title     = 'recent',
-                    preview_title    = '',
+                    -- preview_title    = '',
                     sorting_strategy = 'ascending',
                     hidden           = true,
                     layout_config    = {
                         vertical = {
                             width = 100,
-                            height = 0.9,
+                            height = 0.4,
                         }
                     }
                 },

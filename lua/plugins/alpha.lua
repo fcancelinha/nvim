@@ -185,7 +185,6 @@ return {
 				button("q", "Quit", ":qa<CR>",
 					{ icon = '', hl = { { 'Normal', 1, 2 }, { 'Normal', 3, 52 } } }
 				),
-				{ type = 'padding', val = 1 },
 				{
 					type = "text",
 					val = string.rep("─", 50),

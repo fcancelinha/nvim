@@ -6,8 +6,15 @@ return {
         "nvim-lua/plenary.nvim",
     },
     config = function()
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local lspconfig = require 'lspconfig'
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
         require("lspconfig.ui.windows").default_options.border = "single"
+
+        local signs = { Error = " ", Warn = " ", Hint = " ", Info = "󱧣 " }
+        for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        end
 
         require('mason').setup({
             ui = {
@@ -18,23 +25,18 @@ return {
             },
         })
 
-        require("lsp-setup").setup({
+        require('lsp-setup').setup({
             capabilities = capabilities,
             servers = {
+                html = {},
+                cssls = {},
                 lua_ls = {
                     settings = {
                         Lua = {
-                            completion = {
-                                callSnippet = "Replace",
-                            },
                             diagnostics = {
                                 globals = {
-                                    'vim',
-                                    'require',
-                                    'enable',
-                                    'ls',
-                                    'actions',
-                                },
+                                    "vim"
+                                }
                             },
                             telemetry = {
                                 enable = false,
@@ -50,19 +52,20 @@ return {
                     },
                 },
                 gopls = {
-                    cmd = { "gopls" },
                     filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
-                    message_level = vim.lsp.protocol.MessageType.Error,
                     settings = {
                         gopls = {
-                            experimentalPostfixCompletions = true,
-                            semanticTokens = true,
                             completeUnimported = true,
-                            usePlaceholders = false,
-                            staticcheck = true,
-                            matcher = 'Fuzzy',
-                            symbolMatcher = 'fuzzy',
                             diagnosticsDelay = '500ms',
+                            experimentalPostfixCompletions = true,
+                            matcher = 'Fuzzy',
+                            semanticTokens = true,
+                            staticcheck = true,
+                            symbolMatcher = 'fuzzy',
+                            usePlaceholders = false,
+                            gofumpt = true,
+                            vulncheck = "Imports",
+                            hoverKind = "FullDocumentation",
                             codelenses = {
                                 gc_details         = true,
                                 debug              = true,
@@ -85,8 +88,10 @@ return {
                             },
                             analyses = {
                                 nilness = true,
-                                unusedparams = true,
-                                -- unusedvariable = true,
+                                assign = true,
+                                atomic = true,
+                                unusedparams = false,
+                                unusedvariable = false,
                                 unusedwrite = true,
                                 useany = true,
                                 unreachable = true,
@@ -143,9 +148,12 @@ return {
                             },
                         },
                         yaml = {
+                            editor = {
+                                tabsize = 4
+                            },
                             format = {
                                 enable = true,
-                                singleQuote = false,
+                                singleQuote = true,
                                 bracketSpacing = true,
                             },
                             schemaStore = {
@@ -153,6 +161,7 @@ return {
                             },
                             validate = true,
                             completion = true,
+                            keyOrdering = false,
                         }
                     }
                 },
@@ -163,11 +172,15 @@ return {
                             command = "EslintFixAll",
                         })
                     end,
-                    flags = {
-                        debounce_text_changes = 150,
-                    },
                     cmd = { "vscode-eslint-language-server", "--stdio" },
-                    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+                    filetypes = {
+                        "javascript",
+                        "javascriptreact",
+                        "javascript.jsx",
+                        "typescript",
+                        "typescriptreact",
+                        "typescript.tsx",
+                    },
                     handlers = {
                         ["eslint/confirmESLintExecution"] = function()
                             -- vim.cmd [[echom "confirmESLintExecution"]]
@@ -251,7 +264,7 @@ return {
                             }
                         }
                     }
-                }
+                },
             }
         })
     end,
