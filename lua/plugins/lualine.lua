@@ -86,7 +86,7 @@ return {
                     {
                         'diff',
                         color = { bg = lualine_colors.dark },
-                        padding = 1,
+                        padding = 3,
                     },
                 },
                 lualine_y = {
@@ -169,7 +169,6 @@ return {
                     },
                     {
                         'mode',
-                        left_padding = 2,
                         separator = { left = '', right = '' },
                     },
                 },
