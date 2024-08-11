@@ -38,10 +38,10 @@ return {
             -- to setup a table of codelens
             diagnostic = { -- set diagnostic to false to disable vim.diagnostic.config setup,
                 -- true: default nvim setup
-                hdlr = false, -- hook lsp diag handler and send diag to quickfix
+                hdlr = true, -- hook lsp diag handler and send diag to quickfix
                 underline = true,
                 virtual_text = { spacing = 2, prefix = '▧' }, -- virtual text setup
-                signs = { '', '', '', '' }, -- set to true to use default signs, an array of 4 to specify custom signs
+                signs = true, --{ '', '', '', '' }, -- set to true to use default signs, an array of 4 to specify custom signs
                 update_in_insert = false,
             },
             -- if you need to setup your ui for input and select, you can do it here
@@ -54,7 +54,7 @@ return {
                 enable = false,
                 -- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
                 -- inlay only available for 0.10.x
-                style = 'inlay',
+                style = 'eol',
                 -- Note: following setup only works for style = 'eol', you do not need to set it for 'inlay'
                 -- Only show inlay hints for the current line
                 only_current_line = false,
@@ -66,10 +66,10 @@ return {
                 only_current_line_autocmd = "CursorHold",
                 -- whether to show variable name before type hints with the inlay hints or not
                 -- default: false
-                show_variable_name = true,
+                show_variable_name = false,
                 -- prefix for parameter hints
                 parameter_hints_prefix = "󰊕 ",
-                show_parameter_hints = true,
+                show_parameter_hints = false,
                 -- prefix for all the other hints (type, chaining)
                 other_hints_prefix = "=> ",
                 -- whether to align to the length of the longest line in the file
@@ -85,7 +85,7 @@ return {
             },
             gopls_cmd = nil,          -- if you need to specify gopls path and cmd, e.g {"/home/user/lsp/gopls", "-logfile","/var/log/gopls.log" }
             gopls_remote_auto = true, -- add -remote=auto to gopls
-            gocoverage_sign = "█",
+            gocoverage_sign = "║",
             sign_priority = 5,        -- change to a higher number to override other signs
             dap_debug = true,         -- set to false to disable dap
             dap_debug_keymap = true,  -- true: use keymap for debugger defined in go/dap.lua

@@ -25,7 +25,7 @@ return {
             filetypes_allowlist = {},
             -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
             -- See `:help mode()` for possible values
-            modes_denylist = {},
+            modes_denylist = { "i" },
             -- modes_allowlist: modes to illuminate, this is overridden by modes_denylist
             -- See `:help mode()` for possible values
             modes_allowlist = {},
@@ -51,7 +51,7 @@ return {
             -- should_enable: a callback that overrides all other settings to
             -- enable/disable illumination. This will be called a lot so don't do
             -- anything expensive in it.
-            should_enable = function(bufnr) return true end,
+            -- should_enable = function(bufnr) return true end,
             -- case_insensitive_regex: sets regex case sensitivity
             case_insensitive_regex = false,
         })

@@ -80,7 +80,7 @@ return {
                     }
                 },
                 oldfiles = {
-                    previewer = true,
+                    previewer        = true,
                     prompt_title     = 'recent',
                     -- preview_title    = '',
                     sorting_strategy = 'ascending',
@@ -119,7 +119,26 @@ return {
                     previewer = false,
                 },
                 lsp_document_symbols = {
+                    layout_strategy = "horizontal",
                     ignore_symbols = { "variable", "field" },
+                },
+                lsp_references = {
+                    layout_strategy = "horizontal",
+                },
+                lsp_definitions = {
+                    layout_strategy = "horizontal",
+                },
+                lsp_incoming_calls = {
+                    layout_strategy = "horizontal",
+                },
+                lsp_outgoing_calls = {
+                    layout_strategy = "horizontal",
+                },
+                lsp_implementations = {
+                    layout_strategy = "horizontal",
+                },
+                lsp_type_definitions = {
+                    layout_strategy = "horizontal",
                 },
                 keymaps = {
                     layout_config = {

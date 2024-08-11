@@ -19,12 +19,8 @@ keymap("", "<Space>", "<Nop>", opts)
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts, { desc = "Indent left" })
 keymap("v", ">", ">gv", opts, { desc = "Indent right" })
-
 keymap('n', '[d', vim.diagnostic.goto_prev, opts, { desc = "Go to next diagnostic" })
 keymap('n', ']d', vim.diagnostic.goto_next, opts, { desc = "Go to previous diagnostic" })
-
--- Select All
-keymap("n", "<C-a>", "gg<S-v>G")
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
@@ -34,7 +30,6 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
-
 keymap("i", "<Up>", "<C-k>", opts)
 keymap("i", "<Down>", "<C-j>", opts)
 
@@ -50,13 +45,12 @@ keymap("v", "<A-k>", ":m'<-2<CR>gv=`>my`<mzgv`yo`z", opts)
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- [ Plugins ] --
-
 -- Explorer
 keymap("n", "\\", ":Neotree toggle<CR>", opts)
 
 -- Telescope
 keymap("n", "<leader>fB", ":Telescope git_branches<CR>", opts)
-keymap("n", "<leader>fC", ":Telescope git_commits<CR>", opts)
+keymap("n", "<leader>fc", ":Telescope git_commits<CR>", opts)
 keymap("n", "<leader>fD", ":Telescope diagnostics<CR>", opts)
 keymap("n", "<leader>fK", ":Telescope grep_string<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
@@ -75,8 +69,8 @@ keymap("n", "<leader>fo", ":Telescope lsp_outgoing_calls<CR>", opts)
 keymap("n", "<leader>fr", ":Telescope lsp_references<CR>", opts)
 keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope lsp_implementations<CR>", opts)
--- Telescope Extensions
 
+-- Telescope Extensions
 keymap("n", "<leader>fp", ":lua require'telescope'.extensions.projects.projects{}<CR>", opts)
 keymap({ "v", "n" }, "<leader>ga", function() require("actions-preview").code_actions() end, opts)
 
@@ -97,7 +91,6 @@ keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<CR>", opts)
 keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<CR>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<CR>", opts)
-
 
 -- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)

@@ -6,7 +6,6 @@ return {
         "nvim-lua/plenary.nvim",
     },
     config = function()
-        local lspconfig = require 'lspconfig'
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
         require("lspconfig.ui.windows").default_options.border = "single"
 
@@ -55,15 +54,12 @@ return {
                     filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
                     settings = {
                         gopls = {
-                            completeUnimported = true,
-                            diagnosticsDelay = '500ms',
+                            diagnosticsDelay = '150ms',
                             experimentalPostfixCompletions = true,
-                            matcher = 'Fuzzy',
                             semanticTokens = true,
-                            staticcheck = true,
-                            symbolMatcher = 'fuzzy',
-                            usePlaceholders = false,
+                            matcher = 'Fuzzy',
                             gofumpt = true,
+                            symbolMatcher = 'fuzzy',
                             vulncheck = "Imports",
                             hoverKind = "FullDocumentation",
                             codelenses = {
@@ -102,6 +98,9 @@ return {
                                 shadow = true,
                                 fillreturns = true,
                             },
+                            staticcheck = true,
+                            completeUnimported = true,
+                            usePlaceholders = false,
                             directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
                             buildFlags = { '-tags', 'integration' },
                         },
