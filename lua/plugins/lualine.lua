@@ -1,7 +1,7 @@
 return {
     "nvim-lualine/lualine.nvim",
     config = function()
-        local lualine_colors = {
+        local colors = {
             dark           = '#2E3440',
             frostblue      = '#5E81Ac',
             frostgreen     = '#8FBCBB',
@@ -21,24 +21,6 @@ return {
             none           = "None",
         }
 
-        local custom_northern = require('lualine.themes.northern')
-        custom_northern.normal.a.bg = lualine_colors.none
-        custom_northern.normal.a.fg = lualine_colors.red
-        custom_northern.insert.a.bg = lualine_colors.none
-        custom_northern.visual.a.bg = lualine_colors.none
-        custom_northern.replace.a.bg = lualine_colors.none
-        custom_northern.command.a.bg = lualine_colors.none
-        custom_northern.normal.b.bg = lualine_colors.none
-        custom_northern.insert.b.bg = lualine_colors.none
-        custom_northern.visual.b.bg = lualine_colors.none
-        custom_northern.replace.b.bg = lualine_colors.none
-        custom_northern.command.b.bg = lualine_colors.none
-        custom_northern.normal.c.bg = lualine_colors.none
-        custom_northern.insert.c.bg = lualine_colors.none
-        custom_northern.visual.c.bg = lualine_colors.none
-        custom_northern.replace.c.bg = lualine_colors.none
-        custom_northern.command.c.bg = lualine_colors.none
-
         local function modified()
             if vim.bo.modified then
                 return '[+]'
@@ -52,7 +34,7 @@ return {
             options = {
                 globalstatus = true,
                 icons_enabled = true,
-                theme = custom_northern,
+                theme = require('lualine.themes.nordern'),
                 component_separators = {},
                 section_separators = { left = '', right = '' },
                 ignore_focus = {},
@@ -67,6 +49,7 @@ return {
                     winbar = {},
                     "alpha",
                     "lazygit",
+                    "neo-tree",
                 },
             },
             sections = {
@@ -79,13 +62,13 @@ return {
                 lualine_x = {
                     {
                         'branch',
-                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
+                        icon = { '󰊢 ', color = { fg = colors.green, bg = colors.none }, align = 'left' },
+                        color = { fg = colors.yellow, bg = colors.none },
                         padding = 1,
                     },
                     {
                         'diff',
-                        color = { bg = lualine_colors.dark },
+                        color = { bg = colors.dark },
                         padding = 3,
                     },
                 },
@@ -96,8 +79,8 @@ return {
                         sections = { 'hint' },
                         diagnostics_color = {
                             hint = {
-                                fg = lualine_colors.frostturquoise,
-                                bg = lualine_colors.greydark,
+                                fg = colors.frostturquoise,
+                                bg = colors.greydark,
                             }
                         },
                         update_in_insert = true,
@@ -111,8 +94,8 @@ return {
                         sections = { 'info' },
                         diagnostics_color = {
                             hint = {
-                                fg = lualine_colors.frostblue,
-                                bg = lualine_colors.greydark,
+                                fg = colors.frostblue,
+                                bg = colors.greydark,
                             }
                         },
                         update_in_insert = true,
@@ -126,8 +109,8 @@ return {
                         sections = { 'warn' },
                         diagnostics_color = {
                             warn = {
-                                fg = lualine_colors.yellow,
-                                bg = lualine_colors.greydark,
+                                fg = colors.yellow,
+                                bg = colors.greydark,
                             }
                         },
                         update_in_insert = true,
@@ -141,8 +124,8 @@ return {
                         sections = { 'error' },
                         diagnostics_color = {
                             error = {
-                                fg = lualine_colors.red,
-                                bg = lualine_colors.greydark,
+                                fg = colors.red,
+                                bg = colors.greydark,
                             }
                         },
                         update_in_insert = true,
@@ -154,18 +137,18 @@ return {
                 lualine_z = {
                     {
                         modified,
-                        color = { fg = lualine_colors.dark },
+                        color = { fg = colors.dark, bg = colors.none },
                         padding = 1,
                     },
                     {
                         'searchcount',
-                        icon = { '', color = { fg = lualine_colors.dark }, align = 'left' },
-                        color = { fg = lualine_colors.dark },
+                        icon = { '', color = { fg = colors.dark }, align = 'left' },
+                        color = { fg = colors.dark },
                     },
                     {
                         'selectioncount',
-                        icon = { '󰒅', color = { fg = lualine_colors.dark }, align = 'left' },
-                        color = { fg = lualine_colors.dark },
+                        icon = { '󰒅', color = { fg = colors.dark }, align = 'left' },
+                        color = { fg = colors.dark },
                     },
                     {
                         'mode',

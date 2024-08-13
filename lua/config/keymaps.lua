@@ -14,6 +14,7 @@ local opts = { silent = true, noremap = true }
 
 --Remap space as leader key
 vim.g.mapleader = " "
+vim.g.maplocalleader = '<space>'
 keymap("", "<Space>", "<Nop>", opts)
 
 -- Stay in indent mode
@@ -101,6 +102,9 @@ keymap({ "i", "s" }, "<C-E>", function()
         require('luasnip').change_choice(1)
     end
 end, opts)
+
+-- Grug
+keymap("n", "<leader>gr", function() require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>")}}) end, opts)
 
 -- GitBlame
 keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)

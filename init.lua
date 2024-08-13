@@ -8,4 +8,4 @@ local opts = {
     brighter_comments = true,
 }
 
-require('northern').load(opts)
+require('nordern').load(opts)
