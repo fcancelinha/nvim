@@ -24,12 +24,12 @@ return {
 			show_only_weeks_with_commits = true,
 			is_horizontal = true,
 			day_label_gap = '\t',
-			gap = '  ',
-			empty_square = '▢',
+			gap = '\t',
+			empty_square = '⬚',
 			filled_squares = { '■', '■', '■', '■', '■', '■' },
 			basepoints = { "master", "main" },
 			colors = {
-				days_and_months_labels = '#6098A7',
+				days_and_months_labels = '#88C0D0',
 				empty_square_highlight = '#88C0D0',
 				filled_square_highlights = { '#002C39', '#094D5B', '#387180', '#6098A7', '#88C0D0', '#C0FAFF' },
 				branch_highlight = '#EBCB8B',
@@ -214,6 +214,7 @@ return {
 						return { startify.mru(1, vim.fn.getcwd(), 7) }
 					end,
 				},
+				{ type = 'padding', val = 1 },
 			}
 		}
 
@@ -234,15 +235,10 @@ return {
 		local config = {
 			layout = {
 				heatmap,
-				{ type = 'padding', val = 0 },
 				mru,
-				{ type = 'padding', val = 1 },
 				buttons,
-				{ type = 'padding', val = 1 },
 				toast,
-				{ type = 'padding', val = 0 },
 				info,
-				{ type = 'padding', val = 0 },
 			}
 		}
 

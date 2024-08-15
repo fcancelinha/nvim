@@ -82,6 +82,7 @@ vim.diagnostic.config({
     underline = false,
     update_in_insert = true,
     virtual_text = true,
+    severity_sort = false,
     virtual_lines = true,
     float = {
         border = "rounded",

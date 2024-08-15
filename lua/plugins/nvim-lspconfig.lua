@@ -9,7 +9,7 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
         require("lspconfig.ui.windows").default_options.border = "single"
 
-        local signs = { Error = " ", Warn = " ", Hint = " ", Info = "󱧣 " }
+        local signs = { Error = "✚ ", Warn = " ", Hint = " ", Info = "󱧣 " }
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -25,17 +25,34 @@ return {
         })
 
         require('lsp-setup').setup({
-            capabilities = capabilities,
             servers = {
-                html = {},
-                cssls = {},
+                html = {
+                    capabilities = capabilities,
+                },
+                cssls = {
+                    capabilities = capabilities,
+                },
                 lua_ls = {
+                    capabilities = capabilities,
                     settings = {
                         Lua = {
+                            runtime = {
+                                version = "LuaJIT",
+                            },
                             diagnostics = {
                                 globals = {
-                                    "vim"
+                                    "vim",
+                                    'use',
+                                    'describe',
+                                    'it',
+                                    'assert',
+                                    'before_each',
+                                    'after_each',
                                 }
+                            },
+                            workspace = {
+                                library = vim.api.nvim_get_runtime_file("", true),
+                                checkThirdParty = false,
                             },
                             telemetry = {
                                 enable = false,
@@ -51,6 +68,7 @@ return {
                     },
                 },
                 gopls = {
+                    capabilities = capabilities,
                     filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
                     settings = {
                         gopls = {
@@ -111,9 +129,11 @@ return {
                     }
                 },
                 angularls = {
+                    capabilities = capabilities,
                     root_dir = require("lspconfig.util").root_pattern('angular.json', 'project.json'),
                 },
                 jsonls = {
+                    capabilities = capabilities,
                     settings = {
                         json = {
                             format = {
@@ -140,6 +160,7 @@ return {
                     },
                 },
                 yamlls = {
+                    capabilities = capabilities,
                     settings = {
                         redhat = {
                             telemetry = {
@@ -165,6 +186,7 @@ return {
                     }
                 },
                 eslint = {
+                    capabilities = capabilities,
                     on_attach = function(_, bufnr)
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = bufnr,
@@ -243,14 +265,17 @@ return {
                     }
                 },
                 bashls = {
+                    capabilities = capabilities,
                     name = 'bash-language-server',
                     cmd = { 'bash-language-server', 'start' },
                     filetypes = { 'sh' }
                 },
                 gitlab_ci_ls = {
+                    capabilities = capabilities,
                     filetypes = { "gitlab*" }
                 },
                 robotframework_ls = {
+                    capabilities = capabilities,
                     cmd = { "/home/fc/.local/bin/robotframework_ls" },
                     settings = {
                         robot = {

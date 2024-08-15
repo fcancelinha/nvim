@@ -78,15 +78,15 @@ return {
                 },
                 lualine_x = {
                     {
-                        'branch',
-                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
+                        'diff',
+                        color = { bg = lualine_colors.dark },
                         padding = 1,
                     },
                     {
-                        'diff',
-                        color = { bg = lualine_colors.dark },
-                        padding = 3,
+                        'branch',
+                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
+                        color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
+                        padding = 2,
                     },
                 },
                 lualine_y = {
@@ -146,7 +146,7 @@ return {
                             }
                         },
                         update_in_insert = true,
-                        symbols = { error = ' ' },
+                        symbols = { error = '✚ ' },
                         padding = 1,
                         separator = { left = '' },
                     },

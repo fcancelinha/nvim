@@ -70,7 +70,7 @@ return {
                         '--exclude',
                         '.node_modules',
                     },
-                    prompt_title     = 'find',
+                    prompt_title     = 'Find',
                     sorting_strategy = 'ascending',
                     previewer        = false,
                     layout_config    = {
@@ -81,7 +81,7 @@ return {
                 },
                 oldfiles = {
                     previewer        = true,
-                    prompt_title     = 'recent',
+                    prompt_title     = 'Recent',
                     -- preview_title    = '',
                     sorting_strategy = 'ascending',
                     hidden           = true,

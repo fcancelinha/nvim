@@ -1,6 +1,8 @@
 return {
     {
         "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
         opts = {
             check_ts = true, -- treesitter integration
             disable_filetype = { "TelescopePrompt", "terminal" },
@@ -9,6 +11,7 @@ return {
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
         config = function()
             require("nvim-surround").setup()
         end
