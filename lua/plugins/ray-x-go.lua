@@ -1,9 +1,5 @@
 return {
     "ray-x/go.nvim",
-    -- optional packages
-    dependencies = {
-        "ray-x/guihua.lua"
-    },
     config = function()
         require('go').setup({
             disable_defaults = false, -- true|false when true set false to all boolean settings and replace all tables
@@ -15,13 +11,68 @@ return {
             fillstruct = 'fillstruct', -- set to fillstruct if gopls fails to fill struct
             max_line_len = 0, -- max line length in golines format, Target maximum line length for golines
             tag_transform = "camelcase", -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
-            tag_options = '', -- sets options sent to gomodifytags, i.e., json=omitempty
+            tag_options = 'json=omitempty', -- sets options sent to gomodifytags, i.e., json=omitempty
             gotests_template = "", -- sets gotests -template parameter (check gotests for details)
             gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
             comment_placeholder = '', -- comment_placeholder your cool placeholder e.g. ?? ?  ?  ?  ?
             icons = { breakpoint = '󰃤', currentpos = '' }, -- setup to `false` to disable icons setup
             verbose = false, -- output loginf in messages
-            lsp_cfg = false, -- true: use non-default gopls setup specified in go/lsp.lua
+            lsp_cfg = {
+                settings = {
+                    gopls = {
+                        diagnosticsDelay = '150ms',
+                        experimentalPostfixCompletions = true,
+                        semanticTokens = true,
+                        matcher = 'Fuzzy',
+                        gofumpt = true,
+                        symbolMatcher = 'fuzzy',
+                        vulncheck = "Imports",
+                        hoverKind = "FullDocumentation",
+                        codelenses = {
+                            gc_details         = true,
+                            debug              = true,
+                            generate           = true,
+                            run_govulncheck    = true,
+                            test               = true,
+                            tidy               = true,
+                            upgrade_dependency = true,
+                            regenerate_cgo     = true,
+                            vendor             = true,
+                        },
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
+                        },
+                        analyses = {
+                            nilness = true,
+                            assign = true,
+                            atomic = true,
+                            unusedparams = false,
+                            unusedvariable = false,
+                            unusedwrite = true,
+                            useany = true,
+                            unreachable = true,
+                            ST1003 = true,
+                            undeclaredname = true,
+                            nonewvars = true,
+                            fieldalignment = false,
+                            shadow = true,
+                            fillreturns = true,
+                        },
+                        staticcheck = true,
+                        completeUnimported = true,
+                        usePlaceholders = false,
+                        directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
+                        buildFlags = { '-tags', 'integration' },
+                    },
+                },
+            },
+            -- true: use non-default gopls setup specified in go/lsp.lua
             -- false: do nothing
             -- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
             --   lsp_cfg = {settings={gopls={matcher='CaseInsensitive', ['local'] = 'your_local_module_path', gofumpt = true }}}
@@ -39,14 +90,14 @@ return {
             diagnostic = { -- set diagnostic to false to disable vim.diagnostic.config setup,
                 -- true: default nvim setup
                 hdlr = true, -- hook lsp diag handler and send diag to quickfix
-                underline = true,
+                underline = false,
                 virtual_text = { spacing = 2, prefix = '▧' }, -- virtual text setup
-                signs = true, --{ '', '', '', '' }, -- set to true to use default signs, an array of 4 to specify custom signs
-                update_in_insert = false,
+                signs = { "✸ ", " ", " ", " " }, --{ '', '', '', '' }, -- set to true to use default signs, an array of 4 to specify custom signs
+                update_in_insert = true,
             },
             -- if you need to setup your ui for input and select, you can do it here
-            -- go_input = require('guihua.input').input -- set to vim.ui.input to disable guihua input
-            -- go_select = require('guihua.select').select -- vim.ui.select to disable guihua select
+            -- go_input = require('guihua.input').input,    -- set to vim.ui.input to disable guihua input
+            -- go_select = require('guihua.select').select, -- vim.ui.select to disable guihua select
             lsp_document_formatting = true,
             -- set to true: use gopls to format
             -- false if you want to use other formatter tool(e.g. efm, nulls)
@@ -85,10 +136,10 @@ return {
             },
             gopls_cmd = nil,          -- if you need to specify gopls path and cmd, e.g {"/home/user/lsp/gopls", "-logfile","/var/log/gopls.log" }
             gopls_remote_auto = true, -- add -remote=auto to gopls
-            gocoverage_sign = "║",
+            gocoverage_sign = "█",
             sign_priority = 5,        -- change to a higher number to override other signs
             dap_debug = true,         -- set to false to disable dap
-            dap_debug_keymap = true,  -- true: use keymap for debugger defined in go/dap.lua
+            dap_debug_keymap = false, -- true: use keymap for debugger defined in go/dap.lua
             -- false: do not use keymap in go/dap.lua.  you must define your own.
             -- Windows: Use Visual Studio keymap
             dap_debug_gui = {},                                            -- bool|table put your dap-ui setup here set to false to disable

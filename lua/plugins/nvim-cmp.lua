@@ -83,28 +83,28 @@ return {
                 ["<C-n>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "v", "i", "c" }),
                 ["<C-e>"] = cmp.mapping.close(),
                 ["<CR>"] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
+                    behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),
                 ['<Tab>'] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace,
+                    behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
             }),
-            -- sorting = {
-            --     -- priority_weight = 1,
-            --     -- comparators = {
-            --     -- 	cmp.config.compare.offset,
-            --     -- 	cmp.config.compare.exact,
-            --     -- 	cmp.config.compare.score,
-            --     -- 	cmp.config.compare.kind,
-            --     -- 	cmp.config.compare.sort_text,
-            --     -- 	cmp.config.compare.order,
-            --     -- 	cmp.config.compare.locality,
-            --     -- 	cmp.config.compare.length,
-            --     -- 	cmp.config.compare.deprecated,
-            --     -- }
-            -- },
+            sorting = {
+                priority_weight = 1,
+                comparators = {
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.order,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.length,
+                    cmp.config.compare.deprecated,
+                }
+            },
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },

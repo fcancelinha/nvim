@@ -4,8 +4,7 @@ return {
         event = "InsertEnter",
         config = true,
         opts = {
-            check_ts = true, -- treesitter integration
-            disable_filetype = { "TelescopePrompt", "terminal" },
+            disable_filetype = { "TelescopePrompt" },
         }
     },
     {

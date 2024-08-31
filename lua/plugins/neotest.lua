@@ -5,7 +5,8 @@ return {
         "antoinemadec/FixCursorHold.nvim",
         "nvim-neotest/neotest-plenary",
         -- Your other test adapters here
-        "fredrikaverpil/neotest-golang", -- Installation
+        -- "fredrikaverpil/neotest-golang", -- Installation
+        "nvim-neotest/neotest-go",
     },
     config = function()
         -- get neotest namespace (api call creates or returns namespace)
@@ -23,8 +24,15 @@ return {
 
         require("neotest").setup({
             adapters = {
-                require("neotest-golang")({
-                    dap_go_enabled = true,
+                require("neotest-go")({
+                    args = { "-v" },
+                    experimental = {
+                        test_table = true,
+                        test_command = function(position)
+                            return "richgo test " .. position
+                        end,
+                    },
+                    recursive_run = true,
                 }),
             },
         })

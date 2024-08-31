@@ -18,10 +18,10 @@ vim.g.maplocalleader = '<space>'
 keymap("", "<Space>", "<Nop>", opts)
 
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts, { desc = "Indent left" })
-keymap("v", ">", ">gv", opts, { desc = "Indent right" })
-keymap('n', '[d', vim.diagnostic.goto_prev, opts, { desc = "Go to next diagnostic" })
-keymap('n', ']d', vim.diagnostic.goto_next, opts, { desc = "Go to previous diagnostic" })
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+keymap('n', '[d', vim.diagnostic.goto_prev, opts)
+keymap('n', ']d', vim.diagnostic.goto_next, opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
@@ -72,26 +72,29 @@ keymap("n", "<leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope lsp_implementations<CR>", opts)
 
 -- Telescope Extensions
-keymap("n", "<leader>fp", ":lua require'telescope'.extensions.projects.projects{}<CR>", opts)
+keymap("n", "<leader>fp", function() require('telescope').extensions.projects.projects {} end, opts)
 keymap({ "v", "n" }, "<leader>ga", function() require("actions-preview").code_actions() end, opts)
 
 -- Neotest
+keymap("n", "<leader>tr", function() require("neotest").run.run() end, opts)
 keymap("n", "<leader>tn", function() require("neotest").run.run({ strategy = "dap" }) end, opts)
-keymap("n", "<leader>tc", function() require("neotest").run.run(vim.fn.expand("%")) end, opts)
-keymap("n", "<leader>ts", ":Neotest summary <CR>", opts)
-keymap("n", "<leader>to", ":Neotest output-panel <CR>", opts)
-keymap("n", "<leader>tr", ":Neotest run <CR>", opts)
+keymap("n", "<leader>td", function() require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" }) end, opts)
+keymap("n", "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, opts)
+keymap("n", "<leader>to", function() require("neotest").output.open({ enter = true }) end, opts)
+keymap("n", "<leader>tt", function() require("neotest").watch.toggle(vim.fn.expand("%")) end, opts)
+keymap("n", "<leader>tp", function() require("neotest").output_panel.toggle() end, opts)
+keymap("n", "<leader>ts", function() require("neotest").summary.toggle() end, opts)
 
 -- DAP
-keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", opts)
-keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", opts)
-keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<CR>", opts)
-keymap("n", "<leader>do", "<cmd>lua require'dap'.step_over()<CR>", opts)
-keymap("n", "<leader>dO", "<cmd>lua require'dap'.step_out()<CR>", opts)
-keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<CR>", opts)
-keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<CR>", opts)
-keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", opts)
-keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<CR>", opts)
+keymap("n", "<leader>db", function() require("dap").toggle_breakpoint() end, opts)
+keymap("n", "<leader>dc", function() require("dap").continue() end, opts)
+keymap("n", "<leader>di", function() require("dap").step_into() end, opts)
+keymap("n", "<leader>do", function() require("dap").step_over() end, opts)
+keymap("n", "<leader>dO", function() require("dap").step_out() end, opts)
+keymap("n", "<leader>dr", function() require("dap").repl.toggle() end, opts)
+keymap("n", "<leader>dl", function() require("dap").run_last() end, opts)
+keymap("n", "<leader>dt", function() require("dap").terminate() end, opts)
+keymap("n", "<leader>du", function() require("dapui").toggle() end, opts)
 
 -- LuaSnips
 keymap({ "i" }, "<Tab>", function() require('luasnip').expand() end, opts)
@@ -104,7 +107,9 @@ keymap({ "i", "s" }, "<C-E>", function()
 end, opts)
 
 -- Grug
-keymap("n", "<leader>gr", function() require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>")}}) end, opts)
+keymap("n", "<leader>gr",
+    function() require('grug-far').grug_far({ prefills = { search = vim.fn.expand("<cword>") } }) end,
+    opts)
 
 -- GitBlame
-keymap('n', '<leader>gb', "<cmd>lua require'gitsigns'.toggle_current_line_blame()<cr>", opts)
+keymap('n', '<leader>gb', function() require("gitsigns").toggle_current_line_blame() end, opts)

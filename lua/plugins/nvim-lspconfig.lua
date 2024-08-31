@@ -9,7 +9,7 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
         require("lspconfig.ui.windows").default_options.border = "single"
 
-        local signs = { Error = "✚ ", Warn = " ", Hint = " ", Info = "󱧣 " }
+        local signs = { Error = "✸ ", Warn = " ", Hint = " ", Info = " " }
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -70,59 +70,6 @@ return {
                 gopls = {
                     capabilities = capabilities,
                     filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
-                    settings = {
-                        gopls = {
-                            diagnosticsDelay = '150ms',
-                            experimentalPostfixCompletions = true,
-                            semanticTokens = true,
-                            matcher = 'Fuzzy',
-                            gofumpt = true,
-                            symbolMatcher = 'fuzzy',
-                            vulncheck = "Imports",
-                            hoverKind = "FullDocumentation",
-                            codelenses = {
-                                gc_details         = true,
-                                debug              = true,
-                                generate           = true,
-                                run_govulncheck    = true,
-                                test               = true,
-                                tidy               = true,
-                                upgrade_dependency = true,
-                                regenerate_cgo     = true,
-                                vendor             = true,
-                            },
-                            hints = {
-                                assignVariableTypes = true,
-                                compositeLiteralFields = true,
-                                compositeLiteralTypes = true,
-                                constantValues = true,
-                                functionTypeParameters = true,
-                                parameterNames = true,
-                                rangeVariableTypes = true,
-                            },
-                            analyses = {
-                                nilness = true,
-                                assign = true,
-                                atomic = true,
-                                unusedparams = false,
-                                unusedvariable = false,
-                                unusedwrite = true,
-                                useany = true,
-                                unreachable = true,
-                                ST1003 = true,
-                                undeclaredname = true,
-                                nonewvars = true,
-                                fieldalignment = false,
-                                shadow = true,
-                                fillreturns = true,
-                            },
-                            staticcheck = true,
-                            completeUnimported = true,
-                            usePlaceholders = false,
-                            directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
-                            buildFlags = { '-tags', 'integration' },
-                        },
-                    },
                     flags = {
                         debounce_text_changes = 500,
                         allow_incremental_sync = true,

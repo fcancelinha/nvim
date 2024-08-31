@@ -47,6 +47,22 @@ return {
             return ''
         end
 
+        local function lsp_server()
+            local msg = ''
+            local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+            local clients = vim.lsp.get_active_clients()
+            if next(clients) == nil then
+                return msg
+            end
+            for _, client in ipairs(clients) do
+                local filetypes = client.config.filetypes
+                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                    return '[' .. client.name .. ']'
+                end
+            end
+            return msg
+        end
+
         require('lualine').setup({
             options = {
                 globalstatus = true,
@@ -86,8 +102,19 @@ return {
                         'branch',
                         icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
                         color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
-                        padding = 2,
+                        padding = 0
                     },
+                    {
+                        lsp_server,
+                        icon = { '| 󰒋 ', color = { fg = lualine_colors.frostturquoise, bg = lualine_colors.none }, align = 'left' },
+                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
+                    },
+                    {
+                        "filetype",
+                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
+                        icon_only = true,
+                        padding = 1,
+                    }
                 },
                 lualine_y = {
                     {
@@ -146,7 +173,7 @@ return {
                             }
                         },
                         update_in_insert = true,
-                        symbols = { error = '✚ ' },
+                        symbols = { error = '✸ ' },
                         padding = 1,
                         separator = { left = '' },
                     },
