@@ -27,7 +27,7 @@ return {
 			above = 'gcO',
 			---Add comment on the line below
 			below = 'gco',
-			---Add comment at the end of line
+			---Add comment at the end of line 
 			eol = 'gcA',
 		},
 		---Enable keybindings

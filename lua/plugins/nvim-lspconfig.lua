@@ -7,6 +7,7 @@ return {
     },
     config = function()
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
         require("lspconfig.ui.windows").default_options.border = "single"
 
         local signs = { Error = "✸ ", Warn = " ", Hint = " ", Info = " " }
@@ -28,9 +29,33 @@ return {
             servers = {
                 html = {
                     capabilities = capabilities,
+                    filetypes = { 'html', 'html5', 'tmpl' },
+                    settings = {
+                        format = {
+                            enable = true,
+                            tabSize = 4,
+                            indentInnerHtml = true,
+                            preserveNewLines = true,
+                        },
+                        hover = {
+                            documentation = true,
+                            references = true,
+                        },
+                        suggest = {
+                            html5 = true, -- Enable HTML5 tags
+                        },
+                    },
+                    flags = {
+                        debounce_text_changes = 150,
+                        allow_incremental_sync = true,
+                    }
                 },
                 cssls = {
                     capabilities = capabilities,
+                    flags = {
+                        debounce_text_changes = 150,
+                        allow_incremental_sync = true,
+                    }
                 },
                 lua_ls = {
                     capabilities = capabilities,
@@ -64,14 +89,36 @@ return {
                                     indent_size = '4',
                                 },
                             },
+                            lint = {
+                                enable = true,
+                                command = "luacheck",
+                                args = {
+                                    "--globals", "vim",
+                                    "--formatter", "plain",
+                                    "--codes", "--ranges", "--no-color"
+                                },
+                                onSave = true,
+                            },
                         },
                     },
+                    flags = {
+                        debounce_text_changes = 150,
+                        allow_incremental_sync = true,
+                    }
                 },
                 gopls = {
                     capabilities = capabilities,
-                    filetypes = { "go", "gomod", "gosum", "gowork", "gotmpl", "gohtmltmpl", "gotexttmpl" },
+                    filetypes = {
+                        "go",
+                        "gomod",
+                        "gosum",
+                        "gowork",
+                        "gotmpl",
+                        "gohtmltmpl",
+                        "gotexttmpl",
+                    },
                     flags = {
-                        debounce_text_changes = 500,
+                        debounce_text_changes = 150,
                         allow_incremental_sync = true,
                     }
                 },
@@ -88,17 +135,21 @@ return {
                             },
                             schemas = {
                                 {
-                                    fileMatch = { 'package.json' },
-                                    url = 'https://json.schemastore.org/package.json',
+                                    fileMatch = { "package.json" },
+                                    url = "https://json.schemastore.org/package.json"
                                 },
                                 {
-                                    fileMatch = { 'tsconfig.json', 'tsconfig.*.json' },
-                                    url = 'https://json.schemastore.org/tsconfig',
+                                    fileMatch = { "tsconfig*.json" },
+                                    url = "https://json.schemastore.org/tsconfig.json"
                                 },
                                 {
-                                    fileMatch = { 'eslintrc.json' },
-                                    url = 'https://json.schemastore.org/eslintrc.json',
+                                    fileMatch = { ".eslintrc.json", ".eslintrc" },
+                                    url = "https://json.schemastore.org/eslintrc.json"
                                 },
+                                {
+                                    fileMatch = { "prettierrc.json", "prettier.config.json" },
+                                    url = "https://json.schemastore.org/prettierrc.json"
+                                }
                             },
                         },
                         validate = {
@@ -118,16 +169,24 @@ return {
                             editor = {
                                 tabsize = 4
                             },
+                            schemaStore = {
+                                enable = true,
+                            },
+                            schemas = {
+                                kubernetes = "/*.k8s.yaml",
+                                ["http://json.schemastore.org/github-workflow"] = "/.github/workflows/*",
+                                ["http://json.schemastore.org/github-action"] = "/.github/action.{yml,yaml}",
+                                ["http://json.schemastore.org/drone"] = "/.drone.{yml,yaml}",
+                                ["http://json.schemastore.org/chart"] = "/Chart.{yml,yaml}",
+                            },
                             format = {
                                 enable = true,
                                 singleQuote = true,
                                 bracketSpacing = true,
                             },
-                            schemaStore = {
-                                enable = true,
-                            },
                             validate = true,
                             completion = true,
+                            hover = true,
                             keyOrdering = false,
                         }
                     }

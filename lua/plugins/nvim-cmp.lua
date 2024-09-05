@@ -94,9 +94,9 @@ return {
             sorting = {
                 priority_weight = 1,
                 comparators = {
-                    cmp.config.compare.offset,
-                    cmp.config.compare.exact,
                     cmp.config.compare.score,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.offset,
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.order,

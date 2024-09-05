@@ -22,16 +22,16 @@ return {
         }
 
         local custom_nordern = require('lualine.themes.nordern')
-        custom_nordern.normal.a.bg = lualine_colors.none
-        custom_nordern.insert.a.bg = lualine_colors.none
-        custom_nordern.visual.a.bg = lualine_colors.none
-        custom_nordern.replace.a.bg = lualine_colors.none
-        custom_nordern.command.a.bg = lualine_colors.none
-        custom_nordern.normal.b.bg = lualine_colors.none
-        custom_nordern.insert.b.bg = lualine_colors.none
-        custom_nordern.visual.b.bg = lualine_colors.none
-        custom_nordern.replace.b.bg = lualine_colors.none
-        custom_nordern.command.b.bg = lualine_colors.none
+        -- custom_nordern.normal.a.bg = lualine_colors.none
+        -- custom_nordern.insert.a.bg = lualine_colors.none
+        -- custom_nordern.visual.a.bg = lualine_colors.none
+        -- custom_nordern.replace.a.bg = lualine_colors.none
+        -- custom_nordern.command.a.bg = lualine_colors.none
+        -- custom_nordern.normal.b.bg = lualine_colors.none
+        -- custom_nordern.insert.b.bg = lualine_colors.none
+        -- custom_nordern.visual.b.bg = lualine_colors.none
+        -- custom_nordern.replace.b.bg = lualine_colors.none
+        -- custom_nordern.command.b.bg = lualine_colors.none
         custom_nordern.normal.c.bg = lualine_colors.none
         custom_nordern.insert.c.bg = lualine_colors.none
         custom_nordern.visual.c.bg = lualine_colors.none
@@ -47,21 +47,21 @@ return {
             return ''
         end
 
-        local function lsp_server()
-            local msg = ''
-            local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-            local clients = vim.lsp.get_active_clients()
-            if next(clients) == nil then
-                return msg
-            end
-            for _, client in ipairs(clients) do
-                local filetypes = client.config.filetypes
-                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                    return '[' .. client.name .. ']'
-                end
-            end
-            return msg
-        end
+        -- local function lsp_server()
+        --     local msg = ''
+        --     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        --     local clients = vim.lsp.get_active_clients()
+        --     if next(clients) == nil then
+        --         return msg
+        --     end
+        --     for _, client in ipairs(clients) do
+        --         local filetypes = client.config.filetypes
+        --         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        --             return '[' .. client.name .. ']'
+        --         end
+        --     end
+        --     return msg
+        -- end
 
         require('lualine').setup({
             options = {
@@ -78,8 +78,6 @@ return {
                     winbar = 1000,
                 },
                 disabled_filetypes = {
-                    statuslines = {},
-                    winbar = {},
                     "alpha",
                     "lazygit",
                     "neo-tree",
@@ -87,39 +85,32 @@ return {
             },
             sections = {
                 lualine_a = {
+                    {
+                        'searchcount',
+                        icon = { '', color = { fg = lualine_colors.dark }, align = 'error' },
+                        color = { fg = lualine_colors.dark },
+                        separator = { left = '', right = '' },
+                    },
+                    {
+                        'selectioncount',
+                        icon = { '󰒅', color = { fg = lualine_colors.dark }, align = 'error' },
+                        color = { fg = lualine_colors.dark },
+                        separator = { left = '', right = '' },
+                    },
+                    {
+                        'mode',
+                        separator = { left = '', right = '' },
+                        padding = 1,
+                    },
+                    {
+                        modified,
+                        separator = { left = '', right = '' },
+                    },
                 },
                 lualine_b = {
-                },
-                lualine_c = {
-                },
-                lualine_x = {
-                    {
-                        'diff',
-                        color = { bg = lualine_colors.dark },
-                        padding = 1,
-                    },
-                    {
-                        'branch',
-                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
-                        padding = 0
-                    },
-                    {
-                        lsp_server,
-                        icon = { '| 󰒋 ', color = { fg = lualine_colors.frostturquoise, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
-                    },
-                    {
-                        "filetype",
-                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
-                        icon_only = true,
-                        padding = 1,
-                    }
-                },
-                lualine_y = {
                     {
                         'diagnostics',
-                        sources = { 'nvim_lsp' },
+                        sources = { 'nvim_diagnostic' },
                         sections = { 'hint' },
                         diagnostics_color = {
                             hint = {
@@ -130,11 +121,11 @@ return {
                         update_in_insert = true,
                         symbols = { hint = ' ' },
                         padding = 1,
-                        separator = { left = '' },
+                        separator = { left = '', right = '' },
                     },
                     {
                         'diagnostics',
-                        sources = { 'nvim_lsp' },
+                        sources = { 'nvim_diagnostic' },
                         sections = { 'info' },
                         diagnostics_color = {
                             hint = {
@@ -145,11 +136,11 @@ return {
                         update_in_insert = true,
                         symbols = { hint = ' ' },
                         padding = 1,
-                        separator = { left = '' },
+                        separator = { left = '', right = '' },
                     },
                     {
                         'diagnostics',
-                        sources = { 'nvim_lsp' },
+                        sources = { 'nvim_diagnostic' },
                         sections = { 'warn' },
                         diagnostics_color = {
                             warn = {
@@ -160,11 +151,11 @@ return {
                         update_in_insert = true,
                         symbols = { warn = ' ' },
                         padding = 1,
-                        separator = { left = '' },
+                        separator = { left = '', right = '' },
                     },
                     {
                         'diagnostics',
-                        sources = { 'nvim_lsp' },
+                        sources = { 'nvim_diagnostic' },
                         sections = { 'error' },
                         diagnostics_color = {
                             error = {
@@ -175,35 +166,46 @@ return {
                         update_in_insert = true,
                         symbols = { error = '✸ ' },
                         padding = 1,
-                        separator = { left = '' },
-                    },
-                },
-                lualine_z = {
-                    {
-                        modified,
-                        padding = 1,
-                    },
-                    {
-                        'searchcount',
-                        icon = { '', color = { fg = lualine_colors.dark }, align = 'left' },
-                        color = { fg = lualine_colors.dark },
-                    },
-                    {
-                        'selectioncount',
-                        icon = { '󰒅', color = { fg = lualine_colors.dark }, align = 'left' },
-                        color = { fg = lualine_colors.dark },
-                    },
-                    {
-                        'mode',
                         separator = { left = '', right = '' },
                     },
                 },
+                lualine_c = {
+                    {
+                        'diff',
+                        color = { bg = lualine_colors.dark },
+                        padding = 2,
+                    },
+                    {
+                        'branch',
+                        icon = {
+                            '󰊢 ',
+                            color = {
+                                fg = lualine_colors.green,
+                                bg = lualine_colors.none,
+                            },
+                            align = 'error'
+                        },
+                        color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
+                        padding = 1
+                    },
+                },
+                lualine_x = {},
+                lualine_y = {
+                    -- {
+                    --     lsp_server,
+                    --     icon = { '󰒋', color = { fg = lualine_colors.frostturquoise, bg = lualine_colors.none }, align = 'error' },
+                    --     color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
+                    -- },
+                    -- {
+                    --     "filetype",
+                    --     color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
+                    --     icon_only = true,
+                    --     padding = 2,
+                    -- }
+                },
+                lualine_z = {},
             },
-            tabline = {},
-            winbar = {},
-            inactive_winbar = {},
             extensions = {
-                'mason',
                 'neo-tree',
                 'nvim-dap-ui',
                 'quickfix',

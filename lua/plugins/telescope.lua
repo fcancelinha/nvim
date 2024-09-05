@@ -92,6 +92,14 @@ return {
                         }
                     }
                 },
+                diagnostics = {
+                    layout_config = {
+                        vertical = {
+                            width = 100,
+                            height = 0.4,
+                        }
+                    }
+                },
                 buffers = {
                     previewer = false,
                     sorting_strategy = 'ascending',
