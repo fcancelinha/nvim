@@ -1,5 +1,18 @@
 return {
     'MagicDuck/grug-far.nvim',
+    keys = {
+        {
+            "<leader>gr",
+            function()
+                require('grug-far').grug_far({
+                    prefills = {
+                        search = vim.fn.expand("<cword>"),
+                    },
+                })
+            end,
+            desc = "open grug-far (find & replace)",
+        }
+    },
     config = function()
         require('grug-far').setup({
             keymaps = {

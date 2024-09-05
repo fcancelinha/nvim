@@ -5,6 +5,9 @@ return {
         "MunifTanjim/nui.nvim",
         "s1n7ax/nvim-window-picker",
     },
+    keys = {
+        { "\\", ":Neotree toggle<CR>", desc = "open neotree file explorer" },
+    },
     config = function()
         require 'window-picker'.setup({
             filter_rules = {
