@@ -22,16 +22,6 @@ return {
         }
 
         local custom_nordern = require('lualine.themes.nordern')
-        -- custom_nordern.normal.a.bg = lualine_colors.none
-        -- custom_nordern.insert.a.bg = lualine_colors.none
-        -- custom_nordern.visual.a.bg = lualine_colors.none
-        -- custom_nordern.replace.a.bg = lualine_colors.none
-        -- custom_nordern.command.a.bg = lualine_colors.none
-        -- custom_nordern.normal.b.bg = lualine_colors.none
-        -- custom_nordern.insert.b.bg = lualine_colors.none
-        -- custom_nordern.visual.b.bg = lualine_colors.none
-        -- custom_nordern.replace.b.bg = lualine_colors.none
-        -- custom_nordern.command.b.bg = lualine_colors.none
         custom_nordern.normal.c.bg = lualine_colors.none
         custom_nordern.insert.c.bg = lualine_colors.none
         custom_nordern.visual.c.bg = lualine_colors.none
@@ -46,22 +36,6 @@ return {
             end
             return ''
         end
-
-        -- local function lsp_server()
-        --     local msg = ''
-        --     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-        --     local clients = vim.lsp.get_active_clients()
-        --     if next(clients) == nil then
-        --         return msg
-        --     end
-        --     for _, client in ipairs(clients) do
-        --         local filetypes = client.config.filetypes
-        --         if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        --             return '[' .. client.name .. ']'
-        --         end
-        --     end
-        --     return msg
-        -- end
 
         require('lualine').setup({
             options = {
@@ -101,10 +75,6 @@ return {
                         'mode',
                         separator = { left = '', right = '' },
                         padding = 1,
-                    },
-                    {
-                        modified,
-                        separator = { left = '', right = '' },
                     },
                 },
                 lualine_b = {
@@ -188,21 +158,14 @@ return {
                         color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
                         padding = 1
                     },
+                    {
+                        modified,
+                        color = { fg = lualine_colors.red, bg = lualine_colors.none },
+                        padding = 1,
+                    },
                 },
                 lualine_x = {},
-                lualine_y = {
-                    -- {
-                    --     lsp_server,
-                    --     icon = { '󰒋', color = { fg = lualine_colors.frostturquoise, bg = lualine_colors.none }, align = 'error' },
-                    --     color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
-                    -- },
-                    -- {
-                    --     "filetype",
-                    --     color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
-                    --     icon_only = true,
-                    --     padding = 2,
-                    -- }
-                },
+                lualine_y = {},
                 lualine_z = {},
             },
             extensions = {

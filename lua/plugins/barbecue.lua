@@ -5,10 +5,14 @@ return {
         "SmiteshP/nvim-navic",
     },
     config = function()
+        vim.opt.updatetime = 200
+
         require("barbecue").setup({
             attach_navic = true,
             create_autocmd = false,
             show_modified = false,
+            show_dirname = false,
+            show_basename = true,
             show_navic = true,
             theme = {
                 -- this highlight is used to override other highlights

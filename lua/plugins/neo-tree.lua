@@ -5,6 +5,7 @@ return {
         "MunifTanjim/nui.nvim",
         "s1n7ax/nvim-window-picker",
     },
+    lazy = false,
     keys = {
         { "\\", ":Neotree toggle<CR>", desc = "open neotree file explorer" },
     },
@@ -52,9 +53,9 @@ return {
                     expander_highlight = "NeoTreeExpander",
                 },
                 icon = {
-                    folder_closed = " ",
-                    folder_open = "󰷏 ",
-                    folder_empty = "󱞞 ",
+                    folder_closed = "  ",
+                    folder_open = " 󰷏 ",
+                    folder_empty = " 󱞞 ",
                     -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
                     -- then these will never be used.
                     default = " ",
@@ -120,7 +121,7 @@ return {
             window = {
                 position = "float",
                 popup = {             -- settings that apply to float position only
-                    size = { height = "90%", width = 65 },
+                    size = { height = "90%", width = 70 },
                     position = "50%", -- 50% means center it
                     padding = 15,
                 },

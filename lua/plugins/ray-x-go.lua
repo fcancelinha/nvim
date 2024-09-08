@@ -1,33 +1,39 @@
 return {
     "ray-x/go.nvim",
+    dependencies = {
+        'ray-x/guihua.lua'
+    },
     config = function()
         require('go').setup({
             disable_defaults = false, -- true|false when true set false to all boolean settings and replace all tables
             -- settings with {}; string will be set to ''. user need to setup ALL the settings
             -- It is import to set ALL values in your own config if set value to true otherwise the plugin may not work
-            go = 'go', -- go command, can be go[default] or e.g. go1.18beta1
-            goimports = 'gopls', -- goimports command, can be gopls[default] or either goimports or golines if need to split long lines
-            gofmt = 'gofumpt', -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
-            fillstruct = 'fillstruct', -- set to fillstruct if gopls fails to fill struct
-            max_line_len = 0, -- max line length in golines format, Target maximum line length for golines
-            tag_transform = "camelcase", -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
+            go = 'go',                      -- go command, can be go[default] or e.g. go1.18beta1
+            goimports = 'gopls',            -- goimports command, can be gopls[default] or either goimports or golines if need to split long lines
+            gofmt = 'gofumpt',              -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
+            fillstruct = 'fillstruct',      -- set to fillstruct if gopls fails to fill struct
+            max_line_len = 0,               -- max line length in golines format, Target maximum line length for golines
+            tag_transform = "camelcase",    -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
             tag_options = 'json=omitempty', -- sets options sent to gomodifytags, i.e., json=omitempty
-            gotests_template = "", -- sets gotests -template parameter (check gotests for details)
-            gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
-            comment_placeholder = '', -- comment_placeholder your cool placeholder e.g. ?? ?  ?  ?  ?
-            icons = { breakpoint = '󰃤', currentpos = '' }, -- setup to `false` to disable icons setup
-            verbose = false, -- output loginf in messages
+            gotests_template = "",          -- sets gotests -template parameter (check gotests for details)
+            gotests_template_dir = "",      -- sets gotests -template_dir parameter (check gotests for details)
+            comment_placeholder = '',       -- comment_placeholder your cool placeholder e.g. ?? ?  ?  ?  ?
+            icons = false,                  -- { breakpoint = '󰃤', currentpos = '' }, -- setup to `false` to disable icons setup
+            verbose = false,                -- output loginf in messages
             lsp_cfg = {
                 settings = {
                     gopls = {
                         diagnosticsDelay = '100ms',
                         experimentalPostfixCompletions = true,
                         semanticTokens = true,
-                        matcher = 'Fuzzy',
+                        matcher = 'fuzzy',
                         gofumpt = true,
                         symbolMatcher = 'fuzzy',
                         vulncheck = "Imports",
                         hoverKind = "FullDocumentation",
+                        staticcheck = true,
+                        completeUnimported = true,
+                        usePlaceholders = true,
                         codelenses = {
                             gc_details         = true,
                             debug              = true,
@@ -64,9 +70,6 @@ return {
                             shadow = true,
                             fillreturns = true,
                         },
-                        staticcheck = true,
-                        completeUnimported = true,
-                        usePlaceholders = false,
                         directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
                         buildFlags = { '-tags', 'integration' },
                     },
@@ -142,34 +145,34 @@ return {
             dap_debug_keymap = false, -- true: use keymap for debugger defined in go/dap.lua
             -- false: do not use keymap in go/dap.lua.  you must define your own.
             -- Windows: Use Visual Studio keymap
-            dap_debug_gui = {},                                            -- bool|table put your dap-ui setup here set to false to disable
-            dap_debug_vt = { enabled_commands = true, all_frames = true }, -- bool|table put your dap-virtual-text setup here set to false to disable
-            dap_port = 38697,                                              -- can be set to a number, if set to -1 go.nvim will pick up a random port
-            dap_timeout = 15,                                              --  see dap option initialize_timeout_sec = 15,
-            dap_retries = 20,                                              -- see dap option max_retries
-            build_tags = "tag1,tag2",                                      -- set default build tags
-            textobjects = true,                                            -- enable default text objects through treesittter-text-objects
-            test_runner = 'go',                                            -- one of {`go`,  `dlv`, `ginkgo`, `gotestsum`}
-            verbose_tests = true,                                          -- set to add verbose flag to tests deprecated, see '-v' option
-            run_in_floaterm = false,                                       -- set to true to run in a float window. :GoTermClose closes the floatterm
+            dap_debug_gui = false,     -- bool|table put your dap-ui setup here set to false to disable
+            dap_debug_vt = false,      --{ enabled_commands = true, all_frames = true }, -- bool|table put your dap-virtual-text setup here set to false to disable
+            dap_port = 38697,          -- can be set to a number, if set to -1 go.nvim will pick up a random port
+            dap_timeout = 15,          --  see dap option initialize_timeout_sec = 15,
+            dap_retries = 20,          -- see dap option max_retries
+            build_tags = "tag1,tag2",  -- set default build tags
+            textobjects = true,        -- enable default text objects through treesittter-text-objects
+            test_runner = 'go',        -- one of {`go`,  `dlv`, `ginkgo`, `gotestsum`}
+            verbose_tests = false,     -- set to add verbose flag to tests deprecated, see '-v' option
+            run_in_floaterm = false,   -- set to true to run in a float window. :GoTermClose closes the floatterm
             -- float term recommend if you use gotestsum ginkgo with terminal color
-            floaterm = {                                                   -- position
-                posititon = 'auto',                                        -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
-                width = 0.45,                                              -- width of float window if not auto
-                height = 0.98,                                             -- height of float window if not auto
-                title_colors = 'nord',                                     -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
+            floaterm = {               -- position
+                posititon = 'auto',    -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+                width = 0.45,          -- width of float window if not auto
+                height = 0.98,         -- height of float window if not auto
+                title_colors = 'nord', -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
                 -- can also set to a list of colors to define colors to choose from
                 -- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
             },
-            trouble = true,                                                              -- true: use trouble to open quickfix
-            test_efm = false,                                                            -- errorfomat for quickfix, default mix mode, set to true will be efm only
-            luasnip = true,                                                              -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
+            trouble = true,   -- true: use trouble to open quickfix
+            test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
+            luasnip = false,  -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
             --  Do not enable this if you already added the path, that will duplicate the entries
-            on_jobstart = function(cmd) _ = cmd end,                                     -- callback for stdout
-            on_stdout = function(err, data) _, _ = err, data end,                        -- callback when job started
-            on_stderr = function(err, data) _, _ = err, data end,                        -- callback for stderr
-            on_exit = function(code, signal, output) _, _, _ = code, signal, output end, -- callback for jobexit, output : string
-            iferr_vertical_shift = 4                                                     -- defines where the cursor will end up vertically from the begining of if err statement
+            -- on_jobstart = function(cmd) _ = cmd end,                                     -- callback for stdout
+            -- on_stdout = function(err, data) _, _ = err, data end,                        -- callback when job started
+            -- on_stderr = function(err, data) _, _ = err, data end,                        -- callback for stderr
+            -- on_exit = function(code, signal, output) _, _, _ = code, signal, output end, -- callback for jobexit, output : string
+            iferr_vertical_shift = 4 -- defines where the cursor will end up vertically from the begining of if err statement
         })
     end,
     event = { "CmdlineEnter" },

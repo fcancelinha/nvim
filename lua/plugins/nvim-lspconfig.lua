@@ -76,7 +76,7 @@ return {
                                 }
                             },
                             workspace = {
-                                library = vim.api.nvim_get_runtime_file("", true),
+                                -- library = vim.api.nvim_get_runtime_file("", true),
                                 checkThirdParty = false,
                             },
                             telemetry = {
@@ -93,11 +93,13 @@ return {
                                 enable = true,
                                 command = "luacheck",
                                 args = {
-                                    "--globals", "vim",
-                                    "--formatter", "plain",
-                                    "--codes", "--ranges", "--no-color"
+                                    "--globals",
+                                    "vim",
+                                    "--formatter",
+                                    "plain",
+                                    "--codes",
+                                    "--ranges",
                                 },
-                                onSave = true,
                             },
                         },
                     },
@@ -279,6 +281,9 @@ return {
                 gitlab_ci_ls = {
                     capabilities = capabilities,
                     filetypes = { "gitlab*" }
+                },
+                sqls = {
+                    capabilities = capabilities,
                 },
                 robotframework_ls = {
                     capabilities = capabilities,

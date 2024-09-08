@@ -6,3 +6,4 @@ lua/lualine
 lua/node_modules
 
 Session.vim
+.gitlab.nvim
