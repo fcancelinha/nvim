@@ -44,5 +44,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_opts)
         vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
+        vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, lsp_opts)
     end,
 })

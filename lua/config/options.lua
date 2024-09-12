@@ -1,3 +1,6 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 --:help options
 local options = {
     autochdir      = true,                                                             -- Automatically change the working directory to the directory of the opened file.
@@ -33,13 +36,15 @@ local options = {
     ignorecase     = true,                                                             -- Ignore case in search patterns.
     inccommand     = 'split',                                                          -- Show the effect of a command incrementally in a split.
     incsearch      = true,                                                             -- Show search matches as you type.
-    laststatus     = 2,                                                                -- Always display the status line (0: never, 1: only if there are splits, 2: always, 3: global status line).
+    laststatus     = 3,                                                                -- Always display the status line (0: never, 1: only if there are splits, 2: always, 3: global status line).
     linebreak      = true,                                                             -- Wrap lines at convenient points.
     list           = false,                                                            -- Show whitespace characters like tabs and trailing spaces.
+    listchars      = { tab = '▸ ', trail = '·', nbsp = '␣', eol = '↴', extends = '→', precedes = '←' },
+    matchpairs     = vim.opt.matchpairs:append("{:},<:>,':',\":\""),                   -- Add custom match pairs.
     mouse          = 'a',                                                              -- Enable mouse support in all modes.
     number         = true,                                                             -- Show line numbers.
     previewheight  = 15,
-    pumblend       = 15,                                                               -- Make the popup menu semi-transparent.
+    pumblend       = 5,                                                                -- Make the popup menu semi-transparent.
     pumheight      = 25,                                                               -- Maximum height of the pop-up menu.
     relativenumber = true,                                                             -- Show line numbers relative to the current line.
     ruler          = false,                                                            -- Don't show the cursor position in the status line.
@@ -47,6 +52,7 @@ local options = {
     shell          = 'zsh',                                                            -- Use Zsh as the shell for commands.
     shiftround     = true,                                                             -- Round indentation to the nearest multiple of 'shiftwidth'.
     shiftwidth     = 4,                                                                -- Number of spaces to use for each step of (auto)indent.
+    shortmess      = vim.opt.shortmess:append('c'),                                    -- Append 'c' to shortmess to suppress certain messages.
     showcmd        = false,                                                            -- Don't show (partial) command in the last line of the screen.
     showmatch      = true,                                                             -- Briefly jump to the matching bracket if one is found.
     showmode       = false,                                                            -- Don't display the mode (like -- INSERT --) since it's usually shown in statusline plugins.
@@ -70,20 +76,27 @@ local options = {
     undofile       = true,                                                             -- Save undo history to an undo file.
     updatetime     = 100,                                                              -- Time (in milliseconds) to wait before triggering the swap file and CursorHold events.
     visualbell     = false,                                                            -- Disable visual bell (flashing) on error messages.
+    whichwrap      = vim.opt.whichwrap:append('<,>,[,],h,l'),                          -- Extend wrap options for certain keys.
     wildmenu       = false,                                                            -- Disable command-line completion with a list of matches.
-    winblend       = 15,                                                               -- Make the popup menu semi-transparent.
-    winminwidth    = 10,
-    winwidth       = 30,
-    wrap           = true,  -- Wrap long lines to the next line.
-    writebackup    = false, -- Don't make a backup before overwriting a file.
+    winblend       = 5,                                                                -- Make the popup menu semi-transparent.
+    winminwidth    = 10,                                                               -- The minimum width a window can be resized to. This ensures that windows are not resized below 10 columns when adjusting window splits.
+    winwidth       = 30,                                                               -- The ideal width of windows when a new window is opened. Neovim will attempt to resize windows to at least 30 columns when possible.
+    wrap           = true,                                                             -- Wrap long lines to the next line.
+    writebackup    = false,                                                            -- Don't make a backup before overwriting a file.
+    wildignore     = [[
+    .git,.hg,.svn
+    *.aux,*.out,*.toc
+    *.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class
+    *.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
+    *.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
+    *.mp3,*.oga,*.ogg,*.wav,*.flac
+    *.eot,*.otf,*.ttf,*.woff
+    *.doc,*.pdf,*.cbr,*.cbz
+    *.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
+    *.swp,.lock,.DS_Store,._*
+    */tmp/*,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**"
+    ]],
 }
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-vim.opt.matchpairs:append "{:},<:>,':',\":\""
-vim.opt.whichwrap:append '<,>,[,],h,l'
-vim.opt.shortmess:append 'c'
 
 vim.diagnostic.config({
     signs = true,

@@ -135,6 +135,11 @@ return {
                         width = 80,
                     }
                 },
+                git_commits = {
+                    layout_config = {
+                        width = 100,
+                    }
+                },
                 builtin = {
                     previewer = false,
                 },

@@ -33,7 +33,7 @@ return {
                         hoverKind = "FullDocumentation",
                         staticcheck = true,
                         completeUnimported = true,
-                        usePlaceholders = true,
+                        usePlaceholders = false,
                         codelenses = {
                             gc_details         = true,
                             debug              = true,
