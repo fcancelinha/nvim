@@ -4,8 +4,13 @@ require('config.autocommands')
 require('config.lazy')
 
 local opts = {
-    italicized_comments = true,
     brighter_comments = true,
+    brighter_conditionals = false,
+    italicized_comments = true,
+    transparent = false,
 }
 
-require('nordern').load(opts)
+local nordern = require('nordern')
+
+nordern.setup(opts)
+nordern.load()

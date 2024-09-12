@@ -34,6 +34,14 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("i", "<Up>", "<C-k>", opts)
 keymap("i", "<Down>", "<C-j>", opts)
 
+-- Terminal Navigation
+-- keymap('t', 'jk', [[<C-\><C-n>]], opts)
+keymap('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+keymap('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+keymap('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+keymap('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+keymap('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+
 -- Moving current lines
 keymap("n", "<A-j>", "mz:m+<CR>`z==", opts)
 keymap("n", "<A-k>", "mz:m-2<CR>`z==", opts)
