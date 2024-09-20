@@ -176,11 +176,11 @@ return {
                     { icon = '󰏗', hl = { { 'Constant', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
                 button("c", "Config", ":Neotree ~/.config/nvim/lua<CR>",
-                    { icon = '', hl = { { 'Keyword', 1, 2 }, { 'Normal', 3, 52 } } }
+                    { icon = '', hl = { { 'diffLine', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
                 { type = 'padding', val = 1 },
                 button("q", "Quit", ":qa<CR>",
-                    { icon = '', hl = { { 'Normal', 1, 2 }, { 'Normal', 3, 52 } } }
+                    { icon = '', hl = { { 'Comment', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
                 {
                     type = "text",

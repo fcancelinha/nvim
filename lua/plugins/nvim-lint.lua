@@ -9,7 +9,8 @@ return {
 
         lint.linters_by_ft = {
             bash = { 'shellcheck' },
-            go = { 'golangcilint' },
+            go = { 'revive' },
+            git = { 'gitlint' },
             json = { 'jsonlint' },
             makefile = { 'checkmake' },
             yaml = { 'yamllint' },

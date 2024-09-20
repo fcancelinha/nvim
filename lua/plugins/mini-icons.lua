@@ -12,4 +12,7 @@ return {
             return package.loaded["nvim-web-devicons"]
         end
     end,
+    config = function()
+        require('mini.icons').setup()
+    end
 }

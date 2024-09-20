@@ -1,5 +1,6 @@
 return {
     "ray-x/go.nvim",
+    lazy = false,
     dependencies = {
         'ray-x/guihua.lua'
     },

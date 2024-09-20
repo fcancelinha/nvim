@@ -1,3 +1,16 @@
+local signs = { Error = "✸ ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*",
+    callback = function(args)
+        require("conform").format({ bufnr = args.buf })
+    end,
+})
+
 vim.api.nvim_create_autocmd('TextYankPost', {
     group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
     callback = function()
@@ -6,7 +19,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = "*.gitlab*",
+    pattern = "*.gitlab-ci*.{yml,yaml}",
     callback = function()
         vim.bo.filetype = "yaml.gitlab"
     end,
@@ -19,13 +32,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("goimports", {}),
-    pattern = "*.go",
-    callback = function()
-        require('go.format').goimports()
-    end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     group = vim.api.nvim_create_augroup("goimports", {}),
+--     pattern = "*.go",
+--     callback = function()
+--         require('go.format').goimports()
+--     end,
+-- })
+
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer

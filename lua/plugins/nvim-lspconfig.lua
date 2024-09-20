@@ -7,6 +7,7 @@ return {
     },
     config = function()
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
         capabilities.textDocument.completion.completionItem.snippetSupport = true
         require("lspconfig.ui.windows").default_options.border = "single"
 
@@ -24,8 +25,6 @@ return {
                 height = 0.9,
             },
         })
-
-
 
         require('lsp-setup').setup({
             servers = {
@@ -78,7 +77,7 @@ return {
                                 }
                             },
                             workspace = {
-                                -- library = vim.api.nvim_get_runtime_file("", true),
+                                library = vim.api.nvim_get_runtime_file("", true),
                                 checkThirdParty = false,
                             },
                             telemetry = {
@@ -134,9 +133,6 @@ return {
                     capabilities = capabilities,
                     settings = {
                         json = {
-                            format = {
-                                enable = true
-                            },
                             schemas = {
                                 {
                                     fileMatch = { "package.json" },
@@ -161,8 +157,23 @@ return {
                         }
                     },
                 },
+                gitlab_ci_ls = {
+                    capabilities = capabilities,
+                    filetypes = { "*gitlab*" }
+                },
                 yamlls = {
                     capabilities = capabilities,
+                    on_attach = function(client, bufnr)
+                        if client.server_capabilities.documentFormattingProvider then
+                            vim.cmd([[
+                                augroup LspFormatting
+                                    autocmd! * <buffer>
+                                    autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
+                                augroup END
+                            ]])
+                        end
+                    end,
+                    filetypes = { "yaml" },
                     settings = {
                         redhat = {
                             telemetry = {
@@ -170,9 +181,6 @@ return {
                             },
                         },
                         yaml = {
-                            editor = {
-                                tabsize = 4
-                            },
                             schemaStore = {
                                 enable = true,
                             },
@@ -183,11 +191,7 @@ return {
                                 ["http://json.schemastore.org/drone"] = "/.drone.{yml,yaml}",
                                 ["http://json.schemastore.org/chart"] = "/Chart.{yml,yaml}",
                             },
-                            format = {
-                                enable = true,
-                                singleQuote = true,
-                                bracketSpacing = true,
-                            },
+                            disable = { "gitlab-ci" },
                             validate = true,
                             completion = true,
                             hover = true,
@@ -280,27 +284,14 @@ return {
                     cmd = { 'bash-language-server', 'start' },
                     filetypes = { 'sh' }
                 },
-                gitlab_ci_ls = {
-                    capabilities = capabilities,
-                    filetypes = { "gitlab*" }
-                },
                 sqls = {
                     capabilities = capabilities,
                 },
-                robotframework_ls = {
+                cobol_ls = {
                     capabilities = capabilities,
-                    cmd = { "/home/fc/.local/bin/robotframework_ls" },
-                    settings = {
-                        robot = {
-                            pythonpath = "/usr/src/python3",
-                            lint = {
-                                enabled = true,
-                                robocop = {
-                                    enabled = true
-                                }
-                            }
-                        }
-                    }
+                },
+                pylsp = {
+                    capabilities = capabilities,
                 },
             }
         })
