@@ -1,11 +1,11 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
+    lazy = false,
     branch = "v3.x",
     dependencies = {
         "MunifTanjim/nui.nvim",
         "s1n7ax/nvim-window-picker",
     },
-    lazy = false,
     keys = {
         { "\\", ":Neotree toggle<CR>", desc = "open neotree file explorer" },
     },
@@ -39,12 +39,12 @@ return {
                     enable_character_fade = true
                 },
                 indent = {
-                    indent_size = 2,
-                    padding = 2, -- extra padding on left hand side
+                    indent_size = 3,
+                    padding = 4, -- extra padding on left hand side
                     -- indent guides
-                    with_markers = true,
+                    with_markers = false,
                     indent_marker = "│",
-                    last_indent_marker = "└ ",
+                    last_indent_marker = "└",
                     highlight = "NeoTreeIndentMarker",
                     -- expander config, needed for nesting files
                     with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
@@ -53,16 +53,16 @@ return {
                     expander_highlight = "NeoTreeExpander",
                 },
                 icon = {
-                    folder_closed = "  ",
-                    folder_open = " 󰷏 ",
-                    folder_empty = " 󱞞 ",
+                    folder_closed = "   ",
+                    folder_open = " 󰷏  ",
+                    folder_empty = " 󱞞  ",
                     -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
                     -- then these will never be used.
-                    default = " ",
+                    default = "  ",
                     highlight = "NeoTreeFileIcon"
                 },
                 name = {
-                    trailing_slash = false,
+                    trailing_slash = true,
                     use_git_status_colors = true,
                     highlight = "NeoTreeFileName",
                 },
