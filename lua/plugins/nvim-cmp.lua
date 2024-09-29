@@ -29,8 +29,8 @@ return {
                 end
 
                 if buftype == 'c' then
-                    return true
                 else
+                    return true
                     return not context.in_treesitter_capture("comment")
                         and not context.in_syntax_group("Comment")
                 end
@@ -56,7 +56,6 @@ return {
                 end
             },
             snippet = {
-                -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
                     vim.snippet.expand(args.body)
                 end,

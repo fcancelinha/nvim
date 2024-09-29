@@ -34,6 +34,8 @@ return {
     },
     config = function()
         local actions = require("telescope.actions")
+        local open_with_trouble = require("trouble.sources.telescope").open
+        local add_to_trouble = require("trouble.sources.telescope").add
 
         -- Extensions
         require("project_nvim").setup()
@@ -54,15 +56,17 @@ return {
                         ["<esc>"] = actions.close,
                         ["<C-j>"] = actions.move_selection_next,
                         ["<C-k>"] = actions.move_selection_previous,
+                        ["<c-t>"] = open_with_trouble
                     },
                     n = {
                         ["<C-j>"] = actions.move_selection_next,
                         ["<C-k>"] = actions.move_selection_previous,
+                        ["<c-t>"] = open_with_trouble
                     },
                 },
                 prompt_prefix    = "󰭎 ",
                 layout_strategy  = "vertical",
-                selection_caret  = ' ',
+                selection_caret  = ' ',
                 sorting_strategy = 'ascending',
                 color_devicons   = true,
                 winblend         = 5,
@@ -74,6 +78,7 @@ return {
                         width = 65,
                         height = 0.9,
                         mirror = false,
+                        results_height = 10,
                     },
                     horizontal = {
                         prompt_position = 'top',
@@ -107,9 +112,17 @@ return {
                     sorting_strategy = 'ascending',
                     hidden           = true,
                     previewer        = true,
-                    layout_config = {
+                    layout_config    = {
                         vertical = {
                             width = 80,
+                        }
+                    }
+                },
+                diagnostics = {
+                    previewer     = true,
+                    layout_config = {
+                        vertical = {
+                            width = 100,
                         }
                     }
                 },

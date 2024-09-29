@@ -21,61 +21,7 @@ return {
             comment_placeholder = '',       -- comment_placeholder your cool placeholder e.g. ?? ?  ?  ?  ?
             icons = false,                  -- { breakpoint = '󰃤', currentpos = '' }, -- setup to `false` to disable icons setup
             verbose = false,                -- output loginf in messages
-            lsp_cfg = {
-                settings = {
-                    gopls = {
-                        diagnosticsDelay = '100ms',
-                        experimentalPostfixCompletions = true,
-                        semanticTokens = true,
-                        matcher = 'fuzzy',
-                        gofumpt = true,
-                        symbolMatcher = 'fuzzy',
-                        vulncheck = "Imports",
-                        hoverKind = "FullDocumentation",
-                        staticcheck = true,
-                        completeUnimported = true,
-                        usePlaceholders = false,
-                        codelenses = {
-                            gc_details         = true,
-                            debug              = true,
-                            generate           = true,
-                            run_govulncheck    = true,
-                            test               = true,
-                            tidy               = true,
-                            upgrade_dependency = true,
-                            regenerate_cgo     = true,
-                            vendor             = true,
-                        },
-                        hints = {
-                            assignVariableTypes = true,
-                            compositeLiteralFields = true,
-                            compositeLiteralTypes = true,
-                            constantValues = true,
-                            functionTypeParameters = true,
-                            parameterNames = true,
-                            rangeVariableTypes = true,
-                        },
-                        analyses = {
-                            nilness = true,
-                            assign = true,
-                            atomic = true,
-                            unusedparams = false,
-                            unusedvariable = false,
-                            unusedwrite = true,
-                            useany = true,
-                            unreachable = true,
-                            ST1003 = true,
-                            undeclaredname = true,
-                            nonewvars = true,
-                            fieldalignment = false,
-                            shadow = true,
-                            fillreturns = true,
-                        },
-                        directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
-                        buildFlags = { '-tags', 'integration' },
-                    },
-                },
-            },
+            lsp_cfg = false,
             -- true: use non-default gopls setup specified in go/lsp.lua
             -- false: do nothing
             -- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
@@ -167,7 +113,7 @@ return {
             },
             trouble = true,   -- true: use trouble to open quickfix
             test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
-            luasnip = false,  -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
+            luasnip = false,   -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
             --  Do not enable this if you already added the path, that will duplicate the entries
             -- on_jobstart = function(cmd) _ = cmd end,                                     -- callback for stdout
             -- on_stdout = function(err, data) _, _ = err, data end,                        -- callback when job started

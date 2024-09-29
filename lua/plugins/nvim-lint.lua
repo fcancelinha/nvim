@@ -10,7 +10,7 @@ return {
         lint.linters_by_ft = {
             bash = { 'shellcheck' },
             git = { 'gitlint' },
-            go = { 'revive' },
+            -- go = { 'revive' },
             json = { 'jsonlint' },
             makefile = { 'checkmake' },
             markdown = { 'markdownlint' },

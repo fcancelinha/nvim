@@ -4,7 +4,7 @@ require('config.autocommands')
 require('config.lazy')
 
 local opts = {
-    brighter_comments = true,
+    brighter_comments = false,
     brighter_conditionals = false,
     italicized_comments = true,
     transparent = false,

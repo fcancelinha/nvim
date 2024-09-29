@@ -6,10 +6,11 @@ return {
         "nvim-lua/plenary.nvim",
     },
     config = function()
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
         require("lspconfig.ui.windows").default_options.border = "single"
+        local lspconfig = require 'lspconfig'
+
+        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         local signs = { Error = "✸ ", Warn = " ", Hint = " ", Info = " " }
         for type, icon in pairs(signs) do
@@ -109,8 +110,69 @@ return {
                         allow_incremental_sync = true,
                     }
                 },
+                golangci_lint_ls = {
+                    capabilities = capabilities,
+                    cmd = { 'golangci-lint-langserver' },
+                    root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
+                    init_options = {
+                        command = { "golangci-lint", "run", "lll", "--out-format", "json", "--issues-exit-code=1" },
+                    }
+                },
                 gopls = {
                     capabilities = capabilities,
+                    settings = {
+                        gopls = {
+                            diagnosticsDelay = '100ms',
+                            experimentalPostfixCompletions = true,
+                            semanticTokens = true,
+                            matcher = 'fuzzy',
+                            gofumpt = true,
+                            symbolMatcher = 'fuzzy',
+                            vulncheck = "Imports",
+                            hoverKind = "FullDocumentation",
+                            staticcheck = true,
+                            completeUnimported = true,
+                            usePlaceholders = true,
+                            codelenses = {
+                                gc_details         = true,
+                                debug              = true,
+                                generate           = true,
+                                run_govulncheck    = true,
+                                test               = true,
+                                tidy               = true,
+                                upgrade_dependency = true,
+                                regenerate_cgo     = true,
+                                vendor             = true,
+                            },
+                            hints = {
+                                assignVariableTypes = true,
+                                compositeLiteralFields = true,
+                                compositeLiteralTypes = true,
+                                constantValues = true,
+                                functionTypeParameters = true,
+                                parameterNames = true,
+                                rangeVariableTypes = true,
+                            },
+                            analyses = {
+                                nilness = true,
+                                assign = true,
+                                atomic = true,
+                                unusedparams = false,
+                                unusedvariable = false,
+                                unusedwrite = true,
+                                useany = true,
+                                unreachable = true,
+                                ST1003 = true,
+                                undeclaredname = true,
+                                nonewvars = true,
+                                fieldalignment = false,
+                                shadow = true,
+                                fillreturns = true,
+                            },
+                            directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
+                            buildFlags = { '-tags', 'integration' },
+                        },
+                    },
                     filetypes = {
                         "go",
                         "gomod",

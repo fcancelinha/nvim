@@ -36,7 +36,7 @@ local options = {
     inccommand     = 'split',                                                          -- Show the effect of a command incrementally in a split.
     incsearch      = true,                                                             -- Show search matches as you type.
     laststatus     = 0,                                                                -- Always display the status line (0: never, 1: only if there are splits, 2: always, 3: global status line).
-    linebreak      = true,                                                             -- Wrap lines at convenient points.
+    linebreak      = false,                                                            -- Wrap lines at convenient points.
     list           = false,                                                            -- Show whitespace characters like tabs and trailing spaces.
     listchars      = { tab = '▸ ', trail = '·', nbsp = '␣', eol = '↴', extends = '→', precedes = '←' },
     matchpairs     = vim.opt.matchpairs:append("{:},<:>,':',\":\",(:),[:]"),           -- Add custom match pairs.
@@ -70,7 +70,7 @@ local options = {
     synmaxcol      = 240,                                                              -- Limit syntax highlighting to the first 240 columns for performance.
     tabstop        = 4,                                                                -- Number of spaces that a <Tab> counts for.
     termguicolors  = true,                                                             -- Enable 24-bit RGB color in the terminal UI.
-    textwidth      = 120,
+    textwidth      = 0,
     timeoutlen     = 500,                                                              -- Time (in milliseconds) to wait for a mapped sequence to complete.
     title          = true,                                                             -- Set the window title to the value of 'titlestring'.
     undofile       = true,                                                             -- Save undo history to an undo file.
@@ -110,6 +110,7 @@ vim.diagnostic.config({
         focusable = true,
     },
 })
+
 
 if vim.fn.has('wsl') == 1 then
     vim.g.clipboard = {

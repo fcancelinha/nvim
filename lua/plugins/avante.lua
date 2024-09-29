@@ -1,7 +1,7 @@
 return {
     "yetone/avante.nvim",
     lazy = false,
-    build = "make BUILD_FROM_SOURCE=true",
+    build = "make",
     dependencies = {
         "stevearc/dressing.nvim",
         "MunifTanjim/nui.nvim",
