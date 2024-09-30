@@ -18,6 +18,35 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
+
+        vim.api.nvim_create_autocmd('TextYankPost', {
+            group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+            callback = function()
+                vim.highlight.on_yank({ higroup = 'Yank', timeout = 200 })
+            end,
+        })
+
+        -- Use LspAttach autocommand to only map the following keys
+        -- after the language server attaches to the current buffer
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+            callback = function(event)
+                -- Enable completion triggered by <c-x><c-o>
+                vim.bo[event.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+                -- Buffer local mappings.
+                -- See `:help vim.lsp.*` for documentation on any of the below functions
+                local lsp_opts = { buffer = event.buf, silent = true, noremap = true }
+                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, lsp_opts)
+                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, lsp_opts)
+                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, lsp_opts)
+                vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, lsp_opts)
+                vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_opts)
+                vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
+                vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
+                vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, lsp_opts)
+            end,
+        })
+
         require('mason').setup({
             ui = {
                 check_outdated_packages_on_open = true,
@@ -61,6 +90,14 @@ return {
                 },
                 lua_ls = {
                     capabilities = capabilities,
+                    on_attach = function()
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            pattern = "*.lua",
+                            callback = function()
+                                vim.lsp.buf.format({ async = true })
+                            end,
+                        })
+                    end,
                     settings = {
                         Lua = {
                             runtime = {
@@ -120,6 +157,15 @@ return {
                 },
                 gopls = {
                     capabilities = capabilities,
+                    on_attach = function()
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            group = vim.api.nvim_create_augroup("goimports", {}),
+                            pattern = "*.go",
+                            callback = function()
+                                require('go.format').goimports()
+                            end,
+                        })
+                    end,
                     settings = {
                         gopls = {
                             diagnosticsDelay = '100ms',
@@ -221,20 +267,18 @@ return {
                 },
                 gitlab_ci_ls = {
                     capabilities = capabilities,
+                    on_attach = function()
+                        vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+                            pattern = "*.gitlab-ci*.{yml,yaml}",
+                            callback = function()
+                                vim.bo.filetype = "yaml.gitlab"
+                            end,
+                        })
+                    end,
                     filetypes = { "*gitlab*" }
                 },
                 yamlls = {
                     capabilities = capabilities,
-                    on_attach = function(client, bufnr)
-                        if client.server_capabilities.documentFormattingProvider then
-                            vim.cmd([[
-                                augroup LspFormatting
-                                    autocmd! * <buffer>
-                                    autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
-                                augroup END
-                            ]])
-                        end
-                    end,
                     filetypes = { "yaml" },
                     settings = {
                         redhat = {
@@ -246,6 +290,31 @@ return {
                             schemaStore = {
                                 enable = true,
                             },
+                            format = {
+                                enable = true,
+                                printWidth = 150,      -- Corresponds to YAMLFIX_LINE_LENGTH
+                                singleQuote = true,    -- Corresponds to YAMLFIX_quote_representation (set to single quote)
+                                bracketSpacing = true, -- Aligns with adding spaces between brackets (not directly in YAMLFIX options)
+                                proseWrap = "always",  -- This might help with formatting style settings for comments
+                            },
+                            indentation = {
+                                mapping = 2,  -- Corresponds to YAMLFIX_INDENT_MAPPING
+                                sequence = 4, -- Corresponds to YAMLFIX_INDENT_SEQUENCE
+                                offset = 2,   -- Corresponds to YAMLFIX_INDENT_OFFSET
+                            },
+                            -- customTags = {
+                            --     "YAMLFIX_SEQUENCE_STYLE=block_style",
+                            --     "YAMLFIX_EXPLICIT_START=true",
+                            --     "YAMLFIX_WHITELINES=1",
+                            --     "YAMLFIX_COMMENTS_REQUIRE_STARTING_SPACE=true",
+                            --     "YAMLFIX_COMMENTS_MIN_SPACES_FROM_CONTENT=2",
+                            --     "YAMLFIX_SECTION_WHITELINES=2",
+                            --     "YAMLFIX_INDENT_MAPPING=2",
+                            --     "YAMLFIX_INDENT_OFFSET=2",
+                            --     "YAMLFIX_INDENT_SEQUENCE=4",
+                            --     "YAMLFIX_LINE_LENGTH=150",
+                            --     "YAMLFIX_quote_representation='"
+                            -- },
                             schemas = {
                                 kubernetes = "/*.k8s.yaml",
                                 ["http://json.schemastore.org/github-workflow"] = "/.github/workflows/*",
@@ -261,85 +330,6 @@ return {
                         }
                     }
                 },
-                eslint = {
-                    capabilities = capabilities,
-                    on_attach = function(_, bufnr)
-                        vim.api.nvim_create_autocmd("BufWritePre", {
-                            buffer = bufnr,
-                            command = "EslintFixAll",
-                        })
-                    end,
-                    cmd = { "vscode-eslint-language-server", "--stdio" },
-                    filetypes = {
-                        "javascript",
-                        "javascriptreact",
-                        "javascript.jsx",
-                        "typescript",
-                        "typescriptreact",
-                        "typescript.tsx",
-                    },
-                    handlers = {
-                        ["eslint/confirmESLintExecution"] = function()
-                            -- vim.cmd [[echom "confirmESLintExecution"]]
-                            vim.notify("ESLint executing.", vim.log.levels.INFO)
-                            return {}
-                        end,
-                        ["eslint/openDoc"] = function()
-                            -- vim.cmd [[echom "openDoc"]]
-                            vim.notify("Opening ESLint docs.", vim.log.levels.INFO)
-                            return {}
-                        end,
-                        ["eslint/probeFailed"] = function()
-                            vim.notify("ESLint probe failed.", vim.log.levels.WARN)
-                            return {}
-                        end,
-                        ["eslint/noLibrary"] = function()
-                            vim.notify("Unable to find ESLint library.", vim.log.levels.WARN)
-                            return {}
-                        end,
-                    },
-                    on_new_config = function(config, new_root_dir)
-                        -- The "workspaceFolder" is a VSCode concept. It limits how far the
-                        -- server will traverse the file system when locating the ESLint config
-                        -- file (e.g., .eslintrc).
-                        config.settings.workspaceFolder = {
-                            uri = new_root_dir,
-                            name = vim.fn.fnamemodify(new_root_dir, ':t'),
-                        }
-                    end,
-                    settings = {
-                        codeAction = {
-                            disableRuleComment = {
-                                enable = true,
-                                location = "separateLine",
-                            },
-                            showDocumentation = {
-                                enable = true,
-                            }
-                        },
-                        codeActionOnSave = {
-                            enable = true,
-                            mode = "all"
-                        },
-                        format = true,
-                        nodePath = "",
-                        onIgnoredFiles = "off",
-                        packageManager = "npm",
-                        quiet = false,
-                        rulesCustomizations = {
-                            {
-                                rule = "no-unused-vars",
-                                severity = "off",
-                            },
-                        },
-                        run = "onType",
-                        useESLintClass = false,
-                        validate = "on",
-                        workingDirectory = {
-                            mode = "location"
-                        }
-                    }
-                },
                 bashls = {
                     capabilities = capabilities,
                     name = 'bash-language-server',
@@ -347,12 +337,6 @@ return {
                     filetypes = { 'sh' }
                 },
                 sqls = {
-                    capabilities = capabilities,
-                },
-                cobol_ls = {
-                    capabilities = capabilities,
-                },
-                pylsp = {
                     capabilities = capabilities,
                 },
             }

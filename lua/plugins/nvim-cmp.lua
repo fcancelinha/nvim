@@ -29,13 +29,13 @@ return {
                 end
 
                 if buftype == 'c' then
-                else
                     return true
+                else
                     return not context.in_treesitter_capture("comment")
                         and not context.in_syntax_group("Comment")
                 end
             end,
-            preselect = 'item',
+            preselect = cmp.PreselectMode.Item,
             performance = {
                 trigger_debounce_time = 200,
                 throttle = 200,
@@ -85,14 +85,14 @@ return {
                     select = true,
                 }),
                 ['<Tab>'] = cmp.mapping(function(fallback)
-                    if vim.snippet.active() then
+                    if vim.snippet.active({ direction = 1 }) then
                         vim.snippet.jump(1)
                     else
                         fallback()
                     end
                 end, { 'i', 's' }),
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
-                    if vim.snippet.active() then
+                    if vim.snippet.active({ direction = -1 }) then
                         vim.snippet.jump(-1)
                     else
                         fallback()
