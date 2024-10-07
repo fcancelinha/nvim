@@ -26,6 +26,9 @@ keymap('n', ']d', vim.diagnostic.goto_next, opts)
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
+-- Exit insert mode
+keymap("i", "jk", "<Esc>",  opts)
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
