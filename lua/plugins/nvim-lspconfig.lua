@@ -311,7 +311,8 @@ return {
                 cmd = { 'bash-language-server', 'start' },
                 filetypes = { 'sh' }
             },
-            sqls = {},
+            sqlls = {},
+            marksman = {}
         }
 
         for server_name, config in pairs(servers) do

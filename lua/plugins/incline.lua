@@ -1,7 +1,7 @@
 return {
     'b0o/incline.nvim',
     -- lazy = false,
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     config = function()
         require('incline').setup({
             window = {
@@ -34,32 +34,39 @@ return {
                     elseif vim.bo.modifiable == false or vim.bo.readonly == true then
                         return '[-] '
                     end
+
                     return ' '
                 end
 
                 local function get_git_branch()
                     local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+
                     if vim.v.shell_error ~= 0 then
                         return ""
                     end
+
                     return branch
                 end
 
                 local function get_git_diff()
-                    local icons = { removed = '  ', changed = '  ', added = '  ' }
+                    local icons = { removed = '  ', changed = '  ', added = '  ' }
                     local signs = vim.b[props.buf].gitsigns_status_dict
                     local labels = {}
+
                     if signs == nil then
                         return labels
                     end
+
                     for name, icon in pairs(icons) do
                         if tonumber(signs[name]) and signs[name] > 0 then
                             table.insert(labels, { icon .. signs[name] .. ' ', group = 'Diff' .. name })
                         end
                     end
+
                     if #labels > 0 then
                         table.insert(labels, { ' ' })
                     end
+
                     return labels
                 end
 
@@ -74,9 +81,11 @@ return {
                             table.insert(label, { icon .. n .. ' ', group = 'DiagnosticSign' .. severity })
                         end
                     end
+
                     if #label > 0 then
                         table.insert(label, { ' ' })
                     end
+
                     return label
                 end
 

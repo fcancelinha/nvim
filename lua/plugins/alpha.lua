@@ -20,14 +20,14 @@ return {
             use_git_username_as_author = true,
             show_only_weeks_with_commits = true,
             is_horizontal = true,
-            day_label_gap = '  ',
-            gap = '   ',
-            empty_square = '',
-            filled_squares = { '', '', '', '', '', '' },
+            day_label_gap = '   ',
+            gap = '  ',
+            empty_square = '',
+            filled_squares = { '', '', '', '', '', '' },
             basepoints = { "master", "main" },
             colors = {
                 days_and_months_labels = '#88C0D0',
-                empty_square_highlight = '#88C0D0',
+                empty_square_highlight = '#6098A7',
                 filled_square_highlights = { '#002C39', '#094D5B', '#387180', '#6098A7', '#88C0D0', '#C0FAFF' },
                 branch_highlight = '#EBCB8B',
                 dashboard_title = '#88C0D0',
@@ -234,7 +234,7 @@ return {
                 heatmap,
                 mru,
                 buttons,
-                toast,
+                -- toast,
                 info,
             }
         }

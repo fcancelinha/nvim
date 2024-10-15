@@ -14,6 +14,7 @@ return {
                 typescriptreact = { "prettierd" },
                 bash = { "shfmt" },
                 shell = { "shfmt" },
+                sql = { "sqlfmt" }
             },
             formatters = {
                 yamlfix = {
