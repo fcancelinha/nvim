@@ -12,6 +12,7 @@ return {
         "hrsh7th/cmp-path",
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
+        "saadparwaiz1/cmp_luasnip",
         "onsails/lspkind.nvim",
         'lukas-reineke/cmp-under-comparator',
     },
@@ -57,7 +58,8 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    vim.snippet.expand(args.body)
+                    require 'luasnip'.lsp_expand(args.body)
+                    -- vim.snippet.expand(args.body)
                 end,
             },
             window = {
@@ -116,6 +118,7 @@ return {
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },
+                    { name = 'luasnip' },
                     { name = 'path' },
                     { name = 'treesitter' },
                     { name = 'tags' },

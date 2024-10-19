@@ -35,7 +35,6 @@ return {
     config = function()
         local actions = require("telescope.actions")
         local open_with_trouble = require("trouble.sources.telescope").open
-        local add_to_trouble = require("trouble.sources.telescope").add
 
         -- Extensions
         require("project_nvim").setup()
@@ -144,6 +143,7 @@ return {
                     layout_strategy = "horizontal",
                 },
                 highlights = {
+                    previewer = false,
                     layout_config = {
                         width = 80,
                     }
