@@ -5,6 +5,7 @@ return {
         "nvim-neotest/nvim-nio",
         "rcarriga/nvim-dap-ui",
         "theHamsta/nvim-dap-virtual-text",
+        'mfussenegger/nvim-dap-python'
     },
     keys = {
         { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "toggle dap breakpoint" },
@@ -20,6 +21,8 @@ return {
     config = function()
         local dap = require("dap")
         require("dapui").setup()
+
+        require('dap-python').setup('/home/fc/.virtualenvs/bin/python')
 
         vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Error' })
         vim.fn.sign_define('DapBreakpointCondition', { text = '󰯲', texthl = 'Conditional' })
@@ -38,8 +41,25 @@ return {
                     detached = false
                 }
             },
+            python = {
+                type = 'executable',
+                command = '/home/fc/.virtualenvs/bin/python',
+                args = { '-m', 'debugpy.adapter' },
+            },
         }
 
+        dap.configurations.python = {
+            {
+                type = 'robot',
+                request = 'launch',
+                name = "Launch Robot Framework Test",
+                program = "${file}",                                  -- This runs the current file
+                pythonPath = function()
+                    return '/home/fc/.virtualenvs/debugpy/bin/python' -- Replace with the path to your Python interpreter
+                end,
+                args = { '-m', 'robot', '--listener', 'DebugLibrary', '${file}' },
+            }
+        }
 
         -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
         dap.configurations.go = {

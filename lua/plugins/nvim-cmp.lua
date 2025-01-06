@@ -2,7 +2,6 @@ return {
     "hrsh7th/nvim-cmp",
     lazy = false,
     dependencies = {
-        "Jezda1337/nvim-html-css",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-nvim-lsp",
@@ -129,6 +128,7 @@ return {
                 }
             )
         })
+
 
         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline(':', {

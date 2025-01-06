@@ -48,6 +48,14 @@ return {
                     return branch
                 end
 
+                local function display_git_icon()
+                    if get_git_branch() then
+                        return '   '
+                    end
+
+                    return ''
+                end
+
                 local function get_git_diff()
                     local icons = { removed = '  ', changed = '  ', added = '  ' }
                     local signs = vim.b[props.buf].gitsigns_status_dict
@@ -91,9 +99,9 @@ return {
 
                 return {
                     { get_diagnostic_label() },
-                    { '   ', group = 'String' },
-                    { get_git_branch() or '', group = 'SpecialChar' },
-                    { ' ' .. modified(), group = 'Error' },
+                    { ' ' .. modified() .. ' ', group = 'Error' },
+                    { display_git_icon(),       group = 'String' },
+                    { get_git_branch() or '',   group = 'SpecialChar' },
                     { get_git_diff() },
                 }
             end,

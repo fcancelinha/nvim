@@ -20,7 +20,7 @@ return {
                 yamlfix = {
                     env = {
                         YAMLFIX_SEQUENCE_STYLE = "block_style",
-                        YAMLFIX_EXPLICIT_START = "true",
+                        YAMLFIX_EXPLICIT_START = "false",
                         YAMLFIX_WHITELINES = "1",
                         YAMLFIX_COMMENTS_REQUIRE_STARTING_SPACE = "true",
                         YAMLFIX_COMMENTS_MIN_SPACES_FROM_CONTENT = "2",
@@ -29,7 +29,7 @@ return {
                         YAMLFIX_INDENT_OFFSET = "2",
                         YAMLFIX_INDENT_SEQUENCE = "4",
                         YAMLFIX_LINE_LENGTH = "150",
-                        YAMLFIX_quote_representation = "'",
+                        YAMLFIX_quote_representation = "\"",
                     }
                 },
             },

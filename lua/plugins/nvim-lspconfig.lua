@@ -33,6 +33,15 @@ return {
             end,
         })
 
+        vim.api.nvim_create_autocmd('VimLeavePre', {
+            pattern = "*",
+            callback = function()
+                for _, job in ipairs(vim.fn.joblist()) do
+                    vim.fn.jobstop(job)
+                end
+            end,
+        })
+
         local on_attach = function()
             vim.api.nvim_create_autocmd("BufWritePre", {
                 callback = function(args)
@@ -130,7 +139,9 @@ return {
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         pattern = "*.lua",
                         callback = function()
-                            vim.lsp.buf.format({ async = true })
+                            if vim.bo.buftype == "" then
+                                vim.lsp.buf.format({ async = false })
+                            end
                         end,
                     })
                 end,
@@ -204,7 +215,7 @@ return {
                         vulncheck = "Imports",
                         hoverKind = "FullDocumentation",
                         staticcheck = true,
-                        completeUnimported = false,
+                        completeUnimported = true,
                         usePlaceholders = false,
                         codelenses = {
                             gc_details         = true,
@@ -259,6 +270,9 @@ return {
                     debounce_text_changes = 150,
                     allow_incremental_sync = true,
                 }
+            },
+            golangci_lint_ls = {
+                filetypes = { 'go', 'gomod' },
             },
             angularls = {
                 on_attach = on_attach,
@@ -338,7 +352,7 @@ return {
                 filetypes = { 'sh' }
             },
             sqlls = {},
-            marksman = {}
+            marksman = {},
         }
 
         for server_name, config in pairs(servers) do
