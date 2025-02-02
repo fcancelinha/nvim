@@ -1,28 +1,28 @@
 return {
-    "hrsh7th/nvim-cmp",
+    'hrsh7th/nvim-cmp',
     lazy = false,
     dependencies = {
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lsp-document-symbol",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-path",
-        "hrsh7th/nvim-cmp",
-        "hrsh7th/cmp-nvim-lsp",
-        "saadparwaiz1/cmp_luasnip",
-        "onsails/lspkind.nvim",
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp-document-symbol',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-path',
+        'hrsh7th/nvim-cmp',
+        'hrsh7th/cmp-nvim-lsp',
+        'onsails/lspkind.nvim',
         'lukas-reineke/cmp-under-comparator',
     },
     config = function()
         local cmp = require('cmp')
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
+        ---@diagnostic disable-next-line: redundant-parameter
         cmp.setup({
             enabled = function()
-                local context = require("cmp.config.context")
-                local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+                local context = require('cmp.config.context')
+                local buftype = vim.api.nvim_get_option_value('buftype', { buf = 0 })
                 -- keep command mode completion enabled when cursor is in a comment
                 if buftype == 'prompt' then
                     return false
@@ -31,8 +31,8 @@ return {
                 if buftype == 'c' then
                     return true
                 else
-                    return not context.in_treesitter_capture("comment")
-                        and not context.in_syntax_group("Comment")
+                    return not context.in_treesitter_capture('comment')
+                        and not context.in_syntax_group('Comment')
                 end
             end,
             preselect = cmp.PreselectMode.Item,
@@ -45,43 +45,53 @@ return {
                 completeopt = 'menu,menuone,noinsert,preview'
             },
             formatting = {
-                fields = { "kind", "abbr", "menu" },
-                format = function(entry, item)
-                    local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, item)
-                    local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                    kind.kind = " " .. (strings[1] or "") .. " "
-                    kind.menu = "  (" .. (strings[2] or "") .. ")"
+                fields = { 'kind', 'abbr', 'menu' },
+                format = function(entry, vim_item)
+                    local kind = require('lspkind').cmp_format({ mode = 'symbol', maxwidth = 80 })(entry, vim_item)
+                    local strings = vim.split(kind.kind, ' %s ', { trimempty = false })
+                    kind.kind = ' ' .. (strings[1] or '') .. ' '
+                    -- kind.menu = '  (' .. (strings[2] or '') .. ')'
 
-                    return item
+                    local highlights_info = require('colorful-menu').cmp_highlights(entry)
+                    -- highlight_info is nil means we are missing the ts parser, it's
+                    -- better to fallback to use default `vim_item.abbr`. What this plugin
+                    -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+                    if highlights_info ~= nil then
+                        vim_item.abbr_hl_group = highlights_info.highlights
+                        vim_item.abbr = highlights_info.text
+                    end
+
+                    return vim_item
                 end
             },
             snippet = {
                 expand = function(args)
-                    require 'luasnip'.lsp_expand(args.body)
-                    -- vim.snippet.expand(args.body)
+                    require('luasnip').expand(args.body)
                 end,
             },
             window = {
-                side_padding = 0,
-                col_offset = 0,
-                completion = cmp.config.window.bordered({
-                    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-                    border = "rounded",
+                completion = {
+                    winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
+                    border = 'rounded',
                     scrollbar = true,
-                }),
-                documentation = cmp.config.window.bordered({
-                    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-                    border = "rounded",
+                    side_padding = 1,
+                    col_offset = 1,
+                },
+                documentation = {
+                    winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
+                    border = 'rounded',
                     scrollbar = true,
-                }),
+                    side_padding = 1,
+                    col_offset = 1,
+                },
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-j>'] = cmp.mapping.select_next_item(),
                 ['<C-k>'] = cmp.mapping.select_prev_item(),
-                ["<C-p>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "v", "i", "c" }),
-                ["<C-n>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "v", "i", "c" }),
-                ["<C-e>"] = cmp.mapping.close(),
-                ["<CR>"] = cmp.mapping.confirm({
+                ['<C-p>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'v', 'i', 'c' }),
+                ['<C-n>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'v', 'i', 'c' }),
+                ['<C-e>'] = cmp.mapping.close(),
+                ['<CR>'] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),
@@ -100,20 +110,20 @@ return {
                     end
                 end, { 'i', 's' }),
             }),
-            -- sorting = {
-            -- priority_weight = 1,
-            -- comparators = {
-            --     cmp.config.compare.score,
-            --     cmp.config.compare.exact,
-            --     cmp.config.compare.offset,
-            --     cmp.config.compare.kind,
-            --     cmp.config.compare.sort_text,
-            --     cmp.config.compare.order,
-            --     cmp.config.compare.locality,
-            --     cmp.config.compare.length,
-            --     cmp.config.compare.deprecated,
-            -- }
-            -- },
+            sorting = {
+                priority_weight = 1,
+                comparators = {
+                    cmp.config.compare.score,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.offset,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.order,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.length,
+                    cmp.config.compare.deprecated,
+                }
+            },
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },
@@ -121,10 +131,11 @@ return {
                     { name = 'path' },
                     { name = 'treesitter' },
                     { name = 'tags' },
-                    { name = "vim-dadbod-completion" },
+                    { name = 'vim-dadbod-completion' },
+                    { name = 'render-markdown' },
                 },
                 {
-                    source = "buffer"
+                    source = 'buffer'
                 }
             )
         })
@@ -136,7 +147,7 @@ return {
                 fields = { 'abbr' },
             },
             mapping = cmp.mapping.preset.cmdline({
-                ["<C-y>"] = cmp.mapping.confirm({
+                ['<C-y>'] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),

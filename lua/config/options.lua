@@ -27,8 +27,8 @@ local options = {
     foldlevel      = 99,                                                               -- Start with all folds open.
     foldmethod     = 'syntax',                                                         -- Use syntax-based folding.
     formatoptions  = 'cqnj',                                                           -- Configure text formatting options.
-    guicursor      = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor", -- Configure the cursor look
-    guifont        = "BerkeleyMonoVariable Nerd Font:h10",                             -- Set the font
+    guicursor      = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor', -- Configure the cursor look
+    guifont        = 'BerkeleyMonoVariable Nerd Font:h10',                             -- Set the font
     helpheight     = 15,
     hidden         = true,                                                             -- Allow switching between buffers without saving.
     hlsearch       = true,                                                             -- Highlight all matches of the search pattern.
@@ -43,7 +43,7 @@ local options = {
     mouse          = 'a',                                                              -- Enable mouse support in all modes.
     number         = true,                                                             -- Show line numbers.
     previewheight  = 15,
-    nrformats      = "bin,hex,octal,alpha,bin",                                        -- Specifies the type of values that can be incremented or decrementedj
+    nrformats      = 'bin,hex,octal,alpha,bin',                                        -- Specifies the type of values that can be incremented or decrementedj
     pumblend       = 5,                                                                -- Make the popup menu semi-transparent.
     pumheight      = 25,                                                               -- Maximum height of the pop-up menu.
     relativenumber = true,                                                             -- Show line numbers relative to the current line.
@@ -63,7 +63,7 @@ local options = {
     smarttab       = true,                                                             -- Insert 'tabstop' spaces when pressing Tab, align with 'shiftwidth' if inside an indent.
     softtabstop    = 4,                                                                -- Number of spaces a tab counts for in editing operations.
     splitbelow     = true,                                                             -- Open new horizontal splits below the current window.
-    splitkeep      = "screen",
+    splitkeep      = 'screen',
     splitright     = true,                                                             -- Open new vertical splits to the right of the current window.
     swapfile       = false,                                                            -- Don't use swap files.
     switchbuf      = 'useopen',                                                        -- Prefer to switch to already open buffers when opening files.
@@ -100,13 +100,13 @@ local options = {
 
 vim.diagnostic.config({
     signs = true,
-    underline = false,
+    underline = true,
     update_in_insert = true,
     virtual_text = true,
     severity_sort = false,
     virtual_lines = true,
     float = {
-        border = "rounded",
+        border = 'rounded',
         focusable = true,
     },
 })

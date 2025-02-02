@@ -1,29 +1,29 @@
 return {
-    "neovim/nvim-lspconfig",
+    'neovim/nvim-lspconfig',
     dependencies = {
-        "williamboman/mason.nvim",
-        "nvim-lua/plenary.nvim",
+        'williamboman/mason.nvim',
+        'nvim-lua/plenary.nvim',
     },
     config = function()
         local lspconfig = require('lspconfig')
-        require("lspconfig.ui.windows").default_options.border = "rounded"
+        require('lspconfig.ui.windows').default_options.border = 'rounded'
 
         require('mason').setup({
             ui = {
                 check_outdated_packages_on_open = true,
-                border = "rounded",
+                border = 'rounded',
                 width = 80,
                 height = 0.9,
             },
         })
 
-        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-        local signs = { Error = "✸ ", Warn = " ", Hint = " ", Info = " " }
+        local signs = { Error = '✸ ', Warn = ' ', Hint = ' ', Info = ' ' }
         for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+            local hl = 'DiagnosticSign' .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
         end
 
         vim.api.nvim_create_autocmd('TextYankPost', {
@@ -34,7 +34,7 @@ return {
         })
 
         vim.api.nvim_create_autocmd('VimLeavePre', {
-            pattern = "*",
+            pattern = '*',
             callback = function()
                 for _, job in ipairs(vim.fn.joblist()) do
                     vim.fn.jobstop(job)
@@ -43,9 +43,9 @@ return {
         })
 
         local on_attach = function()
-            vim.api.nvim_create_autocmd("BufWritePre", {
+            vim.api.nvim_create_autocmd('BufWritePre', {
                 callback = function(args)
-                    require("conform").format({ bufnr = args.buf })
+                    require('conform').format({ bufnr = args.buf })
                 end,
             })
         end
@@ -67,9 +67,13 @@ return {
                 vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_opts)
                 vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, lsp_opts)
                 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, lsp_opts)
-                vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, lsp_opts)
+                vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, lsp_opts)
             end,
         })
+
+
+        local cmd = {
+        }
 
         local servers = {
             html = {
@@ -106,7 +110,7 @@ return {
                     organizeImportsCollation = 'ordinal',
                     organizeImportsCollationLocale = 'en',
                     includePackageJsonAutoImports = 'on',
-                    importModuleSpecifierPreference = "relative",
+                    importModuleSpecifierPreference = 'relative',
                     includeAutomaticOptionalChainCompletions = true,
                     includeCompletionsWithInsertText = true,
                 },
@@ -125,7 +129,29 @@ return {
                     placeOpenBraceOnNewLineForFunctions = true,
                 },
             },
-            eslint = {},
+            eslint = {
+                on_attach = function(client, bufnr)
+                    if client.server_capabilities.documentFormattingProvider then
+                        vim.api.nvim_create_autocmd('BufWritePre', {
+                            group = vim.api.nvim_create_augroup('EslintAutofix', { clear = true }),
+                            buffer = bufnr,
+                            callback = function()
+                                vim.lsp.buf.format({ async = false })
+                            end,
+                        })
+                    end
+                end,
+                settings = {
+                    validate = 'on',
+                    packageManager = 'yarn',
+                    autoFixOnSave = 'true',
+                    format = {
+                        enable = 'true',
+                    }
+                },
+                root_dir = require('lspconfig.util').root_pattern('eslintrc.json', 'eslintrc', '.eslintrc.json',
+                    '.eslintrc'),
+            },
             lua_ls = {
                 on_init = function(client)
                     if client.workspace_folders then
@@ -136,10 +162,10 @@ return {
                     end
                 end,
                 on_attach = function()
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        pattern = "*.lua",
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        pattern = '*.lua',
                         callback = function()
-                            if vim.bo.buftype == "" then
+                            if vim.bo.buftype == '' then
                                 vim.lsp.buf.format({ async = false })
                             end
                         end,
@@ -148,11 +174,12 @@ return {
                 settings = {
                     Lua = {
                         runtime = {
-                            version = "LuaJIT",
+                            version = 'LuaJIT',
+                            path = vim.split(package.path, ';'),
                         },
                         diagnostics = {
                             globals = {
-                                "vim",
+                                'vim',
                                 'use',
                                 'describe',
                                 'it',
@@ -161,9 +188,14 @@ return {
                                 'after_each',
                             }
                         },
+                        completion = {
+                            enable = true,
+                            callSnippet = 'Both',
+                            keywordSnippet = 'Replace',
+                        },
                         workspace = {
                             checkThirdParty = false,
-                            library = vim.api.nvim_get_runtime_file("", true),
+                            library = vim.api.nvim_get_runtime_file('', true),
                         },
                         telemetry = {
                             enable = false,
@@ -171,20 +203,21 @@ return {
                         format = {
                             enable = true,
                             defaultConfig = {
+                                quote_style = 'single',
                                 indent_style = 'tab',
                                 indent_size = '4',
                             },
                         },
                         lint = {
                             enable = true,
-                            command = "luacheck",
+                            command = 'luacheck',
                             args = {
-                                "--globals",
-                                "vim",
-                                "--formatter",
-                                "plain",
-                                "--codes",
-                                "--ranges",
+                                '--globals',
+                                'vim',
+                                '--formatter',
+                                'plain',
+                                '--codes',
+                                '--ranges',
                             },
                         },
                     },
@@ -196,9 +229,9 @@ return {
             },
             gopls = {
                 on_attach = function()
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        group = vim.api.nvim_create_augroup("goimports", {}),
-                        pattern = "*.go",
+                    vim.api.nvim_create_autocmd('BufWritePre', {
+                        group = vim.api.nvim_create_augroup('goimports', {}),
+                        pattern = '*.go',
                         callback = function()
                             require('go.format').goimports()
                         end,
@@ -209,11 +242,12 @@ return {
                         diagnosticsDelay = '100ms',
                         experimentalPostfixCompletions = true,
                         semanticTokens = true,
+                        noSemanticString = true,
                         matcher = 'fuzzy',
                         gofumpt = true,
                         symbolMatcher = 'fuzzy',
-                        vulncheck = "Imports",
-                        hoverKind = "FullDocumentation",
+                        vulncheck = 'Imports',
+                        hoverKind = 'FullDocumentation',
                         staticcheck = true,
                         completeUnimported = true,
                         usePlaceholders = false,
@@ -253,18 +287,18 @@ return {
                             shadow = true,
                             fillreturns = true,
                         },
-                        directoryFilters = { "-.git", "-node_modules", "-.idea", "-.vscode-test", "-.vscode" },
+                        directoryFilters = { '-.git', '-node_modules', '-.idea', '-.vscode-test', '-.vscode' },
                         buildFlags = { '-tags', 'integration' },
                     },
                 },
                 filetypes = {
-                    "go",
-                    "gomod",
-                    "gosum",
-                    "gowork",
-                    "gotmpl",
-                    "gohtmltmpl",
-                    "gotexttmpl",
+                    'go',
+                    'gomod',
+                    'gosum',
+                    'gowork',
+                    'gotmpl',
+                    'gohtmltmpl',
+                    'gotexttmpl',
                 },
                 flags = {
                     debounce_text_changes = 150,
@@ -272,11 +306,7 @@ return {
                 }
             },
             golangci_lint_ls = {
-                filetypes = { 'go', 'gomod' },
-            },
-            angularls = {
-                on_attach = on_attach,
-                root_dir = require("lspconfig.util").root_pattern('angular.json', 'project.json'),
+                filetypes = { 'go', 'gomod', 'gosum' },
             },
             jsonls = {
                 on_attach = on_attach,
@@ -284,20 +314,20 @@ return {
                     json = {
                         schemas = {
                             {
-                                fileMatch = { "package.json" },
-                                url = "https://json.schemastore.org/package.json"
+                                fileMatch = { 'package.json' },
+                                url = 'https://json.schemastore.org/package.json'
                             },
                             {
-                                fileMatch = { "tsconfig*.json" },
-                                url = "https://json.schemastore.org/tsconfig.json"
+                                fileMatch = { 'tsconfig*.json' },
+                                url = 'https://json.schemastore.org/tsconfig.json'
                             },
                             {
-                                fileMatch = { ".eslintrc.json", ".eslintrc" },
-                                url = "https://json.schemastore.org/eslintrc.json"
+                                fileMatch = { '.eslintrc.json', '.eslintrc' },
+                                url = 'https://json.schemastore.org/eslintrc.json'
                             },
                             {
-                                fileMatch = { "prettierrc.json", "prettier.config.json" },
-                                url = "https://json.schemastore.org/prettierrc.json"
+                                fileMatch = { 'prettierrc.json', 'prettier.config.json' },
+                                url = 'https://json.schemastore.org/prettierrc.json'
                             }
                         },
                     },
@@ -308,10 +338,10 @@ return {
             },
             gitlab_ci_ls = {
                 on_attach = function()
-                    vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-                        pattern = "*.gitlab-ci*.{yml,yaml}",
+                    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+                        pattern = '*.gitlab-ci*.{yml,yaml}',
                         callback = function()
-                            vim.bo.filetype = "yaml.gitlab"
+                            vim.bo.filetype = 'yaml.gitlab'
                         end,
                     })
                 end,
@@ -329,16 +359,16 @@ return {
                             enable = true,
                         },
                         customTags = {
-                            "!reference sequence",
+                            '!reference sequence',
                         },
                         schemas = {
-                            kubernetes = "/*.k8s.yaml",
-                            ["http://json.schemastore.org/github-workflow"] = "/.github/workflows/*",
-                            ["http://json.schemastore.org/github-action"] = "/.github/action.{yml,yaml}",
-                            ["http://json.schemastore.org/drone"] = "/.drone.{yml,yaml}",
-                            ["http://json.schemastore.org/chart"] = "/Chart.{yml,yaml}",
+                            kubernetes = '/*.k8s.yaml',
+                            ['http://json.schemastore.org/github-workflow'] = '/.github/workflows/*',
+                            ['http://json.schemastore.org/github-action'] = '/.github/action.{yml,yaml}',
+                            ['http://json.schemastore.org/drone'] = '/.drone.{yml,yaml}',
+                            ['http://json.schemastore.org/chart'] = '/Chart.{yml,yaml}',
                         },
-                        disable = { "*.gitlab-ci*.{yml,yaml}" },
+                        disable = { '*.gitlab-ci*.{yml,yaml}' },
                         validate = true,
                         completion = true,
                         hover = true,
