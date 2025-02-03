@@ -5,14 +5,15 @@ return {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lsp-document-symbol',
         'hrsh7th/cmp-nvim-lsp-signature-help',
         'hrsh7th/cmp-nvim-lua',
         'hrsh7th/cmp-path',
         'hrsh7th/nvim-cmp',
-        'hrsh7th/cmp-nvim-lsp',
-        'onsails/lspkind.nvim',
         'lukas-reineke/cmp-under-comparator',
+        'onsails/lspkind.nvim',
+        'petertriho/cmp-git',
     },
     config = function()
         local cmp = require('cmp')
@@ -66,7 +67,7 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    require('luasnip').expand(args.body)
+                    require('luasnip').lsp_expand(args.body)
                 end,
             },
             window = {
@@ -135,11 +136,20 @@ return {
                     { name = 'render-markdown' },
                 },
                 {
-                    source = 'buffer'
+                    name = 'buffer'
                 }
             )
         })
 
+        cmp.setup.filetype('gitcommit', {
+            sources = cmp.config.sources({
+                { name = 'git' },
+            }, {
+                { name = 'buffer' },
+            })
+        })
+
+        require('cmp_git').setup()
 
         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline(':', {

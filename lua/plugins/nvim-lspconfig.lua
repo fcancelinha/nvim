@@ -6,6 +6,7 @@ return {
     },
     config = function()
         local lspconfig = require('lspconfig')
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
         require('lspconfig.ui.windows').default_options.border = 'rounded'
 
         require('mason').setup({
@@ -17,7 +18,6 @@ return {
             },
         })
 
-        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         local signs = { Error = '✸ ', Warn = ' ', Hint = ' ', Info = ' ' }
@@ -71,9 +71,6 @@ return {
             end,
         })
 
-
-        local cmd = {
-        }
 
         local servers = {
             html = {
