@@ -67,7 +67,7 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body)
+                    vim.snippet.expand(args.body)
                 end,
             },
             window = {
@@ -128,12 +128,10 @@ return {
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },
-                    { name = 'luasnip' },
                     { name = 'path' },
                     { name = 'treesitter' },
                     { name = 'tags' },
                     { name = 'vim-dadbod-completion' },
-                    { name = 'render-markdown' },
                 },
                 {
                     name = 'buffer'

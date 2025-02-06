@@ -113,7 +113,7 @@ return {
             },
             trouble = true,   -- true: use trouble to open quickfix
             test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
-            luasnip = false,  -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
+            -- luasnip = false,  -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
             --  Do not enable this if you already added the path, that will duplicate the entries
             -- on_jobstart = function(cmd) _ = cmd end,                                     -- callback for stdout
             -- on_stdout = function(err, data) _, _ = err, data end,                        -- callback when job started
@@ -123,6 +123,6 @@ return {
         })
     end,
     event = { 'CmdlineEnter' },
-    ft = { 'go', 'gomod', 'gosum', 'gotmpl', 'tmpl' },
+    ft = { 'go', 'gomod', 'gosum', 'gotmpl', 'tmpl', 'gotexttmpl' },
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
 }

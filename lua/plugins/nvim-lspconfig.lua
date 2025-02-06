@@ -74,7 +74,7 @@ return {
 
         local servers = {
             html = {
-                filetypes = { 'html', 'html5', 'tmpl' },
+                filetypes = { 'html', 'html5' },
                 settings = {
                     format = {
                         enable = true,
@@ -247,7 +247,7 @@ return {
                         hoverKind = 'FullDocumentation',
                         staticcheck = true,
                         completeUnimported = true,
-                        usePlaceholders = false,
+                        usePlaceholders = true,
                         codelenses = {
                             gc_details         = true,
                             debug              = true,
