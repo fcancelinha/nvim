@@ -5,7 +5,6 @@ return {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lsp-document-symbol',
         'hrsh7th/cmp-nvim-lsp-signature-help',
         'hrsh7th/cmp-nvim-lua',
@@ -116,11 +115,11 @@ return {
                 comparators = {
                     cmp.config.compare.score,
                     cmp.config.compare.exact,
-                    cmp.config.compare.offset,
                     cmp.config.compare.kind,
+                    cmp.config.compare.offset,
+                    cmp.config.compare.locality,
                     cmp.config.compare.sort_text,
                     cmp.config.compare.order,
-                    cmp.config.compare.locality,
                     cmp.config.compare.length,
                     cmp.config.compare.deprecated,
                 }
@@ -128,8 +127,8 @@ return {
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lua' },
-                    { name = 'path' },
                     { name = 'treesitter' },
+                    { name = 'path' },
                     { name = 'tags' },
                     { name = 'vim-dadbod-completion' },
                 },

@@ -1,11 +1,9 @@
 return {
-    "hedyhli/outline.nvim",
+    'hedyhli/outline.nvim',
     keys = {
-        { "<leader>o", ":Outline<CR>", { desc = "Toggle Outline" } },
+        { '<leader>o', ':Outline<CR>', { desc = 'Toggle Outline' } },
     },
     config = function()
-        -- Example mapping to toggle outline
-
-        require("outline").setup {}
+        require('outline').setup {}
     end,
 }

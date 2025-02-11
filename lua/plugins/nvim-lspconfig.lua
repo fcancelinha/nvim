@@ -6,8 +6,10 @@ return {
     },
     config = function()
         local lspconfig = require('lspconfig')
-        local capabilities = require('cmp_nvim_lsp').default_capabilities()
-        require('lspconfig.ui.windows').default_options.border = 'rounded'
+        local util = require('lspconfig.util')
+
+        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         require('mason').setup({
             ui = {
@@ -18,8 +20,7 @@ return {
             },
         })
 
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
-
+        require('lspconfig.ui.windows').default_options.border = 'rounded'
         local signs = { Error = '✸ ', Warn = ' ', Hint = ' ', Info = ' ' }
         for type, icon in pairs(signs) do
             local hl = 'DiagnosticSign' .. type
@@ -74,6 +75,7 @@ return {
 
         local servers = {
             html = {
+                on_attach = on_attach,
                 filetypes = { 'html', 'html5' },
                 settings = {
                     format = {
@@ -96,12 +98,18 @@ return {
                 }
             },
             cssls = {
+                on_attach = on_attach,
                 flags = {
                     debounce_text_changes = 150,
                     allow_incremental_sync = true,
                 }
             },
             ts_ls = {
+                on_attach = function(client, bufnr)
+                    if client.server_capabilities.semanticTokensProvider then
+                        vim.lsp.semantic_tokens.start(bufnr, client.id)
+                    end
+                end,
                 preferences = {
                     quotePreference = 'single',
                     organizeImportsCollation = 'ordinal',
@@ -127,6 +135,9 @@ return {
                 },
             },
             eslint = {
+                cmd = { 'yarn', 'eslint', '--stdin', '--stdin-filename', function()
+                    return vim.api.nvim_buf_get_name(0)
+                end },
                 on_attach = function(client, bufnr)
                     if client.server_capabilities.documentFormattingProvider then
                         vim.api.nvim_create_autocmd('BufWritePre', {
@@ -139,18 +150,19 @@ return {
                     end
                 end,
                 settings = {
-                    validate = 'on',
-                    packageManager = 'yarn',
-                    autoFixOnSave = 'true',
-                    format = {
-                        enable = 'true',
+                    eslint = {
+                        validate = 'on',
+                        packageManager = 'yarn',
+                        autoFixOnSave = 'true',
+                        format = {
+                            enable = 'true',
+                        }
                     }
                 },
-                root_dir = require('lspconfig.util').root_pattern('eslintrc.json', 'eslintrc', '.eslintrc.json',
-                    '.eslintrc'),
+                root_dir = util.root_pattern('.eslintrc.json', '.eslintrc.js', '.eslintrc', '.eslintrc', 'project.json'),
             },
             lua_ls = {
-                on_init = function(client)
+                on_init = function(client, bufnr)
                     if client.workspace_folders then
                         local path = client.workspace_folders[1].name
                         if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
@@ -158,7 +170,7 @@ return {
                         end
                     end
                 end,
-                on_attach = function()
+                on_attach = function(client, bufnr)
                     vim.api.nvim_create_autocmd('BufWritePre', {
                         pattern = '*.lua',
                         callback = function()
@@ -224,7 +236,16 @@ return {
                     allow_incremental_sync = true,
                 }
             },
+            golangci_lint_ls = {
+                cmd = { 'golangci-lint-langserver' },
+                root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
+                init_options = {
+                    command = { 'golangci-lint', 'run', '--out-format', 'json', '--issues-exit-code=1' },
+                },
+                filetypes = { 'go', 'gomod' }
+            },
             gopls = {
+                capabilities = capabilities,
                 on_attach = function()
                     vim.api.nvim_create_autocmd('BufWritePre', {
                         group = vim.api.nvim_create_augroup('goimports', {}),
@@ -286,7 +307,7 @@ return {
                         },
                         directoryFilters = { '-.git', '-node_modules', '-.idea', '-.vscode-test', '-.vscode' },
                         buildFlags = { '-tags', 'integration' },
-                    },
+                    }
                 },
                 filetypes = {
                     'go',
@@ -297,13 +318,6 @@ return {
                     'gohtmltmpl',
                     'gotexttmpl',
                 },
-                flags = {
-                    debounce_text_changes = 150,
-                    allow_incremental_sync = true,
-                }
-            },
-            golangci_lint_ls = {
-                filetypes = { 'go', 'gomod', 'gosum' },
             },
             jsonls = {
                 on_attach = on_attach,
@@ -334,17 +348,11 @@ return {
                 },
             },
             gitlab_ci_ls = {
-                on_attach = function()
-                    vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-                        pattern = '*.gitlab-ci*.{yml,yaml}',
-                        callback = function()
-                            vim.bo.filetype = 'yaml.gitlab'
-                        end,
-                    })
-                end,
+                filetypes = { 'yaml.gitlab-ci' },
             },
             yamlls = {
                 on_attach = on_attach,
+                filetypes = { 'yaml.gitlab-ci', 'yaml', 'yml' },
                 settings = {
                     redhat = {
                         telemetry = {
@@ -364,8 +372,13 @@ return {
                             ['http://json.schemastore.org/github-action'] = '/.github/action.{yml,yaml}',
                             ['http://json.schemastore.org/drone'] = '/.drone.{yml,yaml}',
                             ['http://json.schemastore.org/chart'] = '/Chart.{yml,yaml}',
+                            ['https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json'] = {
+                                '.gitlab-ci.yml',
+                                '.gitlab-ci.yaml',
+                                'gitlab/*.yml',
+                                'ci/**/*.yml',
+                            },
                         },
-                        disable = { '*.gitlab-ci*.{yml,yaml}' },
                         validate = true,
                         completion = true,
                         hover = true,
@@ -378,13 +391,36 @@ return {
                 cmd = { 'bash-language-server', 'start' },
                 filetypes = { 'sh' }
             },
+            angularls = {
+                cmd = { 'yarn', 'dlx', '@angular/language-server', '--stdio' },
+                on_new_config = function(new_config, _)
+                    new_config.cmd = {
+                        'yarn', 'dlx', '@angular/language-server',
+                        '--stdio',
+                        '--tsProbeLocations', vim.fn.getcwd(),
+                        '--ngProbeLocations', vim.fn.getcwd()
+                    }
+                end,
+                root_dir = function(fname)
+                    local git_root = vim.fs.find('.git', { path = fname, upward = true })[1]
+                    return util.root_pattern('angular.json', 'project.json', 'tsconfig.json', 'package.json', 'nx.json',
+                            'migrations.json')(fname) or
+                        (git_root and vim.fs.dirname(git_root))
+                end,
+                filetypes = { 'typescript', 'html', 'typescriptreact', 'typescript.tsx', 'htmlangular' },
+                settings = {
+                    angular = {
+                        enableStrictMode = true,
+                    },
+                },
+            },
             sqlls = {},
             marksman = {},
         }
 
         for server_name, config in pairs(servers) do
+            config.capabilities = capabilities
             lspconfig[server_name].setup(config)
-            lspconfig[server_name].capabilities = capabilities
         end
     end,
 }

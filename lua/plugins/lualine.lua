@@ -44,7 +44,7 @@ return {
                 icons_enabled = true,
                 theme = custom_nordern,
                 component_separators = {},
-                section_separators = { left = '', right = '' },
+                section_separators = {},
                 ignore_focus = {},
                 always_divide_middle = true,
                 refresh = {
@@ -60,97 +60,11 @@ return {
                 },
             },
             sections = {
-                lualine_y = {},
-                lualine_x = {
-                    'filename',
-                    'encoding',
-                    'filetype',
-                },
-                lualine_z = {
-                    {
-                        'location',
-                        separator = { left = '', right = '' },
-                        left_padding = 1,
-                    }
-                },
-                lualine_c = {
-                    {
-                        'diff',
-                        color = { bg = lualine_colors.dark },
-                    },
-                    {
-                        'branch',
-                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.yellow, bg = lualine_colors.none },
-                        padding = 2,
-                    },
-                },
+                lualine_a = {},
                 lualine_b = {
                     {
-                        'diagnostics',
-                        sources = { 'nvim_lsp' },
-                        sections = { 'hint' },
-                        diagnostics_color = {
-                            hint = {
-                                fg = lualine_colors.frostturquoise,
-                                bg = lualine_colors.greydark,
-                            }
-                        },
-                        update_in_insert = true,
-                        symbols = { hint = ' ' },
-                        padding = 1,
-                        separator = { right = '' },
-                    },
-                    {
-                        'diagnostics',
-                        sources = { 'nvim_lsp' },
-                        sections = { 'info' },
-                        diagnostics_color = {
-                            hint = {
-                                fg = lualine_colors.frostblue,
-                                bg = lualine_colors.greydark,
-                            }
-                        },
-                        update_in_insert = true,
-                        symbols = { hint = ' ' },
-                        padding = 1,
-                        separator = { right = '' },
-                    },
-                    {
-                        'diagnostics',
-                        sources = { 'nvim_lsp' },
-                        sections = { 'warn' },
-                        diagnostics_color = {
-                            warn = {
-                                fg = lualine_colors.yellow,
-                                bg = lualine_colors.greydark,
-                            }
-                        },
-                        update_in_insert = true,
-                        symbols = { warn = ' ' },
-                        padding = 1,
-                        separator = { right = '' },
-                    },
-                    {
-                        'diagnostics',
-                        sources = { 'nvim_lsp' },
-                        sections = { 'error' },
-                        diagnostics_color = {
-                            error = {
-                                fg = lualine_colors.red,
-                                bg = lualine_colors.greydark,
-                            }
-                        },
-                        update_in_insert = true,
-                        symbols = { error = '✸  ' },
-                        padding = 1,
-                        separator = { right = '' },
-                    },
-                },
-                lualine_a = {
-                    {
                         'mode',
-                        separator = { left = '', right = '' },
+                        separator = { right = '' },
                     },
                     {
                         'searchcount',
@@ -163,12 +77,91 @@ return {
                         color = { fg = lualine_colors.dark },
                     },
                 },
+                lualine_c = {
+                    {
+                        'branch',
+                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
+                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
+                        left_padding = 2,
+                    },
+                    {
+                        'diff',
+                        color = { bg = lualine_colors.dark },
+                    },
+                },
+                lualine_x = {
+                    {
+                        'diagnostics',
+                        sources = { 'nvim_lsp' },
+                        sections = { 'hint' },
+                        diagnostics_color = {
+                            hint = {
+                                fg = lualine_colors.frostturquoise,
+                                bg = lualine_colors.none,
+                            }
+                        },
+                        update_in_insert = true,
+                        symbols = { hint = ' ' },
+                        padding = 1,
+                        separator = { left = '' },
+                    },
+                    {
+                        'diagnostics',
+                        sources = { 'nvim_lsp' },
+                        sections = { 'info' },
+                        diagnostics_color = {
+                            hint = {
+                                fg = lualine_colors.frostblue,
+                                bg = lualine_colors.none,
+                            }
+                        },
+                        update_in_insert = true,
+                        symbols = { hint = ' ' },
+                        padding = 1,
+                        separator = { left = '' },
+                    },
+                    {
+                        'diagnostics',
+                        sources = { 'nvim_lsp' },
+                        sections = { 'warn' },
+                        diagnostics_color = {
+                            warn = {
+                                fg = lualine_colors.yellow,
+                                bg = lualine_colors.none,
+                            }
+                        },
+                        update_in_insert = true,
+                        symbols = { warn = ' ' },
+                        padding = 1,
+                        separator = { left = '' },
+                    },
+                    {
+                        'diagnostics',
+                        sources = { 'nvim_lsp' },
+                        sections = { 'error' },
+                        diagnostics_color = {
+                            error = {
+                                fg = lualine_colors.red,
+                                bg = lualine_colors.none,
+                            }
+                        },
+                        update_in_insert = true,
+                        symbols = { error = '✸  ' },
+                        padding = 1,
+                        separator = { left = '' }
+                    },
+                    { 'filetype' },
+                    { 'encoding' },
+                    { 'location' }
+                },
+                lualine_y = {},
+                lualine_z = {},
             },
             inactive_sections = {
                 lualine_a = {},
                 lualine_b = {},
-                lualine_c = { 'filename' },
-                lualine_x = { 'location' },
+                lualine_c = {},
+                lualine_x = { 'location', 'filename' },
                 lualine_y = {},
                 lualine_z = {}
             },

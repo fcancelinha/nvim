@@ -181,6 +181,7 @@ return {
                         'node_modules',
                         '.node_modules',
                         '.yarn',
+                        '.nx',
                     },
                     hide_by_pattern = { -- uses glob style patterns
                         --"*.meta",
