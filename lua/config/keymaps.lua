@@ -17,6 +17,10 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = '<space>'
 keymap('', '<Space>', '<Nop>', opts)
 
+-- Better Paste
+keymap('n', 'p', ':set paste<CR>p:set nopaste<CR>', opts)
+keymap('v', '<leader>p', '"_dP', opts)
+
 -- Stay in indent mode
 keymap('v', '<', '<gv', opts)
 keymap('v', '>', '>gv', opts)

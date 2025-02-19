@@ -1,5 +1,5 @@
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 --:help options
 local options = {
@@ -14,7 +14,7 @@ local options = {
     breakindent    = true,                                                             -- Indent wrapped lines visually to align with the start of the line.
     cindent        = true,                                                             -- Enable smart C programming language indenting.
     clipboard      = { 'unnamedplus' },                                                -- Use the system clipboard for all yank, delete, change, and put operations.
-    cmdheight      = 0,                                                                -- Number of lines for the command-line area.
+    cmdheight      = 1,                                                                -- Number of lines for the command-line area.
     completeopt    = { 'menu', 'menuone', 'preview' },                                 -- Configure completion menu options. 'menu' shows a pop-up menu, 'menuone' shows it even for one match, and 'preview' shows a preview of the selected match.
     conceallevel   = 0,                                                                -- Don't conceal text unless explicitly marked (useful for syntax elements).
     confirm        = true,                                                             -- Ask for confirmation when exiting with unsaved changes.
@@ -35,7 +35,7 @@ local options = {
     ignorecase     = true,                                                             -- Ignore case in search patterns.
     inccommand     = 'split',                                                          -- Show the effect of a command incrementally in a split.
     incsearch      = true,                                                             -- Show search matches as you type.
-    laststatus     = 0,                                                                -- Always display the status line (0: never, 1: only if there are splits, 2: always, 3: global status line).
+    laststatus     = 3,                                                                -- Always display the status line (0: never, 1: only if there are splits, 2: always, 3: global status line).
     linebreak      = false,                                                            -- Wrap lines at convenient points.
     list           = false,                                                            -- Show whitespace characters like tabs and trailing spaces.
     listchars      = { tab = '▸ ', trail = '·', nbsp = '␣', eol = '↴', extends = '→', precedes = '←' },
@@ -104,7 +104,7 @@ vim.diagnostic.config({
     update_in_insert = true,
     virtual_text = true,
     severity_sort = false,
-    virtual_lines = true,
+    virtual_lines = false,
     float = {
         border = 'rounded',
         focusable = true,
