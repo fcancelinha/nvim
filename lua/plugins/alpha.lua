@@ -1,14 +1,14 @@
 return {
-    "goolord/alpha-nvim",
+    'goolord/alpha-nvim',
     dependencies = {
-        "juansalvatore/git-dashboard-nvim",
+        'juansalvatore/git-dashboard-nvim',
     },
-    event = "VimEnter",
+    event = 'VimEnter',
     config = function()
-        local lazy = require("lazy")
-        local alpha = require("alpha")
-        local startify = require("alpha.themes.theta")
-        local devicons = require("nvim-web-devicons")
+        local lazy = require('lazy')
+        local alpha = require('alpha')
+        local startify = require('alpha.themes.theta')
+        local devicons = require('nvim-web-devicons')
 
         local git_dashboard = require('git-dashboard-nvim').setup({
             top_padding = 0,
@@ -16,7 +16,7 @@ return {
             show_current_branch = true,
             hide_cursor = false,
             centered = false,
-            branch = { "master", "main" },
+            branch = { 'master', 'main' },
             use_git_username_as_author = true,
             show_only_weeks_with_commits = true,
             is_horizontal = true,
@@ -24,7 +24,7 @@ return {
             gap = '  ',
             empty_square = '',
             filled_squares = { '', '', '', '', '', '' },
-            basepoints = { "master", "main" },
+            basepoints = { 'master', 'main' },
             colors = {
                 days_and_months_labels = '#88C0D0',
                 empty_square_highlight = '#6098A7',
@@ -57,7 +57,7 @@ return {
             type = 'text',
             val = git_dashboard,
             opts = {
-                position = "center"
+                position = 'center'
             }
         }
 
@@ -65,8 +65,8 @@ return {
             type = 'text',
             val = info_value(),
             opts = {
-                hl = "Function",
-                position = "center",
+                hl = 'Function',
+                position = 'center',
             }
         }
 
@@ -152,42 +152,42 @@ return {
             type = 'group',
             val = {
                 {
-                    type = "text",
-                    val = string.rep("─", 50),
+                    type = 'text',
+                    val = string.rep('─', 50),
                     opts = {
-                        hl = "FloatBorder",
-                        position = "center",
+                        hl = 'FloatBorder',
+                        position = 'center',
                     }
                 },
                 { type = 'padding', val = 1 },
-                button("f", "Find File", ":Telescope find_files<CR>",
+                button('f', 'Find File', ':Telescope find_files<CR>',
                     { icon = '󰱼', hl = { { 'Function', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
-                button("p", "Find Project", ":lua require('telescope').extensions.projects.projects{}<CR>",
+                button('p', 'Find Project', ":lua require('telescope').extensions.projects.projects{}<CR>",
                     { icon = '', hl = { { 'Error', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
-                button("e", "Restore Session", ":lua require('persistence').load({ last = true})<CR>",
+                button('e', 'Restore Session', ":lua require('persistence').load({ last = true})<CR>",
                     { icon = '󰦛', hl = { { 'String', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
-                button("n", "Notes", ":Neotree ~/notes<CR>",
+                button('n', 'Notes', ':Neotree ~/notes<CR>',
                     { icon = '', hl = { { 'Float', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
-                button("m", "PKG Manager", ":Lazy<CR>",
+                button('m', 'PKG Manager', ':Lazy<CR>',
                     { icon = '󰏗', hl = { { 'Constant', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
-                button("c", "Config", ":Neotree ~/.config/nvim/lua<CR>",
+                button('c', 'Config', ':Neotree ~/.config/nvim/lua<CR>',
                     { icon = '', hl = { { 'diffLine', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
                 { type = 'padding', val = 1 },
-                button("q", "Quit", ":qa<CR>",
+                button('q', 'Quit', ':qa<CR>',
                     { icon = '', hl = { { 'Comment', 1, 2 }, { 'Normal', 3, 52 } } }
                 ),
                 {
-                    type = "text",
-                    val = string.rep("─", 50),
+                    type = 'text',
+                    val = string.rep('─', 50),
                     opts = {
-                        hl = "FloatBorder",
-                        position = "center",
+                        hl = 'FloatBorder',
+                        position = 'center',
                     },
                 },
             }
@@ -215,27 +215,12 @@ return {
             }
         }
 
-        local function time_value()
-            local datetime = os.date(surround('') .. '%A, %b %Y')
-            return "Hello Filipe, Today is " .. datetime
-        end
-
-        local toast = {
-            type = 'text',
-            val = time_value(),
-            opts = {
-                hl = "Function",
-                position = 'center',
-            }
-        }
-
         local config = {
             layout = {
                 heatmap,
                 mru,
-                buttons,
-                -- toast,
                 info,
+                buttons,
             }
         }
 

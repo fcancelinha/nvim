@@ -21,14 +21,15 @@ keymap('', '<Space>', '<Nop>', opts)
 keymap('n', 'p', ':set paste<CR>p:set nopaste<CR>', opts)
 keymap('v', '<leader>p', '"_dP', opts)
 
+-- paste over currently selected text without yanking it
+keymap('v', 'p', '"_dp', opts)
+keymap('v', 'P', '"_dP', opts)
+
 -- Stay in indent mode
 keymap('v', '<', '<gv', opts)
 keymap('v', '>', '>gv', opts)
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)
 keymap('n', ']d', vim.diagnostic.goto_next, opts)
-
--- Better paste
--- keymap("v", "p", '"_dP', opts)
 
 -- Exit insert mode
 keymap('i', 'jk', '<Esc>', opts)
