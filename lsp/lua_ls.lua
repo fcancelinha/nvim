@@ -1,4 +1,8 @@
 return {
+    cmd = { 'lua-language-server' },
+    filetypes = {
+        'lua',
+    },
     on_attach = function()
         vim.api.nvim_create_autocmd('BufWritePre', {
             pattern = '*.lua',

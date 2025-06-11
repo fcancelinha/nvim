@@ -98,19 +98,6 @@ local options = {
     ]],
 }
 
-vim.diagnostic.config({
-    signs = true,
-    underline = true,
-    update_in_insert = true,
-    virtual_text = true,
-    severity_sort = false,
-    virtual_lines = false,
-    float = {
-        border = 'rounded',
-        focusable = true,
-    },
-})
-
 if vim.fn.has('wsl') == 1 then
     vim.g.clipboard = {
         name = 'WslClipboard',
