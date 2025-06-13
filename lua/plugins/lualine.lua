@@ -60,36 +60,10 @@ return {
                 },
             },
             sections = {
-                lualine_a = {},
+                lualine_a = {
+                    'mode',
+                },
                 lualine_b = {
-                    {
-                        'mode',
-                        separator = { right = '' },
-                    },
-                    {
-                        'searchcount',
-                        icon = { '', color = { fg = lualine_colors.dark }, align = 'left' },
-                        color = { fg = lualine_colors.dark },
-                    },
-                    {
-                        'selectioncount',
-                        icon = { '󰒅', color = { fg = lualine_colors.dark }, align = 'left' },
-                        color = { fg = lualine_colors.dark },
-                    },
-                },
-                lualine_c = {
-                    {
-                        'branch',
-                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
-                        left_padding = 2,
-                    },
-                    {
-                        'diff',
-                        color = { bg = lualine_colors.dark },
-                    },
-                },
-                lualine_x = {
                     {
                         'diagnostics',
                         sources = { 'nvim_lsp' },
@@ -103,7 +77,6 @@ return {
                         update_in_insert = true,
                         symbols = { hint = ' ' },
                         padding = 1,
-                        separator = { left = '' },
                     },
                     {
                         'diagnostics',
@@ -118,7 +91,6 @@ return {
                         update_in_insert = true,
                         symbols = { hint = ' ' },
                         padding = 1,
-                        separator = { left = '' },
                     },
                     {
                         'diagnostics',
@@ -133,7 +105,6 @@ return {
                         update_in_insert = true,
                         symbols = { warn = ' ' },
                         padding = 1,
-                        separator = { left = '' },
                     },
                     {
                         'diagnostics',
@@ -148,7 +119,31 @@ return {
                         update_in_insert = true,
                         symbols = { error = '✸  ' },
                         padding = 1,
-                        separator = { left = '' }
+                    },
+                },
+                lualine_c = {
+                    {
+                        'searchcount',
+                        icon = { '', color = { fg = lualine_colors.frostgreen }, align = 'left' },
+                        color = { fg = lualine_colors.frostgreen },
+                    },
+                    {
+                        'selectioncount',
+                        icon = { '󰒅', color = { fg = lualine_colors.frostturquoise }, align = 'left' },
+                        color = { fg = lualine_colors.frostturquoise },
+                    },
+                },
+                lualine_x = {
+
+                    {
+                        'branch',
+                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
+                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
+                        left_padding = 2,
+                    },
+                    {
+                        'diff',
+                        color = { bg = lualine_colors.dark },
                     },
                     { 'filetype' },
                     { 'encoding' },

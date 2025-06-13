@@ -9,6 +9,7 @@ return {
     keys = {
         { '\\', ':Neotree toggle<CR>', desc = 'open neotree file explorer' },
     },
+
     config = function()
         require('window-picker').setup({
             filter_rules = {
