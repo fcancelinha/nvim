@@ -41,7 +41,7 @@ return {
             list = {
                 selection = {
                     preselect = true,
-                    auto_insert = true,
+                    auto_insert = false,
                 },
             },
             documentation = {
@@ -53,7 +53,11 @@ return {
             menu = {
                 border = 'rounded',
                 draw = {
-                    padding = { 1, 0 }
+                    columns = {
+                        { 'kind_icon', gap = 3 },
+                        { 'label',     'label_description' },
+                        { 'kind' },
+                    }
                 }
             }
         },

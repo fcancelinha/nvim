@@ -2,13 +2,18 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
     opts = {
         lazygit = {
             enabled = true,
+            theme = {
+                activeBorderColor = { fg = 'String', bold = true },
+            }
         },
         statuscolumn = {
             enabled = true,
+        },
+        notifier = {
+            enabled = true
         },
         terminal = {
             enabled = true,
@@ -29,45 +34,68 @@ return {
         },
         dashboard = {
             enabled = true,
+            width = 18,
             preset = {
                 keys = {
-                    { icon = { ' ', hl = 'Function' }, key = 'f', desc = { 'Find File' }, action = ":lua Snacks.dashboard.pick('files')" },
-                    { icon = { ' ', hl = 'Error' }, key = 'n', desc = { 'New File' }, action = ':ene | startinsert' },
-                    { icon = { ' ', hl = 'String' }, key = 'g', desc = { 'Find Text' }, action = ":lua Snacks.dashboard.pick('live_grep')" },
-                    { icon = { ' ', hl = 'Constant' }, key = 'r', desc = { 'Recent Files' }, action = ":lua Snacks.dashboard.pick('oldfiles')" },
-                    { icon = { ' ', hl = 'Structure' }, key = 'c', desc = { 'Config' }, action = ':Neotree ~/.config/nvim/lua' },
-                    { icon = { ' ', hl = 'Number' }, key = 'e', desc = { 'Restore Session' }, section = 'session' },
-                    { icon = { '󰏗 ', hl = 'SpecialChar' }, key = 'L', desc = { 'Lazy' }, action = ':Lazy', enabled = package.loaded.lazy ~= nil },
-                    { icon = '', desc = '' },
-                    { icon = { ' ', hl = 'Normal' }, key = 'q', desc = { 'Quit' }, action = ':qa' },
                 }
             },
             sections = {
+                -- Hidden
+                { hidden = true, icon = { ' ', hl = 'Error' }, key = 'n', desc = { 'New File' }, action = ':ene | startinsert' },
+                { hidden = true, icon = { ' ', hl = 'Constant' }, key = 'r', desc = { 'Recent Files' }, action = ":lua Snacks.dashboard.pick('oldfiles')" },
+                { hidden = true, icon = { ' ', hl = 'Number' }, key = 'e', desc = { 'Restore Session' }, section = 'session' },
+                { hidden = true, icon = { '󰏗 ', hl = 'SpecialChar' }, key = 'L', desc = { 'Lazy' }, action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+                -- Header
                 {
-                    title = { '-- Recent Files --', hl = 'Function' },
                     padding = 1,
-                    align = 'center'
+                    text = {
+                        { 'Neovim :: B L Λ M E ', hl = 'Function' },
+                        { '- Base reality', hl = 'NonText' },
+                    },
+                    align = 'center',
+                },
+                -- Keys
+                {
+                    padding = 0.7,
+                    text = {
+                        { '  Find [F]ile', width = 19, hl = 'NonText' },
+                        { '  Find [T]ext', hl = 'NonText' },
+                    },
+                    action = ":lua Snacks.dashboard.pick('files')",
+                    key = 'f',
                 },
                 {
-                    section = 'recent_files',
-                    gap = 0,
+                    padding = 0.7,
+                    text = {
+                        { ' ', width = 3 },
+                        { '  [N]ew File', width = 19, hl = 'NonText' },
+                        { '  [R]ecent File', hl = 'NonText' },
+                    },
+                    action = ':ene | startinsert',
+                    key = 'n',
+                },
+                {
+                    padding = 0.7,
+                    text = {
+                        { ' ', width = 9 },
+                        { '  [C]onfig', hl = 'NonText' },
+                        { ' ', width = 8 },
+                        { '󰏗  [L]azy', hl = 'NonText' },
+                        { ' ', width = 14 },
+                    },
+                    action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+                    key = 'c',
+                },
+                {
                     padding = 1,
+                    text = {
+                        { ' ', width = 5 },
+                        { '  [Q]uit', hl = 'NonText' },
+                    },
+                    action = ':quitall',
+                    key = 'q',
                 },
-                {
-                    title = { string.rep('─', 59), hl = 'Function' },
-                    align = 'center'
-                },
-                {
-                    section = 'keys',
-                    gap = 0,
-                    padding = 0,
-                    indent = 2
-                },
-                {
-                    title = { string.rep('─', 59), hl = 'Function' },
-                    padding = 0,
-                    align = 'center'
-                },
+                -- Footer
                 {
                     section = 'startup',
                     align = 'center'
