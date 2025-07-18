@@ -1,6 +1,6 @@
 return {
     'lewis6991/gitsigns.nvim',
-    lazy = false,
+    event = { 'BufReadPost', 'BufNewFile' },
     keys = {
         { '<leader>gb', function() require('gitsigns').toggle_current_line_blame() end, desc = 'toggle git blame' },
     },

@@ -1,16 +1,18 @@
 return {
     'MagicDuck/grug-far.nvim',
+    event = 'VeryLazy',
     keys = {
         {
-            "<leader>gr",
+            '<leader>gr',
             function()
-                require('grug-far').grug_far({
-                    prefills = {
-                        search = vim.fn.expand("<cword>"),
-                    },
+                require('grug-far').open({
+                    engine = 'ripgrep'
+                    -- prefills = {
+                    --     search = vim.fn.expand('<cword>'),
+                    -- },
                 })
             end,
-            desc = "open grug-far (find & replace)",
+            desc = 'open grug-far (find & replace)',
         }
     },
     config = function()

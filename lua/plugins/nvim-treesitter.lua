@@ -1,11 +1,11 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPre", "BufNewFile" },
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    event = 'VeryLazy',
     dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        "windwp/nvim-ts-autotag",
-        "nvim-treesitter/nvim-treesitter-refactor"
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        'windwp/nvim-ts-autotag',
+        'nvim-treesitter/nvim-treesitter-refactor'
     },
     config = function()
         require('nvim-ts-autotag').setup({
@@ -16,8 +16,8 @@ return {
             }
         })
 
-        require("nvim-treesitter.configs").setup({
-            ensure_installed = { "go", "gomod", "gosum", "gowork", "templ" },
+        require('nvim-treesitter.configs').setup({
+            ensure_installed = { 'go', 'gomod', 'gosum', 'gowork', 'templ' },
             sync_install = false,
             auto_install = true,
             highlight = {
@@ -33,7 +33,7 @@ return {
                     enable = true,
                     -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
                     keymaps = {
-                        smart_rename = "grr",
+                        smart_rename = 'grr',
                     },
                 }
             },
@@ -42,29 +42,29 @@ return {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ["]m"] = "@function.outer",
-                        ["]]"] = "@class.outer"
+                        [']m'] = '@function.outer',
+                        [']]'] = '@class.outer'
                     },
                     goto_next_end = {
-                        ["]M"] = "@function.outer",
-                        ["]["] = "@class.outer"
+                        [']M'] = '@function.outer',
+                        [']['] = '@class.outer'
                     },
                     goto_previous_start = {
-                        ["[m"] = "@function.outer",
-                        ["[["] = "@class.outer"
+                        ['[m'] = '@function.outer',
+                        ['[['] = '@class.outer'
                     },
                     goto_previous_end = {
-                        ["[M"] = "@function.outer",
-                        ["[]"] = "@class.outer"
+                        ['[M'] = '@function.outer',
+                        ['[]'] = '@class.outer'
                     }
                 },
                 swap = {
                     enable = true,
                     swap_next = {
-                        ["<leader>sp"] = "@parameter.inner"
+                        ['<leader>sp'] = '@parameter.inner'
                     },
                     swap_previous = {
-                        ["<leader>sP"] = "@parameter.inner"
+                        ['<leader>sP'] = '@parameter.inner'
                     }
                 }
             }

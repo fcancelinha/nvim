@@ -61,9 +61,12 @@ return {
             },
             sections = {
                 lualine_a = {
-                    'mode',
+                    -- 'mode',
                 },
                 lualine_b = {
+                    {
+                        'mode'
+                    },
                     {
                         'diagnostics',
                         sources = { 'nvim_lsp' },

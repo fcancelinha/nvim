@@ -1,5 +1,6 @@
 return {
-    "RRethy/vim-illuminate",
+    'RRethy/vim-illuminate',
+    event = 'VeryLazy',
     config = function()
         -- default configuration
         require('illuminate').configure({
@@ -25,7 +26,7 @@ return {
             filetypes_allowlist = {},
             -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
             -- See `:help mode()` for possible values
-            modes_denylist = { "i" },
+            modes_denylist = { 'i' },
             -- modes_allowlist: modes to illuminate, this is overridden by modes_denylist
             -- See `:help mode()` for possible values
             modes_allowlist = {},
