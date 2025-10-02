@@ -4,11 +4,11 @@ return {
     lazy = false,
     dependencies = {
         'MunifTanjim/nui.nvim',
-        'ThePrimeagen/git-worktree.nvim',
         'nvim-telescope/telescope-fzf-native.nvim',
         'nvim-telescope/telescope-symbols.nvim',
         'nvim-telescope/telescope-dap.nvim',
         'aznhe21/actions-preview.nvim',
+        'nvim-lua/plenary.nvim'
     },
     keys = {
         { '<leader>fB', ':Telescope git_branches<CR>',                            desc = 'Telescope git branches' },
@@ -35,13 +35,10 @@ return {
         local open_with_trouble = require('trouble.sources.telescope').open
 
         -- Extensions
-        require('git-worktree').setup()
         require('actions-preview').setup()
-
-        -- Load Extension
-        require('telescope').load_extension('git_worktree')
         require('telescope').load_extension('noice')
         require('telescope').load_extension('dap')
+        require('telescope').load_extension('persisted')
 
         -- Setup
         require('telescope').setup({

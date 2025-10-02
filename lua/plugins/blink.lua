@@ -24,6 +24,10 @@ return {
         -- C-k: Toggle signature help (if signature.enabled = true)
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
+        enabled = function()
+            -- Disable in Avante chat buffers
+            return not (vim.bo.filetype == 'Avante' or vim.bo.filetype == 'avante')
+        end,
         keymap = {
             -- Use the "super-tab" preset
             preset = 'super-tab',

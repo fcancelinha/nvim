@@ -5,7 +5,6 @@ return {
         'nvim-neotest/nvim-nio',
         'rcarriga/nvim-dap-ui',
         'theHamsta/nvim-dap-virtual-text',
-        'mfussenegger/nvim-dap-python'
     },
     keys = {
         { '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'toggle dap breakpoint' },

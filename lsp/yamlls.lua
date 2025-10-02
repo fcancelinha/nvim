@@ -59,9 +59,19 @@ local schemas = {
 }
 
 return {
-    cmd = { 'yaml-language-server', '--stdio' },
-    filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab', 'yaml.helm-values' },
-    root_markers = { '.git' },
+    cmd = {
+        'yaml-language-server',
+        '--stdio',
+    },
+    filetypes = {
+        'yaml',
+        'yaml.docker-compose',
+        'yaml.gitlab',
+        'yaml.helm-values',
+    },
+    root_markers = {
+        '.git',
+    },
     settings = {
         redhat = {
             telemetry = {
@@ -76,6 +86,8 @@ return {
                 enable = true,
                 singleQuote = false,
                 bracketSpacing = true,
+                printWidth = 150,
+                proseWrap = 'preserve',
             },
             schemas = schemas,
             schemaStore = {

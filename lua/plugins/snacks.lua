@@ -4,13 +4,12 @@ return {
     lazy = false,
     dependencies =
     {
-        'folke/persistence.nvim',
+        'olimorris/persisted.nvim',
         event = 'BufReadPre',
         lazy = false,
-        opts = {
-            dir = vim.fn.stdpath('state') .. '/sessions/',
-            need = 0
-        }
+        config = function()
+            require('persisted').setup()
+        end
     },
     opts = {
         picker = {
@@ -56,13 +55,13 @@ return {
         },
         dashboard = {
             enabled = true,
-            width = 18,
+            width = 5,
             sections = {
                 -- hidden
                 { hidden = true, icon = { ' ', hl = 'error' }, key = 'n', desc = { 'new file' }, action = ':ene | startinsert' },
                 { hidden = true, icon = { ' ', hl = 'constant' }, key = 'r', desc = { 'recent files' }, action = ':Telescope oldfiles' },
                 { hidden = true, icon = { ' ', hl = 'constant' }, key = 't', desc = { 'find text' }, action = ':Telescope live_grep' },
-                { hidden = true, icon = { ' ', hl = 'number' }, key = 'e', desc = { 'restore session' }, section = 'session' },
+                { hidden = true, icon = { ' ', hl = 'number' }, key = 'e', desc = { 'restore session' }, action = ':SessionLoadLast' },
                 { hidden = true, icon = { '󰏗 ', hl = 'specialchar' }, key = 'l', desc = { 'lazy' }, action = ':lazy', enabled = package.loaded.lazy ~= nil },
                 -- header
                 {
@@ -77,7 +76,7 @@ return {
                 {
                     padding = 0.7,
                     text = {
-                        { '  find [f]ile', width = 19, hl = 'nontext' },
+                        { '  [f]ind file', width = 20, hl = 'nontext' },
                         { '  find [t]ext', hl = 'nontext' },
                     },
                     action = ':Telescope find_files',
@@ -86,9 +85,9 @@ return {
                 {
                     padding = 0.7,
                     text = {
-                        { ' ', width = 3 },
-                        { '  [n]ew file', width = 19, hl = 'nontext' },
-                        { '  [r]ecent file', hl = 'nontext' },
+                        { ' ', width = 4 },
+                        { '  [n]ew file', width = 20, hl = 'nontext' },
+                        { '  [r]ecent files', hl = 'nontext' },
                     },
                     action = ':ene | startinsert',
                     key = 'n',
@@ -96,9 +95,19 @@ return {
                 {
                     padding = 0.7,
                     text = {
-                        { ' ', width = 9 },
+                        { ' ', width = 6 },
+                        { '󰐮  [p]rojects', width = 20, hl = 'nontext' },
+                        { '󰦛  r[e]store session', hl = 'nontext' },
+                    },
+                    action = function() Snacks.picker.projects() end,
+                    key = 'p',
+                },
+                {
+                    padding = 0.7,
+                    text = {
+                        { ' ', width = 10 },
                         { '  [c]onfig', hl = 'nontext' },
-                        { ' ', width = 8 },
+                        { ' ', width = 9 },
                         { '󰏗  [l]azy', hl = 'nontext' },
                         { ' ', width = 14 },
                     },
@@ -106,21 +115,9 @@ return {
                     key = 'c',
                 },
                 {
-                    padding = 0.7,
+                    padding = 1.2,
                     text = {
-                        { ' ', width = 20 },
-                        { '󰐮  [p]rojects', hl = 'nontext' },
-                        { ' ', width = 6 },
-                        { '󰦛  r[e]store session', hl = 'nontext' },
-                        { ' ', width = 14 },
-                    },
-                    action = ":lua snacks.dashboard.pick('projects')",
-                    key = 'p',
-                },
-                {
-                    padding = 1,
-                    text = {
-                        { ' ', width = 5 },
+                        { ' ', width = 1 },
                         { '  [q]uit', hl = 'nontext' },
                     },
                     action = ':quitall',

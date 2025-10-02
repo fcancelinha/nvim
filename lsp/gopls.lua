@@ -1,14 +1,5 @@
 return {
     cmd = { 'gopls' },
-    on_attach = function()
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            group = vim.api.nvim_create_augroup('goimports', {}),
-            pattern = '*.go',
-            callback = function()
-                require('go.format').goimports()
-            end,
-        })
-    end,
     settings = {
         gopls = {
             diagnosticsDelay = '100ms',

@@ -28,8 +28,8 @@ keymap('v', 'P', '"_dP', opts)
 -- Stay in indent mode
 keymap('v', '<', '<gv', opts)
 keymap('v', '>', '>gv', opts)
-keymap('n', '[d', vim.diagnostic.goto_prev, opts)
-keymap('n', ']d', vim.diagnostic.goto_next, opts)
+keymap('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+keymap('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
 
 -- Exit insert mode
 keymap('i', 'jk', '<Esc>', opts)

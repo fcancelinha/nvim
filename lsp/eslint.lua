@@ -1,7 +1,30 @@
 return {
-    cmd = { 'vscode-eslint-language-server', '--stdio' },
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'vue', 'svelte', 'astro' },
+    cmd = {
+        'vscode-eslint-language-server',
+        '--stdio',
+    },
+    filetypes = {
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx',
+        'vue',
+        'svelte',
+        'astro',
+        'htmlangular',
+    },
+    root_dir = require('lspconfig').util.root_pattern(
+        '.eslintrc.js',
+        '.eslintrc.json',
+        '.eslintrc',
+        'eslint.config.js',
+        'package.json',
+        'yarn.lock' -- Add this for Yarn projects
+    ),
     settings = {
+        packageManager = 'yarn', -- or 'yarn', 'pnpm', 'npm'
         codeAction = {
             disableRuleComment = {
                 enable = true,
@@ -12,11 +35,11 @@ return {
             }
         },
         codeActionOnSave = {
-            enable = false,
+            enable = true,
             mode = 'all'
         },
         experimental = {
-            useFlatConfig = false
+            useFlatConfig = true
         },
         format = true,
         nodePath = '',
@@ -30,7 +53,11 @@ return {
         useESLintClass = false,
         validate = 'on',
         workingDirectory = {
+            -- mode = 'auto'
             mode = 'location'
+        },
+        options = {
+            resolvePluginsRelativeTo = nil -- auto-detect
         }
     }
 }

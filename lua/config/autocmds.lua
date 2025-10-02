@@ -5,12 +5,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-    callback = function(args)
-        require('conform').format({ bufnr = args.buf })
-    end,
-})
-
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {

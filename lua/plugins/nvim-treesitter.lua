@@ -17,7 +17,7 @@ return {
         })
 
         require('nvim-treesitter.configs').setup({
-            ensure_installed = { 'go', 'gomod', 'gosum', 'gowork', 'templ' },
+            ensure_installed = { 'go', 'lua' },
             sync_install = false,
             auto_install = true,
             highlight = {
