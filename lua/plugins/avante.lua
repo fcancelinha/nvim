@@ -19,7 +19,6 @@ return {
     dependencies = {
         'MunifTanjim/nui.nvim',
         --- The below dependencies are optional,
-        'stevearc/dressing.nvim', -- for input provider dressing
         'folke/snacks.nvim',      -- for input provider snacks
         'zbirenbaum/copilot.lua', -- for providers='copilot'
         {

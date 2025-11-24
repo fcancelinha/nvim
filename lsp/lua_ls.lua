@@ -3,16 +3,6 @@ return {
     filetypes = {
         'lua',
     },
-    on_attach = function()
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            pattern = '*.lua',
-            callback = function()
-                if vim.bo.buftype == '' then
-                    vim.lsp.buf.format({ async = false })
-                end
-            end,
-        })
-    end,
     settings = {
         Lua = {
             runtime = {

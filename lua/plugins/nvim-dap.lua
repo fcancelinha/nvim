@@ -63,25 +63,6 @@ return {
                 mode = 'test',
                 program = './${relativeFileDirname}'
             },
-            {
-                name = 'Local Mirrord Debug',
-                type = 'go',
-                request = 'launch',
-                program = '${workspaceFolder}/cmd/main.go',
-                env = {
-                    MIRRORD_CONFIG_FILE = '${workspaceFolder}/.mirrord/mirrord.json', -- Path to mirrord.json
-                },
-                args = {
-                    'run',
-                    '.',
-                    '--log-level',
-                    'debug',
-                    '--db-ctx-timeout',
-                    '50',
-                    '--db-cleanup-timeout',
-                    '3000'
-                }
-            }
         }
     end,
 }

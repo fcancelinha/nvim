@@ -5,7 +5,9 @@ return {
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
         'windwp/nvim-ts-autotag',
-        'nvim-treesitter/nvim-treesitter-refactor'
+        'nvim-treesitter/nvim-treesitter-refactor',
+        'b0o/schemastore.nvim',
+        'nvim-lua/plenary.nvim',
     },
     config = function()
         require('nvim-ts-autotag').setup({
