@@ -8,7 +8,6 @@
 
 -- Shorten function name
 local keymap = vim.keymap.set
-
 -- Silent keymap option
 local opts = { silent = true, noremap = true }
 
@@ -20,7 +19,6 @@ keymap('', '<Space>', '<Nop>', opts)
 -- Better Paste
 keymap('n', 'p', ':set paste<CR>p:set nopaste<CR>', opts)
 keymap('v', '<leader>p', '"_dP', opts)
-
 -- paste over currently selected text without yanking it
 keymap('v', 'p', '"_dp', opts)
 keymap('v', 'P', '"_dP', opts)
@@ -28,6 +26,7 @@ keymap('v', 'P', '"_dP', opts)
 -- Stay in indent mode
 keymap('v', '<', '<gv', opts)
 keymap('v', '>', '>gv', opts)
+
 keymap('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
 keymap('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
 
@@ -35,10 +34,34 @@ keymap('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) e
 keymap('i', 'jk', '<Esc>', opts)
 
 -- Better window navigation
-keymap('n', '<C-h>', '<C-w>h', opts)
-keymap('n', '<C-k>', '<C-w>k', opts)
-keymap('n', '<C-j>', '<C-w>j', opts)
-keymap('n', '<C-l>', '<C-w>l', opts)
+local function is_fzf_buffer()
+    return vim.bo.filetype == 'fzf'
+end
+
+keymap('n', '<C-h>', function()
+    if not is_fzf_buffer() then
+        vim.cmd('wincmd h')
+    end
+end, opts)
+
+keymap('n', '<C-k>', function()
+    if not is_fzf_buffer() then
+        vim.cmd('wincmd k')
+    end
+end, opts)
+
+keymap('n', '<C-j>', function()
+    if not is_fzf_buffer() then
+        vim.cmd('wincmd j')
+    end
+end, opts)
+
+keymap('n', '<C-l>', function()
+    if not is_fzf_buffer() then
+        vim.cmd('wincmd l')
+    end
+end, opts)
+
 keymap('i', '<Up>', '<C-k>', opts)
 keymap('i', '<Down>', '<C-j>', opts)
 
@@ -55,8 +78,8 @@ keymap('n', '<A-j>', 'mz:m+<CR>`z==', opts)
 keymap('n', '<A-k>', 'mz:m-2<CR>`z==', opts)
 keymap('i', '<A-j>', '<Esc>:m+1<CR>==gi', opts)
 keymap('i', '<A-k>', '<Esc>:m-2<CR>==gi', opts)
-keymap('v', '<A-j>', ":m'>+<CR>gv=`<my`>mzgv`yo`z", opts)
-keymap('v', '<A-k>', ":m'<-2<CR>gv=`>my`<mzgv`yo`z", opts)
+keymap('v', '<A-j>', ":m'>+<CR>gv`<my`>mzg`yo`z", opts)
+keymap('v', '<A-k>', ":m'<-2<CR>gv`>my`<mzg`yo`z", opts)
 
 -- Clear highlights
 keymap('n', '<leader>h', '<cmd>nohlsearch<CR>', opts)

@@ -13,9 +13,16 @@ return {
     },
     opts = {
         picker = {
+            input = {
+                keys = {
+                    ['<C-j>'] = { 'list_down', mode = 'i' },
+                    ['<C-k>'] = { 'list_up', mode = 'i' },
+                }
+            },
             sources = {
                 explorer = {
                     hidden = true,
+                    cwd = vim.uv.cwd(),
                     exclude = { '.git' },
                     include = { '.env' },
                     auto_close = false,
@@ -32,7 +39,7 @@ return {
             }
         },
         explorer = {
-            enabled = true,
+            enabled = false,
         },
         lazygit = {
             enabled = true,
@@ -69,9 +76,33 @@ return {
             sections = {
                 -- hidden
                 { hidden = true, icon = { ' ', hl = 'error' }, key = 'n', desc = { 'new file' }, action = ':ene | startinsert' },
-                { hidden = true, icon = { ' ', hl = 'constant' }, key = 'r', desc = { 'recent files' }, action = ':Telescope oldfiles' },
-                { hidden = true, icon = { ' ', hl = 'constant' }, key = 't', desc = { 'find text' }, action = ':Telescope live_grep' },
-                { hidden = true, icon = { ' ', hl = 'number' }, key = 'e', desc = { 'restore session' }, action = ':SessionLoadLast' },
+                {
+                    hidden = true,
+                    icon = { ' ', hl = 'constant' },
+                    key = 'r',
+                    desc = { 'recent files' },
+                    action = function()
+                        Snacks.picker.recent()
+                    end
+                },
+                {
+                    hidden = true,
+                    icon = { ' ', hl = 'constant' },
+                    key = 't',
+                    desc = { 'find text' },
+                    action = function()
+                        Snacks.picker.grep()
+                    end
+                },
+                {
+                    hidden = true,
+                    icon = { ' ', hl = 'number' },
+                    key = 'e',
+                    desc = { 'restore session' },
+                    action = function()
+                        Snacks.picker.resume()
+                    end
+                },
                 { hidden = true, icon = { '󰏗 ', hl = 'specialchar' }, key = 'l', desc = { 'lazy' }, action = ':Lazy', enabled = package.loaded.lazy ~= nil },
                 -- header
                 {
@@ -90,7 +121,9 @@ return {
                         { '  [f]ind file', width = 20, hl = 'nontext' },
                         { '  find [t]ext', hl = 'nontext' },
                     },
-                    action = ':Telescope find_files',
+                    action = function()
+                        Snacks.picker.smart()
+                    end,
                     key = 'f',
                     align = 'center',
                 },
@@ -112,7 +145,9 @@ return {
                         { '󰐮  [p]rojects', width = 20, hl = 'nontext' },
                         { '󰦛  r[e]store session', hl = 'nontext' },
                     },
-                    action = function() Snacks.picker.projects() end,
+                    action = function()
+                        Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
+                    end,
                     key = 'p',
                     align = 'center',
                 },
@@ -125,8 +160,7 @@ return {
                         { '󰏗  [l]azy', hl = 'nontext' },
                         { ' ', width = 14 },
                     },
-                    -- action = ':Telescope find_files cwd=' .. vim.fn.stdpath('config'),
-                    action = function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end,
+                    action = function() require('fzf-lua').files({ cwd = vim.fn.stdpath('config') }) end,
                     key = 'c',
                     align = 'center',
                 },
@@ -156,7 +190,7 @@ return {
         -- Existing Keys
         { '<leader>gg', function() require('snacks').lazygit() end,         desc = 'Toggle lazygit' },
         { '<C-\\>',     function() require('snacks').terminal() end,        desc = 'Toggle terminal' },
-        { '\\',         function() require('snacks').explorer() end,        desc = 'Toggle explorer' },
+        -- { '\\',         function() require('snacks').explorer() end,        desc = 'Toggle explorer' },
         -- Picker keys (converted from Telescope)
         { '<leader>fD', function() Snacks.picker.diagnostics() end,         desc = 'Snacks diagnostics' },
         { '<leader>fb', function() Snacks.picker.buffers() end,             desc = 'Snacks buffers' },
@@ -180,4 +214,5 @@ return {
         { '<leader>fp', function() Snacks.picker.projects() end,            desc = 'Snacks lsp implementations' },
         { '<leader>ga', function() Snacks.picker.lsp_code_actions() end,    desc = 'Snacks code actions',       mode = { 'v', 'n' } }
     }
+
 }

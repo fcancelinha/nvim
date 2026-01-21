@@ -5,7 +5,7 @@ return {
             diagnosticsDelay = '100ms',
             experimentalPostfixCompletions = true,
             semanticTokens = true,
-            noSemanticString = true,
+            -- noSemanticString = true,
             matcher = 'fuzzy',
             gofumpt = true,
             symbolMatcher = 'fuzzy',
