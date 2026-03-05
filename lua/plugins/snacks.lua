@@ -15,8 +15,8 @@ return {
         picker = {
             input = {
                 keys = {
-                    ['<C-j>'] = { 'list_down', mode = 'i' },
-                    ['<C-k>'] = { 'list_up', mode = 'i' },
+                    ['<C-j>'] = { 'list_down', mode = { 'i', 'n' } },
+                    ['<C-k>'] = { 'list_up', mode = { 'i', 'n' } },
                 }
             },
             sources = {
@@ -160,7 +160,9 @@ return {
                         { '󰏗  [l]azy', hl = 'nontext' },
                         { ' ', width = 14 },
                     },
-                    action = function() require('fzf-lua').files({ cwd = vim.fn.stdpath('config') }) end,
+                    action = function()
+                        Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
+                    end,
                     key = 'c',
                     align = 'center',
                 },
