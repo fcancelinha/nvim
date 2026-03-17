@@ -1,7 +1,9 @@
 return {
     'mason-org/mason.nvim',
+    lazy = false,  -- Load immediately for DAP setup
     dependencies = {
         'williamboman/mason-lspconfig.nvim',
+        'jay-babu/mason-nvim-dap.nvim',
     },
     config = function()
         vim.env.PATH = table.concat({ vim.fn.stdpath('data'), 'mason', 'bin' }, '/') .. ':' .. vim.env.PATH
@@ -32,6 +34,15 @@ return {
 
         require('mason-lspconfig').setup({
             ensure_installed = vim.list_extend(vim.tbl_keys(server_configs), manual_servers),
+        })
+
+        require('mason-nvim-dap').setup({
+            ensure_installed = { 'delve' }, -- Go debugger
+            handlers = {
+                function(config)
+                    require('mason-nvim-dap').default_setup(config)
+                end,
+            },
         })
     end
 }
