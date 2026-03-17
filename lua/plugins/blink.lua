@@ -31,9 +31,9 @@ return {
         keymap = {
             -- Use the "super-tab" preset
             preset = 'super-tab',
-            -- Map Ctrl+K/L to previous/next completion item
-            ['<C-k>'] = { 'select_prev', 'fallback' },
-            ['<C-j>'] = { 'select_next', 'fallback' },
+            -- Map Ctrl+N/P to previous/next completion item
+            ['<C-n>'] = { 'select_next', 'fallback' },
+            ['<C-p>'] = { 'select_prev', 'fallback' },
         },
         appearance = {
             -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'

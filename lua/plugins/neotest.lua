@@ -31,23 +31,10 @@ return {
         require('neotest').setup({
             adapters = {
                 require('neotest-go')({
-                    -- args = { "-v", "--race", "--cover" },
-                    -- env = { GO111MODULE = "on" },
-                    verbose = true,
-                    parallel = true,
-                    parallel_test = 5,
                     experimental = {
                         test_table = true,
-                        test_command = function(position)
-                            return 'richgo test ' .. position
-                        end,
                     },
-                    coverage = {
-                        enabled = true,    -- Enable coverage
-                        threshold = 65,    -- Set coverage threshold percentage
-                        report_file = nil, -- "coverage.out", -- Coverage output file
-                    },
-                    recursive_run = true,
+                    args = { '-count=1', '-timeout=60s' }
                 }),
             },
             log_level = vim.log.levels.DEBUG,

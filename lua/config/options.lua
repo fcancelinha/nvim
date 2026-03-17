@@ -3,7 +3,6 @@ vim.g.loaded_netrwPlugin = 1
 
 --:help options
 local options = {
-    autochdir      = true,                                                             -- Automatically change the working directory to the directory of the opened file.
     autoindent     = true,                                                             -- Copy indent from current line when starting a new line.
     autoread       = true,                                                             -- Automatically read files when changed outside of Neovim.
     autowrite      = true,                                                             -- Automatically write (save) the file before commands like :next and :make.
@@ -51,7 +50,7 @@ local options = {
     number         = true,                                                   -- Show line numbers.
     bomb           = false,
     previewheight  = 15,
-    nrformats      = 'bin,hex,octal,alpha,bin',               -- Specifies the type of values that can be incremented or decrementedj
+    nrformats      = 'alpha,octal,hex,bin',               -- Specifies the type of values that can be incremented or decremented
     pumblend       = 5,                                       -- Make the popup menu semi-transparent.
     pumheight      = 25,                                      -- Maximum height of the pop-up menu.
     relativenumber = true,                                    -- Show line numbers relative to the current line.

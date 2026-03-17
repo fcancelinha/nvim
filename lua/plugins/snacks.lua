@@ -2,15 +2,7 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    dependencies =
-    {
-        'olimorris/persisted.nvim',
-        event = 'BufReadPre',
-        lazy = false,
-        config = function()
-            require('persisted').setup()
-        end
-    },
+    dependencies = {},
     opts = {
         picker = {
             input = {
@@ -57,6 +49,9 @@ return {
             enabled = true,
         },
         rename = {
+            enabled = true,
+        },
+        gh = {
             enabled = true,
         },
         indent = {
@@ -146,7 +141,7 @@ return {
                         { '󰦛  r[e]store session', hl = 'nontext' },
                     },
                     action = function()
-                        Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
+                        Snacks.picker.projects()
                     end,
                     key = 'p',
                     align = 'center',
@@ -161,7 +156,7 @@ return {
                         { ' ', width = 14 },
                     },
                     action = function()
-                        Snacks.picker.files({ cwd = vim.fn.stdpath('config') })
+                        require('neo-tree.command').execute({ dir = vim.fn.stdpath('config') })
                     end,
                     key = 'c',
                     align = 'center',
@@ -190,31 +185,36 @@ return {
     },
     keys = {
         -- Existing Keys
-        { '<leader>gg', function() require('snacks').lazygit() end,         desc = 'Toggle lazygit' },
-        { '<C-\\>',     function() require('snacks').terminal() end,        desc = 'Toggle terminal' },
+        { '<leader>gg', function() require('snacks').lazygit() end,               desc = 'Toggle lazygit' },
+        { '<C-\\>',     function() require('snacks').terminal() end,              desc = 'Toggle terminal' },
         -- { '\\',         function() require('snacks').explorer() end,        desc = 'Toggle explorer' },
-        -- Picker keys (converted from Telescope)
-        { '<leader>fD', function() Snacks.picker.diagnostics() end,         desc = 'Snacks diagnostics' },
-        { '<leader>fb', function() Snacks.picker.buffers() end,             desc = 'Snacks buffers' },
-        { '<leader>ff', function() Snacks.picker.smart() end,               desc = 'Snacks find files' },
-        { '<leader>fj', function() Snacks.picker.grep() end,                desc = 'Snacks live grep' },
-        { '<leader>fk', function() Snacks.picker.grep_word() end,           desc = 'Snacks grep string' },
-        { '<leader>fl', function() Snacks.picker.recent() end,              desc = 'Snacks old files' },
-        { '<leader>fm', function() Snacks.picker.marks() end,               desc = 'Snacks marks' },
         -- Git
-        { '<leader>fg', function() Snacks.picker.git_files() end,           desc = 'Snacks git files' },
-        { '<leader>fB', function() Snacks.picker.git_branches() end,        desc = 'Snacks git branches' },
-        { '<leader>fc', function() Snacks.picker.git_log() end,             desc = 'Snacks git commits' },
+        { '<leader>fg', function() Snacks.picker.git_files() end,                 desc = 'Snacks git files' },
+        { '<leader>fB', function() Snacks.picker.git_branches() end,              desc = 'Snacks git branches' },
+        { '<leader>fc', function() Snacks.picker.git_log() end,                   desc = 'Snacks git commits' },
+        -- Github PR's
+        { '<leader>gi', function() Snacks.picker.gh_issue() end,                  desc = 'GitHub Issues (open)' },
+        { '<leader>gI', function() Snacks.picker.gh_issue({ state = 'all' }) end, desc = 'GitHub Issues (all)' },
+        { '<leader>gp', function() Snacks.picker.gh_pr() end,                     desc = 'GitHub Pull Requests (open)' },
+        { '<leader>gP', function() Snacks.picker.gh_pr({ state = 'all' }) end,    desc = 'GitHub Pull Requests (all)' },
+        -- Picker keys
+        { '<leader>fD', function() Snacks.picker.diagnostics() end,               desc = 'Snacks diagnostics' },
+        { '<leader>fb', function() Snacks.picker.buffers() end,                   desc = 'Snacks buffers' },
+        { '<leader>ff', function() Snacks.picker.smart() end,                     desc = 'Snacks find files' },
+        { '<leader>fj', function() Snacks.picker.grep() end,                      desc = 'Snacks live grep' },
+        { '<leader>fk', function() Snacks.picker.grep_word() end,                 desc = 'Snacks grep string' },
+        { '<leader>fl', function() Snacks.picker.recent() end,                    desc = 'Snacks old files' },
+        { '<leader>fm', function() Snacks.picker.marks() end,                     desc = 'Snacks marks' },
         -- Lsp
-        { '<leader>fd', function() Snacks.picker.lsp_definitions() end,     desc = 'Snacks definitions' },
-        { '<leader>fi', function() Snacks.picker.lsp_incoming_calls() end,  desc = 'Snacks incoming calls' },
-        { '<leader>fo', function() Snacks.picker.lsp_outgoing_calls() end,  desc = 'Snacks outgoing calls' },
-        { '<leader>fr', function() Snacks.picker.lsp_references() end,      desc = 'Snacks find references' },
-        { '<leader>fs', function() Snacks.picker.lsp_symbols() end,         desc = 'Snacks document symbols' },
-        { '<leader>fy', function() Snacks.picker.lsp_implementations() end, desc = 'Snacks lsp implementations' },
+        { '<leader>fd', function() Snacks.picker.lsp_definitions() end,           desc = 'Snacks definitions' },
+        { '<leader>fi', function() Snacks.picker.lsp_incoming_calls() end,        desc = 'Snacks incoming calls' },
+        { '<leader>fo', function() Snacks.picker.lsp_outgoing_calls() end,        desc = 'Snacks outgoing calls' },
+        { '<leader>fr', function() Snacks.picker.lsp_references() end,            desc = 'Snacks find references' },
+        { '<leader>fs', function() Snacks.picker.lsp_symbols() end,               desc = 'Snacks document symbols' },
+        { '<leader>fy', function() Snacks.picker.lsp_implementations() end,       desc = 'Snacks lsp implementations' },
         -- Misc
-        { '<leader>fp', function() Snacks.picker.projects() end,            desc = 'Snacks lsp implementations' },
-        { '<leader>ga', function() Snacks.picker.lsp_code_actions() end,    desc = 'Snacks code actions',       mode = { 'v', 'n' } }
+        { '<leader>fp', function() Snacks.picker.projects() end,                  desc = 'Snacks lsp implementations' },
+        { '<leader>ga', function() Snacks.picker.lsp_code_actions() end,          desc = 'Snacks code actions',        mode = { 'v', 'n' } }
     }
 
 }

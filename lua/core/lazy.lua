@@ -1,7 +1,7 @@
 local home = os.getenv('HOME')
 local lazypath = home .. '/.config/nvim/lazy.nvim'
 
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     vim.fn.system({
         'git',
         'clone',
