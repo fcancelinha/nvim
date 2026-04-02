@@ -19,7 +19,7 @@ return {
         })
 
         require('nvim-treesitter.configs').setup({
-            ensure_installed = { 'go', 'lua' },
+            ensure_installed = { 'go', 'gomod', 'gowork', 'gosum', 'lua', 'markdown', 'markdown_inline', 'vimdoc', 'bash', 'json', 'yaml', 'python', 'javascript', 'typescript', 'html', 'css' },
             sync_install = false,
             auto_install = true,
             highlight = {
@@ -31,12 +31,9 @@ return {
                     enable = true,
                     clear_on_cursor_move = true,
                 },
+                -- Note: smart_rename disabled - use native LSP rename (grn in Neovim 0.11+)
                 smart_rename = {
-                    enable = true,
-                    -- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
-                    keymaps = {
-                        smart_rename = 'grr',
-                    },
+                    enable = false,
                 }
             },
             textobjects = {

@@ -1,24 +1,14 @@
 return {
     cmd = { 'lua-language-server' },
-    filetypes = {
-        'lua',
-    },
+    filetypes = { 'lua' },
     settings = {
         Lua = {
             runtime = {
                 version = 'LuaJIT',
             },
+            -- Note: lazydev.nvim handles vim globals and workspace library
             diagnostics = {
-                globals = {
-                    'vim',
-                    'use',
-                    'describe',
-                    'it',
-                    'assert',
-                    'before_each',
-                    'after_each',
-                    'require'
-                }
+                globals = { 'vim' },
             },
             completion = {
                 enable = true,
@@ -35,23 +25,15 @@ return {
                 enable = true,
                 defaultConfig = {
                     quote_style = 'single',
-                    indent_style = 'tab',
+                    indent_style = 'space',
                     indent_size = '4',
                 },
             },
-            lint = {
+            hint = {
                 enable = true,
-                command = 'luacheck',
-                args = {
-                    '--globals',
-                    'vim',
-                    '--formatter',
-                    'plain',
-                    '--codes',
-                    '--ranges',
-                },
+                setType = true,
+                paramType = true,
             },
         },
     },
-
 }

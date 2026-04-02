@@ -1,15 +1,41 @@
+local function current_buffer_dir()
+    local path = vim.api.nvim_buf_get_name(0)
+
+    if path == '' then
+        return vim.uv.cwd()
+    end
+
+    return vim.fs.dirname(path)
+end
+
+local function current_go_root()
+    local root = vim.fs.root(current_buffer_dir(), { 'go.work', 'go.mod', '.git' })
+
+    return root or vim.uv.cwd()
+end
+
 return {
     'nvim-neotest/neotest',
     dependencies = {
         'nvim-neotest/nvim-nio',
         'antoinemadec/FixCursorHold.nvim',
-        'nvim-neotest/neotest-go',
+        'nvim-treesitter/nvim-treesitter',
+                {
+                        'fredrikaverpil/neotest-golang',
+                        version = '*',
+                        build = function()
+                                vim.system({ 'go', 'install', 'gotest.tools/gotestsum@latest' }):wait()
+                        end,
+                },
     },
     keys = {
         { '<leader>tr', function() require('neotest').run.run() end,                                         desc = 'run test' },
         { '<leader>tf', function() require('neotest').run.run(vim.fn.expand('%')) end,                       desc = 'run file tests' },
+        { '<leader>tc', function() require('neotest').run.run(current_buffer_dir()) end,                     desc = 'run package tests' },
+        { '<leader>ta', function() require('neotest').run.run(current_go_root()) end,                        desc = 'run all project tests' },
         { '<leader>tn', function() require('neotest').run.run({ strategy = 'dap' }) end,                     desc = 'run test with dap' },
         { '<leader>td', function() require('neotest').run.run({ vim.fn.expand('%'), strategy = 'dap' }) end, desc = 'run file tests with dap' },
+        { '<leader>tC', function() require('neotest').run.run({ current_buffer_dir(), strategy = 'dap' }) end, desc = 'debug package tests' },
         { '<leader>to', function() require('neotest').output.open({ enter = true }) end,                     desc = 'open test output' },
         { '<leader>tt', function() require('neotest').watch.toggle(vim.fn.expand('%')) end,                  desc = 'toggle watch test' },
         { '<leader>tp', function() require('neotest').output_panel.toggle() end,                             desc = 'open test output panel' },
@@ -30,34 +56,47 @@ return {
 
         require('neotest').setup({
             adapters = {
-                require('neotest-go')({
-                    experimental = {
-                        test_table = true,
+                require('neotest-golang')({
+                    runner = 'gotestsum',
+                    go_test_args = { '-v', '-race', '-count=1', '-timeout=60s' },
+                    gotestsum_args = { '--format=standard-verbose' },
+                    testify_enabled = true,
+                    dap_mode = 'manual',
+                    dap_manual_config = {
+                        type = 'go',
+                        name = 'Neotest Go',
+                        request = 'launch',
+                        mode = 'test',
+                        outputMode = 'remote',
                     },
-                    args = { '-count=1', '-timeout=60s' }
                 }),
             },
             log_level = vim.log.levels.DEBUG,
             concurrent = true,
             floating = {
-                border = 'rounded', -- Border style for floating windows
-                max_height = 0.5,   -- Max height of the floating window
-                max_width = 0.9,    -- Max width of the floating window
+                border = 'rounded',
+                max_height = 0.6,
+                max_width = 0.95,
             },
             diagnostics = {
-                enabled = true,      -- Enable diagnostics integration
-                underline = false,   -- Underline diagnostic errors
-                virtual_text = true, -- Display virtual text for diagnostics
+                enabled = true,
+                underline = false,
+                virtual_text = true,
             },
             summary = {
-                enabled = true,       -- Enable summary window
-                follow = true,        -- Follow the current test in the summary window
-                expand_errors = true, -- Expand errors by default
+                enabled = true,
+                follow = true,
+                expand_errors = true,
+                open = 'botright vsplit | vertical resize 80',
             },
             output = {
                 enabled = true,
-                open_on_run = 'short', -- Open the output window after test run
-                enter = true,          -- Automatically enter the output window
+                open_on_run = 'short',
+                enter = true,
+            },
+            output_panel = {
+                enabled = true,
+                open = 'botright split | resize 20',
             },
         })
     end,

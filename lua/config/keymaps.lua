@@ -27,8 +27,9 @@ keymap('v', 'P', '"_dP', opts)
 keymap('v', '<', '<gv', opts)
 keymap('v', '>', '>gv', opts)
 
-keymap('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
-keymap('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+-- Diagnostic navigation (Neovim 0.11+ uses [d and ]d by default but we customize with float)
+keymap('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { silent = true, noremap = true, desc = 'Previous diagnostic' })
+keymap('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { silent = true, noremap = true, desc = 'Next diagnostic' })
 
 -- Exit insert mode
 keymap('i', 'jk', '<Esc>', opts)

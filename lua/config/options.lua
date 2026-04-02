@@ -24,12 +24,13 @@ local options = {
     expandtab      = true,                                                             -- Convert tabs to spaces.
     fileencoding   = 'utf-8',                                                          -- Set the file-specific encoding to UTF-8.
     foldlevel      = 99,                                                               -- Start with all folds open.
-    foldmethod     = 'syntax',                                                         -- Use syntax-based folding.
+    foldmethod     = 'expr',                                                            -- Use expression-based folding (treesitter).
+    foldexpr       = 'v:lua.vim.treesitter.foldexpr()',                                 -- Treesitter folding expression.
+    foldtext       = '',                                                                -- Use default foldtext (shows first line).
     formatoptions  = 'cqnj',                                                           -- Configure text formatting options.
     guicursor      = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor', -- Configure the cursor look
     guifont        = 'BerkeleyMonoVariable Nerd Font:h10',                             -- Set the font
     helpheight     = 15,
-    hidden         = true,                                                             -- Allow switching between buffers without saving.
     hlsearch       = true,                                                             -- Highlight all matches of the search pattern.
     ignorecase     = true,                                                             -- Ignore case in search patterns.
     inccommand     = 'split',                                                          -- Show the effect of a command incrementally in a split.
@@ -68,6 +69,7 @@ local options = {
     smartcase      = true,                                    -- Override 'ignorecase' if the search pattern contains uppercase letters.
     smartindent    = true,                                    -- Do smart auto-indenting when starting a new line.
     smarttab       = true,                                    -- Insert 'tabstop' spaces when pressing Tab, align with 'shiftwidth' if inside an indent.
+    smoothscroll   = true,                                    -- Smooth scrolling (Neovim 0.10+).
     softtabstop    = 4,                                       -- Number of spaces a tab counts for in editing operations.
     splitbelow     = true,                                    -- Open new horizontal splits below the current window.
     splitkeep      = 'screen',
@@ -107,14 +109,25 @@ local options = {
 
 vim.diagnostic.config({
     underline = true,
-    update_in_insert = true,
-    virtual_text = true,
+    update_in_insert = false,  -- Better performance, update on InsertLeave
+    virtual_text = {
+        spacing = 4,
+        prefix = '●',
+    },
     severity_sort = true,
     virtual_lines = false,
-    signs = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN] = ' ',
+            [vim.diagnostic.severity.HINT] = ' ',
+            [vim.diagnostic.severity.INFO] = ' ',
+        },
+    },
     float = {
         border = 'rounded',
         focusable = true,
+        source = true,  -- Show diagnostic source
     }
 })
 
