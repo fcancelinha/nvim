@@ -1,58 +1,24 @@
 return {
     'nvim-lualine/lualine.nvim',
     config = function()
-        local lualine_colors = {
-            dark           = '#2E3440',
-            frostblue      = '#5E81Ac',
-            frostgreen     = '#8FBCBB',
-            frostlightblue = '#81A1C1',
-            frostturquoise = '#88C0D0',
-            green          = '#A3BE8C',
-            grey           = '#434C5E',
-            greydark       = '#3B4252',
-            orange         = '#D08770',
-            purple         = '#B48EAD',
-            red            = '#BF616A',
-            snowdark       = '#D8DEE9',
-            snowlight      = '#ECEFF4',
-            snowshade      = '#E5E9F0',
-            yellow         = '#EBCB8B',
-            special        = '#384356',
-            none           = 'None',
-        }
+        local C = require('nordern.colors')
 
         local custom_nordern = require('lualine.themes.nordern')
-        custom_nordern.normal.x.bg = lualine_colors.none
-        custom_nordern.insert.x.bg = lualine_colors.none
-        custom_nordern.visual.x.bg = lualine_colors.none
-        custom_nordern.replace.x.bg = lualine_colors.none
-        custom_nordern.command.x.bg = lualine_colors.none
-        custom_nordern.normal.b.bg = lualine_colors.none
-        custom_nordern.insert.b.bg = lualine_colors.none
-        custom_nordern.visual.b.bg = lualine_colors.none
-        custom_nordern.replace.b.bg = lualine_colors.none
-        custom_nordern.command.b.bg = lualine_colors.none
-        custom_nordern.normal.c.bg = lualine_colors.none
-        custom_nordern.insert.c.bg = lualine_colors.none
-        custom_nordern.visual.c.bg = lualine_colors.none
-        custom_nordern.replace.c.bg = lualine_colors.none
-        custom_nordern.command.c.bg = lualine_colors.none
-
-        local lsp_display = function()
-            local msg = 'No Active LSP'
-            local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
-            local clients = vim.lsp.get_clients()
-            if next(clients) == nil then
-                return msg
-            end
-            for _, client in ipairs(clients) do
-                local filetypes = client.config.filetypes
-                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                    return client.name
-                end
-            end
-            return msg
-        end
+        custom_nordern.normal.x.bg = C.none
+        custom_nordern.insert.x.bg = C.none
+        custom_nordern.visual.x.bg = C.none
+        custom_nordern.replace.x.bg = C.none
+        custom_nordern.command.x.bg = C.none
+        custom_nordern.normal.b.bg = C.none
+        custom_nordern.insert.b.bg = C.none
+        custom_nordern.visual.b.bg = C.none
+        custom_nordern.replace.b.bg = C.none
+        custom_nordern.command.b.bg = C.none
+        custom_nordern.normal.c.bg = C.none
+        custom_nordern.insert.c.bg = C.none
+        custom_nordern.visual.c.bg = C.none
+        custom_nordern.replace.c.bg = C.none
+        custom_nordern.command.c.bg = C.none
 
         require('lualine').setup({
             options = {
@@ -77,21 +43,38 @@ return {
             },
             sections = {
                 lualine_a = {
-                    { 'mode' },
-                    { 'location' },
-                },
-                lualine_b = {
-                },
-                lualine_c = {
                     {
                         'searchcount',
-                        icon = { '', color = { fg = lualine_colors.frostgreen }, align = 'left' },
-                        color = { fg = lualine_colors.frostgreen },
+                        icon = { '', color = { fg = C.bg }, align = 'left' },
+                        color = { fg = C.bg },
                     },
                     {
                         'selectioncount',
-                        icon = { '󰒅', color = { fg = lualine_colors.frostturquoise }, align = 'left' },
-                        color = { fg = lualine_colors.frostturquoise },
+                        icon = { '󰒅', color = { fg = C.bg }, align = 'left' },
+                        color = { fg = C.bg },
+                    },
+                },
+                lualine_b = {
+                    {
+                        'branch',
+                        icon = { '󰊢', color = { fg = C.aurora.green, bg = C.none }, align = 'left' },
+                        color = { fg = C.snow.c2, bg = C.none },
+                        left_padding = 2,
+                    },
+                    {
+                        'diff',
+                        color = { bg = C.bg },
+                    },
+                    {
+                        'filetype',
+                        icon_only = true,
+                        padding = { left = 1, right = 0 },
+                    },
+                    {
+                        'filename',
+                        file_status = true,
+                        newfile_status = true,
+                        padding = { left = 0, right = 1 },
                     },
                     {
                         'diagnostics',
@@ -99,8 +82,8 @@ return {
                         sections = { 'hint' },
                         diagnostics_color = {
                             hint = {
-                                fg = lualine_colors.frostturquoise,
-                                bg = lualine_colors.none,
+                                bg = C.blend.turquoise,
+                                fg = C.frost.turquoise,
                             }
                         },
                         update_in_insert = true,
@@ -112,13 +95,13 @@ return {
                         sources = { 'nvim_lsp' },
                         sections = { 'info' },
                         diagnostics_color = {
-                            hint = {
-                                fg = lualine_colors.frostblue,
-                                bg = lualine_colors.none,
+                            info = {
+                                bg = C.blend.bluec1,
+                                fg = C.frost.turquoise,
                             }
                         },
                         update_in_insert = true,
-                        symbols = { hint = ' ' },
+                        symbols = { info = ' ' },
                         padding = 1,
                     },
                     {
@@ -127,8 +110,8 @@ return {
                         sections = { 'warn' },
                         diagnostics_color = {
                             warn = {
-                                fg = lualine_colors.yellow,
-                                bg = lualine_colors.none,
+                                bg = C.blend.yellow,
+                                fg = C.aurora.yellow,
                             }
                         },
                         update_in_insert = true,
@@ -141,37 +124,32 @@ return {
                         sections = { 'error' },
                         diagnostics_color = {
                             error = {
-                                fg = lualine_colors.red,
-                                bg = lualine_colors.none,
+                                bg = C.blend.red,
+                                fg = C.aurora.red,
                             }
                         },
                         update_in_insert = true,
-                        symbols = { error = '✸  ' },
+                        symbols = { error = '✸ ' },
                         padding = 1,
                     },
                 },
+                lualine_c = {
+                },
                 lualine_x = {
-                    {
-                        'branch',
-                        icon = { '󰊢 ', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.snowlight, bg = lualine_colors.none },
-                        left_padding = 2,
-                    },
-                    {
-                        'diff',
-                        color = { bg = lualine_colors.dark },
-                    },
-                    { 'filetype' },
+                    { 'fileformat' },
                     { 'encoding' },
-
                     {
-                        lsp_display,
-                        icon = { '󰒋', color = { fg = lualine_colors.green, bg = lualine_colors.none }, align = 'left' },
-                        color = { fg = lualine_colors.snowlight, gui = 'bold' },
-                    },
+                        'lsp_status',
+                        icon = { '󰒋', color = { fg = C.aurora.green, bg = C.none }, align = 'left' },
+                        color = { fg = C.snow.c2, gui = 'bold' },
+                        separator = '|'
+                    }
                 },
                 lualine_y = {},
-                lualine_z = {},
+                lualine_z = {
+                    { 'location' },
+                    { 'mode' },
+                },
             },
             inactive_sections = {
                 lualine_a = {},

@@ -1,3 +1,4 @@
+-- Disable netrw early to avoid conflicts with file explorers
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -24,9 +25,9 @@ local options = {
     expandtab      = true,                                                             -- Convert tabs to spaces.
     fileencoding   = 'utf-8',                                                          -- Set the file-specific encoding to UTF-8.
     foldlevel      = 99,                                                               -- Start with all folds open.
-    foldmethod     = 'expr',                                                            -- Use expression-based folding (treesitter).
-    foldexpr       = 'v:lua.vim.treesitter.foldexpr()',                                 -- Treesitter folding expression.
-    foldtext       = '',                                                                -- Use default foldtext (shows first line).
+    foldmethod     = 'expr',                                                           -- Use expression-based folding (treesitter).
+    foldexpr       = 'v:lua.vim.treesitter.foldexpr()',                                -- Tree-sitter powered folding.
+    foldtext       = '',                                                               -- Use default foldtext (shows first line).
     formatoptions  = 'cqnj',                                                           -- Configure text formatting options.
     guicursor      = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor', -- Configure the cursor look
     guifont        = 'BerkeleyMonoVariable Nerd Font:h10',                             -- Set the font
@@ -34,8 +35,9 @@ local options = {
     hlsearch       = true,                                                             -- Highlight all matches of the search pattern.
     ignorecase     = true,                                                             -- Ignore case in search patterns.
     inccommand     = 'split',                                                          -- Show the effect of a command incrementally in a split.
+    indentexpr     = 'v:lua.vim.treesitter.indentexpr()',                              -- FIXED: Tree-sitter based indentation
     incsearch      = true,                                                             -- Show search matches as you type.
-    laststatus     = 3,                                                                -- Always display the status line (0: never, 1: only if there are splits, 2: always, 3: global status line).
+    laststatus     = 3,                                                                -- Always display the status line (global statusline).
     linebreak      = false,                                                            -- Wrap lines at convenient points.
     list           = false,                                                            -- Show whitespace characters like tabs and trailing spaces.
     listchars      = {
@@ -51,7 +53,7 @@ local options = {
     number         = true,                                                   -- Show line numbers.
     bomb           = false,
     previewheight  = 15,
-    nrformats      = 'alpha,octal,hex,bin',               -- Specifies the type of values that can be incremented or decremented
+    nrformats      = 'alpha,octal,hex,bin',                   -- Specifies the type of values that can be incremented or decremented
     pumblend       = 5,                                       -- Make the popup menu semi-transparent.
     pumheight      = 25,                                      -- Maximum height of the pop-up menu.
     relativenumber = true,                                    -- Show line numbers relative to the current line.
@@ -89,45 +91,55 @@ local options = {
     wildmenu       = false,                                   -- Disable command-line completion with a list of matches.
     winblend       = 5,                                       -- Make the popup menu semi-transparent.
     winminwidth    = 10,                                      -- The minimum width a window can be resized to. This ensures that windows are not resized below 10 columns when adjusting window splits.
-    winwidth       = 30,                                      -- The ideal width of windows when a new window is opened. Neovim will attempt to resize windows to at least 30 columns when possible.
+    winborder      = 'rounded',
+    winwidth       = 30,                                      -- The ideal width of windows when a new window is opened.
     wrap           = true,                                    -- Wrap long lines to the next line.
     writebackup    = false,                                   -- Don't make a backup before overwriting a file.
-    wildignore     = [[
-    .git,.hg,.svn
-    *.aux,*.out,*.toc
-    *.o,*.obj,*.exe,*.dll,*.manifest,*.rbc,*.class
-    *.ai,*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png,*.psd,*.webp
-    *.avi,*.divx,*.mp4,*.webm,*.mov,*.m2ts,*.mkv,*.vob,*.mpg,*.mpeg
-    *.mp3,*.oga,*.ogg,*.wav,*.flac
-    *.eot,*.otf,*.ttf,*.woff
-    *.doc,*.pdf,*.cbr,*.cbz
-    *.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz,*.kgb
-    *.swp,.lock,.DS_Store,._*
-    */tmp/*,*.so,*.swp,*.zip,**/node_modules/**,**/target/**,**.terraform/**"
-    ]],
 }
 
+-- Apply all options
+for k, v in pairs(options) do
+    vim.opt[k] = v
+end
+
+-- Wildignore (clean table format - improved)
+vim.opt.wildignore:append({
+    '.git', '.hg', '.svn',
+    '*.aux', '*.out', '*.toc',
+    '*.o', '*.obj', '*.exe', '*.dll', '*.manifest', '*.rbc', '*.class',
+    '*.ai', '*.bmp', '*.gif', '*.ico', '*.jpg', '*.jpeg', '*.png', '*.psd', '*.webp',
+    '*.avi', '*.divx', '*.mp4', '*.webm', '*.mov', '*.m2ts', '*.mkv', '*.vob', '*.mpg', '*.mpeg',
+    '*.mp3', '*.oga', '*.ogg', '*.wav', '*.flac',
+    '*.eot', '*.otf', '*.ttf', '*.woff',
+    '*.doc', '*.pdf', '*.cbr', '*.cbz',
+    '*.zip', '*.tar.gz', '*.tar.bz2', '*.rar', '*.tar.xz', '*.kgb',
+    '*.swp', '.lock', '.DS_Store', '._*',
+    '*/tmp/*', '*.so', '*.swp', '*.zip',
+    '**/node_modules/**', '**/target/**', '**/.terraform/**',
+})
+
+-- Diagnostics
 vim.diagnostic.config({
     underline = true,
-    update_in_insert = false,  -- Better performance, update on InsertLeave
+    update_in_insert = false,
     virtual_text = {
         spacing = 4,
-        prefix = '●',
+        prefix = ' ',
     },
     severity_sort = true,
     virtual_lines = false,
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = ' ',
-            [vim.diagnostic.severity.WARN] = ' ',
-            [vim.diagnostic.severity.HINT] = ' ',
-            [vim.diagnostic.severity.INFO] = ' ',
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN] = ' ',
+            [vim.diagnostic.severity.HINT] = ' ',
+            [vim.diagnostic.severity.INFO] = '󰌵 ',
         },
     },
     float = {
         border = 'rounded',
         focusable = true,
-        source = true,  -- Show diagnostic source
+        source = true,
     }
 })
 
@@ -136,21 +148,15 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSi
 vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵 ', texthl = 'DiagnosticSignHint' })
 
+-- WSL clipboard
 if vim.fn.has('wsl') == 1 then
     vim.g.clipboard = {
         name = 'WslClipboard',
-        copy = {
-            ['+'] = 'clip.exe',
-            ['*'] = 'clip.exe',
-        },
+        copy = { ['+'] = 'clip.exe', ['*'] = 'clip.exe' },
         paste = {
             ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
             ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
         },
         cache_enable = 0
     }
-end
-
-for k, v in pairs(options) do
-    vim.opt[k] = v
 end

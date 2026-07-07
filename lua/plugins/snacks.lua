@@ -2,7 +2,16 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
-    dependencies = {},
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        {
+            'folke/persistence.nvim',
+            event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+            opts = {
+                dir = vim.fn.stdpath('state') .. '/sessions/'
+            }
+        }
+    },
     opts = {
         picker = {
             input = {
@@ -11,8 +20,16 @@ return {
                     ['<C-k>'] = { 'list_up', mode = { 'i', 'n' } },
                 }
             },
+            layout = {
+                backdrop = 'false',
+                width = 0.2,
+                -- max_width = 70,
+                border = 'rounded',
+                title = '{title} {live} {flags}',
+                title_pos = 'center',
+            },
             sources = {
-                explorer = {
+                explorer            = {
                     hidden = true,
                     cwd = vim.uv.cwd(),
                     exclude = { '.git' },
@@ -27,11 +44,59 @@ return {
                             position = 'left'
                         }
                     }
-                }
+                },
+                smart               = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                buffers             = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                diagnostics         = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                lsp_definitions     = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                lsp_incoming_calls  = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                lsp_outgoing_calls  = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                lsp_references      = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                lsp_implementations = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
+                projects            = {
+                    layout = {
+                        preset = 'vertical',
+                    },
+                },
             }
         },
         explorer = {
             enabled = false,
+        },
+        smoothscroll = {
+            enabled = true,
         },
         lazygit = {
             enabled = true,
@@ -54,6 +119,15 @@ return {
         gh = {
             enabled = true,
         },
+        git = {
+            enabled = false,
+            width = 0.6,
+            height = 0.6,
+            border = true,
+            title = ' Git Blame ',
+            title_pos = 'center',
+            ft = 'git',
+        },
         indent = {
             priority = 1,
             enabled = true,
@@ -62,6 +136,7 @@ return {
                 enabled = false,
             },
             scope = {
+                enabled = false,
                 char = '│',
             }
         },
@@ -95,7 +170,7 @@ return {
                     key = 'e',
                     desc = { 'restore session' },
                     action = function()
-                        Snacks.picker.resume()
+                        require('persistence').load({ last = true })
                     end
                 },
                 { hidden = true, icon = { '󰏗 ', hl = 'specialchar' }, key = 'l', desc = { 'lazy' }, action = ':Lazy', enabled = package.loaded.lazy ~= nil },
@@ -174,7 +249,18 @@ return {
                 {
                     section = 'startup',
                     align = 'center'
-                }
+                },
+                {
+                    text = {
+                        {
+                            string.format('v%d.%d.%d', vim.version().major, vim.version().minor,
+                                vim.version().patch),
+                            hl = 'Comment'
+                        },
+                    },
+                    padding = 2,
+                    align = 'center',
+                },
             },
             formats = {
                 key = function(item)
@@ -214,7 +300,5 @@ return {
         { '<leader>fy', function() Snacks.picker.lsp_implementations() end,       desc = 'Snacks lsp implementations' },
         -- Misc
         { '<leader>fp', function() Snacks.picker.projects() end,                  desc = 'Snacks lsp implementations' },
-        { '<leader>ga', function() Snacks.picker.lsp_code_actions() end,          desc = 'Snacks code actions',        mode = { 'v', 'n' } }
     }
-
 }

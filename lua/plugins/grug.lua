@@ -3,7 +3,7 @@ return {
     event = 'VeryLazy',
     keys = {
         {
-            '<leader>gr',
+            '<leader>Gr',
             function()
                 require('grug-far').open({
                     engine = 'ripgrep'

@@ -1,7 +1,8 @@
-vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+-- Auto-start Tree-sitter highlighting for all files
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { '*' },
     callback = function()
-        vim.highlight.on_yank({ higroup = 'Yank', timeout = 200 })
+        pcall(vim.treesitter.start) -- "pcall" prevents errors if no parser exists
     end,
 })
 
@@ -18,8 +19,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         -- Custom keymaps that complement Neovim 0.11 defaults
-        -- Default keymaps in 0.11: grn (rename), gra (code_action), grr (references),
-        -- gri (implementation), gO (document_symbol), K (hover), [d/]d (diagnostics)
+        -- Default keymaps in 0.11:
+        -- grn (rename),
+        -- gra (code_action),
+        -- grr (references),
+        -- gri (implementation),
+        -- gO (document_symbol),
+        -- K (hover),
+        -- [d/]d (diagnostics)
+
         local opts = function(desc)
             return { buffer = bufnr, silent = true, noremap = true, desc = 'LSP: ' .. desc }
         end
@@ -30,12 +38,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts('Signature help'))
         vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts('Open diagnostic float'))
 
-        -- Enable inlay hints if supported (toggle with <leader>ih)
-        if client and client:supports_method('textDocument/inlayHint') then
-            vim.keymap.set('n', '<leader>ih', function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-            end, opts('Toggle inlay hints'))
-        end
+        vim.api.nvim_create_autocmd('TextYankPost', {
+            group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+            callback = function()
+                vim.hl.on_yank({ higroup = 'Yank', timeout = 200 })
+            end,
+        })
 
         -- Format on save for supported clients
         if client and client:supports_method('textDocument/formatting') then

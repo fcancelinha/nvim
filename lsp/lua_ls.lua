@@ -30,7 +30,7 @@ return {
                 },
             },
             hint = {
-                enable = true,
+                enable = false,
                 setType = true,
                 paramType = true,
             },
