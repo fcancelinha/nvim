@@ -40,6 +40,11 @@ local function setup_servers()
         'bashls',
         'dockerls',
         'eslint',
+        'html',
+        'cssls',
+        'graphql',
+        'docker_language_server',
+        'docker_compose_language_server'
     }
 
     for _, server_name in ipairs(manual_servers) do
