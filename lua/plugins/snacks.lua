@@ -45,6 +45,53 @@ return {
                         }
                     }
                 },
+                files               = {
+                    exclude = {
+                        -- Go specific
+                        'vendor',
+                        '**/vendor/**',
+                        'pkg/mod',
+                        '**/pkg/mod/**',
+                        'go/pkg/mod',
+                        '**/go/pkg/mod/**',
+
+                        -- general
+                        '.git',
+                        'node_modules',
+                        'dist',
+                        'build',
+                        'target',
+                        '.idea',
+                        '.vscode',
+                    },
+                },
+                grep                = {
+                    exclude = {
+                        'vendor',
+                        '**/vendor/**',
+                        'pkg/mod',
+                        '**/pkg/mod/**',
+                        'go/pkg/mod',
+                        '**/go/pkg/mod/**',
+                        '.git',
+                        'node_modules',
+                        'dist',
+                        'build',
+                        'target',
+                    },
+                },
+                grep_word           = {
+                    exclude = {
+                        'vendor',
+                        '**/vendor/**',
+                        'pkg/mod',
+                        '**/pkg/mod/**',
+                        'go/pkg/mod',
+                        '**/go/pkg/mod/**',
+                        '.git',
+                        'node_modules',
+                    },
+                },
                 smart               = {
                     layout = {
                         preset = 'vertical',

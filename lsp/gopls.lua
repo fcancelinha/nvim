@@ -2,11 +2,10 @@ return {
     cmd = { 'gopls' },
     settings = {
         gopls = {
-            diagnosticsDelay = '100ms',
+            diagnosticsDelay = '250ms',
             experimentalPostfixCompletions = true,
             semanticTokens = true,
-            -- noSemanticString = true,
-            matcher = 'fuzzy',
+            matcher = 'Fuzzy',
             gofumpt = true,
             symbolMatcher = 'fuzzy',
             vulncheck = 'Imports',
@@ -15,16 +14,16 @@ return {
             completeUnimported = true,
             usePlaceholders = true,
             codelenses = {
-                gc_details         = true,
-                debug              = true,
-                generate           = true,
-                run_govulncheck    = true,
-                test               = true,
-                tidy               = true,
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
                 upgrade_dependency = true,
-                regenerate_cgo     = true,
-                vendor             = true,
+                vendor = true,
             },
+
             hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
@@ -34,12 +33,13 @@ return {
                 parameterNames = true,
                 rangeVariableTypes = true,
             },
+
             analyses = {
                 nilness = true,
                 assign = true,
                 atomic = true,
-                unusedparams = false,
-                unusedvariable = false,
+                unusedparams = true,
+                unusedvariable = true,
                 unusedwrite = true,
                 useany = true,
                 unreachable = true,
@@ -50,9 +50,15 @@ return {
                 shadow = true,
                 fillreturns = true,
             },
-            directoryFilters = { '-.git', '-node_modules', '-.idea', '-.vscode-test', '-.vscode' },
+            directoryFilters = {
+                '-.git',
+                '-node_modules',
+                '-.idea',
+                '-.vscode-test',
+                '-.vscode',
+            },
             buildFlags = { '-tags', 'integration' },
-        }
+        },
     },
     filetypes = {
         'go',
@@ -63,5 +69,4 @@ return {
         'gohtmltmpl',
         'gotexttmpl',
     },
-
 }
