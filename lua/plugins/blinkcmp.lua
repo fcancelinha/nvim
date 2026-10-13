@@ -34,6 +34,15 @@ return {
             -- Map Ctrl+N/P to previous/next completion item
             ['<C-j>'] = { 'select_next', 'fallback' },
             ['<C-k>'] = { 'select_prev', 'fallback' },
+            -- C-k is taken by select_prev, so signature toggles on C-s
+            ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
+        },
+        signature = {
+            enabled = true,
+            window = {
+                border = 'rounded',
+                show_documentation = true,
+            },
         },
         appearance = {
             -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'

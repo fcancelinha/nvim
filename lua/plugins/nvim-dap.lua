@@ -4,6 +4,7 @@ return {
         'nvim-neotest/nvim-nio',
         'rcarriga/nvim-dap-ui',
         'theHamsta/nvim-dap-virtual-text',
+        'mfussenegger/nvim-dap-python',
     },
     keys = {
         { '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'toggle dap breakpoint' },
@@ -26,17 +27,17 @@ return {
         vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'Keyword' })
         vim.fn.sign_define('DapStopped', { text = '󱆭', texthl = 'String' })
 
-        dap.adapters = {
-            go = {
-                type = 'server',
-                port = '${port}',
-                executable = {
-                    command = 'dlv',
-                    args = { 'dap', '-l', '127.0.0.1:${port}' },
-                    -- add this if on windows, otherwise server won't open successfully
-                    detached = false
-                }
-            },
+        -- Assign per-key, not a whole-table replacement: mason-nvim-dap and
+        -- dap-python register their adapters here too.
+        dap.adapters.go = {
+            type = 'server',
+            port = '${port}',
+            executable = {
+                command = 'dlv',
+                args = { 'dap', '-l', '127.0.0.1:${port}' },
+                -- add this if on windows, otherwise server won't open successfully
+                detached = false
+            }
         }
 
         -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
@@ -63,5 +64,10 @@ return {
                 program = './${relativeFileDirname}'
             },
         }
+
+        -- dap-python registers the adapter and its launch configurations itself.
+        -- Prefer mason's debugpy venv over whatever interpreter is on PATH.
+        local debugpy = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python'
+        require('dap-python').setup(vim.uv.fs_stat(debugpy) and debugpy or 'python3')
     end,
 }

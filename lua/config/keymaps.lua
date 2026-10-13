@@ -17,7 +17,6 @@ vim.g.maplocalleader = '<space>'
 keymap('', '<Space>', '<Nop>', opts)
 
 -- Better Paste
-keymap('n', 'p', ':set paste<CR>p:set nopaste<CR>', opts)
 keymap('v', '<leader>p', '"_dP', opts)
 -- paste over currently selected text without yanking it
 keymap('v', 'p', '"_dp', opts)
@@ -84,3 +83,8 @@ keymap('v', '<A-k>', ":m'<-2<CR>gv`>my`<mzg`yo`z", opts)
 
 -- Clear highlights
 keymap('n', '<leader>h', '<cmd>nohlsearch<CR>', opts)
+
+-- Toggle LSP inlay hints (gopls provides them; pyright does not)
+keymap('n', '<leader>ih', function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+end, { silent = true, noremap = true, desc = 'Toggle inlay hints' })

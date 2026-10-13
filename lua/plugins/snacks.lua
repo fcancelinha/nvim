@@ -1,3 +1,91 @@
+-- Nerd-font glyphs are not all the same display width, so anything that needs
+-- to line up in a column is padded with `nvim_strwidth`, not `#`.
+local function pad(s, width)
+    return s .. (' '):rep(math.max(0, width - vim.api.nvim_strwidth(s)))
+end
+
+-- Recent files as a compact block. Every row is padded to the same display
+-- width so `align = 'center'` centers the list as one unit (left edges lined
+-- up) instead of centering each row on its own length.
+local function recent_files(limit)
+    return function()
+        local rows, lens, width = {}, {}, 0
+        for i, item in ipairs(Snacks.dashboard.sections.recent_files({ limit = limit })()) do
+            local path = vim.fn.fnamemodify(item.file, ':~')
+            local dir, name = path:match('^(.*/)([^/]+)$')
+            dir, name = dir or '', name or path
+            if vim.api.nvim_strwidth(name .. dir) > 44 then
+                dir = vim.fn.pathshorten(dir)
+            end
+            local icon, icon_hl = Snacks.util.icon(name, 'file')
+            local text = {
+                { pad(tostring(i), 3),     hl = 'nontext' },
+                { pad(icon or ' ', 3),     hl = icon_hl or 'icon' },
+                { name,                    hl = 'Normal' },
+                { '  ' .. dir,             hl = 'Comment' },
+            }
+            local len = 0
+            for _, t in ipairs(text) do
+                len = len + vim.api.nvim_strwidth(t[1])
+            end
+            width, lens[i] = math.max(width, len), len
+            rows[i] = { key = tostring(i), action = item.action, align = 'center', text = text }
+        end
+        for i, row in ipairs(rows) do
+            table.insert(row.text, { (' '):rep(width - lens[i]) })
+        end
+        if rows[#rows] then
+            rows[#rows].padding = 1
+        end
+        return rows
+    end
+end
+
+-- Two-column key grid. Column widths are measured from the labels themselves so
+-- both columns line up, and since every row then has the same total width,
+-- `align = 'center'` centers the grid as one block. A row with no second label
+-- is centered across the full grid instead.
+local GRID_GAP = 4
+
+local function keygrid(rows)
+    return function()
+        local lw, rw = 0, 0
+        for _, row in ipairs(rows) do
+            lw = math.max(lw, vim.api.nvim_strwidth(row[3]))
+            rw = math.max(rw, row[4] and vim.api.nvim_strwidth(row[4]) or 0)
+        end
+        lw = lw + GRID_GAP
+        local out = vim.tbl_map(function(row)
+            local key, action, left, right = unpack(row, 1, 4)
+            local text = right
+                and { { pad(left, lw), hl = 'nontext' }, { pad(right, rw), hl = 'nontext' } }
+                or { { left, width = lw + rw, align = 'center', hl = 'nontext' } }
+            return { key = key, action = action, align = 'center', text = text }
+        end, rows)
+        -- Rows sit flush against each other; only the block gets a trailing gap.
+        if out[#out] then
+            out[#out].padding = 1
+        end
+        return out
+    end
+end
+
+-- Header. `align = 'center'` centers the whole line, which would leave the
+-- title itself sitting left of centre once the suffix is appended. A leading
+-- spacer as wide as the suffix cancels that out, so the title is centered and
+-- the suffix hangs off to its right.
+local function header(title, suffix)
+    return {
+        padding = 1,
+        align = 'center',
+        text = {
+            -- { (' '):rep(vim.api.nvim_strwidth(suffix)) },
+            { title,                                   hl = 'function' },
+            { suffix,                                  hl = 'nontext' },
+        },
+    }
+end
+
 return {
     'folke/snacks.nvim',
     priority = 1000,
@@ -189,109 +277,53 @@ return {
         },
         dashboard = {
             enabled = true,
-            width = 5,
+            width = 56,
             sections = {
-                -- hidden
-                { hidden = true, icon = { ' ', hl = 'error' }, key = 'n', desc = { 'new file' }, action = ':ene | startinsert' },
+                -- hidden: keys owned by the right-hand column of the grid
                 {
                     hidden = true,
-                    icon = { ' ', hl = 'constant' },
-                    key = 'r',
-                    desc = { 'recent files' },
-                    action = function()
-                        Snacks.picker.recent()
-                    end
-                },
-                {
-                    hidden = true,
-                    icon = { ' ', hl = 'constant' },
                     key = 't',
-                    desc = { 'find text' },
                     action = function()
                         Snacks.picker.grep()
                     end
                 },
                 {
                     hidden = true,
-                    icon = { ' ', hl = 'number' },
+                    key = 'r',
+                    action = function()
+                        Snacks.picker.recent()
+                    end
+                },
+                {
+                    hidden = true,
                     key = 'e',
-                    desc = { 'restore session' },
                     action = function()
                         require('persistence').load({ last = true })
                     end
                 },
-                { hidden = true, icon = { '󰏗 ', hl = 'specialchar' }, key = 'l', desc = { 'lazy' }, action = ':Lazy', enabled = package.loaded.lazy ~= nil },
+                { hidden = true, key = 'l', action = ':Lazy', enabled = package.loaded.lazy ~= nil },
                 -- header
-                {
-                    padding = 1,
-                    text = {
-                        { 'Neovim :: b l λ m e ', hl = 'function' },
-                        { '- base reality', hl = 'nontext' },
-                        { ' ', width = 2 },
-                    },
-                    align = 'center',
-                },
+                header('Neovim :: b l λ m e', ' - base reality'),
                 -- keys
-                {
-                    padding = 0.7,
-                    text = {
-                        { '  [f]ind file', width = 20, hl = 'nontext' },
-                        { '  find [t]ext', hl = 'nontext' },
+                keygrid({
+                    { 'f', function() Snacks.picker.smart() end, '  [f]ind file',    '  find [t]ext' },
+                    { 'n', ':ene | startinsert',                 '  [n]ew file',     '  [r]ecent files' },
+                    { 'p', function() Snacks.picker.projects() end, '󰐮  [p]rojects',  '󰦛  r[e]store session' },
+                    {
+                        'c',
+                        function() require('neo-tree.command').execute({ dir = vim.fn.stdpath('config') }) end,
+                        '  [c]onfig',
+                        '󰏗  [l]azy',
                     },
-                    action = function()
-                        Snacks.picker.smart()
-                    end,
-                    key = 'f',
-                    align = 'center',
-                },
-                {
-                    padding = 0.7,
-                    text = {
-                        { ' ', width = 3 },
-                        { '  [n]ew file', width = 20, hl = 'nontext' },
-                        { '  [r]ecent files', hl = 'nontext' },
-                    },
-                    action = ':ene | startinsert',
-                    key = 'n',
-                    align = 'center',
-                },
-                {
-                    padding = 0.7,
-                    text = {
-                        { ' ', width = 7 },
-                        { '󰐮  [p]rojects', width = 20, hl = 'nontext' },
-                        { '󰦛  r[e]store session', hl = 'nontext' },
-                    },
-                    action = function()
-                        Snacks.picker.projects()
-                    end,
-                    key = 'p',
-                    align = 'center',
-                },
-                {
-                    padding = 0.7,
-                    text = {
-                        { ' ', width = 9 },
-                        { '  [c]onfig', hl = 'nontext' },
-                        { ' ', width = 9 },
-                        { '󰏗  [l]azy', hl = 'nontext' },
-                        { ' ', width = 14 },
-                    },
-                    action = function()
-                        require('neo-tree.command').execute({ dir = vim.fn.stdpath('config') })
-                    end,
-                    key = 'c',
-                    align = 'center',
-                },
+                    { 'q', ':quitall', '  [q]uit' },
+                }),
+                -- recent files
                 {
                     padding = 1,
-                    text = {
-                        { '  [q]uit', hl = 'nontext' },
-                    },
-                    action = ':quitall',
-                    key = 'q',
                     align = 'center',
+                    text = { { '── recent ──', hl = 'nontext' } },
                 },
+                recent_files(5),
                 -- footer
                 {
                     section = 'startup',
@@ -305,7 +337,7 @@ return {
                             hl = 'Comment'
                         },
                     },
-                    padding = 2,
+                    padding = 1,
                     align = 'center',
                 },
             },

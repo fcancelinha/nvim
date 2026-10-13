@@ -1,7 +1,18 @@
+local function current_buffer_dir()
+    return vim.fn.expand('%:p:h')
+end
+
+-- Nearest enclosing project root, Go or Python, falling back to cwd.
+local function current_project_root()
+    local markers = { 'go.work', 'go.mod', 'pyproject.toml', 'setup.py', 'setup.cfg', '.git' }
+    return vim.fs.root(vim.api.nvim_buf_get_name(0), markers) or vim.fn.getcwd()
+end
+
 return {
     'nvim-neotest/neotest',
     dependencies = {
         'nvim-neotest/nvim-nio',
+        'nvim-neotest/neotest-python',
         'nvim-lua/plenary.nvim',           -- still useful / commonly expected
         'antoinemadec/FixCursorHold.nvim', -- recommended by neotest
         {
@@ -20,7 +31,7 @@ return {
         { '<leader>tr', function() require('neotest').run.run() end,                                           desc = 'Run nearest test' },
         { '<leader>tf', function() require('neotest').run.run(vim.fn.expand('%')) end,                         desc = 'Run file tests' },
         { '<leader>tc', function() require('neotest').run.run(current_buffer_dir()) end,                       desc = 'Run package tests' },
-        { '<leader>ta', function() require('neotest').run.run(current_go_root()) end,                          desc = 'Run all project tests' },
+        { '<leader>ta', function() require('neotest').run.run(current_project_root()) end,                     desc = 'Run all project tests' },
         { '<leader>tn', function() require('neotest').run.run({ strategy = 'dap' }) end,                       desc = 'Debug nearest test' },
         { '<leader>td', function() require('neotest').run.run({ vim.fn.expand('%'), strategy = 'dap' }) end,   desc = 'Debug file tests' },
         { '<leader>tC', function() require('neotest').run.run({ current_buffer_dir(), strategy = 'dap' }) end, desc = 'Debug package tests' },
@@ -68,6 +79,13 @@ return {
                     -- Optional but useful:
                     -- env = { ... },
                     -- sanitize_output = true,   -- if you ever see weird characters
+                }),
+
+                require('neotest-python')({
+                    runner = 'pytest',
+                    args = { '-vv' },
+                    -- Step into library code, not just your own frames
+                    dap = { justMyCode = false },
                 }),
             },
 
