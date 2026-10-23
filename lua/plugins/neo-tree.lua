@@ -7,7 +7,7 @@ return {
         's1n7ax/nvim-window-picker',
     },
     keys = {
-        { '\\', ':Neotree toggle<CR>', desc = 'open neotree file explorer' },
+        { '§', ':Neotree toggle<CR>', desc = 'open neotree file explorer' },
     },
     config = function()
         -- Prevent Neovim from changing cwd when opening files
@@ -53,11 +53,11 @@ return {
                     enable_character_fade = true
                 },
                 indent = {
-                    indent_size = 3,
-                    padding = 4,
+                    indent_size = 2,
+                    padding = 3,
                     with_markers = true,
-                    indent_marker = '│',
-                    last_indent_marker = '└',
+                    indent_marker = ' │',
+                    last_indent_marker = ' └ ',
                     highlight = 'NeoTreeIndentMarker',
                     with_expanders = true,
                     expander_collapsed = '',

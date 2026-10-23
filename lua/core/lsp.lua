@@ -44,7 +44,9 @@ local function setup_servers()
         'cssls',
         'graphql',
         'docker_language_server',
-        'docker_compose_language_server'
+        'docker_compose_language_server',
+        'ruff',
+        'marksman',
     }
 
     for _, server_name in ipairs(manual_servers) do

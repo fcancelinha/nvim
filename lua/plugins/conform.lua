@@ -1,22 +1,24 @@
 return {
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
-    keys = {
-        {
-            '<leader>cf',
-            function() require('conform').format({ async = true, lsp_format = 'fallback' }) end,
-            mode = { 'n', 'v' },
-            desc = 'Format buffer',
-        },
-    },
+    event = 'BufWritePre',
     opts = {
         formatters_by_ft = {
-            python = { 'ruff_fix', 'ruff_organize_imports', 'ruff_format' },
-            go = { 'goimports', 'gofumpt' },
+            go = {
+                'goimports',
+                'gofumpt',
+            },
+            python = {
+                'ruff',
+                'ruff_organize_imports',
+                'ruff_format',
+            },
+            json = {
+                'fixjson',
+                'jq',
+            },
         },
         format_on_save = {
-            timeout_ms = 2000,
+            timeout_ms = 500,
             lsp_format = 'fallback',
         },
     },

@@ -6,30 +6,23 @@ vim.api.nvim_create_autocmd('FileType', {
     end,
 })
 
--- Python buffer-local tweaks. Globally 'smartindent'/'cindent' are on for C-like
--- languages, and smartindent is what yanks a leading '#' to column 0 on insert.
-vim.api.nvim_create_autocmd('FileType', {
-    group = vim.api.nvim_create_augroup('python_indent', { clear = true }),
-    pattern = 'python',
-    callback = function(event)
-        vim.bo[event.buf].smartindent = false
-        vim.bo[event.buf].cindent = false
-        vim.bo[event.buf].textwidth = 88 -- matches ruff lineLength in lsp/ruff.lua
-        vim.wo.colorcolumn = '89'
-    end,
-})
-
 -- Briefly highlight yanked text
 vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+    group = vim.api.nvim_create_augroup('HighlightYank', { clear = true }),
     callback = function()
         vim.hl.on_yank({ higroup = 'Yank', timeout = 200 })
     end,
 })
 
+-- Universal formatter using the native API
+vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = '*',
+    callback = function()
+        vim.lsp.buf.format({ async = false })
+    end,
+})
+
 -- LspAttach autocommand for LSP-specific configuration
--- Note: Neovim 0.11+ provides default keymaps (grn=rename, gra=code_action, grr=references, etc.)
--- We only add custom mappings and features here
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
     callback = function(event)
@@ -40,7 +33,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         -- Custom keymaps that complement Neovim 0.11 defaults
-        -- Default keymaps in 0.11:
         -- grn (rename),
         -- gra (code_action),
         -- grr (references),
@@ -67,4 +59,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end
     end,
+
+
 })
