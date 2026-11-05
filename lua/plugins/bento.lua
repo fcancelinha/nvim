@@ -1,6 +1,3 @@
-return {
-    'serhez/bento.nvim',
-    opts = {
-        main_keymap = ';',
-    },
-}
+require('bento').setup({
+    main_keymap = ';',
+})

@@ -1,6 +1,4 @@
 lua/config/dbconns.lua
-lazy-lock.json
-lazy.nvim
 lua/nordern
 lua/lualine
 lua/node_modules

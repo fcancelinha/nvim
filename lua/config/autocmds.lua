@@ -14,14 +14,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
--- Universal formatter using the native API
-vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = '*',
-    callback = function()
-        vim.lsp.buf.format({ async = false })
-    end,
-})
-
 -- LspAttach autocommand for LSP-specific configuration
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
@@ -58,7 +50,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
         if client and client:supports_method('textDocument/inlayHint') then
             vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end
+
+        -- Highlight other occurrences of the symbol under the cursor, after
+        -- 'updatetime' (100ms) and in normal mode only. Replaces
+        -- vim-illuminate. Guarded because several clients attach per buffer.
+        if client and client:supports_method('textDocument/documentHighlight')
+            and not vim.b[bufnr].lsp_highlight_attached then
+            vim.b[bufnr].lsp_highlight_attached = true
+
+            local group = vim.api.nvim_create_augroup('UserLspHighlight', { clear = false })
+
+            vim.api.nvim_create_autocmd('CursorHold', {
+                group = group,
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.document_highlight() end,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter' }, {
+                group = group,
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.clear_references() end,
+            })
+        end
     end,
-
-
 })

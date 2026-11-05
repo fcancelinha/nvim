@@ -90,7 +90,7 @@ local options = {
     visualbell     = false,                                   -- Disable visual bell (flashing) on error messages.
     whichwrap      = vim.opt.whichwrap:append('<,>,[,],h,l'), -- Extend wrap options for certain keys.
     wildmenu       = false,                                   -- Disable command-line completion with a list of matches.
-    winblend       = 5,                                       -- Make the popup menu semi-transparent.
+    winblend       = 0,                                       -- Make the popup menu semi-transparent.
     winminwidth    = 10,                                      -- The minimum width a window can be resized to. This ensures that windows are not resized below 10 columns when adjusting window splits.
     winborder      = 'rounded',
     winwidth       = 30,                                      -- The ideal width of windows when a new window is opened.
@@ -143,11 +143,6 @@ vim.diagnostic.config({
         source = true,
     }
 })
-
-vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵 ', texthl = 'DiagnosticSignHint' })
 
 -- WSL clipboard
 if vim.fn.has('wsl') == 1 then

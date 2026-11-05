@@ -1,22 +1,8 @@
-return {
-    {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        config = true,
-        lazy = true,
-        opts = {
-            disable_filetype = { 'TelescopePrompt' },
-        }
-    },
-    {
-        'kylechui/nvim-surround',
-        version = '*', -- Use for stability; omit to use `main` branch for the latest features
-        event = 'VeryLazy',
-        config = function()
-            require('nvim-surround').setup()
-        end
-    }
-}
+require('nvim-autopairs').setup({
+    disable_filetype = { 'TelescopePrompt' },
+})
+
+require('nvim-surround').setup()
 
 --   Old text                    Command         New text
 ---------------------------------------------------------------------------------

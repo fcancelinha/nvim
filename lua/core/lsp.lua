@@ -39,14 +39,14 @@ local function setup_servers()
     local manual_servers = {
         'bashls',
         'dockerls',
+        'marksman',
+        'ruff',
         'eslint',
         'html',
         'cssls',
         'graphql',
         'docker_language_server',
         'docker_compose_language_server',
-        'ruff',
-        'marksman',
     }
 
     for _, server_name in ipairs(manual_servers) do

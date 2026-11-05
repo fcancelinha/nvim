@@ -1,10 +1,2 @@
-return {
-    'Wansmer/treesj',
-    keys = {
-        '<space>m',
-        '<space>j',
-    },
-    config = function()
-        require('treesj').setup()
-    end,
-}
+-- <space>m toggles split/join, <space>j joins, <space>s splits.
+require('treesj').setup()

@@ -1,4 +1,1 @@
-return {
-    'esmuellert/codediff.nvim',
-    cmd = 'CodeDiff',
-}
+require('codediff').setup()

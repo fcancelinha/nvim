@@ -1,73 +1,68 @@
-return {
-    'mfussenegger/nvim-dap',
-    dependencies = {
-        'nvim-neotest/nvim-nio',
-        'rcarriga/nvim-dap-ui',
-        'theHamsta/nvim-dap-virtual-text',
-        'mfussenegger/nvim-dap-python',
-    },
-    keys = {
-        { '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'toggle dap breakpoint' },
-        { '<leader>dc', function() require('dap').continue() end,          desc = 'dap continue' },
-        { '<leader>di', function() require('dap').step_into() end,         desc = 'dap step into' },
-        { '<leader>do', function() require('dap').step_over() end,         desc = 'dap step over' },
-        { '<leader>dO', function() require('dap').step_out() end,          desc = 'dap step out' },
-        { '<leader>dr', function() require('dap').repl.toggle() end,       desc = 'dap repl toggle' },
-        { '<leader>dl', function() require('dap').run_last() end,          desc = 'dap run last ' },
-        { '<leader>dt', function() require('dap').terminate() end,         desc = 'dap terminate' },
-        { '<leader>du', function() require('dapui').toggle() end,          desc = 'dap UI toggle' },
-    },
-    config = function()
-        local dap = require('dap')
-        require('dapui').setup()
+local dap = require('dap')
 
-        vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Error' })
-        vim.fn.sign_define('DapBreakpointCondition', { text = '󰯲', texthl = 'Conditional' })
-        vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Error' })
-        vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'Keyword' })
-        vim.fn.sign_define('DapStopped', { text = '󱆭', texthl = 'String' })
+require('dapui').setup()
+require('nvim-dap-virtual-text').setup()
 
-        -- Assign per-key, not a whole-table replacement: mason-nvim-dap and
-        -- dap-python register their adapters here too.
-        dap.adapters.go = {
-            type = 'server',
-            port = '${port}',
-            executable = {
-                command = 'dlv',
-                args = { 'dap', '-l', '127.0.0.1:${port}' },
-                -- add this if on windows, otherwise server won't open successfully
-                detached = false
-            }
-        }
+vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Error' })
+vim.fn.sign_define('DapBreakpointCondition', { text = '󰯲', texthl = 'Conditional' })
+vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Error' })
+vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'Keyword' })
+vim.fn.sign_define('DapStopped', { text = '󱆭', texthl = 'String' })
 
-        -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-        dap.configurations.go = {
-            {
-                type = 'go',
-                name = 'Debug',
-                request = 'launch',
-                program = './${relativeFileDirname}'
-            },
-            {
-                type = 'go',
-                name = 'Debug test', -- configuration for debugging test files
-                request = 'launch',
-                mode = 'test',
-                program = './${relativeFileDirname}'
-            },
-            -- works with go.mod packages and sub packages
-            {
-                type = 'go',
-                name = 'Debug test (go.mod)',
-                request = 'launch',
-                mode = 'test',
-                program = './${relativeFileDirname}'
-            },
-        }
-
-        -- dap-python registers the adapter and its launch configurations itself.
-        -- Prefer mason's debugpy venv over whatever interpreter is on PATH.
-        local debugpy = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python'
-        require('dap-python').setup(vim.uv.fs_stat(debugpy) and debugpy or 'python3')
-    end,
+-- Assign per-key, not a whole-table replacement: mason-nvim-dap and
+-- dap-python register their adapters here too.
+dap.adapters.go = {
+    type = 'server',
+    port = '${port}',
+    executable = {
+        command = 'dlv',
+        args = { 'dap', '-l', '127.0.0.1:${port}' },
+        detached = false
+    }
 }
+
+-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+dap.configurations.go = {
+    {
+        type = 'go',
+        name = 'Debug',
+        request = 'launch',
+        program = './${relativeFileDirname}'
+    },
+    {
+        type = 'go',
+        name = 'Debug test', -- configuration for debugging test files
+        request = 'launch',
+        mode = 'test',
+        program = './${relativeFileDirname}'
+    },
+    -- works with go.mod packages and sub packages
+    {
+        type = 'go',
+        name = 'Debug test (go.mod)',
+        request = 'launch',
+        mode = 'test',
+        program = './${relativeFileDirname}'
+    },
+}
+
+-- dap-python registers the adapter and its launch configurations itself.
+-- Prefer mason's debugpy venv over whatever interpreter is on PATH.
+local debugpy = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python'
+require('dap-python').setup(vim.uv.fs_stat(debugpy) and debugpy or 'python3')
+
+local keys = {
+    { '<leader>db', function() dap.toggle_breakpoint() end,   'toggle dap breakpoint' },
+    { '<leader>dc', function() dap.continue() end,            'dap continue' },
+    { '<leader>di', function() dap.step_into() end,           'dap step into' },
+    { '<leader>do', function() dap.step_over() end,           'dap step over' },
+    { '<leader>dO', function() dap.step_out() end,            'dap step out' },
+    { '<leader>dr', function() dap.repl.toggle() end,         'dap repl toggle' },
+    { '<leader>dl', function() dap.run_last() end,            'dap run last' },
+    { '<leader>dt', function() dap.terminate() end,           'dap terminate' },
+    { '<leader>du', function() require('dapui').toggle() end, 'dap UI toggle' },
+}
+
+for _, map in ipairs(keys) do
+    vim.keymap.set('n', map[1], map[2], { desc = map[3], silent = true })
+end
