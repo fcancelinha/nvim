@@ -250,7 +250,7 @@ local function refresh() require('incline').refresh() end
 -- that changes the bar's contents without moving the cursor leaves it stale.
 -- These are the events behind each component that incline does not watch.
 vim.api.nvim_create_autocmd({
-    'BufModifiedSet',   -- the modified flag behind the filename highlight
+    'BufModifiedSet', -- the modified flag behind the filename highlight
     'TextChanged',
     'TextChangedI',
     'DiagnosticChanged',
