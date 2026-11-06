@@ -1,6 +1,3 @@
--- LSP Configuration using Neovim's native APIs (0.11+)
--- This module configures Language Server Protocol clients using Neovim's built-in LSP support
-
 ---@type lsp.ClientCapabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -37,13 +34,10 @@ local function setup_servers()
 
     -- Servers without custom configurations (basic setup)
     local manual_servers = {
-        'bashls',
-        'dockerls',
-        'marksman',
-        'ruff',
-        'eslint',
         'html',
         'cssls',
+        'bashls',
+        'ruff',
         'graphql',
         'docker_language_server',
         'docker_compose_language_server',
@@ -57,11 +51,8 @@ local function setup_servers()
         end
     end
 
-    -- Enable all servers (Neovim 0.11+ handles this automatically with lsp/ directory)
-    -- vim.lsp.enable() is called automatically for files in lsp/ directory
     local all_servers = vim.list_extend(vim.tbl_keys(server_configs), manual_servers)
     vim.lsp.enable(all_servers)
 end
 
--- Initialize LSP configuration
 setup_servers()

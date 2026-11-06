@@ -1,10 +1,6 @@
 ---@module 'blink.cmp'
 ---@type blink.cmp.Config
 require('blink.cmp').setup({
-    enabled = function()
-        -- Disable in Avante chat buffers
-        return not (vim.bo.filetype == 'Avante' or vim.bo.filetype == 'avante')
-    end,
     keymap = {
         -- All presets have the following mappings:
         -- C-space: Open menu or open docs if already open

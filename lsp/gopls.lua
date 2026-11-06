@@ -1,5 +1,6 @@
 return {
     cmd = { 'gopls' },
+    root_markers = { 'go.work', 'go.mod', '.git' },
     settings = {
         gopls = {
             diagnosticsDelay = '250ms',

@@ -39,6 +39,7 @@ local options = {
     indentexpr     = 'v:lua.vim.treesitter.indentexpr()',                              -- FIXED: Tree-sitter based indentation
     incsearch      = true,                                                             -- Show search matches as you type.
     laststatus     = 3,                                                                -- Always display the status line (global statusline).
+    statusline     = ' ',                                                              -- Blank: incline carries everything, this just anchors messages.
     linebreak      = false,                                                            -- Wrap lines at convenient points.
     list           = false,                                                            -- Show whitespace characters like tabs and trailing spaces.
     listchars      = {
