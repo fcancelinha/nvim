@@ -182,7 +182,7 @@ local RIGHT = {
     { 'selection',   keep = 6 },
     { 'search',      keep = 3 },
     -- { 'position',    keep = 9 },
-    { 'mode',        keep = 8 },
+    -- { 'mode',        keep = 8 },
 }
 
 local function segments(entries, props)
@@ -244,17 +244,24 @@ require('incline').setup {
 
 local group = vim.api.nvim_create_augroup('InclineRefresh', { clear = true })
 
--- Incline redraws on cursor and window events only, so these counts would
--- otherwise stay stale until the cursor moves.
-vim.api.nvim_create_autocmd('DiagnosticChanged', {
-    group = group,
-    callback = function() require('incline').refresh() end,
-})
+local function refresh() require('incline').refresh() end
+
+-- Incline's event list is hardcoded to cursor and window events, so anything
+-- that changes the bar's contents without moving the cursor leaves it stale.
+-- These are the events behind each component that incline does not watch.
+vim.api.nvim_create_autocmd({
+    'BufModifiedSet',   -- the modified flag behind the filename highlight
+    'TextChanged',
+    'TextChangedI',
+    'DiagnosticChanged',
+    'LspAttach',
+    'LspDetach',
+}, { group = group, callback = refresh })
 
 vim.api.nvim_create_autocmd('User', {
     group = group,
     pattern = 'GitSignsUpdate',
-    callback = function() require('incline').refresh() end,
+    callback = refresh,
 })
 
 -- A fill-width bar sits on the first text line, and incline hides itself when
