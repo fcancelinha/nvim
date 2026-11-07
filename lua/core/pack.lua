@@ -27,13 +27,13 @@ vim.pack.add({
     gh('echasnovski/mini.icons'),
     gh('folke/snacks.nvim'),
     gh('folke/persistence.nvim'),
-    -- gh('Bekaboo/dropbar.nvim'),
+    gh('Bekaboo/dropbar.nvim'),
     gh('brenoprata10/nvim-highlight-colors'),
     gh('nvim-neo-tree/neo-tree.nvim'),
+    gh('nvim-lualine/lualine.nvim'),
     gh('s1n7ax/nvim-window-picker'),
-    gh('b0o/incline.nvim'),
 
-    { src = gh('saghen/blink.cmp'), version = vim.version.range('1') },
+    { src = gh('saghen/blink.cmp'),             version = vim.version.range('1') },
     gh('rafamadriz/friendly-snippets'),
 
     -- LSP tooling
@@ -47,7 +47,6 @@ vim.pack.add({
 
     -- Tree-sitter
     gh('nvim-treesitter/nvim-treesitter'),
-    gh('romus204/tree-sitter-manager.nvim'),
     gh('Wansmer/treesj'),
 
     -- Editing
