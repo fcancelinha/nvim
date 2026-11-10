@@ -9,8 +9,7 @@ vim.fn.sign_define('DapBreakpointRejected', { text = '', texthl = 'Error' })
 vim.fn.sign_define('DapLogPoint', { text = '', texthl = 'Keyword' })
 vim.fn.sign_define('DapStopped', { text = '󱆭', texthl = 'String' })
 
--- Assign per-key, not a whole-table replacement: mason-nvim-dap and
--- dap-python register their adapters here too.
+-- Assign per-key, not a whole-table replacement: mason-nvim-dap
 dap.adapters.go = {
     type = 'server',
     port = '${port}',
@@ -45,11 +44,6 @@ dap.configurations.go = {
         program = './${relativeFileDirname}'
     },
 }
-
--- dap-python registers the adapter and its launch configurations itself.
--- Prefer mason's debugpy venv over whatever interpreter is on PATH.
-local debugpy = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python'
-require('dap-python').setup(vim.uv.fs_stat(debugpy) and debugpy or 'python3')
 
 local keys = {
     { '<leader>db', function() dap.toggle_breakpoint() end,   'toggle dap breakpoint' },

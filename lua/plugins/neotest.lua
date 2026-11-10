@@ -4,7 +4,7 @@ end
 
 -- Nearest enclosing project root, Go or Python, falling back to cwd.
 local function current_project_root()
-    local markers = { 'go.work', 'go.mod', 'pyproject.toml', 'setup.py', 'setup.cfg', '.git' }
+    local markers = { 'go.work', 'go.mod', '.git' }
     return vim.fs.root(vim.api.nvim_buf_get_name(0), markers) or vim.fn.getcwd()
 end
 
@@ -37,42 +37,29 @@ require('neotest').setup({
             testify_enabled = true,
             dap_mode = 'dap-go',
         }),
-
-        require('neotest-python')({
-            runner = 'pytest',
-            args = { '-vv' },
-            -- Step into library code, not just your own frames
-            dap = { justMyCode = false },
-        }),
     },
-
     concurrent = true,
-
     floating = {
         border = 'rounded',
         max_height = 0.6,
         max_width = 0.95,
     },
-
     diagnostics = {
         enabled = true,
         underline = false,
         virtual_text = true,
     },
-
     summary = {
         enabled = true,
         follow = true,
         expand_errors = true,
         open = 'botright vsplit | vertical resize 80',
     },
-
     output = {
         enabled = true,
         open_on_run = 'short',
         enter = true,
     },
-
     output_panel = {
         enabled = true,
         open = 'botright split | resize 20',

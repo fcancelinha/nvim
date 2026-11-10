@@ -1,3 +1,9 @@
 require('copilot').setup({
-    disable_limit_reached_message = false, -- Set to `true` to suppress completion limit reached popup
+    suggestion = {
+        enabled = false,
+    },
+    panel = {
+        enabled = false,
+    },
+    disable_limit_reached_message = false,
 })

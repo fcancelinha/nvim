@@ -8,6 +8,7 @@
 local modules = {
     'mini-icons',
     'snacks',
+    'avante',
     'blinkcmp',
     'mason',
     'copilot',
@@ -27,7 +28,6 @@ local modules = {
     'codediff',
     'nvim-highlight-colors',
     'markdown',
-    'codecompanion',
     'bento',
     'neotest',
     'nvim-dap',
