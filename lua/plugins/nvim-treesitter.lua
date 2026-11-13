@@ -1,4 +1,9 @@
-require('nvim-treesitter').setup {
-    -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
-    install_dir = vim.fn.stdpath('data') .. '/site'
+return {
+    src = 'nvim-treesitter/nvim-treesitter',
+    config = function()
+        require('nvim-treesitter').setup({
+            -- Prepended to runtimepath so these parsers and queries win.
+            install_dir = vim.fn.stdpath('data') .. '/site',
+        })
+    end,
 }

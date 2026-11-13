@@ -1,2 +1,7 @@
 -- ga / gA to align; s split pattern, j justify, m merge, f filter, t trim.
-require('mini.align').setup()
+return {
+    src = 'echasnovski/mini.align',
+    config = function()
+        require('mini.align').setup()
+    end,
+}

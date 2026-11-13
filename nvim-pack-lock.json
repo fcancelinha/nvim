@@ -13,11 +13,6 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
-    "codecompanion.nvim": {
-      "rev": "117d57b604ac2125040baac9b8c3a67cc7281c8b",
-      "src": "https://github.com/olimorris/codecompanion.nvim",
-      "version": "20.0.0 - 21.0.0"
-    },
     "codediff.nvim": {
       "rev": "09d9ebef2cc5a5c04db7a349cd6c61bdf84ecc8e",
       "src": "https://github.com/esmuellert/codediff.nvim"
@@ -34,14 +29,6 @@
       "rev": "1d674b416df08e5c54e442503b7703a0df462acf",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
-    "copilot.vim": {
-      "rev": "a12fd5672110c8aa7e3c8419e28c96943ca179be",
-      "src": "https://github.com/github/copilot.vim"
-    },
-    "dropbar.nvim": {
-      "rev": "f7c6fa21e2a7c32576e7a1791774a3736987f467",
-      "src": "https://github.com/Bekaboo/dropbar.nvim"
-    },
     "friendly-snippets": {
       "rev": "7a1c9f7897a4eb078b157a04c7af81e5869215b1",
       "src": "https://github.com/rafamadriz/friendly-snippets"
@@ -53,14 +40,6 @@
     "grug-far.nvim": {
       "rev": "91b7e58b6ffc6ddad5acb7a7c1df21257724449e",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
-    },
-    "img-clip.nvim": {
-      "rev": "99848daf801789dbebe2192b475eb887d375002c",
-      "src": "https://github.com/HakonHarnes/img-clip.nvim"
-    },
-    "incline.nvim": {
-      "rev": "debd628e9395f7a9da57bdc31ce75ca6b40a880b",
-      "src": "https://github.com/b0o/incline.nvim"
     },
     "lazydev.nvim": {
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
@@ -106,10 +85,6 @@
       "rev": "65b2be63c3de00e6f15c05388ebdc8d603dbd727",
       "src": "https://github.com/fredrikaverpil/neotest-golang"
     },
-    "neotest-python": {
-      "rev": "1b56ca4ba51c6014f986d6548ee629bdc95589d1",
-      "src": "https://github.com/nvim-neotest/neotest-python"
-    },
     "nui.nvim": {
       "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
       "src": "https://github.com/MunifTanjim/nui.nvim"
@@ -118,10 +93,6 @@
       "rev": "3172f40c16563db871a58f20d205c710ad782311",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
-    "nvim-cmp": {
-      "rev": "fe29aba4117227a6df637bc41e4b4fb4e98864a0",
-      "src": "https://github.com/hrsh7th/nvim-cmp"
-    },
     "nvim-dap": {
       "rev": "cfa2d58f4537aca6ca83e2de1a0d9f1491121264",
       "src": "https://github.com/mfussenegger/nvim-dap"
@@ -129,10 +100,6 @@
     "nvim-dap-go": {
       "rev": "b4421153ead5d726603b02743ea40cf26a51ed5f",
       "src": "https://github.com/leoluz/nvim-dap-go"
-    },
-    "nvim-dap-python": {
-      "rev": "1808458eba2b18f178f990e01376941a42c7f93b",
-      "src": "https://github.com/mfussenegger/nvim-dap-python"
     },
     "nvim-dap-ui": {
       "rev": "cc9dd33aade7f20bae414d0cba163bc60d4d4b43",
@@ -158,10 +125,6 @@
       "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
-    "nvim-web-devicons": {
-      "rev": "0dc0cfb0c6858041174a53c7aa4adaf65e994b3c",
-      "src": "https://github.com/nvim-tree/nvim-web-devicons"
-    },
     "nvim-window-picker": {
       "rev": "6382540b2ae5de6c793d4aa2e3fe6dbb518505ec",
       "src": "https://github.com/s1n7ax/nvim-window-picker"
@@ -185,10 +148,6 @@
     "todo-comments.nvim": {
       "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "src": "https://github.com/folke/todo-comments.nvim"
-    },
-    "tree-sitter-manager.nvim": {
-      "rev": "06c90a3af8eb471f4a4ff979d681312284a8583a",
-      "src": "https://github.com/romus204/tree-sitter-manager.nvim"
     },
     "treesj": {
       "rev": "9f349ba62c524f065d6f43254d731ddf8319b9bf",

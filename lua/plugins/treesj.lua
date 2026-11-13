@@ -1,2 +1,7 @@
 -- <space>m toggles split/join, <space>j joins, <space>s splits.
-require('treesj').setup()
+return {
+    src = 'Wansmer/treesj',
+    config = function()
+        require('treesj').setup()
+    end,
+}

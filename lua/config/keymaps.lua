@@ -27,8 +27,10 @@ keymap('v', '<', '<gv', opts)
 keymap('v', '>', '>gv', opts)
 
 -- Diagnostic navigation (Neovim 0.11+ uses [d and ]d by default but we customize with float)
-keymap('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { silent = true, noremap = true, desc = 'Previous diagnostic' })
-keymap('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { silent = true, noremap = true, desc = 'Next diagnostic' })
+keymap('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+    { silent = true, noremap = true, desc = 'Previous diagnostic' })
+keymap('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+    { silent = true, noremap = true, desc = 'Next diagnostic' })
 
 -- Exit insert mode
 keymap('i', 'jk', '<Esc>', opts)
@@ -84,7 +86,7 @@ keymap('v', '<A-k>', ":m'<-2<CR>gv`>my`<mzg`yo`z", opts)
 -- Clear highlights
 keymap('n', '<leader>h', '<cmd>nohlsearch<CR>', opts)
 
--- Toggle LSP inlay hints (gopls provides them; pyright does not)
+-- Toggle LSP inlay hints
 keymap('n', '<leader>ih', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 end, { silent = true, noremap = true, desc = 'Toggle inlay hints' })
